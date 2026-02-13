@@ -438,6 +438,7 @@
         <a href="#pricing">الأسعار</a>
         <a href="#journey">الأحزمة</a>
         <a href="#programs">البرامج</a>
+        <a href="#ramadan">برنامج رمضان</a>
         <a href="#book">الاشتراك</a>
       </div>
 
@@ -626,6 +627,37 @@
     </div>
   </section>
 
+  <!-- RAMADAN FITNESS -->
+  <section id="ramadan">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">برنامج رمضان لتحسين اللياقة وتخفيف الوزن</h2>
+          <p class="sec-desc">
+            برنامج خاص خلال شهر رمضان يركز على تحسين اللياقة البدنية، تخفيف الوزن،
+            وتنظيم التمارين بطريقة مناسبة للصيام وبأمان.
+          </p>
+        </div>
+        <a class="btn primary" href="#book">سجل في البرنامج</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>تمارين مناسبة للصيام</h3>
+          <p>خطة تدريب مرنة (قبل الإفطار أو بعده) حسب طاقة المتدرب، مع مراعاة السلامة.</p>
+        </div>
+        <div class="card">
+          <h3>تخفيف وزن بشكل صحي</h3>
+          <p>تركيز على حرق الدهون وتحسين شكل الجسم عبر كارديو + مقاومة خفيفة ومنظمة.</p>
+        </div>
+        <div class="card">
+          <h3>بإشراف مباشر</h3>
+          <p>بإشراف الكابتن والحكم الدولي <b>رائد عضيبات</b> (خبرة <b>35</b> سنة) لضمان فعالية وأمان التمارين.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SUBSCRIBE -->
   <section id="book">
     <div class="container">
@@ -665,6 +697,7 @@
                   <option value="شباب">شباب</option>
                   <option value="كبار">كبار</option>
                   <option value="منافسات">منافسات</option>
+                  <option value="برنامج رمضان (لياقة وتخفيف وزن)">برنامج رمضان (لياقة وتخفيف وزن)</option>
                 </select>
               </div>
             </div>
@@ -680,7 +713,7 @@
 
             <div>
               <label for="msg">ملاحظة (اختياري)</label>
-              <textarea id="msg" name="msg" placeholder="مثال: بدي اشتراك شهري (15 دينار) / خبرة سابقة..."></textarea>
+              <textarea id="msg" name="msg" placeholder="مثال: بدي اشتراك شهري (15 دينار) / بدي برنامج رمضان..."></textarea>
             </div>
 
             <button class="btn primary" type="submit">إرسال طلب اشتراك عبر واتساب</button>
@@ -920,8 +953,8 @@
       }
       const lines = leads.slice(0, 20).map((l,i)=>
         `${i+1}) ${l.name} — ${l.phone} — ${l.program} — ${new Date(l.createdAt).toLocaleString()}`
-      ).join("\\n");
-      alert("آخر طلبات الاشتراك (محفوظة محلياً على هذا الجهاز):\\n\\n" + lines + (leads.length>20 ? "\\n\\n... يوجد المزيد" : ""));
+      ).join("\n");
+      alert("آخر طلبات الاشتراك (محفوظة محلياً على هذا الجهاز):\n\n" + lines + (leads.length>20 ? "\n\n... يوجد المزيد" : ""));
     });
 
     // Floating up button
