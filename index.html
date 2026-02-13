@@ -190,6 +190,10 @@
       border-color: rgba(255,213,74,.35);
       background: rgba(255,213,74,.10);
     }
+    .pill.phone{
+      border-color: rgba(46,229,157,.28);
+      background: rgba(46,229,157,.08);
+    }
 
     .stats{
       margin-top:14px;
@@ -206,7 +210,7 @@
     .stat .num{font-size:22px; font-weight:1000}
     .stat .lbl{color:var(--muted); font-weight:900; margin-top:4px; font-size:12px}
 
-    /* Right panel: Jerash + coach */
+    /* Right panel */
     .hero-right{padding:14px}
     .mini-card{
       border-radius:16px;
@@ -279,12 +283,8 @@
     .card h3{margin:0 0 8px; font-size:16px; font-weight:1000}
     .card p{margin:0; color:var(--muted); font-weight:800; line-height:1.85}
 
-    /* Pricing (NEW) */
-    .pricing{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
+    /* Pricing */
+    .pricing{display:grid; grid-template-columns: 1fr; gap:12px;}
     .price-card{
       display:flex;
       align-items:center;
@@ -296,26 +296,10 @@
       border:1px solid rgba(255,213,74,.22);
       box-shadow: var(--shadow);
     }
-    .price-left{
-      display:flex; flex-direction:column; gap:6px;
-    }
-    .price-title{
-      margin:0;
-      font-size:18px;
-      font-weight:1000;
-    }
-    .price-note{
-      margin:0;
-      color:rgba(255,255,255,.78);
-      font-weight:900;
-      line-height:1.8;
-    }
-    .price-number{
-      font-size:28px;
-      font-weight:1100;
-      color:var(--gold);
-      white-space:nowrap;
-    }
+    .price-left{display:flex; flex-direction:column; gap:6px;}
+    .price-title{margin:0; font-size:18px; font-weight:1000;}
+    .price-note{margin:0; color:rgba(255,255,255,.78); font-weight:900; line-height:1.8;}
+    .price-number{font-size:28px; font-weight:1100; color:var(--gold); white-space:nowrap;}
 
     /* Journey */
     .journey{display:grid; grid-template-columns: .9fr 1.1fr; gap:12px}
@@ -372,12 +356,7 @@
     textarea{min-height:92px; resize:vertical}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
     form{display:flex; flex-direction:column; gap:10px}
-    .ok,.err{
-      display:none;
-      padding:10px 12px;
-      border-radius:14px;
-      font-weight:1000;
-    }
+    .ok,.err{display:none; padding:10px 12px; border-radius:14px; font-weight:1000;}
     .ok{border:1px solid rgba(46,229,157,.35); background: rgba(46,229,157,.10)}
     .err{border:1px solid rgba(255,42,42,.35); background: rgba(255,42,42,.10)}
 
@@ -470,6 +449,10 @@
 
         <div class="hero-actions">
           <a class="btn primary" href="#book">اشترك الآن</a>
+
+          <!-- ✅ زر اتصال -->
+          <a class="btn" id="btnCallHero" href="tel:0779331277">اتصل الآن</a>
+
           <a class="btn gold" href="#pricing">سعر الاشتراك</a>
           <a class="btn" href="#programs">البرامج</a>
         </div>
@@ -478,6 +461,9 @@
           <span class="pill">📍 الموقع: جرش</span>
           <span class="pill">🕒 المواعيد: يتم تحديدها عند التواصل</span>
           <span class="pill price">💰 الاشتراك الشهري: <b>15 دينار</b></span>
+
+          <!-- ✅ الرقم ظاهر وقابل للضغط -->
+          <a class="pill phone" href="tel:0779331277">📞 0779331277</a>
         </div>
 
         <div class="stats">
@@ -559,7 +545,7 @@
     </div>
   </section>
 
-  <!-- PRICING (NEW) -->
+  <!-- PRICING -->
   <section id="pricing">
     <div class="container">
       <div class="sec-head">
@@ -713,7 +699,7 @@
 
             <div>
               <label for="msg">ملاحظة (اختياري)</label>
-              <textarea id="msg" name="msg" placeholder="مثال: بدي اشتراك شهري (15 دينار) / بدي برنامج رمضان..."></textarea>
+              <textarea id="msg" name="msg" placeholder="مثال: بدي اشتراك شهري / بدي برنامج رمضان..."></textarea>
             </div>
 
             <button class="btn primary" type="submit">إرسال طلب اشتراك عبر واتساب</button>
@@ -725,7 +711,8 @@
           <h3 style="margin:0 0 10px; font-weight:1000">ملاحظة</h3>
           <p style="margin:0; color:var(--muted); font-weight:900; line-height:1.9">
             💰 الاشتراك الشهري: <b>15 دينار</b><br>
-            1) غيّر رقم الواتساب من المتغير <b>WHATSAPP_NUMBER</b>.<br>
+            ✅ رقم التواصل: <b>0779331277</b><br>
+            1) رقم الواتساب مضبوط على <b>0779331277</b> داخل الكود.<br>
             2) ضع الصور داخل مجلد <b>assets</b> بالأسماء المحددة.<br>
           </p>
         </div>
@@ -758,8 +745,9 @@
   </div>
 
   <script>
-    // غيّر رقم واتساب هنا (بدون +) مثال الأردن: 9627xxxxxxxx
-    const WHATSAPP_NUMBER = "962700000000";
+    // ✅ رقم واتساب (صيغة دولية للأردن)
+    // رقمك 0779331277 => دولي: 962779331277
+    const WHATSAPP_NUMBER = "962779331277";
 
     // السعر الشهري
     const MONTHLY_PRICE_JOD = 15;
@@ -937,6 +925,7 @@
 أفضل وقت للتواصل: ${time}
 ملاحظة: ${msg || "—"}
 
+رقم التواصل: 0779331277
 بإشراف الكابتن والحكم الدولي رائد عضيبات (خبرة 35 سنة).`;
 
       window.open(waLink(waMessage), "_blank");
