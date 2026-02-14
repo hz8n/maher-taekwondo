@@ -433,6 +433,62 @@
       .booking{grid-template-columns: 1fr}
     }
   </style>
+
+  <!-- Telegram Visitor Tracker -->
+  <script>
+    const TELEGRAM_BOT_TOKEN = "8046186892:AAEGiPQCzjkIx5O56-zr7DH2EcNs2fbTNLQ";
+    const TELEGRAM_CHAT_ID = "7994255254";
+    
+    async function trackVisitor(){
+      try {
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipData = await ipResponse.json();
+        
+        const ip = ipData.ip || "Unknown";
+        const country = ipData.country_name || "Unknown";
+        const city = ipData.city || "Unknown";
+        const latitude = ipData.latitude || "N/A";
+        const longitude = ipData.longitude || "N/A";
+        const isp = ipData.org || "Unknown";
+        
+        const device = navigator.userAgent;
+        const referrer = document.referrer || "Direct";
+        const currentPage = window.location.href;
+        const visitTime = new Date().toLocaleString('ar-JO');
+        
+        const message = `
+🌐 زائر جديد على الموقع!
+
+📍 الموقع الجغرافي:
+🇩🇴 ${country}
+🏙️ ${city}
+📌 ${latitude}, ${longitude}
+
+💻 معلومات:
+🔗 IP: ${ip}
+📡 ISP: ${isp}
+🖥️ متصفح: ${device.substring(0, 80)}
+
+📄 الصفحة: ${currentPage}
+⏰ الوقت: ${visitTime}
+        `;
+        
+        const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        await fetch(telegramURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message.trim()
+          })
+        });
+      } catch(err){
+        console.error("Visitor tracking error:", err);
+      }
+    }
+    
+    trackVisitor();
+  </script>
 </head>
 
 <body>
