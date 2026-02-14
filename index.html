@@ -655,6 +655,120 @@
       .sec-title{font-size:24px}
       h1{font-size: clamp(28px, 4vw, 40px)}
     }
+
+    /* Layout + performance tuning */
+    section[id], header[id]{scroll-margin-top:88px}
+    section{
+      content-visibility:auto;
+      contain-intrinsic-size: 760px;
+    }
+    body::before{display:none}
+    .nav{
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      background: rgba(0,0,0,.92);
+      border-bottom:1px solid rgba(255,255,255,.1);
+      box-shadow:none;
+      transition: background-color .18s ease, border-color .18s ease;
+    }
+    .nav::after{display:none}
+    .hero-bg::before{display:none}
+    .hero-left::before{display:none}
+    .logo,
+    .btn.primary,
+    .btn.gold,
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .fab,
+    .mini-card,
+    .avatar{box-shadow:none}
+    .btn{
+      transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:none;
+    }
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .mini-card,
+    .faq-item,
+    .schedule-table,
+    .stat,
+    .belt{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.14);
+    }
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .mini-card,
+    .belt,
+    .faq-item,
+    .faq-question,
+    .img,
+    .avatar,
+    .badge{
+      transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .hero-slide{
+      filter:none;
+      transform:none;
+      transition: opacity 450ms ease;
+      will-change: opacity;
+    }
+    .hero-slide.active{transform:none}
+    .mini-card:hover,
+    .card:hover,
+    .price-card:hover,
+    .belt:hover,
+    .panel:hover,
+    .details:hover,
+    .fab:hover{
+      transform:none;
+      box-shadow:none;
+    }
+    .mini-card:hover .img{transform:none}
+    .badge:hover{box-shadow:none}
+    .grid{grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))}
+    .sec-head{
+      align-items:flex-end;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:22px;
+    }
+    .sec-title{font-size: clamp(22px, 2.8vw, 30px)}
+    .booking{align-items:start}
+    .booking > .card:last-child{
+      position:sticky;
+      top:96px;
+      align-self:start;
+    }
+    .float{left:12px; bottom:12px}
+    .fab{
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      background: rgba(0,0,0,.62);
+      transition: background-color .18s ease;
+    }
+
+    @media (max-width: 980px){
+      .booking > .card:last-child{position:static}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *, *::before, *::after{
+        animation:none !important;
+        transition:none !important;
+      }
+      .hero-slide{transition:none}
+    }
   </style>
 
   <script>
@@ -952,13 +1066,13 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title">اشترك الآن</h2>
-          <p class="sec-desc">ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة + حفظ الطلب.</p>
+          <p class="sec-desc">ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة لإرسال الطلب فوراً.</p>
         </div>
       </div>
 
       <div class="booking">
         <div class="card">
-          <div class="ok" id="okMsg">✅ تم حفظ طلب الاشتراك وفتح واتساب برسالة جاهزة. سيتواصل معك الكابتن رائد قريباً!</div>
+          <div class="ok" id="okMsg">✅ تم تجهيز رسالة الاشتراك وفتح واتساب مباشرة. سيتواصل معك الكابتن رائد قريباً!</div>
           <div class="err" id="errMsg">❌ الاسم ورقم الهاتف مطلوبين.</div>
 
           <form id="bookingForm">
@@ -1006,7 +1120,6 @@
             </div>
 
             <button class="btn primary" type="submit" style="padding:14px 18px; font-size:16px">✓ إرسال طلب الاشتراك عبر واتساب</button>
-            <button class="btn" type="button" id="viewLeads" style="padding:12px 18px">👀 اعرض طلباتي المحفوظة</button>
           </form>
         </div>
 
@@ -1092,45 +1205,94 @@
     const btnWhatsNav = document.getElementById("btnWhatsNav");
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
     const fabWhats = document.getElementById("fabWhats");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).`;
 
-    [btnWhatsNav, btnWhatsFoot].forEach(btn => {
+    [btnWhatsNav, btnWhatsFoot].forEach((btn) => {
+      if(!btn) return;
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
         window.open(waLink(defaultMsg), "_blank");
       });
     });
-    fabWhats.addEventListener("click", ()=> window.open(waLink(defaultMsg), "_blank"));
+    if(fabWhats){
+      fabWhats.addEventListener("click", ()=> window.open(waLink(defaultMsg), "_blank"));
+    }
 
     // Set Jerash + coach images
-    document.getElementById("jerashImg").style.backgroundImage = `url("${JERASH_IMAGE}")`;
-    document.getElementById("coachImg").style.backgroundImage = `url("${COACH_IMAGE}")`;
+    const jerashImg = document.getElementById("jerashImg");
+    const coachImg = document.getElementById("coachImg");
+    function setCardImage(el, url, fallback){
+      if(!el) return;
+      if(!url){
+        el.style.backgroundImage = fallback;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => { el.style.backgroundImage = `url("${url}")`; };
+      img.onerror = () => { el.style.backgroundImage = fallback; };
+      img.decoding = "async";
+      img.src = url;
+    }
+
+    setCardImage(jerashImg, JERASH_IMAGE, "linear-gradient(135deg, rgba(255,22,84,.25), rgba(255,199,0,.2))");
+    setCardImage(coachImg, COACH_IMAGE, "linear-gradient(135deg, rgba(58,160,255,.35), rgba(255,255,255,.12))");
 
     // HERO slideshow
     const slide1 = document.getElementById("slide1");
     const slide2 = document.getElementById("slide2");
 
     function setSlide(el, url){
+      if(!el || !url) return;
       const img = new Image();
       img.onload = () => { el.classList.remove("fallback"); el.style.backgroundImage = `url("${url}")`; };
       img.onerror = () => { el.classList.add("fallback"); };
+      img.decoding = "async";
       img.src = url;
     }
     setSlide(slide1, HERO_IMAGES[0]);
     setSlide(slide2, HERO_IMAGES[1]);
 
+    const slides = [slide1, slide2].filter(Boolean);
     let active = 0;
-    const slides = [slide1, slide2];
-    slides[0].classList.add("active");
-    setInterval(()=>{
+    let slideIntervalId = null;
+
+    function rotateSlides(){
+      if(slides.length < 2) return;
       slides[active].classList.remove("active");
       active = (active + 1) % slides.length;
       slides[active].classList.add("active");
-    }, 5000);
+    }
+
+    function stopSlides(){
+      if(slideIntervalId){
+        clearInterval(slideIntervalId);
+        slideIntervalId = null;
+      }
+    }
+
+    function startSlides(){
+      if(prefersReducedMotion || document.hidden || slides.length < 2) return;
+      stopSlides();
+      slideIntervalId = setInterval(rotateSlides, 6500);
+    }
+
+    if(slides[0]) slides[0].classList.add("active");
+    startSlides();
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.hidden) stopSlides();
+      else startSlides();
+    });
 
     // Stats counter
     function animateCount(el, to){
-      const dur = 900, start = performance.now();
+      if(prefersReducedMotion){
+        el.textContent = to;
+        return;
+      }
+
+      const dur = 700, start = performance.now();
       function tick(now){
         const t = Math.min(1, (now - start) / dur);
         const val = Math.floor(to * (t*t*(3-2*t)));
@@ -1139,7 +1301,23 @@
       }
       requestAnimationFrame(tick);
     }
-    document.querySelectorAll("[data-count]").forEach(el => animateCount(el, Number(el.dataset.count || 0)));
+    const statEls = Array.from(document.querySelectorAll("[data-count]"));
+    function startStats(){
+      statEls.forEach((el)=> animateCount(el, Number(el.dataset.count || 0)));
+    }
+
+    const statsWrap = document.querySelector(".stats");
+    if(!statsWrap || !("IntersectionObserver" in window)){
+      startStats();
+    } else {
+      const io = new IntersectionObserver((entries)=>{
+        if(entries.some((entry)=> entry.isIntersecting)){
+          startStats();
+          io.disconnect();
+        }
+      }, { threshold: 0.35 });
+      io.observe(statsWrap);
+    }
 
     // Belts
     const belts = [
@@ -1161,6 +1339,7 @@
     const beltDetails = document.getElementById("beltDetails");
 
     function renderDetails(b){
+      if(!beltDetails) return;
       beltDetails.innerHTML = `
         <div class="details-top">
           <h3 class="details-title">${b.name}</h3>
@@ -1183,27 +1362,33 @@
       renderDetails(belts.find(x=>x.key===key) || belts[0]);
     }
 
-    belts.forEach((b)=>{
-      const el = document.createElement("div");
-      el.className = "belt";
-      el.setAttribute("data-key", b.key);
-      el.innerHTML = `
-        <div class="left">
-          <span class="swatch" style="background:${b.color}"></span>
-          <span>${b.name}</span>
-        </div>
-        <small>${b.duration}</small>
-      `;
-      el.addEventListener("click", ()=> setActive(b.key));
-      beltList.appendChild(el);
-    });
-    setActive("white");
+    if(beltList){
+      const beltFragment = document.createDocumentFragment();
+      belts.forEach((b)=>{
+        const el = document.createElement("div");
+        el.className = "belt";
+        el.setAttribute("data-key", b.key);
+        el.innerHTML = `
+          <div class="left">
+            <span class="swatch" style="background:${b.color}"></span>
+            <span>${b.name}</span>
+          </div>
+          <small>${b.duration}</small>
+        `;
+        el.addEventListener("click", ()=> setActive(b.key));
+        beltFragment.appendChild(el);
+      });
+      beltList.appendChild(beltFragment);
+      setActive("white");
+    } else {
+      renderDetails(belts[0]);
+    }
 
     // FAQ
     const faqData = [
       {q: "هل يجب أن يكون عند الطالب خبرة سابقة؟", a: "لا! نبدأ من الصفر. نادينا مشهور بتأسيس المبتدئين بشكل احترافي."},
       {q: "كم عمر أصغر طالب يمكنه الالتحاق؟", a: "من 6 سنوات وما فوق. الأطفال الأصغر يستفيدون اكثر من الانضباط واللياقة."},
-      {q: "كم سعر التوصيل؟", a: "التوصيل 15 دينار شهري فقط. سريع وآمن للمنزل. السعر الإجمالي 45 دينار (رسوم التدريب 15+بدلة 15 + توصيل 15)."},
+      {q: "كم سعر التوصيل؟", a: "التوصيل 15 دينار شهري فقط. سريع وآمن للمنزل. السعر الإجمالي 60 دينار (بدلة 45 + توصيل 15)."},
       {q: "كم مرة في الأسبوع يتدرب الطالب؟", a: "حسب اختيار الطالب والعائلة. عادة 2-3 مرات مع إمكانية إضافة حصص."},
       {q: "متى يمكن الانتقال لحزام أعلى؟", a: "حسب التقدم والانضباط والمهارة. الكابتن يقيم كل طالب بشكل فردي."},
       {q: "هل يمكن الانسحاب في أي وقت؟", a: "نعم، بدون عقوبات أو رسوم. لكننا متأكدون ستستمتع المسيرة معنا!"}
@@ -1232,17 +1417,11 @@
     const okMsg = document.getElementById("okMsg");
     const errMsg = document.getElementById("errMsg");
 
-    function saveLead(lead){
-      const key = "maher_tkd_subscriptions";
-      const arr = JSON.parse(localStorage.getItem(key) || "[]");
-      arr.unshift(lead);
-      localStorage.setItem(key, JSON.stringify(arr));
-    }
-    function getLeads(){
-      return JSON.parse(localStorage.getItem("maher_tkd_subscriptions") || "[]");
-    }
+    // Remove any legacy locally saved requests from older versions.
+    localStorage.removeItem("maher_tkd_subscriptions");
 
-    form.addEventListener("submit", (e)=>{
+    if(form){
+      form.addEventListener("submit", (e)=>{
       e.preventDefault();
       okMsg.style.display = "none";
       errMsg.style.display = "none";
@@ -1258,9 +1437,6 @@
         errMsg.style.display = "block";
         return;
       }
-
-      const lead = { name, phone, age, program, time, msg, createdAt: new Date().toISOString() };
-      saveLead(lead);
 
       async function sendToTelegram(){
         try {
@@ -1345,26 +1521,32 @@ ${msg || "لا توجد ملاحظات"}
 
       okMsg.style.display = "block";
       form.reset();
-    });
-
-    document.getElementById("viewLeads").addEventListener("click", ()=>{
-      const leads = getLeads();
-      if(!leads.length){
-        alert("لا يوجد طلبات محفوظة على هذا الجهاز.");
-        return;
-      }
-      const lines = leads.slice(0, 25).map((l,i)=>
-        `${i+1}) ${l.name} — ${l.phone} — ${l.program} — ${new Date(l.createdAt).toLocaleString()}`
-      ).join("\n");
-      alert("آخر طلباتك:\n\n" + lines);
-    });
+      });
+    }
 
     // Floating up button
     const fabUp = document.getElementById("fabUp");
-    window.addEventListener("scroll", ()=>{
-      fabUp.style.display = (window.scrollY > 600) ? "grid" : "none";
-    });
-    fabUp.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+    if(fabUp){
+      let scrollTicking = false;
+      const updateFabUp = ()=>{
+        fabUp.style.display = (window.scrollY > 600) ? "grid" : "none";
+      };
+
+      window.addEventListener("scroll", ()=>{
+        if(scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(()=>{
+          updateFabUp();
+          scrollTicking = false;
+        });
+      }, { passive: true });
+
+      updateFabUp();
+      fabUp.addEventListener("click", ()=> window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      }));
+    }
 
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
