@@ -12,21 +12,21 @@
 
   <style>
     :root{
-      --bg:#0a0e27;
-      --bg2:#0f1535;
+      --bg:#000000;
+      --bg2:#0f0f2e;
       --text:rgba(255,255,255,.95);
       --muted:rgba(255,255,255,.72);
-      --accent:#6366f1;
-      --accent2:#ec4899;
-      --accent3:#06b6d4;
-      --gold:#fbbf24;
-      --ok:#10b981;
-      --purple:#8b5cf6;
-      --blue:#3b82f6;
-      --shadow: 0 20px 60px rgba(0,0,0,.6);
-      --glow: 0 0 20px rgba(99,102,241,.4);
-      --glow-pink: 0 0 20px rgba(236,72,153,.3);
-      --glow-cyan: 0 0 20px rgba(6,182,212,.3);
+      --accent:#ff1654;
+      --accent2:#ffc700;
+      --accent3:#00ffff;
+      --gold:#ffd700;
+      --ok:#00ffaa;
+      --purple:#c700ff;
+      --blue:#0055ff;
+      --shadow: 0 12px 30px rgba(0,0,0,.4);
+      --glow: 0 0 15px rgba(255,22,84,.3);
+      --glow-pink: 0 0 15px rgba(255,199,0,.25);
+      --glow-cyan: 0 0 15px rgba(0,255,255,.3);
       --radius:18px;
     }
 
@@ -68,8 +68,8 @@
       100% { transform: translateX(100px) rotate(0deg); opacity: 0; }
     }
     @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 10px rgba(255,42,42,.3); }
-      50% { box-shadow: 0 0 30px rgba(255,42,42,.6); }
+      0%, 100% { box-shadow: 0 0 8px rgba(255,22,84,.2); }
+      50% { box-shadow: 0 0 20px rgba(255,22,84,.4); }
     }
     @keyframes shimmer {
       0% { background-position: -1000px 0; }
@@ -98,8 +98,8 @@
       width:100%;
       height:100%;
       background: 
-        radial-gradient(800px 400px at 20% 10%, rgba(99,102,241,.08), transparent 40%),
-        radial-gradient(600px 300px at 80% 70%, rgba(236,72,153,.06), transparent 40%);
+        radial-gradient(800px 400px at 20% 10%, rgba(255,22,84,.06), transparent 40%),
+        radial-gradient(600px 300px at 80% 70%, rgba(255,199,0,.04), transparent 40%);
       pointer-events:none;
       z-index:-1;
     }
@@ -110,8 +110,8 @@
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(15px);
-      background: rgba(10,14,39,.65);
-      border-bottom: 1px solid rgba(99,102,241,.15);
+      background: rgba(0,0,0,.75);
+      border-bottom: 1px solid rgba(255,22,84,.2);
       box-shadow: 0 4px 20px rgba(0,0,0,.2);
       transition: all 300ms ease;
     }
@@ -120,7 +120,7 @@
       position:absolute;
       bottom:0; left:0; right:0;
       height:2px;
-      background: linear-gradient(90deg, transparent, rgba(255,42,42,.5), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,22,84,.7), transparent);
       animation: shimmer 3s ease-in-out infinite;
       background-size: 200% 100%;
     }
@@ -135,8 +135,8 @@
     }
     .logo{
       width:40px; height:40px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(255,42,42,.95), rgba(255,213,74,.85));
-      box-shadow: 0 10px 30px rgba(255,42,42,.18);
+      background: linear-gradient(135deg, rgba(255,22,84,.95), rgba(255,199,0,.85));
+      box-shadow: 0 10px 30px rgba(255,22,84,.25);
       display:grid; place-items:center;
       color:#120b0b; font-weight:1000;
       letter-spacing:.5px;
@@ -179,29 +179,29 @@
     }
     .btn:hover{
       transform: translateY(-2px); 
-      background:rgba(255,255,255,.10); 
-      border-color:rgba(255,255,255,.25);
-      box-shadow: 0 8px 20px rgba(0,0,0,.3);
+      background:rgba(255,255,255,.12); 
+      border-color:rgba(255,22,84,.35); 
+      box-shadow: 0 0 15px rgba(255,22,84,.2);
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(255,42,42,.98), rgba(255,42,42,.65));
-      border-color: rgba(255,42,42,.65);
-      box-shadow: 0 18px 50px rgba(255,42,42,.18);
+      background: linear-gradient(135deg, rgba(255,22,84,.98), rgba(255,22,84,.75));
+      border-color: rgba(255,22,84,.8);
+      box-shadow: 0 12px 30px rgba(255,22,84,.15);
       position:relative;
     }
     .btn.primary::after {
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(circle, rgba(255,255,255,.2), transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,.3), transparent 70%);
       opacity:0;
-      animation: glow-pulse 3s ease-in-out infinite;
+      animation: glow-pulse 2.5s ease-in-out infinite;
     }
     .btn.gold{
-      background: linear-gradient(135deg, rgba(255,213,74,.98), rgba(255,213,74,.55));
-      border-color: rgba(255,213,74,.6);
-      color:#1b1405;
-      box-shadow: 0 18px 50px rgba(255,213,74,.12);
+      background: linear-gradient(135deg, rgba(255,199,0,.98), rgba(255,199,0,.65));
+      border-color: rgba(255,199,0,.75);
+      color:#000000;
+      box-shadow: 0 18px 50px rgba(255,199,0,.2);
     }
 
     /* HERO */
@@ -217,9 +217,9 @@
     .hero-bg{
       position:absolute; inset:0;
       background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(255,42,42,.18), transparent 60%),
-        radial-gradient(1000px 600px at 80% 20%, rgba(255,213,74,.12), transparent 60%),
-        linear-gradient(180deg, rgba(7,8,18,.55), rgba(0,0,0,.75));
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,22,84,.12), transparent 60%),
+        radial-gradient(1000px 600px at 80% 20%, rgba(255,199,0,.08), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.7));
       z-index:-2;
       overflow:hidden;
     }
@@ -230,10 +230,10 @@
       position:absolute;
       inset:0;
       background: 
-        radial-gradient(circle at 15% 30%, rgba(255,42,42,.15) 0%, transparent 25%),
-        radial-gradient(circle at 85% 70%, rgba(255,213,74,.10) 0%, transparent 30%),
-        radial-gradient(circle at 50% 50%, rgba(99,102,241,.08) 0%, transparent 40%);
-      animation: glow-pulse 6s ease-in-out infinite;
+        radial-gradient(circle at 15% 30%, rgba(255,22,84,.1) 0%, transparent 25%),
+        radial-gradient(circle at 85% 70%, rgba(255,199,0,.08) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(0,255,255,.06) 0%, transparent 40%);
+      animation: glow-pulse 8s ease-in-out infinite;
       z-index:1;
       pointer-events:none;
     }
@@ -309,14 +309,14 @@
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(circle at top left, rgba(255,42,42,.1), transparent 50%);
+      background: radial-gradient(circle at top left, rgba(255,22,84,.15), transparent 50%);
       opacity:0;
       transition: opacity 400ms ease;
       pointer-events:none;
     }
     .panel:hover {
-      border-color: rgba(255,42,42,.25);
-      box-shadow: 0 25px 70px rgba(255,42,42,.15), var(--shadow);
+      border-color: rgba(255,22,84,.32);
+      box-shadow: 0 15px 35px rgba(255,22,84,.1);
     }
     .panel:hover::before {
       opacity:1;
@@ -326,7 +326,7 @@
       content:"";
       position:absolute;
       inset:0;
-      background: linear-gradient(45deg, transparent 30%, rgba(255,42,42,.05) 50%, transparent 70%);
+      background: linear-gradient(45deg, transparent 30%, rgba(255,22,84,.08) 50%, transparent 70%);
       pointer-events:none;
       animation: shimmer 8s ease-in-out infinite;
       background-size: 200% 200%;
@@ -334,8 +334,8 @@
     .tag{
       display:inline-flex; align-items:center; gap:8px;
       padding:7px 10px;
-      background: rgba(255,42,42,.14);
-      border:1px solid rgba(255,42,42,.25);
+      background: rgba(255,22,84,.18);
+      border:1px solid rgba(255,22,84,.4);
       border-radius:999px;
       color: rgba(255,255,255,.92);
       font-weight:1000;
@@ -369,12 +369,12 @@
       font-size:13px;
     }
     .pill.price{
-      border-color: rgba(255,213,74,.35);
-      background: rgba(255,213,74,.10);
+      border-color: rgba(255,199,0,.4);
+      background: rgba(255,199,0,.12);
     }
     .pill.phone{
-      border-color: rgba(46,229,157,.28);
-      background: rgba(46,229,157,.08);
+      border-color: rgba(0,255,170,.35);
+      background: rgba(0,255,170,.1);
     }
 
     .stats{
@@ -403,8 +403,8 @@
       transition: all 400ms ease;
     }
     .mini-card:hover {
-      border-color: rgba(255,42,42,.28);
-      box-shadow: 0 20px 50px rgba(255,42,42,.15), var(--shadow);
+      border-color: rgba(255,22,84,.35);
+      box-shadow: 0 12px 30px rgba(255,22,84,.1);
       transform: translateY(-6px);
     }
     .img{
@@ -441,11 +441,11 @@
       background-position:center;
       flex: 0 0 auto;
       transition: all 400ms ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
     }
     .mini-card:hover .avatar {
-      border-color: rgba(255,42,42,.35);
-      box-shadow: 0 12px 30px rgba(255,42,42,.2);
+      border-color: rgba(255,22,84,.4);
+      box-shadow: 0 8px 20px rgba(255,22,84,.15);
     }
     .coach .n1{font-weight:1000; font-size:15px}
     .coach .n2{color:var(--muted); font-weight:900; margin-top:4px; line-height:1.7}
@@ -453,8 +453,8 @@
       display:inline-flex; align-items:center; gap:8px;
       padding:7px 10px;
       border-radius:999px;
-      background: rgba(255,213,74,.10);
-      border:1px solid rgba(255,213,74,.22);
+      background: rgba(255,199,0,.12);
+      border:1px solid rgba(255,199,0,.35);
       color: rgba(255,255,255,.92);
       font-weight:1000;
       font-size:12px;
@@ -472,9 +472,9 @@
       animation: pulse-glow 2s ease-in-out infinite;
     }
     .badge:hover {
-      background: rgba(255,213,74,.18);
-      border-color: rgba(255,213,74,.4);
-      box-shadow: 0 0 15px rgba(255,213,74,.2);
+      background: rgba(255,199,0,.18);
+      border-color: rgba(255,199,0,.5);
+      box-shadow: 0 0 15px rgba(255,199,0,.25);
     }
 
     /* Sections */
@@ -504,15 +504,15 @@
       content:"";
       position:absolute;
       inset:0;
-      background: linear-gradient(135deg, rgba(255,42,42,.1), transparent);
+      background: linear-gradient(135deg, rgba(255,22,84,.12), transparent);
       opacity:0;
       transition: opacity 300ms ease;
       pointer-events:none;
     }
     .card:hover {
       transform: translateY(-6px);
-      border-color: rgba(255,42,42,.28);
-      box-shadow: 0 20px 50px rgba(255,42,42,.15), var(--shadow);
+      border-color: rgba(255,22,84,.32);
+      box-shadow: 0 12px 30px rgba(255,22,84,.1);
     }
     .card:hover::before {
       opacity:1;
@@ -529,8 +529,8 @@
       gap:12px;
       padding:16px;
       border-radius:18px;
-      background: rgba(255,213,74,.08);
-      border:1px solid rgba(255,213,74,.22);
+      background: rgba(255,199,0,.1);
+      border:1px solid rgba(255,199,0,.3);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
@@ -540,15 +540,15 @@
       content:"";
       position:absolute;
       inset:0;
-      background: linear-gradient(90deg, transparent, rgba(255,213,74,.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,199,0,.15), transparent);
       transform: translateX(-100%);
       animation: shimmer 3s ease-in-out infinite;
       pointer-events:none;
     }
     .price-card:hover {
-      border-color: rgba(255,213,74,.4);
-      background: rgba(255,213,74,.12);
-      box-shadow: 0 20px 50px rgba(255,213,74,.15), var(--shadow);
+      border-color: rgba(255,199,0,.5);
+      background: rgba(255,199,0,.15);
+      box-shadow: 0 12px 30px rgba(255,199,0,.12);
       transform: translateY(-4px);
     }
     .price-left{display:flex; flex-direction:column; gap:6px; position:relative; z-index:1}
@@ -591,10 +591,10 @@
       opacity:1;
     }
     .belt.active{
-      outline:2px solid rgba(255,42,42,.55); 
-      border-color: rgba(255,42,42,.45); 
-      background: rgba(255,42,42,.12);
-      box-shadow: 0 0 20px rgba(255,42,42,.25);
+      outline:2px solid rgba(255,22,84,.65); 
+      border-color: rgba(255,22,84,.5); 
+      background: rgba(255,22,84,.15);
+      box-shadow: 0 0 12px rgba(255,22,84,.2);
     }
     .left{display:flex; align-items:center; gap:10px; position:relative; z-index:1}
     .swatch{width:16px; height:16px; border-radius:6px; border:1px solid rgba(255,255,255,.28); box-shadow: 0 0 10px currentColor}
@@ -615,12 +615,12 @@
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(circle at top right, rgba(255,42,42,.1), transparent 60%);
+      background: radial-gradient(circle at top right, rgba(255,22,84,.12), transparent 60%);
       pointer-events:none;
     }
     .details:hover {
-      border-color: rgba(255,42,42,.28);
-      box-shadow: 0 20px 50px rgba(255,42,42,.15), var(--shadow);
+      border-color: rgba(255,22,84,.35);
+      box-shadow: 0 12px 30px rgba(255,22,84,.1);
     }
     .details-top{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -700,8 +700,9 @@
     }
     .fab.up{display:none}
     .fab.whatsapp{
-      border-color: rgba(46,229,157,.35);
-      animation: pulse-glow 3s ease-in-out infinite;
+      border-color: rgba(0,255,170,.3);
+      animation: pulse-glow 4s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(0,255,170,.15);
     }
 
     @media (max-width: 980px){
@@ -1097,11 +1098,8 @@
       
       // Create multiple animated geometric shapes
       const shapes = [
-        { type: 'circle', x: '10%', y: '20%', size: '200px', delay: '0s', color: 'rgba(255,42,42,.25)' },
-        { type: 'circle', x: '80%', y: '10%', size: '150px', delay: '1s', color: 'rgba(255,213,74,.20)' },
-        { type: 'circle', x: '60%', y: '70%', size: '180px', delay: '2s', color: 'rgba(99,102,241,.15)' },
-        { type: 'rect', x: '20%', y: '60%', size: '120px', delay: '0.5s', color: 'rgba(236,72,153,.18)' },
-        { type: 'rect', x: '75%', y: '40%', size: '100px', delay: '1.5s', color: 'rgba(6,182,212,.15)' },
+        { type: 'circle', x: '10%', y: '20%', size: '250px', delay: '0s', color: 'rgba(255,22,84,.08)' },
+        { type: 'circle', x: '80%', y: '70%', size: '200px', delay: '2s', color: 'rgba(255,199,0,.06)' },
       ];
 
       shapes.forEach((shape, idx) => {
@@ -1127,21 +1125,21 @@
 
       // Create floating particles with TKD symbols
       const particles = [];
-      for(let i = 0; i < 15; i++){
+      for(let i = 0; i < 6; i++){
         const particle = document.createElement('div');
         particle.className = 'particle floating';
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = (Math.random() * 4) + 's';
+        particle.style.animationDelay = (Math.random() * 6) + 's';
         
-        const size = 18 + Math.random() * 45;
+        const size = 24 + Math.random() * 32;
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
-        particle.style.opacity = '0.3';
-        particle.style.filter = 'drop-shadow(0 0 8px rgba(255,42,42,.4))';
+        particle.style.opacity = '0.15';
+        particle.style.filter = 'drop-shadow(0 0 4px rgba(255,22,84,.15))';
         
         // Create SVG icons (belt, kicks symbols)
-        const symbols = ['🥋', '👊', '🦵', '⚡', '🎖️'];
+        const symbols = ['🥋', '👊', '🦵'];
         const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
         particle.innerHTML = `<div style="font-size:${size}px; line-height:1;">
 ${randomSymbol}</div>`;
@@ -1150,53 +1148,45 @@ ${randomSymbol}</div>`;
         particles.push(particle);
       }
 
-      // Create orbiting accent elements (multiple)
-      for(let orb = 0; orb < 2; orb++){
-        const orbitingEl = document.createElement('div');
-        orbitingEl.style.position = 'absolute';
-        orbitingEl.style.width = (200 + orb * 150) + 'px';
-        orbitingEl.style.height = (200 + orb * 150) + 'px';
-        orbitingEl.style.left = '50%';
-        orbitingEl.style.top = '50%';
-        orbitingEl.style.transform = 'translate(-50%, -50%)';
-        orbitingEl.style.animation = `orbit ${30 + orb * 10}s linear infinite`;
-        if(orb % 2 === 1) orbitingEl.style.animationDirection = 'reverse';
-        orbitingEl.style.pointerEvents = 'none';
-        orbitingEl.style.zIndex = '2';
-        
-        const orbitDot = document.createElement('div');
-        orbitDot.style.position = 'absolute';
-        orbitDot.style.width = (10 + orb * 2) + 'px';
-        orbitDot.style.height = (10 + orb * 2) + 'px';
-        const colors = [
-          'rgba(255,42,42,.6)',
-          'rgba(255,213,74,.5)',
-          'rgba(99,102,241,.5)'
-        ];
-        orbitDot.style.background = `radial-gradient(circle, ${colors[orb]}, transparent)`;
-        orbitDot.style.borderRadius = '50%';
-        orbitDot.style.left = ((100 + orb * 75) - (5 + orb)) + 'px';
-        orbitDot.style.top = (-(5 + orb * 1)) + 'px';
-        orbitDot.style.boxShadow = `0 0 ${20 + orb * 5}px ${colors[orb]}`;
-        
-        orbitingEl.appendChild(orbitDot);
-        heroBg.appendChild(orbitingEl);
-      }
+      // Create orbiting accent elements (subtle)
+      const orbitingEl = document.createElement('div');
+      orbitingEl.style.position = 'absolute';
+      orbitingEl.style.width = '300px';
+      orbitingEl.style.height = '300px';
+      orbitingEl.style.left = '50%';
+      orbitingEl.style.top = '50%';
+      orbitingEl.style.transform = 'translate(-50%, -50%)';
+      orbitingEl.style.animation = 'orbit 50s linear infinite';
+      orbitingEl.style.pointerEvents = 'none';
+      orbitingEl.style.zIndex = '2';
+      
+      const orbitDot = document.createElement('div');
+      orbitDot.style.position = 'absolute';
+      orbitDot.style.width = '6px';
+      orbitDot.style.height = '6px';
+      orbitDot.style.background = 'radial-gradient(circle, rgba(255,22,84,.3), transparent)';
+      orbitDot.style.borderRadius = '50%';
+      orbitDot.style.left = '150px';
+      orbitDot.style.top = '-3px';
+      orbitDot.style.boxShadow = '0 0 8px rgba(255,22,84,.15)';
+      
+      orbitingEl.appendChild(orbitDot);
+      heroBg.appendChild(orbitingEl);
 
       // Create animated lines/paths
-      for(let line = 0; line < 3; line++){
+      for(let line = 0; line < 2; line++){
         const lineEl = document.createElement('div');
         lineEl.style.position = 'absolute';
-        lineEl.style.width = '300px';
-        lineEl.style.height = '2px';
-        lineEl.style.background = `linear-gradient(90deg, transparent, rgba(255,42,42,.3), transparent)`;
+        lineEl.style.width = '250px';
+        lineEl.style.height = '1px';
+        lineEl.style.background = `linear-gradient(90deg, transparent, rgba(255,22,84,.15), transparent)`;
         lineEl.style.left = (Math.random() * 100) + '%';
         lineEl.style.top = (Math.random() * 100) + '%';
         lineEl.style.transform = `rotate(${Math.random() * 360}deg)`;
-        lineEl.style.opacity = '0.4';
+        lineEl.style.opacity = '0.3';
         lineEl.style.pointerEvents = 'none';
         lineEl.style.zIndex = '2';
-        lineEl.style.animation = `pulse-glow ${2 + Math.random() * 2}s ease-in-out infinite`;
+        lineEl.style.animation = `pulse-glow ${3 + Math.random() * 3}s ease-in-out infinite`;
         lineEl.style.animationDelay = (Math.random() * 2) + 's';
         heroBg.appendChild(lineEl);
       }
