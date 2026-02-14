@@ -30,55 +30,6 @@
       --radius:18px;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,.4), 0 20px 60px rgba(0,0,0,.6); }
-      50% { box-shadow: 0 0 30px rgba(99,102,241,.6), 0 20px 60px rgba(0,0,0,.6); }
-    }
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    /* Animated Background Elements */
-    @keyframes particle-rotate {
-      0% { transform: rotate(0deg) translateX(60px) rotate(0deg); opacity: 0.3; }
-      50% { opacity: 0.6; }
-      100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); opacity: 0.3; }
-    }
-    @keyframes particle-float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-30px); }
-    }
-    @keyframes kick-animation {
-      0% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0; }
-      25% { opacity: 1; }
-      50% { transform: translateX(40px) translateY(-60px) rotate(-15deg); }
-      75% { opacity: 1; }
-      100% { transform: translateX(80px) translateY(20px) rotate(0deg); opacity: 0; }
-    }
-    @keyframes punch-animation {
-      0% { transform: translateX(0) rotate(0deg); opacity: 0; }
-      30% { opacity: 1; }
-      50% { transform: translateX(50px) rotate(10deg); }
-      70% { opacity: 1; }
-      100% { transform: translateX(100px) rotate(0deg); opacity: 0; }
-    }
-    @keyframes glow-pulse {
-      0%, 100% { box-shadow: 0 0 8px rgba(255,22,84,.2); }
-      50% { box-shadow: 0 0 20px rgba(255,22,84,.4); }
-    }
-    @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-    @keyframes orbit {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -121,7 +72,6 @@
       bottom:0; left:0; right:0;
       height:2px;
       background: linear-gradient(90deg, transparent, rgba(255,22,84,.7), transparent);
-      animation: shimmer 3s ease-in-out infinite;
       background-size: 200% 100%;
     }
     .nav-inner{
@@ -195,7 +145,6 @@
       inset:0;
       background: radial-gradient(circle, rgba(255,255,255,.3), transparent 70%);
       opacity:0;
-      animation: glow-pulse 2.5s ease-in-out infinite;
     }
     .btn.gold{
       background: linear-gradient(135deg, rgba(255,199,0,.98), rgba(255,199,0,.65));
@@ -233,7 +182,6 @@
         radial-gradient(circle at 15% 30%, rgba(255,22,84,.1) 0%, transparent 25%),
         radial-gradient(circle at 85% 70%, rgba(255,199,0,.08) 0%, transparent 30%),
         radial-gradient(circle at 50% 50%, rgba(0,255,255,.06) 0%, transparent 40%);
-      animation: glow-pulse 8s ease-in-out infinite;
       z-index:1;
       pointer-events:none;
     }
@@ -243,13 +191,13 @@
       position:absolute;
       pointer-events:none;
       z-index:2;
+      display:none;
     }
     .particle.floating {
-      animation: particle-float 4s ease-in-out infinite;
+      display:none;
     }
     .particle.orbiting {
-      animation: orbit 20s linear infinite;
-      transform-origin:center;
+      display:none;
     }
 
     /* SVG Shapes */
@@ -257,9 +205,10 @@
       position:absolute;
       opacity:.15;
       filter:drop-shadow(0 0 20px rgba(255,42,42,.2));
+      display:none;
     }
     .geometric-shape.active {
-      animation: glow-pulse 4s ease-in-out infinite;
+      display:none;
     }
     .hero-slide{
       position:absolute; inset:0;
@@ -274,18 +223,12 @@
     .hero-slide.active{
       opacity:1; 
       transform: scale(1.0);
-      animation: slide-active 800ms ease forwards;
     }
     .hero-slide.fallback{
       background:
         radial-gradient(800px 500px at 30% 30%, rgba(255,42,42,.28), transparent 60%),
         radial-gradient(900px 500px at 70% 20%, rgba(255,213,74,.18), transparent 60%),
         linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-    }
-
-    @keyframes slide-active {
-      0% { filter: brightness(0.8) saturate(0.8); }
-      100% { filter: brightness(1) saturate(1.05); }
     }
 
     .hero-grid{
@@ -328,7 +271,6 @@
       inset:0;
       background: linear-gradient(45deg, transparent 30%, rgba(255,22,84,.08) 50%, transparent 70%);
       pointer-events:none;
-      animation: shimmer 8s ease-in-out infinite;
       background-size: 200% 200%;
     }
     .tag{
@@ -469,7 +411,6 @@
       inset:0;
       background: radial-gradient(circle, rgba(255,255,255,.2), transparent);
       opacity:0;
-      animation: pulse-glow 2s ease-in-out infinite;
     }
     .badge:hover {
       background: rgba(255,199,0,.18);
@@ -542,7 +483,6 @@
       inset:0;
       background: linear-gradient(90deg, transparent, rgba(255,199,0,.15), transparent);
       transform: translateX(-100%);
-      animation: shimmer 3s ease-in-out infinite;
       pointer-events:none;
     }
     .price-card:hover {
@@ -701,9 +641,8 @@
     .fab.up{display:none}
     .fab.whatsapp{
       border-color: rgba(0,255,170,.3);
-      animation: pulse-glow 4s ease-in-out infinite;
-      box-shadow: 0 0 12px rgba(0,255,170,.15);
     }
+      
 
     @media (max-width: 980px){
       .nav-links{display:none}
@@ -1094,102 +1033,7 @@
 
     // ========== ANIMATED BACKGROUND SETUP ==========
     function createAnimatedBackground(){
-      const heroBg = document.querySelector('.hero-bg');
-      
-      // Create multiple animated geometric shapes
-      const shapes = [
-        { type: 'circle', x: '10%', y: '20%', size: '250px', delay: '0s', color: 'rgba(255,22,84,.08)' },
-        { type: 'circle', x: '80%', y: '70%', size: '200px', delay: '2s', color: 'rgba(255,199,0,.06)' },
-      ];
-
-      shapes.forEach((shape, idx) => {
-        const el = document.createElement('div');
-        el.className = 'geometric-shape active';
-        el.style.left = shape.x;
-        el.style.top = shape.y;
-        el.style.width = shape.size;
-        el.style.height = shape.size;
-        el.style.animationDelay = shape.delay;
-        
-        if(shape.type === 'circle'){
-          el.style.borderRadius = '50%';
-          el.style.background = `radial-gradient(circle, ${shape.color}, transparent 70%)`;
-          el.style.boxShadow = `0 0 40px ${shape.color}`;
-        } else {
-          el.style.background = `linear-gradient(135deg, ${shape.color}, transparent)`;
-          el.style.transform = `rotate(${Math.random() * 45}deg)`;
-        }
-        
-        heroBg.appendChild(el);
-      });
-
-      // Create floating particles with TKD symbols
-      const particles = [];
-      for(let i = 0; i < 6; i++){
-        const particle = document.createElement('div');
-        particle.className = 'particle floating';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = (Math.random() * 6) + 's';
-        
-        const size = 24 + Math.random() * 32;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        particle.style.opacity = '0.15';
-        particle.style.filter = 'drop-shadow(0 0 4px rgba(255,22,84,.15))';
-        
-        // Create SVG icons (belt, kicks symbols)
-        const symbols = ['🥋', '👊', '🦵'];
-        const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-        particle.innerHTML = `<div style="font-size:${size}px; line-height:1;">
-${randomSymbol}</div>`;
-        
-        heroBg.appendChild(particle);
-        particles.push(particle);
-      }
-
-      // Create orbiting accent elements (subtle)
-      const orbitingEl = document.createElement('div');
-      orbitingEl.style.position = 'absolute';
-      orbitingEl.style.width = '300px';
-      orbitingEl.style.height = '300px';
-      orbitingEl.style.left = '50%';
-      orbitingEl.style.top = '50%';
-      orbitingEl.style.transform = 'translate(-50%, -50%)';
-      orbitingEl.style.animation = 'orbit 50s linear infinite';
-      orbitingEl.style.pointerEvents = 'none';
-      orbitingEl.style.zIndex = '2';
-      
-      const orbitDot = document.createElement('div');
-      orbitDot.style.position = 'absolute';
-      orbitDot.style.width = '6px';
-      orbitDot.style.height = '6px';
-      orbitDot.style.background = 'radial-gradient(circle, rgba(255,22,84,.3), transparent)';
-      orbitDot.style.borderRadius = '50%';
-      orbitDot.style.left = '150px';
-      orbitDot.style.top = '-3px';
-      orbitDot.style.boxShadow = '0 0 8px rgba(255,22,84,.15)';
-      
-      orbitingEl.appendChild(orbitDot);
-      heroBg.appendChild(orbitingEl);
-
-      // Create animated lines/paths
-      for(let line = 0; line < 2; line++){
-        const lineEl = document.createElement('div');
-        lineEl.style.position = 'absolute';
-        lineEl.style.width = '250px';
-        lineEl.style.height = '1px';
-        lineEl.style.background = `linear-gradient(90deg, transparent, rgba(255,22,84,.15), transparent)`;
-        lineEl.style.left = (Math.random() * 100) + '%';
-        lineEl.style.top = (Math.random() * 100) + '%';
-        lineEl.style.transform = `rotate(${Math.random() * 360}deg)`;
-        lineEl.style.opacity = '0.3';
-        lineEl.style.pointerEvents = 'none';
-        lineEl.style.zIndex = '2';
-        lineEl.style.animation = `pulse-glow ${3 + Math.random() * 3}s ease-in-out infinite`;
-        lineEl.style.animationDelay = (Math.random() * 2) + 's';
-        heroBg.appendChild(lineEl);
-      }
+      // تم حذف العناصر المتحركة - الخلفية الآن بسيطة وسلسة
     }
 
     // Initialize animated background when page loads
