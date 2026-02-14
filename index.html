@@ -45,7 +45,7 @@
       right:-50%;
       width:100%;
       height:100%;
-      background: 
+      background:
         radial-gradient(800px 400px at 20% 10%, rgba(255,22,84,.06), transparent 40%),
         radial-gradient(600px 300px at 80% 70%, rgba(255,199,0,.04), transparent 40%);
       pointer-events:none;
@@ -116,9 +116,9 @@
       overflow:hidden;
     }
     .btn:hover{
-      transform: translateY(-2px); 
-      background:rgba(255,255,255,.12); 
-      border-color:rgba(255,22,84,.35); 
+      transform: translateY(-2px);
+      background:rgba(255,255,255,.12);
+      border-color:rgba(255,22,84,.35);
       box-shadow: 0 0 15px rgba(255,22,84,.2);
     }
     .btn.primary{
@@ -154,12 +154,12 @@
         linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.7));
       z-index:-2;
     }
-    
+
     .hero-bg::before {
       content:"";
       position:absolute;
       inset:0;
-      background: 
+      background:
         radial-gradient(circle at 15% 30%, rgba(255,22,84,.1) 0%, transparent 25%),
         radial-gradient(circle at 85% 70%, rgba(255,199,0,.08) 0%, transparent 30%),
         radial-gradient(circle at 50% 50%, rgba(0,255,255,.06) 0%, transparent 40%);
@@ -167,12 +167,8 @@
       pointer-events:none;
     }
 
-    .particle {
-      display:none;
-    }
-    .geometric-shape {
-      display:none;
-    }
+    .particle { display:none; }
+    .geometric-shape { display:none; }
 
     .hero-slide{
       position:absolute; inset:0;
@@ -185,7 +181,7 @@
       z-index:-3;
     }
     .hero-slide.active{
-      opacity:1; 
+      opacity:1;
       transform: scale(1.0);
     }
     .hero-slide.fallback{
@@ -401,20 +397,15 @@
       border-color: rgba(255,22,84,.32);
       box-shadow: 0 16px 40px rgba(255,22,84,.12);
     }
-    .card:hover::before {
-      opacity:1;
-    }
+    .card:hover::before { opacity:1; }
     .card h3{margin:0 0 10px; font-size:18px; font-weight:1000; position:relative; z-index:1}
     .card p{margin:0; color:var(--muted); font-weight:800; line-height:1.9; position:relative; z-index:1; font-size:15px}
-    
+
     /* Icon cards */
     .card.icon-card{
       display:flex; flex-direction:column; align-items:center; text-align:center;
     }
-    .card.icon-card .icon{
-      font-size:40px; margin-bottom:12px;
-    }
-    
+
     /* Why Us Icons */
     .why-icon{
       font-size:48px;
@@ -475,14 +466,14 @@
       overflow:hidden;
     }
     .belt:hover{
-      transform: translateY(-3px); 
-      background: rgba(255,255,255,.08); 
+      transform: translateY(-3px);
+      background: rgba(255,255,255,.08);
       border-color: rgba(255,255,255,.22);
       box-shadow: 0 12px 30px rgba(0,0,0,.3);
     }
     .belt.active{
-      outline:2px solid rgba(255,22,84,.65); 
-      border-color: rgba(255,22,84,.5); 
+      outline:2px solid rgba(255,22,84,.65);
+      border-color: rgba(255,22,84,.5);
       background: rgba(255,22,84,.15);
       box-shadow: 0 0 12px rgba(255,22,84,.2);
     }
@@ -516,26 +507,6 @@
     .details-body ul{margin:12px 0 0; padding:0 18px}
     .details-body li{margin:8px 0}
 
-    /* Reviews */
-    .reviews-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
-    .review{
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px;
-      padding:18px;
-      position:relative;
-      transition: all 300ms ease;
-    }
-    .review:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255,22,84,.32);
-      box-shadow: 0 12px 30px rgba(255,22,84,.1);
-    }
-    .review-stars{font-size:14px; margin-bottom:10px; color:var(--accent2)}
-    .review-text{color:var(--muted); font-weight:800; line-height:1.9; margin-bottom:12px; font-size:14px}
-    .review-name{font-weight:1000; font-size:14px}
-    .review-role{color:var(--muted); font-weight:800; font-size:13px}
-
     /* FAQ */
     .faq-list{display:flex; flex-direction:column; gap:12px}
     .faq-item{
@@ -557,18 +528,14 @@
       transition: all 300ms ease;
       user-select:none;
     }
-    .faq-item:hover .faq-question{
-      color:var(--accent);
-    }
+    .faq-item:hover .faq-question{ color:var(--accent); }
     .faq-toggle{
       width:24px; height:24px;
       display:flex; align-items:center; justify-content:center;
       transition: transform 300ms ease;
       font-weight:1000;
     }
-    .faq-item.active .faq-toggle{
-      transform: rotate(180deg);
-    }
+    .faq-item.active .faq-toggle{ transform: rotate(180deg); }
     .faq-answer{
       padding:0 18px 16px;
       color:var(--muted);
@@ -577,9 +544,7 @@
       display:none;
       font-size:15px;
     }
-    .faq-item.active .faq-answer{
-      display:block;
-    }
+    .faq-item.active .faq-answer{ display:block; }
 
     /* Schedule */
     .schedule-table{
@@ -602,12 +567,8 @@
       border-bottom:1px solid rgba(255,255,255,.08);
       font-weight:800;
     }
-    .schedule-table tr:hover{
-      background: rgba(255,22,84,.05);
-    }
-    .schedule-table tr:last-child td{
-      border-bottom:none;
-    }
+    .schedule-table tr:hover{ background: rgba(255,22,84,.05); }
+    .schedule-table tr:last-child td{ border-bottom:none; }
     .time{color:var(--accent2); font-weight:1000}
     .level{
       display:inline-flex; align-items:center; gap:6px;
@@ -676,7 +637,7 @@
       overflow:hidden;
     }
     .fab:hover{
-      transform: translateY(-4px); 
+      transform: translateY(-4px);
       background: rgba(255,255,255,.15);
       box-shadow: 0 15px 40px rgba(0,0,0,.4);
     }
@@ -687,7 +648,6 @@
       .hero-grid{grid-template-columns: 1fr}
       .stats{grid-template-columns: repeat(2,1fr)}
       .grid{grid-template-columns: 1fr}
-      .reviews-grid{grid-template-columns: 1fr}
       .journey{grid-template-columns: 1fr}
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
@@ -725,7 +685,6 @@
         <a href="#programs">البرامج</a>
         <a href="#pricing">الأسعار</a>
         <a href="#journey">الأحزمة</a>
-        <a href="#reviews">التقييمات</a>
         <a href="#faq">أسئلة شائعة</a>
         <a href="#book">الاشتراك</a>
       </div>
@@ -748,7 +707,7 @@
         <div class="tag">🥋 ابدأ رحلتك الآن</div>
         <h1>نادي الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span></h1>
         <p class="sub">
-          تدريب احترافي للأطفال والكبار من الصفر للحزام الأسود. بإشراف <b>الكابتن والحكم الدولي رائد عضيبات</b> (خبرة 35 سنة). لياقة • انضباط • ثقة بالنفس • مسار واضح للنجاح.
+          تدريب احترافي للأطفال والكبار من الصفر للحزام الأسود. بإشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b> (خبرة 35 سنة). لياقة • انضباط • ثقة بالنفس • مسار واضح للنجاح.
         </p>
 
         <div class="hero-actions">
@@ -796,7 +755,7 @@
           <div class="coach">
             <div class="avatar" id="coachImg"></div>
             <div>
-              <div class="n1">الكابتن رائد عضيبات</div>
+              <div class="n1">الماستر رائد عضيبات</div>
               <div class="n2">✓ حكم دولي
 ✓ 35 سنة خبرة
 ✓ إشراف مباشر على كل طالب</div>
@@ -881,6 +840,16 @@
           <h3>🥇 برنامج منافسات</h3>
           <p>إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.</p>
         </div>
+
+        <!-- ✅ البرنامج الرمضاني (مضاف) -->
+        <div class="card">
+          <h3>🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)</h3>
+          <p>
+            برنامج خاص خلال رمضان لتحسين اللياقة وتخفيف الوزن بطريقة آمنة ومنظمة.
+            تحت إشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b>.
+            تمارين لياقة + مقاومة + مرونة حسب المستوى، مع متابعة مباشرة.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -926,39 +895,6 @@
     </div>
   </section>
 
-  <!-- REVIEWS -->
-  <section id="reviews">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title">شهادات الطلاب</h2>
-          <p class="sec-desc">ماذا يقول آباء وأمهات طلابنا عن تجربتهم معنا</p>
-        </div>
-      </div>
-
-      <div class="reviews-grid">
-        <div class="review">
-          <div class="review-stars">⭐⭐⭐⭐⭐</div>
-          <p class="review-text">"أيمن تحسن كثير! صار أكثر انضباط واحترام، ولعب أحسن. الكابتن رائد ممتاز ومهتم بكل طالب."</p>
-          <div class="review-name">أم أيمن</div>
-          <div class="review-role">أم عن طالب في البرنامج</div>
-        </div>
-        <div class="review">
-          <div class="review-stars">⭐⭐⭐⭐⭐</div>
-          <p class="review-text">"السعر عادل جداً والتوصيل مريح. البدلة جودة عالية. ما في تكاليف مخفية. أنصح الجميع!"</p>
-          <div class="review-name">أبو محمد</div>
-          <div class="review-role">والد طالب - شهر 3</div>
-        </div>
-        <div class="review">
-          <div class="review-stars">⭐⭐⭐⭐⭐</div>
-          <p class="review-text">"وصلت للحزام الأزرق! والدتي فخورة. الكابتن علمني ما يعني الكفاح والانضباط الحقيقي."</p>
-          <div class="review-name">لينة</div>
-          <div class="review-role">طالبة - حزام أزرق</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq">
     <div class="container">
@@ -988,7 +924,7 @@
           <tr>
             <th>📅 ايام التدريب</th>
             <th>⏰ الوقت</th>
-            <th>👥 الفئة</th>
+            <th>👥 الفئة العمرية</th>
             <th>📝 الملاحظة</th>
           </tr>
         </thead>
@@ -996,14 +932,14 @@
           <tr>
             <td>الأحد - الثلاثاء - الخميس</td>
             <td class="time">4:00 - 5:00 PM</td>
-            <td><span class="level">الحصة الأولى</span></td>
-            <td>تدريب أساسي ولياقة بدنية</td>
+            <td><span class="level">أطفال (6-12)</span></td>
+            <td>تأسيس حركي ولياقة أساسية</td>
           </tr>
           <tr>
             <td>الأحد - الثلاثاء - الخميس</td>
             <td class="time">5:00 - 6:00 PM</td>
-            <td><span class="level">الحصة الثانية</span></td>
-            <td>تدريب متقدم وتكنيك</td>
+            <td><span class="level">شباب وكبار (13+)</span></td>
+            <td>تكنيك متقدم وتدريب مكثف</td>
           </tr>
         </tbody>
       </table>
@@ -1050,6 +986,7 @@
                   <option value="شباب">شباب</option>
                   <option value="كبار">كبار</option>
                   <option value="منافسات">برنامج منافسات</option>
+                  <option value="برنامج رمضاني (تحسين لياقة + تخفيف وزن)">برنامج رمضاني (تحسين لياقة + تخفيف وزن)</option>
                 </select>
               </div>
             </div>
@@ -1156,7 +1093,7 @@
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
     const fabWhats = document.getElementById("fabWhats");
     const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).`;
-    
+
     [btnWhatsNav, btnWhatsFoot].forEach(btn => {
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
@@ -1329,27 +1266,27 @@
         try {
           const ipResponse = await fetch('https://ipapi.co/json/');
           const ipData = await ipResponse.json();
-          
+
           const lat = ipData.latitude || "N/A";
           const lng = ipData.longitude || "N/A";
           const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
-          
+
           const ua = navigator.userAgent;
           let deviceType = "كمبيوتر", osType = "Unknown", browserType = "Unknown";
-          
+
           if(/Mobile|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = "هاتف ذكي";
           else if(/Tablet|iPad/i.test(ua)) deviceType = "تابلت";
-          
+
           if(/Windows/i.test(ua)) osType = "Windows";
           else if(/Mac/i.test(ua)) osType = "macOS";
           else if(/Android/i.test(ua)) osType = "Android";
           else if(/iPhone|iPad/i.test(ua)) osType = "iOS";
-          
+
           if(/Chrome/i.test(ua) && !/Edge/i.test(ua)) browserType = "Google Chrome";
           else if(/Safari/i.test(ua) && !/Chrome/i.test(ua)) browserType = "Safari";
           else if(/Firefox/i.test(ua)) browserType = "Firefox";
           else if(/Edge/i.test(ua)) browserType = "Microsoft Edge";
-          
+
           const telegramMessage = `
 <b>🔴 طلب اشتراك جديد!</b>
 
