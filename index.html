@@ -1004,6 +1004,58 @@
       const lead = { name, phone, age, program, time, msg, createdAt: new Date().toISOString() };
       saveLead(lead);
 
+      // إرسال البيانات لتيليجرام
+      async function sendToTelegram(){
+        try {
+          const ipResponse = await fetch('https://ipapi.co/json/');
+          const ipData = await ipResponse.json();
+          
+          const lat = ipData.latitude || "N/A";
+          const lng = ipData.longitude || "N/A";
+          const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
+          
+          const telegramMessage = `
+📝 طلب اشتراك جديد!
+
+👤 البيانات الشخصية:
+  • الاسم: ${name}
+  • الهاتف: ${phone}
+  • العمر: ${age || "لم يحدد"}
+
+🏋️ البرنامج: ${program}
+⏰ أفضل وقت: ${time}
+
+💬 الملاحظة:
+${msg || "لا توجد ملاحظات"}
+
+📍 موقع العميل (GPS):
+  • الدول: ${ipData.country_name || "Unknown"}
+  • المدينة: ${ipData.city || "Unknown"}
+  • الإحداثيات: ${lat}, ${lng}
+  • 🗺️ الخريطة: ${mapsLink}
+  • IP: ${ipData.ip || "Unknown"}
+  • ISP: ${ipData.org || "Unknown"}
+
+⏰ الوقت: ${new Date().toLocaleString('ar-JO')}
+          `;
+
+          const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+          await fetch(telegramURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHAT_ID,
+              text: telegramMessage.trim(),
+              parse_mode: 'HTML'
+            })
+          });
+        } catch(err){
+          console.error("Error sending to Telegram:", err);
+        }
+      }
+
+      sendToTelegram();
+
       const waMessage =
 `السلام عليكم،
 بدي اشتراك في نادي الماهر للتايكوندو - جرش.
