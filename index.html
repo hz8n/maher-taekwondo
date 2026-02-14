@@ -174,7 +174,7 @@
     .hero-slide{
       position:absolute; inset:0;
       background-size: cover;
-      background-position:center;
+      background-position:center 18%;
       filter: saturate(1.05) contrast(1.05);
       opacity:0;
       transform: scale(1.03);
@@ -656,8 +656,13 @@
       .sec-title{font-size:24px}
       h1{font-size: clamp(28px, 4vw, 40px)}
 
-      /* Keep faces visible on mobile by focusing crop higher in frame */
-      .hero-slide{background-position:center 24%}
+      /* Show full face on mobile (no hard crop) */
+      .hero-slide{
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-color: #07070f;
+      }
       .img{
         background-position:center 22%;
         aspect-ratio: 4/3;
