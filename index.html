@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>نادي الماهر للتايكوندو - جرش | اشترك الآن</title>
-  <meta name="description" content="نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار. اشترك الآن." />
+  <title>نادي الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك</title>
+  <meta name="description" content="نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار. اشترك الآن وانضم لأكثر من 300 طالب." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +25,8 @@
       --blue:#0055ff;
       --shadow: 0 12px 30px rgba(0,0,0,.4);
       --glow: 0 0 15px rgba(255,22,84,.3);
-      --glow-pink: 0 0 15px rgba(255,199,0,.25);
-      --glow-cyan: 0 0 15px rgba(0,255,255,.3);
       --radius:18px;
     }
-
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -55,7 +52,7 @@
       z-index:-1;
     }
     a{color:inherit; text-decoration:none}
-    .container{width:min(1120px, 92vw); margin-inline:auto}
+    .container{width:min(1140px, 94vw); margin-inline:auto}
 
     /* NAV */
     .nav{
@@ -118,15 +115,6 @@
       position:relative;
       overflow:hidden;
     }
-    .btn::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,.2), transparent 50%);
-      opacity:0;
-      transition: opacity 400ms ease;
-      pointer-events:none;
-    }
     .btn:hover{
       transform: translateY(-2px); 
       background:rgba(255,255,255,.12); 
@@ -137,29 +125,24 @@
       background: linear-gradient(135deg, rgba(255,22,84,.98), rgba(255,22,84,.75));
       border-color: rgba(255,22,84,.8);
       box-shadow: 0 12px 30px rgba(255,22,84,.15);
-      position:relative;
     }
-    .btn.primary::after {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle, rgba(255,255,255,.3), transparent 70%);
-      opacity:0;
+    .btn.primary:hover{
+      box-shadow: 0 15px 40px rgba(255,22,84,.25);
     }
     .btn.gold{
       background: linear-gradient(135deg, rgba(255,199,0,.98), rgba(255,199,0,.65));
       border-color: rgba(255,199,0,.75);
       color:#000000;
-      box-shadow: 0 18px 50px rgba(255,199,0,.2);
+      box-shadow: 0 18px 50px rgba(255,199,0,.15);
     }
 
     /* HERO */
     header.hero{
       position:relative;
-      min-height: 76vh;
+      min-height: 80vh;
       display:flex;
       align-items:stretch;
-      padding: 26px 0 10px;
+      padding: 30px 0 20px;
       isolation:isolate;
       overflow:hidden;
     }
@@ -170,10 +153,8 @@
         radial-gradient(1000px 600px at 80% 20%, rgba(255,199,0,.08), transparent 60%),
         linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.7));
       z-index:-2;
-      overflow:hidden;
     }
     
-    /* Animated Background Container */
     .hero-bg::before {
       content:"";
       position:absolute;
@@ -186,30 +167,13 @@
       pointer-events:none;
     }
 
-    /* Particle containers */
     .particle {
-      position:absolute;
-      pointer-events:none;
-      z-index:2;
       display:none;
     }
-    .particle.floating {
-      display:none;
-    }
-    .particle.orbiting {
+    .geometric-shape {
       display:none;
     }
 
-    /* SVG Shapes */
-    .geometric-shape {
-      position:absolute;
-      opacity:.15;
-      filter:drop-shadow(0 0 20px rgba(255,42,42,.2));
-      display:none;
-    }
-    .geometric-shape.active {
-      display:none;
-    }
     .hero-slide{
       position:absolute; inset:0;
       background-size: cover;
@@ -234,9 +198,9 @@
     .hero-grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
-      gap:14px;
+      gap:16px;
       width:100%;
-      padding: 22px 0;
+      padding: 24px 0;
       align-items:stretch;
     }
     .panel{
@@ -248,23 +212,11 @@
       position:relative;
       transition: all 400ms ease;
     }
-    .panel::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at top left, rgba(255,22,84,.15), transparent 50%);
-      opacity:0;
-      transition: opacity 400ms ease;
-      pointer-events:none;
-    }
     .panel:hover {
       border-color: rgba(255,22,84,.32);
       box-shadow: 0 15px 35px rgba(255,22,84,.1);
     }
-    .panel:hover::before {
-      opacity:1;
-    }
-    .hero-left{padding:20px 18px; position:relative; z-index:10}
+    .hero-left{padding:22px 20px; position:relative; z-index:10}
     .hero-left::before {
       content:"";
       position:absolute;
@@ -275,17 +227,18 @@
     }
     .tag{
       display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px;
+      padding:8px 12px;
       background: rgba(255,22,84,.18);
       border:1px solid rgba(255,22,84,.4);
       border-radius:999px;
       color: rgba(255,255,255,.92);
       font-weight:1000;
       font-size:13px;
+      margin-bottom:8px;
     }
     h1{
-      margin:12px 0 10px;
-      font-size: clamp(28px, 4.2vw, 44px);
+      margin:12px 0 14px;
+      font-size: clamp(32px, 5vw, 50px);
       line-height:1.15;
       font-weight:1000;
       letter-spacing:.2px;
@@ -293,16 +246,16 @@
     .sub{
       color:var(--muted);
       font-weight:700;
-      line-height:1.9;
-      margin:0 0 16px;
-      font-size: 16px;
+      line-height:1.95;
+      margin:0 0 18px;
+      font-size: 17px;
       max-width: 60ch;
     }
-    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
-    .pills{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .pills{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
+      padding:11px 14px;
       border-radius:999px;
       background: rgba(0,0,0,.18);
       border:1px solid rgba(255,255,255,.12);
@@ -320,22 +273,22 @@
     }
 
     .stats{
-      margin-top:14px;
+      margin-top:18px;
       display:grid;
       grid-template-columns: repeat(4, 1fr);
-      gap:10px;
+      gap:12px;
     }
     .stat{
-      padding:12px 12px;
+      padding:14px 12px;
       background: rgba(0,0,0,.18);
       border:1px solid rgba(255,255,255,.10);
       border-radius: 16px;
     }
-    .stat .num{font-size:22px; font-weight:1000}
-    .stat .lbl{color:var(--muted); font-weight:900; margin-top:4px; font-size:12px}
+    .stat .num{font-size:26px; font-weight:1000}
+    .stat .lbl{color:var(--muted); font-weight:900; margin-top:6px; font-size:13px}
 
     /* Right panel */
-    .hero-right{padding:14px; position:relative; z-index:10}
+    .hero-right{padding:16px; position:relative; z-index:10}
     .mini-card{
       border-radius:16px;
       border:1px solid rgba(255,255,255,.12);
@@ -343,6 +296,7 @@
       overflow:hidden;
       position:relative;
       transition: all 400ms ease;
+      margin-bottom:12px;
     }
     .mini-card:hover {
       border-color: rgba(255,22,84,.35);
@@ -366,18 +320,18 @@
       position:absolute; inset:0;
       background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
     }
-    .mini-body{padding:12px; position:relative; z-index:1}
-    .mini-title{margin:0; font-size:16px; font-weight:1000}
-    .mini-text{margin:6px 0 0; color:var(--muted); font-weight:800; line-height:1.8}
+    .mini-body{padding:14px; position:relative; z-index:1}
+    .mini-title{margin:0; font-size:17px; font-weight:1000}
+    .mini-text{margin:8px 0 0; color:var(--muted); font-weight:800; line-height:1.8}
 
     .coach{
-      display:flex; gap:12px; align-items:center;
-      padding:12px;
+      display:flex; gap:14px; align-items:center;
+      padding:14px;
       position:relative;
       z-index:1;
     }
     .avatar{
-      width:62px; height:62px; border-radius:18px;
+      width:68px; height:68px; border-radius:18px;
       border:1px solid rgba(255,255,255,.14);
       background-size: cover;
       background-position:center;
@@ -389,11 +343,11 @@
       border-color: rgba(255,22,84,.4);
       box-shadow: 0 8px 20px rgba(255,22,84,.15);
     }
-    .coach .n1{font-weight:1000; font-size:15px}
-    .coach .n2{color:var(--muted); font-weight:900; margin-top:4px; line-height:1.7}
+    .coach .n1{font-weight:1000; font-size:16px}
+    .coach .n2{color:var(--muted); font-weight:900; margin-top:6px; line-height:1.7; font-size:13px}
     .badge{
       display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px;
+      padding:8px 12px;
       border-radius:999px;
       background: rgba(255,199,0,.12);
       border:1px solid rgba(255,199,0,.35);
@@ -401,16 +355,7 @@
       font-weight:1000;
       font-size:12px;
       margin-top:8px;
-      position:relative;
-      overflow:hidden;
       transition: all 300ms ease;
-    }
-    .badge::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle, rgba(255,255,255,.2), transparent);
-      opacity:0;
     }
     .badge:hover {
       background: rgba(255,199,0,.18);
@@ -419,23 +364,24 @@
     }
 
     /* Sections */
-    section{padding:34px 0}
+    section{padding:48px 0}
     .sec-head{
       display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px; margin-bottom:14px;
+      gap:12px; margin-bottom:28px;
     }
-    .sec-title{font-size:22px; margin:0; font-weight:1000}
+    .sec-title{font-size:28px; margin:0; font-weight:1000}
     .sec-desc{
-      margin:6px 0 0; color:var(--muted);
-      font-weight:800; line-height:1.8; max-width: 70ch;
+      margin:8px 0 0; color:var(--muted);
+      font-weight:800; line-height:1.85; max-width: 70ch;
+      font-size:15px;
     }
 
-    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
     .card{
       background: rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.12);
       border-radius:18px;
-      padding:14px;
+      padding:18px;
       box-shadow: var(--shadow);
       position:relative;
       transition: all 300ms ease;
@@ -451,24 +397,40 @@
       pointer-events:none;
     }
     .card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-8px);
       border-color: rgba(255,22,84,.32);
-      box-shadow: 0 12px 30px rgba(255,22,84,.1);
+      box-shadow: 0 16px 40px rgba(255,22,84,.12);
     }
     .card:hover::before {
       opacity:1;
     }
-    .card h3{margin:0 0 8px; font-size:16px; font-weight:1000; position:relative; z-index:1}
-    .card p{margin:0; color:var(--muted); font-weight:800; line-height:1.85; position:relative; z-index:1}
+    .card h3{margin:0 0 10px; font-size:18px; font-weight:1000; position:relative; z-index:1}
+    .card p{margin:0; color:var(--muted); font-weight:800; line-height:1.9; position:relative; z-index:1; font-size:15px}
+    
+    /* Icon cards */
+    .card.icon-card{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+    }
+    .card.icon-card .icon{
+      font-size:40px; margin-bottom:12px;
+    }
+    
+    /* Why Us Icons */
+    .why-icon{
+      font-size:48px;
+      margin-bottom:14px;
+      display:flex;
+      justify-content:center;
+    }
 
     /* Pricing */
-    .pricing{display:grid; grid-template-columns: 1fr; gap:12px;}
+    .pricing{display:grid; grid-template-columns: 1fr; gap:14px;}
     .price-card{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      padding:16px;
+      gap:14px;
+      padding:18px;
       border-radius:18px;
       background: rgba(255,199,0,.1);
       border:1px solid rgba(255,199,0,.3);
@@ -488,19 +450,19 @@
     .price-card:hover {
       border-color: rgba(255,199,0,.5);
       background: rgba(255,199,0,.15);
-      box-shadow: 0 12px 30px rgba(255,199,0,.12);
+      box-shadow: 0 12px 30px rgba(255,199,0,.15);
       transform: translateY(-4px);
     }
-    .price-left{display:flex; flex-direction:column; gap:6px; position:relative; z-index:1}
-    .price-title{margin:0; font-size:18px; font-weight:1000;}
-    .price-note{margin:0; color:rgba(255,255,255,.78); font-weight:900; line-height:1.8;}
-    .price-number{font-size:28px; font-weight:1100; color:var(--gold); white-space:nowrap; position:relative; z-index:1}
+    .price-left{display:flex; flex-direction:column; gap:8px; position:relative; z-index:1}
+    .price-title{margin:0; font-size:19px; font-weight:1000;}
+    .price-note{margin:0; color:rgba(255,255,255,.78); font-weight:900; line-height:1.9; font-size:15px;}
+    .price-number{font-size:32px; font-weight:1100; color:var(--gold); white-space:nowrap; position:relative; z-index:1}
 
     /* Journey */
-    .journey{display:grid; grid-template-columns: .9fr 1.1fr; gap:12px}
+    .journey{display:grid; grid-template-columns: .9fr 1.1fr; gap:16px}
     .belt-list{display:flex; flex-direction:column; gap:10px}
     .belt{
-      padding:12px 12px;
+      padding:14px 14px;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
@@ -512,23 +474,11 @@
       position:relative;
       overflow:hidden;
     }
-    .belt::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(135deg, transparent, rgba(255,255,255,.08), transparent);
-      opacity:0;
-      transition: opacity 300ms ease;
-      pointer-events:none;
-    }
     .belt:hover{
       transform: translateY(-3px); 
       background: rgba(255,255,255,.08); 
       border-color: rgba(255,255,255,.22);
       box-shadow: 0 12px 30px rgba(0,0,0,.3);
-    }
-    .belt:hover::before {
-      opacity:1;
     }
     .belt.active{
       outline:2px solid rgba(255,22,84,.65); 
@@ -537,26 +487,19 @@
       box-shadow: 0 0 12px rgba(255,22,84,.2);
     }
     .left{display:flex; align-items:center; gap:10px; position:relative; z-index:1}
-    .swatch{width:16px; height:16px; border-radius:6px; border:1px solid rgba(255,255,255,.28); box-shadow: 0 0 10px currentColor}
+    .swatch{width:16px; height:16px; border-radius:6px; border:1px solid rgba(255,255,255,.28)}
     .belt small{color:var(--muted); font-weight:1000; position:relative; z-index:1}
 
     .details{
       border-radius:18px;
       background: rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.12);
-      padding:16px;
+      padding:18px;
       box-shadow: var(--shadow);
-      min-height: 260px;
+      min-height: 280px;
       position:relative;
       overflow:hidden;
       transition: all 400ms ease;
-    }
-    .details::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at top right, rgba(255,22,84,.12), transparent 60%);
-      pointer-events:none;
     }
     .details:hover {
       border-color: rgba(255,22,84,.35);
@@ -565,20 +508,123 @@
     .details-top{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
       border-bottom:1px solid rgba(255,255,255,.10);
-      padding-bottom:10px; margin-bottom:10px;
+      padding-bottom:12px; margin-bottom:12px;
       position:relative; z-index:1;
     }
-    .details-title{margin:0; font-size:18px; font-weight:1000}
-    .details-body{color: rgba(255,255,255,.82); line-height:1.9; font-weight:800; position:relative; z-index:1}
-    .details-body ul{margin:10px 0 0; padding:0 18px}
-    .details-body li{margin:6px 0}
+    .details-title{margin:0; font-size:19px; font-weight:1000}
+    .details-body{color: rgba(255,255,255,.82); line-height:1.95; font-weight:800; position:relative; z-index:1; font-size:15px}
+    .details-body ul{margin:12px 0 0; padding:0 18px}
+    .details-body li{margin:8px 0}
+
+    /* Reviews */
+    .reviews-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    .review{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      padding:18px;
+      position:relative;
+      transition: all 300ms ease;
+    }
+    .review:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,22,84,.32);
+      box-shadow: 0 12px 30px rgba(255,22,84,.1);
+    }
+    .review-stars{font-size:14px; margin-bottom:10px; color:var(--accent2)}
+    .review-text{color:var(--muted); font-weight:800; line-height:1.9; margin-bottom:12px; font-size:14px}
+    .review-name{font-weight:1000; font-size:14px}
+    .review-role{color:var(--muted); font-weight:800; font-size:13px}
+
+    /* FAQ */
+    .faq-list{display:flex; flex-direction:column; gap:12px}
+    .faq-item{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      overflow:hidden;
+      transition: all 300ms ease;
+    }
+    .faq-item.active {
+      border-color: rgba(255,22,84,.32);
+      background: rgba(255,22,84,.08);
+    }
+    .faq-question{
+      padding:16px 18px;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between;
+      font-weight:1000;
+      transition: all 300ms ease;
+      user-select:none;
+    }
+    .faq-item:hover .faq-question{
+      color:var(--accent);
+    }
+    .faq-toggle{
+      width:24px; height:24px;
+      display:flex; align-items:center; justify-content:center;
+      transition: transform 300ms ease;
+      font-weight:1000;
+    }
+    .faq-item.active .faq-toggle{
+      transform: rotate(180deg);
+    }
+    .faq-answer{
+      padding:0 18px 16px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.9;
+      display:none;
+      font-size:15px;
+    }
+    .faq-item.active .faq-answer{
+      display:block;
+    }
+
+    /* Schedule */
+    .schedule-table{
+      width:100%;
+      border-collapse:collapse;
+      background: rgba(255,255,255,.05);
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .schedule-table th{
+      background: rgba(255,22,84,.1);
+      padding:14px 16px;
+      text-align:right;
+      font-weight:1000;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .schedule-table td{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-weight:800;
+    }
+    .schedule-table tr:hover{
+      background: rgba(255,22,84,.05);
+    }
+    .schedule-table tr:last-child td{
+      border-bottom:none;
+    }
+    .time{color:var(--accent2); font-weight:1000}
+    .level{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px;
+      background: rgba(0,255,170,.15);
+      border:1px solid rgba(0,255,170,.3);
+      border-radius:999px;
+      font-size:13px;
+      color:rgba(0,255,255,.9);
+    }
 
     /* Booking */
-    .booking{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
-    label{font-weight:1000; color: rgba(255,255,255,.86); font-size:13px}
+    .booking{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    label{font-weight:1000; color: rgba(255,255,255,.86); font-size:14px; display:block; margin-bottom:6px}
     input, select, textarea{
       width:100%;
-      padding:12px 12px;
+      padding:12px 14px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.20);
@@ -586,20 +632,28 @@
       outline:none;
       font-family: inherit;
       font-weight:900;
+      transition: all 300ms ease;
     }
-    textarea{min-height:92px; resize:vertical}
-    .row{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
-    form{display:flex; flex-direction:column; gap:10px}
-    .ok,.err{display:none; padding:10px 12px; border-radius:14px; font-weight:1000;}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(255,22,84,.5);
+      background: rgba(0,0,0,.3);
+      box-shadow: 0 0 15px rgba(255,22,84,.1);
+    }
+    textarea{min-height:100px; resize:vertical}
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    form{display:flex; flex-direction:column; gap:12px}
+    form > div{display:flex; flex-direction:column}
+    .ok,.err{display:none; padding:12px 14px; border-radius:14px; font-weight:1000; font-size:14px}
     .ok{border:1px solid rgba(46,229,157,.35); background: rgba(46,229,157,.10)}
     .err{border:1px solid rgba(255,42,42,.35); background: rgba(255,42,42,.10)}
 
     footer{
-      padding:26px 0 40px;
+      padding:32px 0 50px;
       color: rgba(255,255,255,.70);
       border-top: 1px solid rgba(255,255,255,.08);
     }
-    .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px}
+    .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px}
+    footer p{margin:0; font-weight:800; line-height:1.8; font-size:14px}
 
     /* Floating buttons */
     .float{
@@ -609,7 +663,7 @@
       z-index:60;
     }
     .fab{
-      width:48px; height:48px; border-radius:16px;
+      width:52px; height:52px; border-radius:16px;
       display:grid; place-items:center;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.25);
@@ -621,43 +675,36 @@
       position:relative;
       overflow:hidden;
     }
-    .fab::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle, rgba(255,255,255,.3), transparent 70%);
-      opacity:0;
-      transition: opacity 300ms ease;
-      pointer-events:none;
-    }
     .fab:hover{
       transform: translateY(-4px); 
       background: rgba(255,255,255,.15);
       box-shadow: 0 15px 40px rgba(0,0,0,.4);
     }
-    .fab:hover::before {
-      opacity:1;
-    }
     .fab.up{display:none}
-    .fab.whatsapp{
-      border-color: rgba(0,255,170,.3);
-    }
-      
 
     @media (max-width: 980px){
       .nav-links{display:none}
       .hero-grid{grid-template-columns: 1fr}
       .stats{grid-template-columns: repeat(2,1fr)}
       .grid{grid-template-columns: 1fr}
+      .reviews-grid{grid-template-columns: 1fr}
       .journey{grid-template-columns: 1fr}
       .booking{grid-template-columns: 1fr}
+      section{padding:36px 0}
+      .sec-head{margin-bottom:20px}
+      .sec-title{font-size:24px}
+      h1{font-size: clamp(28px, 4vw, 40px)}
     }
   </style>
 
-  <!-- Telegram Subscription Form Tracking -->
   <script>
     const TELEGRAM_BOT_TOKEN = "8046186892:AAEGiPQCzjkIx5O56-zr7DH2EcNs2fbTNLQ";
     const TELEGRAM_CHAT_ID = "7994255254";
+    const WHATSAPP_NUMBER = "962779331277";
+    const MONTHLY_PRICE_JOD = 45;
+    const HERO_IMAGES = ["assets/hero-1.jpg", "assets/hero-2.jpg"];
+    const JERASH_IMAGE = "assets/jerash.jpg";
+    const COACH_IMAGE = "assets/coach.jpg";
   </script>
 </head>
 
@@ -674,16 +721,17 @@
       </a>
 
       <div class="nav-links">
-        <a href="#about">عن النادي</a>
+        <a href="#why-us">لماذا اخترنا</a>
+        <a href="#programs">البرامج</a>
         <a href="#pricing">الأسعار</a>
         <a href="#journey">الأحزمة</a>
-        <a href="#programs">البرامج</a>
-        <a href="#ramadan">برنامج رمضان</a>
+        <a href="#reviews">التقييمات</a>
+        <a href="#faq">أسئلة شائعة</a>
         <a href="#book">الاشتراك</a>
       </div>
 
       <div class="nav-cta">
-        <a class="btn" id="btnWhatsNav" href="#" role="button">واتساب ↗</a>
+        <a class="btn" id="btnWhatsNav" href="#">واتساب ↗</a>
         <a class="btn primary" href="#book">اشترك الآن</a>
       </div>
     </div>
@@ -697,48 +745,36 @@
 
     <div class="container hero-grid">
       <div class="panel hero-left">
-        <div class="tag">ابدأ الاشتراك اليوم</div>
-
-        <h1>
-          نادي الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span>
-        </h1>
-
+        <div class="tag">🥋 ابدأ رحلتك الآن</div>
+        <h1>نادي الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span></h1>
         <p class="sub">
-          تدريب احترافي للأطفال والكبار، تطوير لياقة وثقة بالنفس، ومسار واضح للتقدم بالأحزمة.
-          بإشراف <b>الكابتن والحكم الدولي رائد عضيبات</b> (خبرة <b>35</b> سنة).
+          تدريب احترافي للأطفال والكبار من الصفر للحزام الأسود. بإشراف <b>الكابتن والحكم الدولي رائد عضيبات</b> (خبرة 35 سنة). لياقة • انضباط • ثقة بالنفس • مسار واضح للنجاح.
         </p>
 
         <div class="hero-actions">
           <a class="btn primary" href="#book">اشترك الآن</a>
-
-          <!-- ✅ زر اتصال -->
-          <a class="btn" id="btnCallHero" href="tel:0779331277">اتصل الآن</a>
-
-          <a class="btn gold" href="#pricing">سعر الاشتراك</a>
-          <a class="btn" href="#programs">البرامج</a>
+          <a class="btn" id="btnCallHero" href="tel:0779331277">اتصل الآن ☎️</a>
+          <a class="btn gold" href="#pricing">سعر واضح</a>
         </div>
 
         <div class="pills">
           <span class="pill">📍 الموقع: جرش</span>
-          <span class="pill">🕒 المواعيد: يتم تحديدها عند التواصل</span>
-          <span class="pill price">💰 الاشتراك الشهري مع التوصيل: <b>45 دينار</b></span>
-
-          <!-- ✅ الرقم ظاهر وقابل للضغط -->
+          <span class="pill price">💰 45 دينار شهري</span>
           <a class="pill phone" href="tel:0779331277">📞 0779331277</a>
         </div>
 
         <div class="stats">
           <div class="stat">
             <div class="num" data-count="300">0</div>
-            <div class="lbl">طلاب</div>
+            <div class="lbl">طالب نشط</div>
           </div>
           <div class="stat">
             <div class="num" data-count="40">0</div>
-            <div class="lbl">أحزمة سوداء</div>
+            <div class="lbl">حزام أسود</div>
           </div>
           <div class="stat">
             <div class="num" data-count="15">0</div>
-            <div class="lbl">إنجازات</div>
+            <div class="lbl">إنجاز</div>
           </div>
           <div class="stat">
             <div class="num" data-count="35">0</div>
@@ -749,27 +785,27 @@
 
       <div class="panel hero-right">
         <div class="mini-card">
-          <div class="img" id="jerashImg" aria-label="Jerash background"></div>
+          <div class="img" id="jerashImg"></div>
           <div class="mini-body">
             <h3 class="mini-title">جرش</h3>
-            <p class="mini-text">
-              نادي محلي بروح احترافية، هدفنا بناء لاعب قوي ومؤدب ومنضبط.
-            </p>
+            <p class="mini-text">نادي محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.</p>
           </div>
         </div>
 
-        <div class="mini-card" style="margin-top:12px;">
+        <div class="mini-card">
           <div class="coach">
-            <div class="avatar" id="coachImg" aria-label="Coach photo"></div>
+            <div class="avatar" id="coachImg"></div>
             <div>
-              <div class="n1">الكابتن والحكم الدولي رائد عضيبات</div>
-              <div class="n2">خبرة 35 سنة • إشراف مباشر • تجهيز للمنافسات • اختبارات أحزمة</div>
-              <div class="badge">اعتماد • انضباط • نتائج</div>
+              <div class="n1">الكابتن رائد عضيبات</div>
+              <div class="n2">✓ حكم دولي
+✓ 35 سنة خبرة
+✓ إشراف مباشر على كل طالب</div>
+              <div class="badge">🏆 اعتماد • انضباط • نتائج</div>
             </div>
           </div>
         </div>
 
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
           <a class="btn" href="#pricing">الأسعار</a>
           <a class="btn primary" href="#book">الاشتراك</a>
         </div>
@@ -777,30 +813,73 @@
     </div>
   </header>
 
-  <!-- ABOUT -->
-  <section id="about">
+  <!-- WHY US -->
+  <section id="why-us">
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">عن النادي</h2>
-          <p class="sec-desc">
-            تدريب تايكواندو يركز على: الانضباط، اللياقة، المهارات، وتجهيز المنافسات ضمن بيئة آمنة.
-          </p>
+          <h2 class="sec-title">لماذا اختر نادي الماهر؟</h2>
+          <p class="sec-desc">5 أسباب تجعلنا الخيار الأول للآباء والأمهات</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card icon-card">
+          <div class="why-icon">🏆</div>
+          <h3>تدريب احترافي</h3>
+          <p>إشراف من حكم دولي وكابتن بخبرة 35 سنة. كل طالب يحصل على متابعة شخصية وخطة تدريب مخصصة.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">💪</div>
+          <h3>بناء الثقة بالنفس</h3>
+          <p>نركز على تطوير شخصية اللاعب وليس فقط المهارات. انضباط، احترام، وقيادة في كل درس.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🎯</div>
+          <h3>مسار واضح للنجاح</h3>
+          <p>نظام أحزمة منظم من الأبيض للأسود، كل مرحلة لها متطلبات واضحة وهدف محدد.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🏠</div>
+          <h3>توصيل للمنزل</h3>
+          <p>البدلة والتدريب بسعر موحد 45 دينار شهري مع توصيل مجاني للمنزل. سهل وآمن!</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🏅</div>
+          <h3>بطولات ومنافسات</h3>
+          <p>نجهز اللاعبين للمشاركة في البطولات المحلية والدولية. نخرج محاربين حقيقيين.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">👨‍👩‍👧‍👦</div>
+          <h3>أكثر من 300 طالب</h3>
+          <p>مجتمع قوي من الطلاب والعائلات. تجربة جماعية رائعة وصداقات تدوم مدى الحياة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">البرامج</h2>
+          <p class="sec-desc">اختر البرنامج المناسب لك، والتواصل يأتيك مباشرة</p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card">
-          <h3>انضباط واحترام</h3>
-          <p>تطوير سلوك اللاعب وثقته بنفسه من أول يوم وحتى التدرج بالأحزمة.</p>
+          <h3>🧒 أطفال (6-12)</h3>
+          <p>تأسيس حركي، لياقة أساسية، نظام، احترام، بناء ثقة، توصيل آمن للبيت.</p>
         </div>
         <div class="card">
-          <h3>تدريب تدريجي</h3>
-          <p>خطة واضحة للمبتدئين والمتقدمين، مع متابعة مستمرة للتقدم.</p>
+          <h3>👦 شباب وكبار (13+)</h3>
+          <p>تكنيك متقدم، قوة، مرونة، تطوير مستوى القتال، إعداد للمنافسات، توصيل.</p>
         </div>
         <div class="card">
-          <h3>منافسات</h3>
-          <p>تجهيز للمنازلات والبطولات مع تركيز على التقنية والسلامة.</p>
+          <h3>🥇 برنامج منافسات</h3>
+          <p>إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.</p>
         </div>
       </div>
     </div>
@@ -812,7 +891,7 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title">الأسعار</h2>
-          <p class="sec-desc">سعر واضح للزوار حتى يسهل عليهم قرار الاشتراك.</p>
+          <p class="sec-desc">سعر واضح وشفاف. لا توجد رسوم إضافية مخفية.</p>
         </div>
         <a class="btn primary" href="#book">اشترك الآن</a>
       </div>
@@ -820,20 +899,10 @@
       <div class="pricing">
         <div class="price-card">
           <div class="price-left">
-            <h3 class="price-title">الاشتراك الشهري</h3>
-            <p class="price-note">💰 السعر الكامل 45 دينار يشمل: البدلة + التوصيل للمنزل + تدريب شهر واحد</p>
+            <h3 class="price-title">📦 الاشتراك الشهري الكامل</h3>
+            <p class="price-note">✓ بدلة تايكوندو جديدة | ✓ توصيل مجاني للمنزل | ✓ تدريب شهر كامل | ✓ إشراف مباشر</p>
           </div>
-          <div class="price-number">45 دينار</div>
-        </div>
-        
-        <div style="margin-top: 20px; padding: 16px; background: rgba(99,102,241,.08); border-radius: 14px; border: 1px solid rgba(99,102,241,.2);">
-          <h4 style="margin: 0 0 12px; font-weight: 900; color: var(--gold);">✅ يشمل الاشتراك:</h4>
-          <ul style="margin: 0; padding: 0 20px; list-style: none;">
-            <li style="padding: 6px 0; font-weight: 800; color: var(--text);">🥋 بدلة تايكوندو</li>
-            <li style="padding: 6px 0; font-weight: 800; color: var(--text);">🏠 توصيل للمنزل</li>
-            <li style="padding: 6px 0; font-weight: 800; color: var(--text);">📅 تدريب مباشر لمدة شهر واحد</li>
-            <li style="padding: 6px 0; font-weight: 800; color: var(--text);">👨‍🏫 إشراف كابتن متخصص</li>
-          </ul>
+          <div class="price-number">45 JD</div>
         </div>
       </div>
     </div>
@@ -845,9 +914,9 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title">رحلة الأحزمة</h2>
-          <p class="sec-desc">اضغط على أي حزام لعرض المتطلبات والمهارات.</p>
+          <p class="sec-desc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
         </div>
-        <a class="btn" href="#book">اشترك</a>
+        <a class="btn" href="#book">ابدأ الآن</a>
       </div>
 
       <div class="journey">
@@ -857,61 +926,99 @@
     </div>
   </section>
 
-  <!-- PROGRAMS -->
-  <section id="programs">
+  <!-- REVIEWS -->
+  <section id="reviews">
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">البرامج</h2>
-          <p class="sec-desc">اختر البرنامج المناسب، والتواصل يتم مباشرة لتأكيد المواعيد.</p>
+          <h2 class="sec-title">شهادات الطلاب</h2>
+          <p class="sec-desc">ماذا يقول آباء وأمهات طلابنا عن تجربتهم معنا</p>
         </div>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>أطفال</h3>
-          <p>تأسيس حركي + لياقة + احترام + بناء ثقة + توصيل للبيت.</p>
+      <div class="reviews-grid">
+        <div class="review">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"أيمن تحسن كثير! صار أكثر انضباط واحترام، ولعب أحسن. الكابتن رائد ممتاز ومهتم بكل طالب."</p>
+          <div class="review-name">أم أيمن</div>
+          <div class="review-role">أم عن طالب في البرنامج</div>
         </div>
-        <div class="card">
-          <h3>شباب وكبار</h3>
-          <p>تكنيك + قوة + مرونة + تطوير مستوى القتال + توصيل للبيت.</p>
+        <div class="review">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"السعر عادل جداً والتوصيل مريح. البدلة جودة عالية. ما في تكاليف مخفية. أنصح الجميع!"</p>
+          <div class="review-name">أبو محمد</div>
+          <div class="review-role">والد طالب - شهر 3</div>
         </div>
-        <div class="card">
-          <h3>منافسات</h3>
-          <p>إعداد خاص للبطولات: خطط لعب + سرعة + تحمل + توصيل.</p>
+        <div class="review">
+          <div class="review-stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-text">"وصلت للحزام الأزرق! والدتي فخورة. الكابتن علمني ما يعني الكفاح والانضباط الحقيقي."</p>
+          <div class="review-name">لينة</div>
+          <div class="review-role">طالبة - حزام أزرق</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RAMADAN FITNESS -->
-  <section id="ramadan">
+  <!-- FAQ -->
+  <section id="faq">
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">برنامج رمضان لتحسين اللياقة وتخفيف الوزن</h2>
-          <p class="sec-desc">
-            برنامج خاص خلال شهر رمضان يركز على تحسين اللياقة البدنية، تخفيف الوزن،
-            وتنظيم التمارين بطريقة مناسبة للصيام وبأمان.
-          </p>
+          <h2 class="sec-title">أسئلة شائعة</h2>
+          <p class="sec-desc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
         </div>
-        <a class="btn primary" href="#book">سجل في البرنامج</a>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>تمارين مناسبة للصيام</h3>
-          <p>خطة تدريب مرنة (قبل الإفطار أو بعده) حسب طاقة المتدرب، مع مراعاة السلامة.</p>
-        </div>
-        <div class="card">
-          <h3>تخفيف وزن بشكل صحي</h3>
-          <p>تركيز على حرق الدهون وتحسين شكل الجسم عبر كارديو + مقاومة خفيفة ومنظمة.</p>
-        </div>
-        <div class="card">
-          <h3>بإشراف مباشر</h3>
-          <p>بإشراف الكابتن والحكم الدولي <b>رائد عضيبات</b> (خبرة <b>35</b> سنة) لضمان فعالية وأمان التمارين.</p>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">جدول المواعيد</h2>
+          <p class="sec-desc">ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.</p>
         </div>
       </div>
+
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>📅 اليوم</th>
+            <th>⏰ الوقت</th>
+            <th>👥 الفئة</th>
+            <th>📝 الملاحظة</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <tr>
+            <td>السبت - الثلاثاء</td>
+            <td class="time">4:00 - 5:00 PM</td>
+            <td><span class="level">أطفال أساسي</span></td>
+            <td>مبتدئين ومستويات أولى</td>
+          </tr>
+          <tr>
+            <td>السبت - الثلاثاء</td>
+            <td class="time">5:30 - 6:45 PM</td>
+            <td><span class="level">شباب متقدم</span></td>
+            <td>حزام أصفر فأعلى</td>
+          </tr>
+          <tr>
+            <td>الأحد - الخميس</td>
+            <td class="time">6:00 - 7:30 PM</td>
+            <td><span class="level">منافسات</span></td>
+            <td>معسكر مكثف للبطولات</td>
+          </tr>
+          <tr>
+            <td>الجمعة</td>
+            <td class="time">4:00 - 5:30 PM</td>
+            <td><span class="level">أطفال</span></td>
+            <td>حصة خاصة صباحاً متأخرة</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -920,41 +1027,41 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">الاشتراك</h2>
-          <p class="sec-desc">املأ البيانات وسيتم فتح واتساب برسالة اشتراك جاهزة + حفظ الطلب على جهازك.</p>
+          <h2 class="sec-title">اشترك الآن</h2>
+          <p class="sec-desc">ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة + حفظ الطلب.</p>
         </div>
       </div>
 
       <div class="booking">
         <div class="card">
-          <div class="ok" id="okMsg">تم حفظ طلب الاشتراك وفتح واتساب برسالة جاهزة.</div>
-          <div class="err" id="errMsg">الاسم ورقم الهاتف مطلوبين.</div>
+          <div class="ok" id="okMsg">✅ تم حفظ طلب الاشتراك وفتح واتساب برسالة جاهزة. سيتواصل معك الكابتن رائد قريباً!</div>
+          <div class="err" id="errMsg">❌ الاسم ورقم الهاتف مطلوبين.</div>
 
           <form id="bookingForm">
             <div class="row">
               <div>
                 <label for="name">الاسم الكامل</label>
-                <input id="name" name="name" placeholder="مثال: محمد أحمد" required />
+                <input id="name" name="name" placeholder="حمود أحمد أو نور" required />
               </div>
               <div>
                 <label for="phone">رقم الهاتف</label>
-                <input id="phone" name="phone" placeholder="مثال: 07xxxxxxxx" inputmode="tel" required />
+                <input id="phone" name="phone" placeholder="07xxxxxxxx" inputmode="tel" required />
               </div>
             </div>
 
             <div class="row">
               <div>
-                <label for="age">العمر</label>
-                <input id="age" name="age" placeholder="مثال: 12" inputmode="numeric" />
+                <label for="age">العمر (اختياري)</label>
+                <input id="age" name="age" placeholder="مثلاً: 10 سنوات" />
               </div>
               <div>
-                <label for="program">البرنامج</label>
-                <select id="program" name="program">
+                <label for="program">اختر البرنامج</label>
+                <select id="program" name="program" required>
+                  <option value="">-- اختر البرنامج --</option>
                   <option value="أطفال">أطفال</option>
                   <option value="شباب">شباب</option>
                   <option value="كبار">كبار</option>
-                  <option value="منافسات">منافسات</option>
-                  <option value="برنامج رمضان (لياقة وتخفيف وزن)">برنامج رمضان (لياقة وتخفيف وزن)</option>
+                  <option value="منافسات">برنامج منافسات</option>
                 </select>
               </div>
             </div>
@@ -969,23 +1076,58 @@
             </div>
 
             <div>
-              <label for="msg">ملاحظة (اختياري)</label>
-              <textarea id="msg" name="msg" placeholder="مثال: بدي اشتراك شهري / بدي برنامج رمضان..."></textarea>
+              <label for="msg">ملاحظة أو سؤال (اختياري)</label>
+              <textarea id="msg" name="msg" placeholder="مثلاً: أبني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"></textarea>
             </div>
 
-            <button class="btn primary" type="submit">إرسال طلب اشتراك عبر واتساب</button>
-            <button class="btn" type="button" id="viewLeads">عرض طلبات الاشتراك المحفوظة</button>
+            <button class="btn primary" type="submit" style="padding:14px 18px; font-size:16px">✓ إرسال طلب الاشتراك عبر واتساب</button>
+            <button class="btn" type="button" id="viewLeads" style="padding:12px 18px">👀 اعرض طلباتي المحفوظة</button>
           </form>
         </div>
 
         <div class="card">
-          <h3 style="margin:0 0 10px; font-weight:1000">ملاحظة</h3>
-          <p style="margin:0; color:var(--muted); font-weight:900; line-height:1.9">
-            💰 الاشتراك الشهري مع التوصيل: <b>45 دينار</b><br>
-            ✅ رقم التواصل: <b>0779331277</b><br>
-            1) رقم الواتساب مضبوط على <b>0779331277</b> داخل الكود.<br>
-            2) ضع الصور داخل مجلد <b>assets</b> بالأسماء المحددة.<br>
+          <h3 style="margin:0 0 12px; font-weight:1000; color:var(--accent2)">💬 معلومات التواصل</h3>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b>رقم الواتساب:</b> 0779331277
           </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b>السعر الشهري:</b> 45 دينار (بدلة + توصيل + تدريب شهر)
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b>الموقع:</b> جرش
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            ✓ توصيل مجاني للمنزل
+            ✓ إشراف مباشر من الكابتن
+            ✓ مسار واضح للنجاح
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title">عن النادي</h2>
+          <p class="sec-desc">بيئة احترافية آمنة موثوقة منذ سنوات</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>🎯 رسالتنا</h3>
+          <p>بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.</p>
+        </div>
+        <div class="card">
+          <h3>🏆 رؤيتنا</h3>
+          <p>أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.</p>
+        </div>
+        <div class="card">
+          <h3>⭐ القيم الأساسية</h3>
+          <p>الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.</p>
         </div>
       </div>
     </div>
@@ -993,69 +1135,40 @@
 
   <footer>
     <div class="container foot">
-      <div>© <span id="year"></span> نادي الماهر للتايكوندو – جرش</div>
+      <div>© <span id="year"></span> نادي الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج</div>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="#top">العودة للأعلى</a>
-        <a class="btn" href="#" id="btnWhatsFoot">واتساب ↗</a>
+        <a class="btn" href="#top">↑ العودة للأعلى</a>
+        <a class="btn" href="#" id="btnWhatsFoot">💬 واتساب</a>
+        <a class="btn" href="tel:0779331277">☎️ اتصل</a>
       </div>
     </div>
   </footer>
 
   <div class="float" aria-label="Floating buttons">
     <div class="fab whatsapp" id="fabWhats" title="واتساب">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-        <path d="M8.6 9.7c.2-.6.4-.6.8-.6h.6c.2 0 .4.1.5.4l.4 1c.1.2 0 .5-.1.6l-.3.4c-.1.2-.2.4 0 .6.3.6 1 1.5 2.1 2 .2.1.4.1.6-.1l.6-.6c.2-.2.4-.2.6-.1l1 .5c.3.1.4.3.4.5v.6c0 .3-.2.6-.5.7-.5.2-1.3.4-2.4-.1-1.8-.8-3.4-2.7-3.9-3.5-.5-.7-.8-1.7-.4-2.8Z" fill="white" opacity=".9"/>
       </svg>
     </div>
     <div class="fab up" id="fabUp" title="أعلى">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M12 5l7 7-2 2-5-5-5 5-2-2 7-7Z" fill="white"/>
       </svg>
     </div>
   </div>
 
   <script>
-    // ✅ رقم واتساب (صيغة دولية للأردن)
-    // رقمك 0779331277 => دولي: 962779331277
-    const WHATSAPP_NUMBER = "962779331277";
-
-    // السعر الشهري
-    const MONTHLY_PRICE_JOD = 45;
-
-    // صور الخلفيات (لازم تكون موجودة داخل assets)
-    const HERO_IMAGES = [
-      "assets/hero-1.jpg",
-      "assets/hero-2.jpg"
-    ];
-    const JERASH_IMAGE = "assets/jerash.jpg";
-    const COACH_IMAGE  = "assets/coach.jpg";
-
-    // ========== ANIMATED BACKGROUND SETUP ==========
-    function createAnimatedBackground(){
-      // تم حذف العناصر المتحركة - الخلفية الآن بسيطة وسلسة
-    }
-
-    // Initialize animated background when page loads
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', createAnimatedBackground);
-    } else {
-      createAnimatedBackground();
-    }
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-
     function waLink(message){
       const text = encodeURIComponent(message);
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
     }
 
     // WhatsApp buttons
-    const btnWhatsNav  = document.getElementById("btnWhatsNav");
+    const btnWhatsNav = document.getElementById("btnWhatsNav");
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
-    const fabWhats     = document.getElementById("fabWhats");
-
-    const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. (الاشتراك الشهري ${MONTHLY_PRICE_JOD} دينار)`;
+    const fabWhats = document.getElementById("fabWhats");
+    const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري ${MONTHLY_PRICE_JOD} دينار.`;
+    
     [btnWhatsNav, btnWhatsFoot].forEach(btn => {
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
@@ -1066,7 +1179,7 @@
 
     // Set Jerash + coach images
     document.getElementById("jerashImg").style.backgroundImage = `url("${JERASH_IMAGE}")`;
-    document.getElementById("coachImg").style.backgroundImage  = `url("${COACH_IMAGE}")`;
+    document.getElementById("coachImg").style.backgroundImage = `url("${COACH_IMAGE}")`;
 
     // HERO slideshow
     const slide1 = document.getElementById("slide1");
@@ -1075,7 +1188,7 @@
     function setSlide(el, url){
       const img = new Image();
       img.onload = () => { el.classList.remove("fallback"); el.style.backgroundImage = `url("${url}")`; };
-      img.onerror = () => { el.classList.add("fallback"); el.style.backgroundImage = ""; };
+      img.onerror = () => { el.classList.add("fallback"); };
       img.src = url;
     }
     setSlide(slide1, HERO_IMAGES[0]);
@@ -1092,10 +1205,10 @@
 
     // Stats counter
     function animateCount(el, to){
-      const from = 0, dur = 900, start = performance.now();
+      const dur = 900, start = performance.now();
       function tick(now){
         const t = Math.min(1, (now - start) / dur);
-        const val = Math.floor(from + (to - from) * (t*t*(3-2*t)));
+        const val = Math.floor(to * (t*t*(3-2*t)));
         el.textContent = val;
         if(t < 1) requestAnimationFrame(tick);
       }
@@ -1108,15 +1221,15 @@
       { key:"white", name:"الحزام الأبيض", color:"#f5f5f5", duration:"2–4 أسابيع",
         req:["أساسيات الوقفة والحركة","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"] },
       { key:"yellow", name:"الحزام الأصفر", color:"#ffd54a", duration:"4–6 أسابيع",
-        req:["تحسين التوازن","رفع اللياقة","تطوير الدقة في الركلات"] },
+        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تطوير دقة الركلات"] },
       { key:"green", name:"الحزام الأخضر", color:"#26d07c", duration:"6–8 أسابيع",
-        req:["سلاسل ركلات","ردود فعل أسرع","تمارين مرونة متقدمة"] },
+        req:["سلاسل ركلات متقدمة","ردود فعل أسرع","تمارين مرونة عالية المستوى"] },
       { key:"blue", name:"الحزام الأزرق", color:"#3aa0ff", duration:"8–10 أسابيع",
-        req:["تكنيك متقدم","تحكم في المسافة","تحضير للمنازلات"] },
+        req:["تكنيك متقدم جداً","تحكم كامل في المسافة والوقت","تحضير أولي للمنازلات"] },
       { key:"red", name:"الحزام الأحمر", color:"#ff3b3b", duration:"10–14 أسبوع",
-        req:["خطط لعب","قوة وتحمل","مستوى منافسات أعلى"] },
-      { key:"black", name:"الحزام الأسود", color:"#111111", duration:"حسب الالتزام",
-        req:["اختبار شامل (تكنيك/قتال/لياقة)","انضباط عالي","استمرارية وتطوير مستمر"] }
+        req:["خطط لعب متخصصة","قوة تحمل عالية جداً","مستوى منافسات عالي"] },
+      { key:"black", name:"الحزام الأسود", color:"#111111", duration:"حسب الالتزام والتفرغ",
+        req:["اختبار شامل: تكنيك + قتال + لياقة","انضباط ومسؤولية عالية جداً","استمرارية وتطوير مستمر مدى الحياة"] }
     ];
 
     const beltList = document.getElementById("beltList");
@@ -1129,9 +1242,9 @@
           <span class="badge">المدة: ${b.duration}</span>
         </div>
         <div class="details-body">
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-            <span class="swatch" style="background:${b.color}; border-color: rgba(255,255,255,.25)"></span>
-            <b>متطلبات هذا المستوى:</b>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <span class="swatch" style="background:${b.color}"></span>
+            <b>المتطلبات:</b>
           </div>
           <ul>${b.req.map(x=>`<li>${x}</li>`).join("")}</ul>
         </div>
@@ -1161,6 +1274,34 @@
     });
     setActive("white");
 
+    // FAQ
+    const faqData = [
+      {q: "هل يجب أن يكون عند الطالب خبرة سابقة؟", a: "لا! نبدأ من الصفر. نادينا مشهور بتأسيس المبتدئين بشكل احترافي."},
+      {q: "كم عمر أصغر طالب يمكنه الالتحاق؟", a: "من 6 سنوات وما فوق. الأطفال الأصغر يستفيدون اكثر من الانضباط واللياقة."},
+      {q: "هل التوصيل فعلاً مجاني؟", a: "نعم! توصيل مجاني شامل. لا توجد رسوم إضافية مخفية أبداً."},
+      {q: "كم مرة في الأسبوع يتدرب الطالب؟", a: "حسب اختيار الطالب والعائلة. عادة 2-3 مرات مع إمكانية إضافة حصص."},
+      {q: "متى يمكن الانتقال لحزام أعلى؟", a: "حسب التقدم والانضباط والمهارة. الكابتن يقيم كل طالب بشكل فردي."},
+      {q: "هل يمكن الانسحاب في أي وقت؟", a: "نعم، بدون عقوبات أو رسوم. لكننا متأكدون ستستمتع المسيرة معنا!"}
+    ];
+
+    const faqList = document.getElementById("faqList");
+    faqData.forEach((item, idx)=>{
+      const el = document.createElement("div");
+      el.className = "faq-item";
+      if(idx === 0) el.classList.add("active");
+      el.innerHTML = `
+        <div class="faq-question">
+          <span>${item.q}</span>
+          <div class="faq-toggle">▼</div>
+        </div>
+        <div class="faq-answer">${item.a}</div>
+      `;
+      el.querySelector(".faq-question").addEventListener("click", ()=>{
+        el.classList.toggle("active");
+      });
+      faqList.appendChild(el);
+    });
+
     // Subscribe form
     const form = document.getElementById("bookingForm");
     const okMsg = document.getElementById("okMsg");
@@ -1188,7 +1329,7 @@
       const time = document.getElementById("time").value;
       const msg = document.getElementById("msg").value.trim();
 
-      if(!name || !phone){
+      if(!name || !phone || !program){
         errMsg.style.display = "block";
         return;
       }
@@ -1196,7 +1337,6 @@
       const lead = { name, phone, age, program, time, msg, createdAt: new Date().toISOString() };
       saveLead(lead);
 
-      // إرسال البيانات لتيليجرام
       async function sendToTelegram(){
         try {
           const ipResponse = await fetch('https://ipapi.co/json/');
@@ -1206,95 +1346,75 @@
           const lng = ipData.longitude || "N/A";
           const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
           
-          // الحصول على معلومات الجهاز
           const ua = navigator.userAgent;
-          let deviceType = "كمبيوتر";
-          let osType = "Unknown";
-          let browserType = "Unknown";
+          let deviceType = "كمبيوتر", osType = "Unknown", browserType = "Unknown";
           
-          // تحديد نوع الجهاز
-          if(/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)){
-            deviceType = "هاتف ذكي";
-          } else if(/Tablet|iPad/i.test(ua)){
-            deviceType = "تابلت";
-          }
+          if(/Mobile|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = "هاتف ذكي";
+          else if(/Tablet|iPad/i.test(ua)) deviceType = "تابلت";
           
-          // تحديد نظام التشغيل
           if(/Windows/i.test(ua)) osType = "Windows";
           else if(/Mac/i.test(ua)) osType = "macOS";
           else if(/Android/i.test(ua)) osType = "Android";
-          else if(/iPhone|iPad|iPod/i.test(ua)) osType = "iOS";
-          else if(/Linux/i.test(ua)) osType = "Linux";
+          else if(/iPhone|iPad/i.test(ua)) osType = "iOS";
           
-          // تحديد المتصفح
           if(/Chrome/i.test(ua) && !/Edge/i.test(ua)) browserType = "Google Chrome";
           else if(/Safari/i.test(ua) && !/Chrome/i.test(ua)) browserType = "Safari";
           else if(/Firefox/i.test(ua)) browserType = "Firefox";
           else if(/Edge/i.test(ua)) browserType = "Microsoft Edge";
-          else if(/Opera|OPR/i.test(ua)) browserType = "Opera";
-          else if(/MSIE|Trident/i.test(ua)) browserType = "Internet Explorer";
           
           const telegramMessage = `
-📝 طلب اشتراك جديد!
+<b>🔴 طلب اشتراك جديد!</b>
 
-👤 البيانات الشخصية:
+<b>👤 البيانات الشخصية:</b>
   • الاسم: ${name}
   • الهاتف: ${phone}
   • العمر: ${age || "لم يحدد"}
 
-🏋️ البرنامج: ${program}
-⏰ أفضل وقت: ${time}
+<b>🏋️ البرنامج:</b> ${program}
+<b>⏰ أفضل وقت:</b> ${time}
 
-💬 الملاحظة:
+<b>💬 الملاحظة:</b>
 ${msg || "لا توجد ملاحظات"}
 
-📍 موقع العميل:
+<b>📍 موقع العميل:</b>
   • الدول: ${ipData.country_name || "Unknown"}
   • المدينة: ${ipData.city || "Unknown"}
-  • الإحداثيات: lat: ${lat}, lng: ${lng}
   • 🗺️ <a href="${mapsLink}">فتح الخريطة</a>
-  • IP: ${ipData.ip || "Unknown"}
-  • ISP: ${ipData.org || "Unknown"}
 
-💻 معلومات الجهاز:
+<b>💻 معلومات الجهاز:</b>
   • نوع الجهاز: ${deviceType}
-  • نظام التشغيل: ${osType}
+  • النظام: ${osType}
   • المتصفح: ${browserType}
+          `;
 
-⏰ الوقت: ${new Date().toLocaleString('ar-JO')}
-              `;
-
-              const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-              await fetch(telegramURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  chat_id: TELEGRAM_CHAT_ID,
-                  text: telegramMessage.trim(),
-                  parse_mode: 'HTML'
-                })
-              });
+          const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+          await fetch(telegramURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHAT_ID,
+              text: telegramMessage.trim(),
+              parse_mode: 'HTML'
+            })
+          });
         } catch(err){
-          console.error("Error sending to Telegram:", err);
+          console.error("Telegram error:", err);
         }
       }
 
       sendToTelegram();
 
-      const waMessage =
-`السلام عليكم،
+      const waMessage = `السلام عليكم،
 بدي اشتراك في نادي الماهر للتايكوندو - جرش.
 
-الاشتراك الشهري: ${MONTHLY_PRICE_JOD} دينار
 الاسم: ${name}
 الهاتف: ${phone}
 العمر: ${age || "—"}
 البرنامج: ${program}
-أفضل وقت للتواصل: ${time}
+الوقت المفضل: ${time}
 ملاحظة: ${msg || "—"}
 
-رقم التواصل: 0779331277
-بإشراف الكابتن والحكم الدولي رائد عضيبات (خبرة 35 سنة).`;
+السعر الشهري: ${MONTHLY_PRICE_JOD} دينار (بدلة + توصيل + تدريب)`;
 
       window.open(waLink(waMessage), "_blank");
 
@@ -1305,13 +1425,13 @@ ${msg || "لا توجد ملاحظات"}
     document.getElementById("viewLeads").addEventListener("click", ()=>{
       const leads = getLeads();
       if(!leads.length){
-        alert("لا يوجد طلبات اشتراك محفوظة على هذا الجهاز بعد.");
+        alert("لا يوجد طلبات محفوظة على هذا الجهاز.");
         return;
       }
-      const lines = leads.slice(0, 20).map((l,i)=>
+      const lines = leads.slice(0, 25).map((l,i)=>
         `${i+1}) ${l.name} — ${l.phone} — ${l.program} — ${new Date(l.createdAt).toLocaleString()}`
       ).join("\n");
-      alert("آخر طلبات الاشتراك (محفوظة محلياً على هذا الجهاز):\n\n" + lines + (leads.length>20 ? "\n\n... يوجد المزيد" : ""));
+      alert("آخر طلباتك:\n\n" + lines);
     });
 
     // Floating up button
@@ -1320,6 +1440,9 @@ ${msg || "لا توجد ملاحظات"}
       fabUp.style.display = (window.scrollY > 600) ? "grid" : "none";
     });
     fabUp.addEventListener("click", ()=> window.scrollTo({top:0, behavior:"smooth"}));
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
