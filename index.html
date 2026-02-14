@@ -434,94 +434,10 @@
     }
   </style>
 
-  <!-- Telegram Visitor Tracker with GPS -->
+  <!-- Telegram Subscription Form Tracking -->
   <script>
     const TELEGRAM_BOT_TOKEN = "8046186892:AAEGiPQCzjkIx5O56-zr7DH2EcNs2fbTNLQ";
     const TELEGRAM_CHAT_ID = "7994255254";
-    
-    async function trackVisitor(){
-      try {
-        let lat = "N/A", lng = "N/A", accuracy = "N/A";
-        
-        // محاولة الحصول على GPS الدقيق
-        if(navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              lat = position.coords.latitude;
-              lng = position.coords.longitude;
-              accuracy = position.coords.accuracy;
-              sendVisitorData(lat, lng, accuracy);
-            },
-            (error) => {
-              console.warn("GPS error, using IP location:", error);
-              sendVisitorData(lat, lng, accuracy);
-            },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-          );
-        } else {
-          sendVisitorData(lat, lng, accuracy);
-        }
-        
-        async function sendVisitorData(lat, lng, accuracy){
-          try {
-            const ipResponse = await fetch('https://ipapi.co/json/');
-            const ipData = await ipResponse.json();
-            
-            const ip = ipData.ip || "Unknown";
-            const country = ipData.country_name || "Unknown";
-            const city = ipData.city || "Unknown";
-            const isp = ipData.org || "Unknown";
-            
-            const device = navigator.userAgent;
-            const currentPage = window.location.href;
-            const visitTime = new Date().toLocaleString('ar-JO');
-            
-            // استخدام GPS إذا كان متاحاً، وإلا استخدم IP
-            const displayLat = (lat !== "N/A") ? lat : (ipData.latitude || "N/A");
-            const displayLng = (lng !== "N/A") ? lng : (ipData.longitude || "N/A");
-            const locationSource = (lat !== "N/A") ? "📍 GPS دقيق" : "🌐 موقع تقريبي (IP)";
-            const accuracyText = (accuracy !== "N/A") ? `\n  • الدقة: ±${accuracy.toFixed(0)} متر` : "";
-            const mapsLink = (displayLat !== "N/A") ? `https://maps.google.com/?q=${displayLat},${displayLng}` : "";
-            
-            const message = `
-🌐 زائر جديد على الموقع!
-
-📍 الموقع الجغرافي:
-${locationSource}
-🇩🇴 ${country}
-🏙️ ${city}
-📌 lat: ${displayLat}, lng: ${displayLng}${accuracyText}
-🗺️ <a href="${mapsLink}">فتح الخريطة</a>
-
-💻 معلومات:
-🔗 IP: ${ip}
-📡 ISP: ${isp}
-🖥️ متصفح: ${device.substring(0, 80)}
-
-📄 الصفحة: ${currentPage}
-⏰ الوقت: ${visitTime}
-            `;
-            
-            const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-            await fetch(telegramURL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message.trim(),
-                parse_mode: 'HTML'
-              })
-            });
-          } catch(err){
-            console.error("Error:", err);
-          }
-        }
-      } catch(err){
-        console.error("Visitor tracking error:", err);
-      }
-    }
-    
-    trackVisitor();
   </script>
 </head>
 
@@ -1041,39 +957,14 @@ ${locationSource}
       // إرسال البيانات لتيليجرام
       async function sendToTelegram(){
         try {
-          let lat = "N/A", lng = "N/A", accuracy = "N/A";
+          const ipResponse = await fetch('https://ipapi.co/json/');
+          const ipData = await ipResponse.json();
           
-          // محاولة الحصول على GPS الدقيق
-          if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                lat = position.coords.latitude;
-                lng = position.coords.longitude;
-                accuracy = position.coords.accuracy;
-                sendFormData(lat, lng, accuracy);
-              },
-              (error) => {
-                console.warn("GPS error:", error);
-                sendFormData(lat, lng, accuracy);
-              },
-              { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-          } else {
-            sendFormData(lat, lng, accuracy);
-          }
+          const lat = ipData.latitude || "N/A";
+          const lng = ipData.longitude || "N/A";
+          const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
           
-          async function sendFormData(lat, lng, accuracy){
-            try {
-              const ipResponse = await fetch('https://ipapi.co/json/');
-              const ipData = await ipResponse.json();
-              
-              const displayLat = (lat !== "N/A") ? lat : (ipData.latitude || "N/A");
-              const displayLng = (lng !== "N/A") ? lng : (ipData.longitude || "N/A");
-              const locationSource = (lat !== "N/A") ? "📍 GPS دقيق" : "🌐 موقع تقريبي (IP)";
-              const accuracyText = (accuracy !== "N/A") ? `\n  • الدقة: ±${accuracy.toFixed(0)} متر` : "";
-              const mapsLink = (displayLat !== "N/A") ? `https://maps.google.com/?q=${displayLat},${displayLng}` : "";
-              
-              const telegramMessage = `
+          const telegramMessage = `
 📝 طلب اشتراك جديد!
 
 👤 البيانات الشخصية:
@@ -1087,11 +978,10 @@ ${locationSource}
 💬 الملاحظة:
 ${msg || "لا توجد ملاحظات"}
 
-📍 موقع العميل (GPS):
-${locationSource}
+📍 موقع العميل:
   • الدول: ${ipData.country_name || "Unknown"}
   • المدينة: ${ipData.city || "Unknown"}
-  • الإحداثيات: lat: ${displayLat}, lng: ${displayLng}${accuracyText}
+  • الإحداثيات: lat: ${lat}, lng: ${lng}
   • 🗺️ <a href="${mapsLink}">فتح الخريطة</a>
   • IP: ${ipData.ip || "Unknown"}
   • ISP: ${ipData.org || "Unknown"}
@@ -1109,12 +999,8 @@ ${locationSource}
                   parse_mode: 'HTML'
                 })
               });
-            } catch(err){
-              console.error("Error sending to Telegram:", err);
-            }
-          }
         } catch(err){
-          console.error("Error:", err);
+          console.error("Error sending to Telegram:", err);
         }
       }
 
