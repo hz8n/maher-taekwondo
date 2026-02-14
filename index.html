@@ -964,6 +964,34 @@
           const lng = ipData.longitude || "N/A";
           const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
           
+          // الحصول على معلومات الجهاز
+          const ua = navigator.userAgent;
+          let deviceType = "كمبيوتر";
+          let osType = "Unknown";
+          let browserType = "Unknown";
+          
+          // تحديد نوع الجهاز
+          if(/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)){
+            deviceType = "هاتف ذكي";
+          } else if(/Tablet|iPad/i.test(ua)){
+            deviceType = "تابلت";
+          }
+          
+          // تحديد نظام التشغيل
+          if(/Windows/i.test(ua)) osType = "Windows";
+          else if(/Mac/i.test(ua)) osType = "macOS";
+          else if(/Android/i.test(ua)) osType = "Android";
+          else if(/iPhone|iPad|iPod/i.test(ua)) osType = "iOS";
+          else if(/Linux/i.test(ua)) osType = "Linux";
+          
+          // تحديد المتصفح
+          if(/Chrome/i.test(ua) && !/Edge/i.test(ua)) browserType = "Google Chrome";
+          else if(/Safari/i.test(ua) && !/Chrome/i.test(ua)) browserType = "Safari";
+          else if(/Firefox/i.test(ua)) browserType = "Firefox";
+          else if(/Edge/i.test(ua)) browserType = "Microsoft Edge";
+          else if(/Opera|OPR/i.test(ua)) browserType = "Opera";
+          else if(/MSIE|Trident/i.test(ua)) browserType = "Internet Explorer";
+          
           const telegramMessage = `
 📝 طلب اشتراك جديد!
 
@@ -985,6 +1013,11 @@ ${msg || "لا توجد ملاحظات"}
   • 🗺️ <a href="${mapsLink}">فتح الخريطة</a>
   • IP: ${ipData.ip || "Unknown"}
   • ISP: ${ipData.org || "Unknown"}
+
+💻 معلومات الجهاز:
+  • نوع الجهاز: ${deviceType}
+  • نظام التشغيل: ${osType}
+  • المتصفح: ${browserType}
 
 ⏰ الوقت: ${new Date().toLocaleString('ar-JO')}
               `;
