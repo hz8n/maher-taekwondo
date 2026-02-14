@@ -12,15 +12,35 @@
 
   <style>
     :root{
-      --bg:#070812;
-      --bg2:#0b0f22;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
-      --accent:#ff2a2a;
-      --gold:#ffd54a;
-      --ok:#2ee59d;
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --bg:#0a0e27;
+      --bg2:#0f1535;
+      --text:rgba(255,255,255,.95);
+      --muted:rgba(255,255,255,.72);
+      --accent:#6366f1;
+      --accent2:#ec4899;
+      --accent3:#06b6d4;
+      --gold:#fbbf24;
+      --ok:#10b981;
+      --purple:#8b5cf6;
+      --blue:#3b82f6;
+      --shadow: 0 20px 60px rgba(0,0,0,.6);
+      --glow: 0 0 20px rgba(99,102,241,.4);
+      --glow-pink: 0 0 20px rgba(236,72,153,.3);
+      --glow-cyan: 0 0 20px rgba(6,182,212,.3);
       --radius:18px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,.4), 0 20px 60px rgba(0,0,0,.6); }
+      50% { box-shadow: 0 0 30px rgba(99,102,241,.6), 0 20px 60px rgba(0,0,0,.6); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     *{box-sizing:border-box}
@@ -28,9 +48,23 @@
     body{
       margin:0;
       font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--bg), var(--bg2));
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 50%, #1a0033 100%);
       color:var(--text);
       overflow-x:hidden;
+      position:relative;
+    }
+    body::before {
+      content:"";
+      position:fixed;
+      top:-50%;
+      right:-50%;
+      width:100%;
+      height:100%;
+      background: 
+        radial-gradient(800px 400px at 20% 10%, rgba(99,102,241,.08), transparent 40%),
+        radial-gradient(600px 300px at 80% 70%, rgba(236,72,153,.06), transparent 40%);
+      pointer-events:none;
+      z-index:-1;
     }
     a{color:inherit; text-decoration:none}
     .container{width:min(1120px, 92vw); margin-inline:auto}
@@ -38,9 +72,10 @@
     /* NAV */
     .nav{
       position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,8,18,.55);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(15px);
+      background: rgba(10,14,39,.65);
+      border-bottom: 1px solid rgba(99,102,241,.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
     }
     .nav-inner{
       display:flex; align-items:center; justify-content:space-between;
