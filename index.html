@@ -643,6 +643,7 @@
       box-shadow: 0 15px 40px rgba(0,0,0,.4);
     }
     .fab.up{display:none}
+    .wa-sticky-cta{display:none}
 
     @media (max-width: 980px){
       .nav-links{display:none}
@@ -772,7 +773,71 @@
     }
 
     @media (max-width: 980px){
+      body{padding-bottom:92px}
       .booking > .card:last-child{position:static}
+
+      /* Mobile-first schedule cards */
+      .schedule-table{
+        border:0;
+        background:transparent;
+      }
+      .schedule-table thead{display:none}
+      .schedule-table tbody{
+        display:grid;
+        gap:10px;
+      }
+      .schedule-table tr{
+        display:block;
+        padding:12px 14px;
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+      }
+      .schedule-table td{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+        padding:10px 0;
+        border-bottom:1px solid rgba(255,255,255,.1);
+      }
+      .schedule-table td:first-child{padding-top:0}
+      .schedule-table td:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+      }
+      .schedule-table td::before{
+        content: attr(data-label);
+        color:var(--muted);
+        font-weight:900;
+        white-space:nowrap;
+        flex:0 0 auto;
+      }
+
+      /* Sticky WhatsApp CTA on mobile */
+      .wa-sticky-cta{
+        position:fixed;
+        right:12px;
+        left:12px;
+        bottom:calc(10px + env(safe-area-inset-bottom));
+        z-index:85;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding:13px 16px;
+        border-radius:14px;
+        border:1px solid rgba(46,229,157,.35);
+        background: linear-gradient(135deg, #0f9f5f, #18c47a);
+        color:#fff;
+        font-weight:1000;
+      }
+      .wa-sticky-cta svg{flex:0 0 auto}
+      .float{
+        left:12px;
+        bottom:calc(84px + env(safe-area-inset-bottom));
+      }
+      .float .whatsapp{display:none}
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -1063,19 +1128,19 @@
         </thead>
         <tbody id="scheduleBody">
           <tr>
-            <td>الأحد - الثلاثاء - الخميس</td>
-            <td class="time">4:00 - 5:00 PM</td>
-            <td>تأسيس حركي ولياقة أساسية</td>
+            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
+            <td data-label="📝 الملاحظة">تأسيس حركي ولياقة أساسية</td>
           </tr>
           <tr>
-            <td>الأحد - الثلاثاء - الخميس</td>
-            <td class="time">5:00 - 6:00 PM</td>
-            <td>تكنيك متقدم وتدريب مكثف</td>
+            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">5:00 - 6:00 PM</td>
+            <td data-label="📝 الملاحظة">تكنيك متقدم وتدريب مكثف</td>
           </tr>
           <tr>
-            <td>الأحد - الثلاثاء - الخميس</td>
-            <td class="time">4:00 - 5:00 PM</td>
-            <td>تدريب إناث بإشراف مدرّبة إناث</td>
+            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
+            <td data-label="📝 الملاحظة">تدريب إناث بإشراف مدرّبة إناث</td>
           </tr>
         </tbody>
       </table>
@@ -1218,6 +1283,13 @@
     </div>
   </div>
 
+  <a class="wa-sticky-cta" id="waStickyCta" href="https://wa.me/962779331277" target="_blank" rel="noopener">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span>احجز حصتك عبر واتساب الآن</span>
+  </a>
+
   <script>
     function waLink(message){
       const text = encodeURIComponent(message);
@@ -1227,11 +1299,12 @@
     // WhatsApp buttons
     const btnWhatsNav = document.getElementById("btnWhatsNav");
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
+    const waStickyCta = document.getElementById("waStickyCta");
     const fabWhats = document.getElementById("fabWhats");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).`;
 
-    [btnWhatsNav, btnWhatsFoot].forEach((btn) => {
+    [btnWhatsNav, btnWhatsFoot, waStickyCta].forEach((btn) => {
       if(!btn) return;
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
