@@ -2126,6 +2126,11 @@
             <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
             <td data-label="📝 الملاحظة" id="scheduleRow3Note">تدريب إناث بإشراف مدرّبة إناث</td>
           </tr>
+          <tr>
+            <td data-label="📅 أيام التدريب" id="scheduleRow4Days">السبت - الاثنين - الأربعاء</td>
+            <td class="time" data-label="⏰ الوقت">5:00 - 6:00 PM</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow4Note">تدريب للمبتدئين</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -2570,6 +2575,8 @@
           scheduleRow2Note: "تكنيك متقدم وتدريب مكثف",
           scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
           scheduleRow3Note: "تدريب إناث بإشراف مدرّبة إناث",
+          scheduleRow4Days: "السبت - الاثنين - الأربعاء",
+          scheduleRow4Note: "تدريب للمبتدئين",
           bookTitle: "اشترك الآن",
           bookDesc: "ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة لإرسال الطلب فوراً.",
           nameLabel: "الاسم الكامل",
@@ -2804,6 +2811,8 @@
           scheduleRow2Note: "Advanced technique and intensive training",
           scheduleRow3Days: "Sunday - Tuesday - Thursday",
           scheduleRow3Note: "Women classes supervised by a female coach",
+          scheduleRow4Days: "Saturday - Monday - Wednesday",
+          scheduleRow4Note: "Beginner training",
           bookTitle: "Join Now",
           bookDesc: "Fast and simple form. WhatsApp opens with a ready message to submit instantly.",
           nameLabel: "Full Name",
@@ -3597,6 +3606,8 @@
       beltList.innerHTML = "";
       const beltFragment = document.createDocumentFragment();
       belts.forEach((b)=>{
+        const subGrades = getBeltSubGrades(b);
+        const subGradesSummary = subGrades.length ? ` • ${subGrades.join(" / ")}` : "";
         const el = document.createElement("div");
         el.className = "belt";
         el.setAttribute("data-key", b.key);
@@ -3605,7 +3616,7 @@
             <span class="swatch" style="background:${b.color}"></span>
             <span>${getBeltName(b)}</span>
           </div>
-          <small>${getBeltDuration(b)} • ${getBeltFeeLabel(b)}${getBeltSubGrades(b).length ? (currentLang === "en" ? " • 2 grades" : " • درجتان") : ""}</small>
+          <small>${getBeltDuration(b)} • ${getBeltFeeLabel(b)}${subGradesSummary}</small>
         `;
         el.addEventListener("click", ()=> setActive(b.key));
         beltFragment.appendChild(el);
@@ -4530,4 +4541,6 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
+
+
 
