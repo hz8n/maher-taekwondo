@@ -617,6 +617,167 @@
       font-weight:1000;
     }
 
+    /* Parent Reviews */
+    .reviews-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .reviews-filters{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .review-filter{
+      min-width:180px;
+    }
+    .reviews-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .review-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .review-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .review-name{
+      margin:0;
+      font-size:17px;
+      font-weight:1000;
+    }
+    .review-stars{
+      color:var(--gold);
+      letter-spacing:2px;
+      font-size:14px;
+      font-weight:1000;
+      white-space:nowrap;
+    }
+    .review-meta{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+      line-height:1.8;
+    }
+    .review-text{
+      margin:0;
+      color:rgba(255,255,255,.88);
+      font-weight:800;
+      line-height:1.85;
+      font-size:14px;
+    }
+    .review-empty{
+      grid-column:1 / -1;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.2);
+      padding:18px;
+      color:var(--muted);
+      font-weight:900;
+      text-align:center;
+    }
+
+    /* Student Rewards */
+    .student-reward-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .reward-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .reward-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .reward-name{
+      margin:0;
+      font-size:17px;
+      font-weight:1000;
+    }
+    .reward-code{
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.08);
+      padding:5px 10px;
+      font-weight:1000;
+    }
+    .reward-points{
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+    }
+    .reward-points b{
+      font-size:28px;
+      color:var(--accent3);
+      line-height:1;
+    }
+    .reward-points span{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+    }
+    .reward-meta{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+    }
+    .reward-progress{
+      height:10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background:rgba(255,255,255,.09);
+    }
+    .reward-progress > span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--accent2), var(--accent3));
+    }
+    .reward-next{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+    }
+    .reward-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .reward-badge{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:1000;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+
     /* English quick panel */
     .english-quick[hidden]{display:none}
     .english-panel{
@@ -881,6 +1042,14 @@
       .journey{grid-template-columns: 1fr}
       .tracker-layout{grid-template-columns: 1fr}
       .achievement-list{grid-template-columns: 1fr}
+      .reviews-grid{grid-template-columns: 1fr}
+      .student-reward-grid{grid-template-columns: 1fr}
+      .reviews-filters{
+        width:100%;
+      }
+      .review-filter{
+        flex:1 1 180px;
+      }
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
       .sec-head{margin-bottom:20px}
@@ -1129,17 +1298,25 @@
     html[data-theme="light"] .stat,
     html[data-theme="light"] .belt,
     html[data-theme="light"] .achievement-card,
+    html[data-theme="light"] .review-card,
+    html[data-theme="light"] .reward-card,
     html[data-theme="light"] .english-panel{
       background: rgba(255,255,255,.88);
       border-color: rgba(16,48,74,.14);
     }
     html[data-theme="light"] .calc-chip,
-    html[data-theme="light"] .medal{
+    html[data-theme="light"] .medal,
+    html[data-theme="light"] .reward-badge,
+    html[data-theme="light"] .reward-code{
       background: rgba(16,48,74,.06);
       border-color: rgba(16,48,74,.2);
       color:var(--text);
     }
     html[data-theme="light"] .tracker-progress{
+      background: rgba(16,48,74,.08);
+      border-color: rgba(16,48,74,.18);
+    }
+    html[data-theme="light"] .reward-progress{
       background: rgba(16,48,74,.08);
       border-color: rgba(16,48,74,.18);
     }
@@ -1240,6 +1417,8 @@
         <a id="navPricing" href="#pricing">الأسعار</a>
         <a id="navCalculator" href="#calculator">الحاسبة</a>
         <a id="navTracker" href="#tracker">التتبع</a>
+        <a id="navReviews" href="#reviews">آراء الأهالي</a>
+        <a id="navRewards" href="#rewards">نقاط الطلاب</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
         <a id="navBook" href="#book">الاشتراك</a>
       </div>
@@ -1592,6 +1771,59 @@
     </div>
   </section>
 
+  <!-- PARENT REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي وتقييماتهم</h2>
+          <p class="sec-desc" id="reviewsDesc">آراء حقيقية من أولياء الأمور مع فلترة حسب العمر والمستوى.</p>
+        </div>
+      </div>
+
+      <div class="reviews-toolbar">
+        <div class="reviews-filters">
+          <div class="review-filter">
+            <label for="reviewAgeFilter" id="reviewAgeLabel">فلترة حسب العمر</label>
+            <select id="reviewAgeFilter">
+              <option id="reviewAgeAllOpt" value="all">كل الأعمار</option>
+              <option id="reviewAgeKidsOpt" value="6-9">6-9 سنوات</option>
+              <option id="reviewAgeTeensOpt" value="10-13">10-13 سنة</option>
+              <option id="reviewAgeYouthOpt" value="14+">14 سنة فأكثر</option>
+            </select>
+          </div>
+
+          <div class="review-filter">
+            <label for="reviewLevelFilter" id="reviewLevelLabel">فلترة حسب المستوى</label>
+            <select id="reviewLevelFilter">
+              <option id="reviewLevelAllOpt" value="all">كل المستويات</option>
+              <option id="reviewLevelBeginnerOpt" value="beginner">مبتدئ</option>
+              <option id="reviewLevelIntermediateOpt" value="intermediate">متوسط</option>
+              <option id="reviewLevelAdvancedOpt" value="advanced">متقدم</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-grid" id="reviewsList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- STUDENT REWARDS -->
+  <section id="rewards">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="rewardsTitle">نظام نقاط وأوسمة الطلاب</h2>
+          <p class="sec-desc" id="rewardsDesc">كل حضور وإنجاز يتحول إلى نقاط، ومع كل مستوى أعلى يحصل الطالب على شارة مرئية.</p>
+        </div>
+      </div>
+
+      <p class="calc-note" id="rewardsFormula">الحضور = 10 نقاط، الإنجاز = 25 نقطة. تظهر الأوسمة تلقائيًا حسب مجموع النقاط.</p>
+      <div class="student-reward-grid" id="studentRewardsList" aria-live="polite"></div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <div class="container">
@@ -1830,6 +2062,8 @@
           navCalculator: "الحاسبة",
           navJourney: "الأحزمة",
           navTracker: "التتبع",
+          navReviews: "آراء الأهالي",
+          navRewards: "نقاط الطلاب",
           navAchievements: "النتائج",
           navFaq: "الأسئلة",
           navBook: "الاشتراك",
@@ -1865,6 +2099,21 @@
           trackerCurrentLabel: "الحزام الحالي:",
           trackerNextLabel: "الحزام القادم:",
           trackerGoalsLabel: "المهارات المطلوبة للترقية:",
+          reviewsTitle: "آراء الأهالي وتقييماتهم",
+          reviewsDesc: "آراء حقيقية من أولياء الأمور مع فلترة حسب العمر والمستوى.",
+          reviewAgeLabel: "فلترة حسب العمر",
+          reviewLevelLabel: "فلترة حسب المستوى",
+          reviewAgeAllOpt: "كل الأعمار",
+          reviewAgeKidsOpt: "6-9 سنوات",
+          reviewAgeTeensOpt: "10-13 سنة",
+          reviewAgeYouthOpt: "14 سنة فأكثر",
+          reviewLevelAllOpt: "كل المستويات",
+          reviewLevelBeginnerOpt: "مبتدئ",
+          reviewLevelIntermediateOpt: "متوسط",
+          reviewLevelAdvancedOpt: "متقدم",
+          rewardsTitle: "نظام نقاط وأوسمة الطلاب",
+          rewardsDesc: "كل حضور وإنجاز يتحول إلى نقاط، ومع كل مستوى أعلى يحصل الطالب على شارة مرئية.",
+          rewardsFormula: "الحضور = 10 نقاط، الإنجاز = 25 نقطة. تظهر الأوسمة تلقائيًا حسب مجموع النقاط.",
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.",
           achievementFilterLabel: "تصفية حسب السنة",
@@ -1886,6 +2135,8 @@
           navCalculator: "Calculator",
           navJourney: "Belts",
           navTracker: "Tracker",
+          navReviews: "Parents Reviews",
+          navRewards: "Student Rewards",
           navAchievements: "Results",
           navFaq: "FAQ",
           navBook: "Join",
@@ -1921,6 +2172,21 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
+          reviewsTitle: "Parent Reviews & Ratings",
+          reviewsDesc: "Real parent feedback with filters by age and level to build trust.",
+          reviewAgeLabel: "Filter by age",
+          reviewLevelLabel: "Filter by level",
+          reviewAgeAllOpt: "All ages",
+          reviewAgeKidsOpt: "Ages 6-9",
+          reviewAgeTeensOpt: "Ages 10-13",
+          reviewAgeYouthOpt: "Ages 14+",
+          reviewLevelAllOpt: "All levels",
+          reviewLevelBeginnerOpt: "Beginner",
+          reviewLevelIntermediateOpt: "Intermediate",
+          reviewLevelAdvancedOpt: "Advanced",
+          rewardsTitle: "Student Points & Badges",
+          rewardsDesc: "Attendance and achievements turn into points, and students earn visible badges over time.",
+          rewardsFormula: "Attendance = 10 points, achievement = 25 points. Badges update automatically by total points.",
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
@@ -2513,6 +2779,18 @@
 
     // Achievements timeline
     const achievementsData = [
+      {
+        date: "2026-02-15",
+        titleAr: "بطولة البرق للمملكة",
+        titleEn: "Al Barq National Championship",
+        locationAr: "المملكة الأردنية الهاشمية",
+        locationEn: "Jordan",
+        gold: 7,
+        silver: 3,
+        bronze: 2,
+        noteAr: "حققت المركز الخامس على مستوى المملكة، وحقق النادي 7 ميداليات ذهبية و3 فضية و2 برونزية.",
+        noteEn: "I achieved 5th place nationwide, and the club won 7 gold, 3 silver, and 2 bronze medals."
+      },
       {
         date: "2026-01-30",
         titleAr: "بطولة جرش المفتوحة للتايكوندو",
