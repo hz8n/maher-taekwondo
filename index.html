@@ -756,80 +756,6 @@
       border:1px solid rgba(255,42,42,.35);
     }
 
-    /* Student Rewards */
-    .student-reward-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .reward-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .reward-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-    }
-    .reward-name{
-      margin:0;
-      font-size:17px;
-      font-weight:1000;
-    }
-    .reward-code{
-      font-size:12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.2);
-      background:rgba(255,255,255,.08);
-      padding:5px 10px;
-      font-weight:1000;
-    }
-    .reward-meta{
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-    }
-    .reward-progress{
-      height:10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      overflow:hidden;
-      background:rgba(255,255,255,.09);
-    }
-    .reward-progress > span{
-      display:block;
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--accent2), var(--accent3));
-    }
-    .reward-next{
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-    }
-    .reward-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-    .reward-badge{
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:1000;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-    }
-
     /* English quick panel */
     .english-quick[hidden]{display:none}
     .english-panel{
@@ -862,8 +788,7 @@
     html[data-lang="en"] .faq-answer,
     html[data-lang="en"] .mini-body,
     html[data-lang="en"] .price-left,
-    html[data-lang="en"] .review-card,
-    html[data-lang="en"] .reward-card{
+    html[data-lang="en"] .review-card{
       text-align:left;
     }
     html[data-lang="en"] .schedule-table th{
@@ -1047,6 +972,58 @@
     .ok,.err{display:none; padding:12px 14px; border-radius:14px; font-weight:1000; font-size:14px}
     .ok{border:1px solid rgba(46,229,157,.35); background: rgba(46,229,157,.10)}
     .err{border:1px solid rgba(255,42,42,.35); background: rgba(255,42,42,.10)}
+    .payment-details{
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .payment-option{
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.2);
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .payment-option b{
+      font-size:14px;
+      font-weight:1000;
+    }
+    .payment-line{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:900;
+      line-height:1.7;
+      flex-wrap:wrap;
+    }
+    .payment-value{
+      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      word-break:break-word;
+    }
+    .payment-copy-status{
+      display:none;
+      border-radius:12px;
+      padding:9px 10px;
+      font-weight:900;
+      font-size:12px;
+      border:1px solid rgba(42,210,159,.35);
+      background:rgba(42,210,159,.12);
+      color:var(--text);
+    }
+    .payment-copy-status.error{
+      border-color: rgba(255,42,42,.35);
+      background: rgba(255,42,42,.12);
+    }
 
     footer{
       padding:32px 0 50px;
@@ -1098,7 +1075,6 @@
       .achievement-list{grid-template-columns: 1fr}
       .news-list{grid-template-columns: 1fr}
       .reviews-grid{grid-template-columns: 1fr}
-      .student-reward-grid{grid-template-columns: 1fr}
       .reviews-filters{
         width:100%;
       }
@@ -1365,25 +1341,18 @@
     html[data-theme="light"] .news-card,
     html[data-theme="light"] .review-card,
     html[data-theme="light"] .review-form-card,
-    html[data-theme="light"] .reward-card,
     html[data-theme="light"] .english-panel{
       background: rgba(255,255,255,.88);
       border-color: rgba(16,48,74,.14);
     }
     html[data-theme="light"] .calc-chip,
     html[data-theme="light"] .medal,
-    html[data-theme="light"] .news-chip,
-    html[data-theme="light"] .reward-badge,
-    html[data-theme="light"] .reward-code{
+    html[data-theme="light"] .news-chip{
       background: rgba(16,48,74,.06);
       border-color: rgba(16,48,74,.2);
       color:var(--text);
     }
     html[data-theme="light"] .tracker-progress{
-      background: rgba(16,48,74,.08);
-      border-color: rgba(16,48,74,.18);
-    }
-    html[data-theme="light"] .reward-progress{
       background: rgba(16,48,74,.08);
       border-color: rgba(16,48,74,.18);
     }
@@ -1509,7 +1478,6 @@
         <a id="navCalculator" href="#calculator">الحاسبة</a>
         <a id="navTracker" href="#tracker">التتبع</a>
         <a id="navReviews" href="#reviews">آراء الأهالي</a>
-        <a id="navRewards" href="#rewards">أوسمة الطلاب</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
         <a id="navNews" href="#news">الأخبار</a>
         <a id="navBook" href="#book">الاشتراك</a>
@@ -1936,21 +1904,6 @@
     </div>
   </section>
 
-  <!-- STUDENT REWARDS -->
-  <section id="rewards">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="rewardsTitle">أوسمة الطلاب</h2>
-          <p class="sec-desc" id="rewardsDesc">متابعة الأوسمة والإنجازات لكل طالب بدون عرض الأسماء.</p>
-        </div>
-      </div>
-
-      <p class="calc-note" id="rewardsFormula">تتحدث الأوسمة تلقائيًا حسب مستوى الحضور والإنجازات.</p>
-      <div class="student-reward-grid" id="studentRewardsList" aria-live="polite"></div>
-    </div>
-  </section>
-
   <!-- FAQ -->
   <section id="faq">
     <div class="container">
@@ -2100,8 +2053,36 @@
                 <option value="cliq" id="paymentMethodCliqOpt">كليك (CliQ)</option>
                 <option value="bank" id="paymentMethodBankOpt">تحويل بنكي</option>
                 <option value="wallet" id="paymentMethodWalletOpt">محفظة إلكترونية</option>
+                <option value="crypto" id="paymentMethodCryptoOpt">دفع مشفّر (USDT)</option>
               </select>
               <p class="calc-note" id="paymentMethodHint">يمكنك تعديل طريقة الدفع لاحقاً عند الحضور.</p>
+              <div class="payment-details" id="paymentDetailsWrap" hidden>
+                <p class="calc-note" id="paymentDetailsTitle">تفاصيل الدفع حسب الطريقة المختارة:</p>
+
+                <div class="payment-option" id="bankDetailsBlock" hidden>
+                  <b id="bankDetailsTitle">الدفع عبر التحويل البنكي</b>
+                  <div class="payment-line"><span id="bankNameLabel">اسم البنك:</span> <span class="payment-value" id="bankNameValue">البنك العربي</span></div>
+                  <div class="payment-line"><span id="bankAccountLabel">اسم الحساب:</span> <span class="payment-value" id="bankAccountValue">نادي الماهر للتايكوندو</span></div>
+                  <div class="payment-line"><span id="bankIbanLabel">رقم الآيبان:</span> <span class="payment-value" id="bankIbanValue">JO00 0000 0000 0000 0000 0000 000</span></div>
+                  <button class="btn" id="copyBankIbanBtn" type="button">نسخ الآيبان</button>
+                </div>
+
+                <div class="payment-option" id="walletDetailsBlock" hidden>
+                  <b id="walletDetailsTitle">الدفع عبر المحفظة الإلكترونية</b>
+                  <div class="payment-line"><span id="walletProviderLabel">مزود المحفظة:</span> <span class="payment-value" id="walletProviderValue">JoMoPay / Zain Cash / Orange Money</span></div>
+                  <div class="payment-line"><span id="walletNumberLabel">رقم المحفظة:</span> <span class="payment-value" id="walletNumberValue">0779331277</span></div>
+                  <button class="btn" id="copyWalletNumberBtn" type="button">نسخ رقم المحفظة</button>
+                </div>
+
+                <div class="payment-option" id="cryptoDetailsBlock" hidden>
+                  <b id="cryptoDetailsTitle">الدفع المشفّر (USDT)</b>
+                  <div class="payment-line"><span id="cryptoNetworkLabel">الشبكة:</span> <span class="payment-value" id="cryptoNetworkValue">TRC20</span></div>
+                  <div class="payment-line"><span id="cryptoAddressLabel">عنوان المحفظة:</span> <span class="payment-value" id="cryptoAddressValue">TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></div>
+                  <button class="btn" id="copyCryptoAddressBtn" type="button">نسخ عنوان المحفظة</button>
+                </div>
+
+                <p class="payment-copy-status" id="paymentCopyStatus" aria-live="polite"></p>
+              </div>
             </div>
 
             <div>
@@ -2123,7 +2104,7 @@
           </p>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
             <b id="paymentMethodsTitle">طرق الدفع:</b>
-            <span id="paymentMethodsList">نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية.</span>
+            <span id="paymentMethodsList">نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية، ودفع مشفّر (USDT).</span>
           </p>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
             <b id="contactLocationLabel">الموقع:</b> <span id="contactLocationValue">جرش</span>
@@ -2202,6 +2183,18 @@
     const themeToggle = document.getElementById("themeToggle");
     const langToggle = document.getElementById("langToggle");
     const installAppBtn = document.getElementById("installAppBtn");
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const paymentDetailsWrap = document.getElementById("paymentDetailsWrap");
+    const bankDetailsBlock = document.getElementById("bankDetailsBlock");
+    const walletDetailsBlock = document.getElementById("walletDetailsBlock");
+    const cryptoDetailsBlock = document.getElementById("cryptoDetailsBlock");
+    const paymentCopyStatus = document.getElementById("paymentCopyStatus");
+    const bankIbanValueEl = document.getElementById("bankIbanValue");
+    const walletNumberValueEl = document.getElementById("walletNumberValue");
+    const cryptoAddressValueEl = document.getElementById("cryptoAddressValue");
+    const copyBankIbanBtn = document.getElementById("copyBankIbanBtn");
+    const copyWalletNumberBtn = document.getElementById("copyWalletNumberBtn");
+    const copyCryptoAddressBtn = document.getElementById("copyCryptoAddressBtn");
     const rootEl = document.documentElement;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -2218,7 +2211,6 @@
           navJourney: "الأحزمة",
           navTracker: "التتبع",
           navReviews: "آراء الأهالي",
-          navRewards: "أوسمة الطلاب",
           navAchievements: "النتائج",
           navNews: "الأخبار",
           navFaq: "الأسئلة",
@@ -2290,8 +2282,32 @@
           paymentMethodCliqOpt: "كليك (CliQ)",
           paymentMethodBankOpt: "تحويل بنكي",
           paymentMethodWalletOpt: "محفظة إلكترونية",
+          paymentMethodCryptoOpt: "دفع مشفّر (USDT)",
+          paymentDetailsTitle: "تفاصيل الدفع حسب الطريقة المختارة:",
+          bankDetailsTitle: "الدفع عبر التحويل البنكي",
+          bankNameLabel: "اسم البنك:",
+          bankNameValue: "البنك العربي",
+          bankAccountLabel: "اسم الحساب:",
+          bankAccountValue: "نادي الماهر للتايكوندو",
+          bankIbanLabel: "رقم الآيبان:",
+          bankIbanValue: "JO00 0000 0000 0000 0000 0000 000",
+          copyBankIbanBtn: "نسخ الآيبان",
+          walletDetailsTitle: "الدفع عبر المحفظة الإلكترونية",
+          walletProviderLabel: "مزود المحفظة:",
+          walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
+          walletNumberLabel: "رقم المحفظة:",
+          walletNumberValue: "0779331277",
+          copyWalletNumberBtn: "نسخ رقم المحفظة",
+          cryptoDetailsTitle: "الدفع المشفّر (USDT)",
+          cryptoNetworkLabel: "الشبكة:",
+          cryptoNetworkValue: "TRC20",
+          cryptoAddressLabel: "عنوان المحفظة:",
+          cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          copyCryptoAddressBtn: "نسخ عنوان المحفظة",
+          paymentCopySuccess: "تم نسخ بيانات الدفع.",
+          paymentCopyError: "تعذر النسخ تلقائيًا، انسخها يدويًا.",
           paymentMethodsTitle: "طرق الدفع:",
-          paymentMethodsList: "نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية.",
+          paymentMethodsList: "نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية، ودفع مشفّر (USDT).",
           journeyTitle: "رحلة الأحزمة",
           journeyDesc: "اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى",
           journeyBtn: "ابدأ الآن",
@@ -2333,9 +2349,6 @@
           reviewLevelBeginnerOpt: "مبتدئ",
           reviewLevelIntermediateOpt: "متوسط",
           reviewLevelAdvancedOpt: "متقدم",
-          rewardsTitle: "أوسمة الطلاب",
-          rewardsDesc: "متابعة الأوسمة والإنجازات لكل طالب بدون عرض الأسماء.",
-          rewardsFormula: "تتحدث الأوسمة تلقائيًا حسب مستوى الحضور والإنجازات.",
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.",
           achievementFilterLabel: "تصفية حسب السنة",
@@ -2419,7 +2432,6 @@
           navJourney: "Belts",
           navTracker: "Tracker",
           navReviews: "Parents Reviews",
-          navRewards: "Student Badges",
           navAchievements: "Results",
           navNews: "News",
           navFaq: "FAQ",
@@ -2491,8 +2503,32 @@
           paymentMethodCliqOpt: "CliQ transfer",
           paymentMethodBankOpt: "Bank transfer",
           paymentMethodWalletOpt: "E-wallet",
+          paymentMethodCryptoOpt: "Crypto payment (USDT)",
+          paymentDetailsTitle: "Payment details for the selected method:",
+          bankDetailsTitle: "Bank Transfer Payment",
+          bankNameLabel: "Bank name:",
+          bankNameValue: "Arab Bank",
+          bankAccountLabel: "Account name:",
+          bankAccountValue: "Al Maher Taekwondo Club",
+          bankIbanLabel: "IBAN:",
+          bankIbanValue: "JO00 0000 0000 0000 0000 0000 000",
+          copyBankIbanBtn: "Copy IBAN",
+          walletDetailsTitle: "E-wallet Payment",
+          walletProviderLabel: "Wallet provider:",
+          walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
+          walletNumberLabel: "Wallet number:",
+          walletNumberValue: "0779331277",
+          copyWalletNumberBtn: "Copy Wallet Number",
+          cryptoDetailsTitle: "Crypto Payment (USDT)",
+          cryptoNetworkLabel: "Network:",
+          cryptoNetworkValue: "TRC20",
+          cryptoAddressLabel: "Wallet address:",
+          cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          copyCryptoAddressBtn: "Copy Wallet Address",
+          paymentCopySuccess: "Payment details copied.",
+          paymentCopyError: "Could not copy automatically. Please copy manually.",
           paymentMethodsTitle: "Payment Methods:",
-          paymentMethodsList: "Cash at the club, CliQ transfer, bank transfer, and e-wallet.",
+          paymentMethodsList: "Cash at the club, CliQ transfer, bank transfer, e-wallet, and crypto payment (USDT).",
           journeyTitle: "Belt Journey",
           journeyDesc: "Click any belt to view the required skills and promotion goals.",
           journeyBtn: "Start Now",
@@ -2534,9 +2570,6 @@
           reviewLevelBeginnerOpt: "Beginner",
           reviewLevelIntermediateOpt: "Intermediate",
           reviewLevelAdvancedOpt: "Advanced",
-          rewardsTitle: "Student Badges",
-          rewardsDesc: "Track badges and achievements per student without showing names.",
-          rewardsFormula: "Badges update automatically based on attendance and achievements.",
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
@@ -2644,6 +2677,74 @@
       if(win) win.opener = null;
     }
 
+    async function copyTextToClipboard(value){
+      const text = cleanInputText(value, 160);
+      if(!text) return false;
+
+      try {
+        if(navigator.clipboard && window.isSecureContext){
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch(_){
+        // Fall through to legacy copy approach.
+      }
+
+      try {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = text;
+        tempInput.setAttribute("readonly", "");
+        tempInput.style.position = "fixed";
+        tempInput.style.left = "-9999px";
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        const copied = document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        return copied;
+      } catch(_){
+        return false;
+      }
+    }
+
+    let paymentStatusTimer = null;
+    function showPaymentCopyStatus(messageKey, isError = false){
+      if(!paymentCopyStatus) return;
+      const message = i18n[currentLang] && i18n[currentLang].text
+        ? i18n[currentLang].text[messageKey]
+        : "";
+      if(!message) return;
+
+      paymentCopyStatus.textContent = message;
+      paymentCopyStatus.classList.toggle("error", Boolean(isError));
+      paymentCopyStatus.style.display = "block";
+
+      if(paymentStatusTimer){
+        clearTimeout(paymentStatusTimer);
+      }
+      paymentStatusTimer = setTimeout(()=>{
+        paymentCopyStatus.style.display = "none";
+        paymentCopyStatus.classList.remove("error");
+      }, 2600);
+    }
+
+    function updatePaymentMethodDetails(){
+      if(!paymentMethodSelect || !paymentDetailsWrap) return;
+      const method = paymentMethodSelect.value;
+      const showBank = method === "bank";
+      const showWallet = method === "wallet";
+      const showCrypto = method === "crypto";
+
+      paymentDetailsWrap.hidden = !(showBank || showWallet || showCrypto);
+      if(bankDetailsBlock) bankDetailsBlock.hidden = !showBank;
+      if(walletDetailsBlock) walletDetailsBlock.hidden = !showWallet;
+      if(cryptoDetailsBlock) cryptoDetailsBlock.hidden = !showCrypto;
+
+      if(paymentCopyStatus){
+        paymentCopyStatus.style.display = "none";
+        paymentCopyStatus.classList.remove("error");
+      }
+    }
+
     function setThemeToggleLabel(theme){
       if(!themeToggle) return;
       const enableText = currentLang === "en"
@@ -2731,6 +2832,8 @@
         langToggle.setAttribute("aria-label", nextTitle);
       }
 
+      updatePaymentMethodDetails();
+
       setThemeToggleLabel(rootEl.getAttribute("data-theme") || "dark");
 
       document.title = currentLang === "en"
@@ -2752,7 +2855,6 @@
         updateTrackerContent();
         renderFaq();
         renderParentReviews();
-        renderStudentRewards();
         populateAchievementYears();
         renderAchievements();
         renderNews();
@@ -3515,109 +3617,6 @@
     });
     renderParentReviews();
 
-    // Student badge system
-    const studentRewardsData = [
-      { code:"MT-1024", age:8, level:"beginner", attendance:16, achievements:2 },
-      { code:"MT-1091", age:14, level:"advanced", attendance:24, achievements:4 },
-      { code:"MT-1107", age:12, level:"intermediate", attendance:20, achievements:3 },
-      { code:"MT-1132", age:11, level:"intermediate", attendance:18, achievements:2 },
-      { code:"MT-1165", age:15, level:"advanced", attendance:26, achievements:5 },
-      { code:"MT-1184", age:9, level:"beginner", attendance:14, achievements:1 }
-    ];
-
-    const POINTS_PER_ATTENDANCE = 10;
-    const POINTS_PER_ACHIEVEMENT = 25;
-    const BADGE_STEPS = [
-      { threshold: 80, icon: "🥉", ar: "بادج الانضباط", en: "Discipline Badge" },
-      { threshold: 160, icon: "🥈", ar: "بادج الالتزام", en: "Commitment Badge" },
-      { threshold: 260, icon: "🥇", ar: "بادج التقدم", en: "Progress Badge" },
-      { threshold: 360, icon: "🏆", ar: "بادج نخبة النادي", en: "Elite Club Badge" }
-    ];
-
-    const studentRewardsList = document.getElementById("studentRewardsList");
-
-    function calcStudentPoints(student){
-      return (student.attendance * POINTS_PER_ATTENDANCE) + (student.achievements * POINTS_PER_ACHIEVEMENT);
-    }
-
-    function buildBadges(student, points){
-      const earned = BADGE_STEPS
-        .filter((step)=> points >= step.threshold)
-        .map((step)=> `${step.icon} ${currentLang === "en" ? step.en : step.ar}`);
-
-      if(student.achievements >= 3){
-        earned.push(currentLang === "en" ? "🎯 Achievement Hunter" : "🎯 صياد الإنجازات");
-      }
-      if(!earned.length){
-        earned.push(currentLang === "en" ? "🚀 Starting Badge" : "🚀 بادج البداية");
-      }
-      return earned;
-    }
-
-    function getNextBadgeProgress(points){
-      const nextStep = BADGE_STEPS.find((step)=> points < step.threshold);
-      if(!nextStep){
-        return {
-          percent: 100,
-          text: currentLang === "en" ? "All badge tiers completed." : "تم تحقيق جميع مستويات الأوسمة."
-        };
-      }
-
-      let previousThreshold = 0;
-      for(let i = BADGE_STEPS.length - 1; i >= 0; i -= 1){
-        if(points >= BADGE_STEPS[i].threshold){
-          previousThreshold = BADGE_STEPS[i].threshold;
-          break;
-        }
-      }
-
-      const range = Math.max(1, nextStep.threshold - previousThreshold);
-      const current = Math.max(0, points - previousThreshold);
-      const percent = Math.max(0, Math.min(100, (current / range) * 100));
-      const nextLabel = currentLang === "en" ? nextStep.en : nextStep.ar;
-
-      return {
-        percent,
-        text: currentLang === "en"
-          ? `${Math.round(percent)}% progress toward ${nextLabel}.`
-          : `نسبة التقدم ${Math.round(percent)}% للوصول إلى ${nextLabel}.`
-      };
-    }
-
-    function renderStudentRewards(){
-      if(!studentRewardsList) return;
-      const attendanceLabel = currentLang === "en" ? "Attendance" : "الحضور";
-      const achievementLabel = currentLang === "en" ? "Achievements" : "الإنجازات";
-      const ageLabel = currentLang === "en" ? "Age" : "العمر";
-      const levelLabel = currentLang === "en" ? "Level" : "المستوى";
-      const recordLabel = currentLang === "en" ? "Student Record" : "سجل الطالب";
-
-      const sorted = [...studentRewardsData]
-        .map((student)=> ({ ...student, points: calcStudentPoints(student) }))
-        .sort((a, b)=> b.points - a.points);
-
-      studentRewardsList.innerHTML = sorted.map((student)=>{
-        const badges = buildBadges(student, student.points);
-        const next = getNextBadgeProgress(student.points);
-
-        return `
-          <article class="reward-card">
-            <div class="reward-head">
-              <h3 class="reward-name">${recordLabel}</h3>
-              <span class="reward-code">${student.code}</span>
-            </div>
-            <div class="reward-meta">${ageLabel}: ${student.age} | ${levelLabel}: ${getLevelLabel(student.level)}</div>
-            <div class="reward-meta">${attendanceLabel}: ${student.attendance} | ${achievementLabel}: ${student.achievements}</div>
-            <div class="reward-progress"><span style="width:${next.percent}%"></span></div>
-            <div class="reward-next">${next.text}</div>
-            <div class="reward-badges">${badges.map((badge)=> `<span class="reward-badge">${badge}</span>`).join("")}</div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    renderStudentRewards();
-
     // Achievements timeline + auto news feed
     const FALLBACK_ACHIEVEMENTS_DATA = [
       {
@@ -3940,13 +3939,41 @@
       cash: { ar: "نقداً في النادي", en: "Cash at the club" },
       cliq: { ar: "كليك (CliQ)", en: "CliQ transfer" },
       bank: { ar: "تحويل بنكي", en: "Bank transfer" },
-      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" }
+      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" },
+      crypto: { ar: "دفع مشفّر (USDT)", en: "Crypto payment (USDT)" }
     };
 
     function getPaymentMethodLabel(value, lang = "ar"){
       const method = PAYMENT_METHOD_LABELS[value] || PAYMENT_METHOD_LABELS.cash;
       return lang === "en" ? method.en : method.ar;
     }
+
+    if(paymentMethodSelect){
+      paymentMethodSelect.addEventListener("change", updatePaymentMethodDetails);
+    }
+
+    if(copyBankIbanBtn){
+      copyBankIbanBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(bankIbanValueEl ? bankIbanValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    if(copyWalletNumberBtn){
+      copyWalletNumberBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(walletNumberValueEl ? walletNumberValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    if(copyCryptoAddressBtn){
+      copyCryptoAddressBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(cryptoAddressValueEl ? cryptoAddressValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    updatePaymentMethodDetails();
 
     // Remove any legacy locally saved requests from older versions.
     try {
