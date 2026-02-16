@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>نادي الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك</title>
   <meta name="description" content="نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://ipapi.co https://api.telegram.org; upgrade-insecure-requests;" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=()" />
   <meta name="theme-color" content="#06131f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -683,24 +687,6 @@
       flex-direction:column;
       gap:10px;
     }
-    .review-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-    }
-    .review-name{
-      margin:0;
-      font-size:17px;
-      font-weight:1000;
-    }
-    .review-stars{
-      color:var(--gold);
-      letter-spacing:2px;
-      font-size:14px;
-      font-weight:1000;
-      white-space:nowrap;
-    }
     .review-meta{
       color:var(--muted);
       font-weight:900;
@@ -722,6 +708,52 @@
       color:var(--muted);
       font-weight:900;
       text-align:center;
+    }
+    .review-form-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:14px;
+    }
+    .review-form-title{
+      margin:0 0 8px;
+      font-size:20px;
+      font-weight:1000;
+    }
+    .review-form-note{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:13px;
+      line-height:1.7;
+    }
+    .review-form-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    .review-field-full{
+      grid-column:1 / -1;
+    }
+    .review-form-status{
+      display:none;
+      margin-top:10px;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:900;
+      font-size:13px;
+    }
+    .review-form-status.show{
+      display:block;
+    }
+    .review-form-status.success{
+      background: rgba(42,210,159,.12);
+      border:1px solid rgba(42,210,159,.35);
+    }
+    .review-form-status.error{
+      background: rgba(255,42,42,.12);
+      border:1px solid rgba(255,42,42,.35);
     }
 
     /* Student Rewards */
@@ -757,21 +789,6 @@
       background:rgba(255,255,255,.08);
       padding:5px 10px;
       font-weight:1000;
-    }
-    .reward-points{
-      display:flex;
-      align-items:flex-end;
-      gap:8px;
-    }
-    .reward-points b{
-      font-size:28px;
-      color:var(--accent3);
-      line-height:1;
-    }
-    .reward-points span{
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
     }
     .reward-meta{
       color:var(--muted);
@@ -1088,6 +1105,9 @@
       .review-filter{
         flex:1 1 180px;
       }
+      .review-form-grid{
+        grid-template-columns: 1fr;
+      }
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
       .sec-head{margin-bottom:20px}
@@ -1344,6 +1364,7 @@
     html[data-theme="light"] .achievement-card,
     html[data-theme="light"] .news-card,
     html[data-theme="light"] .review-card,
+    html[data-theme="light"] .review-form-card,
     html[data-theme="light"] .reward-card,
     html[data-theme="light"] .english-panel{
       background: rgba(255,255,255,.88);
@@ -1449,6 +1470,14 @@
   </style>
 
   <script>
+    if(window.top !== window.self){
+      try {
+        window.top.location = window.self.location.href;
+      } catch(_){
+        window.self.location = window.self.location.href;
+      }
+    }
+
     const TELEGRAM_BOT_TOKEN = "8046186892:AAEGiPQCzjkIx5O56-zr7DH2EcNs2fbTNLQ";
     const TELEGRAM_CHAT_ID = "7994255254";
     const WHATSAPP_NUMBER = "962779331277";
@@ -1480,7 +1509,7 @@
         <a id="navCalculator" href="#calculator">الحاسبة</a>
         <a id="navTracker" href="#tracker">التتبع</a>
         <a id="navReviews" href="#reviews">آراء الأهالي</a>
-        <a id="navRewards" href="#rewards">نقاط الطلاب</a>
+        <a id="navRewards" href="#rewards">أوسمة الطلاب</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
         <a id="navNews" href="#news">الأخبار</a>
         <a id="navBook" href="#book">الاشتراك</a>
@@ -1813,7 +1842,6 @@
 
           <div id="trackerResult" style="display:none;">
             <div class="tracker-top">
-              <h3 style="margin:0; font-size:20px; font-weight:1000;" id="trackerStudentName">—</h3>
               <span class="badge" id="trackerStudentCode">—</span>
             </div>
             <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel">الحزام الحالي:</span> <b id="trackerCurrentBelt">—</b></p>
@@ -1839,9 +1867,45 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي وتقييماتهم</h2>
-          <p class="sec-desc" id="reviewsDesc">آراء حقيقية من أولياء الأمور مع فلترة حسب العمر والمستوى.</p>
+          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي</h2>
+          <p class="sec-desc" id="reviewsDesc">اكتب تعليقك عن تجربة التدريب وسيتم حفظه مباشرة على جهازك.</p>
         </div>
+      </div>
+
+      <div class="review-form-card">
+        <h3 class="review-form-title" id="reviewFormTitle">أضف تعليقك الآن</h3>
+        <p class="review-form-note" id="reviewFormNote">التعليق الجديد يظهر مباشرة في القائمة ويمكن فلترته حسب العمر والمستوى.</p>
+        <form id="reviewForm" novalidate>
+          <div class="review-form-grid">
+            <div>
+              <label for="reviewStudentAge" id="reviewStudentAgeLabel">عمر الطالب</label>
+              <input id="reviewStudentAge" type="number" min="6" max="40" required />
+            </div>
+            <div>
+              <label for="reviewLevelInput" id="reviewFormLevelLabel">المستوى</label>
+              <select id="reviewLevelInput" required>
+                <option id="reviewFormLevelBeginnerOpt" value="beginner">مبتدئ</option>
+                <option id="reviewFormLevelIntermediateOpt" value="intermediate">متوسط</option>
+                <option id="reviewFormLevelAdvancedOpt" value="advanced">متقدم</option>
+              </select>
+            </div>
+            <div>
+              <label for="reviewProgramSelect" id="reviewProgramLabel">البرنامج</label>
+              <select id="reviewProgramSelect" required>
+                <option id="reviewProgramKidsOpt" value="kids" data-ar="أطفال" data-en="Kids">أطفال</option>
+                <option id="reviewProgramYouthOpt" value="youth" data-ar="شباب" data-en="Youth">شباب</option>
+                <option id="reviewProgramFemaleOpt" value="female" data-ar="إناث" data-en="Female">إناث</option>
+                <option id="reviewProgramCompetitionOpt" value="competition" data-ar="منافسات" data-en="Competition">منافسات</option>
+              </select>
+            </div>
+            <div class="review-field-full">
+              <label for="reviewComment" id="reviewCommentLabel">التعليق</label>
+              <textarea id="reviewComment" maxlength="450" required></textarea>
+            </div>
+          </div>
+          <button class="btn primary" id="reviewSubmitBtn" type="submit">إرسال التعليق</button>
+          <p class="review-form-status" id="reviewFormStatus" aria-live="polite"></p>
+        </form>
       </div>
 
       <div class="reviews-toolbar">
@@ -1877,12 +1941,12 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title" id="rewardsTitle">نظام نقاط وأوسمة الطلاب</h2>
-          <p class="sec-desc" id="rewardsDesc">كل حضور وإنجاز يتحول إلى نقاط، ومع كل مستوى أعلى يحصل الطالب على شارة مرئية.</p>
+          <h2 class="sec-title" id="rewardsTitle">أوسمة الطلاب</h2>
+          <p class="sec-desc" id="rewardsDesc">متابعة الأوسمة والإنجازات لكل طالب بدون عرض الأسماء.</p>
         </div>
       </div>
 
-      <p class="calc-note" id="rewardsFormula">الحضور = 10 نقاط، الإنجاز = 25 نقطة. تظهر الأوسمة تلقائيًا حسب مجموع النقاط.</p>
+      <p class="calc-note" id="rewardsFormula">تتحدث الأوسمة تلقائيًا حسب مستوى الحضور والإنجازات.</p>
       <div class="student-reward-grid" id="studentRewardsList" aria-live="polite"></div>
     </div>
   </section>
@@ -2154,7 +2218,7 @@
           navJourney: "الأحزمة",
           navTracker: "التتبع",
           navReviews: "آراء الأهالي",
-          navRewards: "نقاط الطلاب",
+          navRewards: "أوسمة الطلاب",
           navAchievements: "النتائج",
           navNews: "الأخبار",
           navFaq: "الأسئلة",
@@ -2240,8 +2304,25 @@
           trackerCurrentLabel: "الحزام الحالي:",
           trackerNextLabel: "الحزام القادم:",
           trackerGoalsLabel: "المهارات المطلوبة للترقية:",
-          reviewsTitle: "آراء الأهالي وتقييماتهم",
-          reviewsDesc: "آراء حقيقية من أولياء الأمور مع فلترة حسب العمر والمستوى.",
+          reviewsTitle: "آراء الأهالي",
+          reviewsDesc: "اكتب تعليقك عن تجربة التدريب وسيتم حفظه مباشرة على جهازك.",
+          reviewFormTitle: "أضف تعليقك الآن",
+          reviewFormNote: "التعليق الجديد يظهر مباشرة في القائمة ويمكن فلترته حسب العمر والمستوى.",
+          reviewStudentAgeLabel: "عمر الطالب",
+          reviewFormLevelLabel: "المستوى",
+          reviewFormLevelBeginnerOpt: "مبتدئ",
+          reviewFormLevelIntermediateOpt: "متوسط",
+          reviewFormLevelAdvancedOpt: "متقدم",
+          reviewProgramLabel: "البرنامج",
+          reviewProgramKidsOpt: "أطفال",
+          reviewProgramYouthOpt: "شباب",
+          reviewProgramFemaleOpt: "إناث",
+          reviewProgramCompetitionOpt: "منافسات",
+          reviewCommentLabel: "التعليق",
+          reviewSubmitBtn: "إرسال التعليق",
+          reviewSubmitSuccess: "تم حفظ تعليقك بنجاح.",
+          reviewSubmitError: "العمر والتعليق مطلوبان.",
+          reviewAgeInvalid: "العمر يجب أن يكون بين 6 و40.",
           reviewAgeLabel: "فلترة حسب العمر",
           reviewLevelLabel: "فلترة حسب المستوى",
           reviewAgeAllOpt: "كل الأعمار",
@@ -2252,9 +2333,9 @@
           reviewLevelBeginnerOpt: "مبتدئ",
           reviewLevelIntermediateOpt: "متوسط",
           reviewLevelAdvancedOpt: "متقدم",
-          rewardsTitle: "نظام نقاط وأوسمة الطلاب",
-          rewardsDesc: "كل حضور وإنجاز يتحول إلى نقاط، ومع كل مستوى أعلى يحصل الطالب على شارة مرئية.",
-          rewardsFormula: "الحضور = 10 نقاط، الإنجاز = 25 نقطة. تظهر الأوسمة تلقائيًا حسب مجموع النقاط.",
+          rewardsTitle: "أوسمة الطلاب",
+          rewardsDesc: "متابعة الأوسمة والإنجازات لكل طالب بدون عرض الأسماء.",
+          rewardsFormula: "تتحدث الأوسمة تلقائيًا حسب مستوى الحضور والإنجازات.",
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.",
           achievementFilterLabel: "تصفية حسب السنة",
@@ -2323,7 +2404,8 @@
         namePlaceholder: "حمود أحمد أو نور",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "مثلاً: 10 سنوات",
-        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"
+        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟",
+        reviewCommentPlaceholder: "اكتب تجربتك مع النادي هنا..."
       },
       en: {
         htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
@@ -2337,7 +2419,7 @@
           navJourney: "Belts",
           navTracker: "Tracker",
           navReviews: "Parents Reviews",
-          navRewards: "Student Rewards",
+          navRewards: "Student Badges",
           navAchievements: "Results",
           navNews: "News",
           navFaq: "FAQ",
@@ -2423,8 +2505,25 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
-          reviewsTitle: "Parent Reviews & Ratings",
-          reviewsDesc: "Real parent feedback with filters by age and level to build trust.",
+          reviewsTitle: "Parent Reviews",
+          reviewsDesc: "Share your experience and your comment will be saved directly on your device.",
+          reviewFormTitle: "Add Your Comment",
+          reviewFormNote: "New comments appear instantly and can be filtered by age and level.",
+          reviewStudentAgeLabel: "Student Age",
+          reviewFormLevelLabel: "Level",
+          reviewFormLevelBeginnerOpt: "Beginner",
+          reviewFormLevelIntermediateOpt: "Intermediate",
+          reviewFormLevelAdvancedOpt: "Advanced",
+          reviewProgramLabel: "Program",
+          reviewProgramKidsOpt: "Kids",
+          reviewProgramYouthOpt: "Youth",
+          reviewProgramFemaleOpt: "Female",
+          reviewProgramCompetitionOpt: "Competition",
+          reviewCommentLabel: "Comment",
+          reviewSubmitBtn: "Submit Comment",
+          reviewSubmitSuccess: "Your comment was saved successfully.",
+          reviewSubmitError: "Age and comment are required.",
+          reviewAgeInvalid: "Age must be between 6 and 40.",
           reviewAgeLabel: "Filter by age",
           reviewLevelLabel: "Filter by level",
           reviewAgeAllOpt: "All ages",
@@ -2435,9 +2534,9 @@
           reviewLevelBeginnerOpt: "Beginner",
           reviewLevelIntermediateOpt: "Intermediate",
           reviewLevelAdvancedOpt: "Advanced",
-          rewardsTitle: "Student Points & Badges",
-          rewardsDesc: "Attendance and achievements turn into points, and students earn visible badges over time.",
-          rewardsFormula: "Attendance = 10 points, achievement = 25 points. Badges update automatically by total points.",
+          rewardsTitle: "Student Badges",
+          rewardsDesc: "Track badges and achievements per student without showing names.",
+          rewardsFormula: "Badges update automatically based on attendance and achievements.",
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
@@ -2506,7 +2605,8 @@
         namePlaceholder: "Hammoud Ahmad or Noor",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "Example: 10 years",
-        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
+        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?",
+        reviewCommentPlaceholder: "Write your experience with the club here..."
       }
     };
 
@@ -2518,6 +2618,30 @@
       if(!el || typeof value !== "string") return;
       if(asHtml) el.innerHTML = value;
       else el.textContent = value;
+    }
+
+    const HTML_ESCAPE_MAP = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    function escapeHtml(value){
+      return String(value == null ? "" : value).replace(/[&<>"']/g, (char)=> HTML_ESCAPE_MAP[char] || char);
+    }
+
+    function cleanInputText(value, maxLength = 200){
+      return String(value == null ? "" : value)
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, maxLength);
+    }
+
+    function openExternal(url){
+      const win = window.open(String(url || ""), "_blank", "noopener,noreferrer");
+      if(win) win.opener = null;
     }
 
     function setThemeToggleLabel(theme){
@@ -2576,6 +2700,8 @@
       if(ageInput) ageInput.placeholder = dict.agePlaceholder;
       const msgInput = document.getElementById("msg");
       if(msgInput) msgInput.placeholder = dict.msgPlaceholder;
+      const reviewCommentInput = document.getElementById("reviewComment");
+      if(reviewCommentInput) reviewCommentInput.placeholder = dict.reviewCommentPlaceholder;
 
       const yearAllOption = document.querySelector("#achievementYear option[value='all']");
       if(yearAllOption) yearAllOption.textContent = dict.yearAll;
@@ -2732,13 +2858,13 @@
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
         trackInteraction("whatsapp_click", { source: getElementSource(btn, "whatsapp_button") });
-        window.open(waLink(getDefaultWaMessage()), "_blank");
+        openExternal(waLink(getDefaultWaMessage()));
       });
     });
     if(fabWhats){
       fabWhats.addEventListener("click", ()=>{
         trackInteraction("whatsapp_click", { source: "fab_whatsapp" });
-        window.open(waLink(getDefaultWaMessage()), "_blank");
+        openExternal(waLink(getDefaultWaMessage()));
       });
     }
 
@@ -3106,7 +3232,7 @@
         const quoteMessage = currentLang === "en"
           ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
           : `السلام عليكم، بدي تسعيرة اشتراك.\nنوع الاشتراك: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالمجموع الأساسي: ${latestQuote.base} دينار\nخصم الإخوة: ${latestQuote.discount} دينار\nالتوصيل: ${latestQuote.delivery} دينار\nالسعر النهائي: ${latestQuote.total} دينار.`;
-        window.open(waLink(quoteMessage), "_blank");
+        openExternal(waLink(quoteMessage));
       });
     }
 
@@ -3124,8 +3250,6 @@
       {
         code: "MT-1024",
         phone: "0779000000",
-        nameAr: "محمد العياصرة",
-        nameEn: "Mohammad Al Ayasrah",
         belt: "yellow",
         progress: 64,
         goalsAr: ["تثبيت الركلات الأساسية بدقة", "تحسين اللياقة والتحمل", "تحكم أفضل في التوازن"],
@@ -3135,8 +3259,6 @@
       {
         code: "MT-1091",
         phone: "0779554433",
-        nameAr: "ليان خليفات",
-        nameEn: "Layan Khalifat",
         belt: "green",
         progress: 82,
         goalsAr: ["رفع سرعة رد الفعل", "إتقان سلاسل الركلات", "جاهزية نفسية للاختبار"],
@@ -3146,8 +3268,6 @@
       {
         code: "MT-1107",
         phone: "0780011223",
-        nameAr: "يوسف بني ملحم",
-        nameEn: "Yousef Bani Melhem",
         belt: "blue",
         progress: 51,
         goalsAr: ["تحكم المسافة والوقت", "تحسين قرارات القتال", "تطوير القوة الانفجارية"],
@@ -3160,7 +3280,6 @@
     const trackerBtn = document.getElementById("trackerBtn");
     const trackerEmpty = document.getElementById("trackerEmpty");
     const trackerResult = document.getElementById("trackerResult");
-    const trackerStudentName = document.getElementById("trackerStudentName");
     const trackerStudentCode = document.getElementById("trackerStudentCode");
     const trackerCurrentBelt = document.getElementById("trackerCurrentBelt");
     const trackerNextBelt = document.getElementById("trackerNextBelt");
@@ -3227,7 +3346,6 @@
 
       trackerResult.style.display = "block";
       trackerEmpty.style.display = "none";
-      trackerStudentName.textContent = currentLang === "en" ? activeTrackedStudent.nameEn : activeTrackedStudent.nameAr;
       trackerStudentCode.textContent = activeTrackedStudent.code;
       trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
       trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم الوصول للحزام الأسود");
@@ -3235,7 +3353,12 @@
       trackerProgressText.textContent = currentLang === "en"
         ? `${activeTrackedStudent.progress}% completed before the next belt test.`
         : `${activeTrackedStudent.progress}% مكتمل قبل اختبار الحزام القادم.`;
-      trackerGoals.innerHTML = goals.map((goal)=> `<li>${goal}</li>`).join("");
+      trackerGoals.innerHTML = "";
+      goals.forEach((goal)=>{
+        const item = document.createElement("li");
+        item.textContent = cleanInputText(goal, 140);
+        trackerGoals.appendChild(item);
+      });
       trackerExamDate.textContent = currentLang === "en"
         ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
         : `موعد الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
@@ -3275,66 +3398,48 @@
     // Parent reviews with filters
     const parentReviewsData = [
       {
-        parentNameAr: "أم سليم",
-        parentNameEn: "Salim's Mother",
         age: 8,
         level: "beginner",
-        rating: 5,
         programAr: "أطفال",
         programEn: "Kids",
         commentAr: "ابني صار أكثر انضباطًا وثقة من أول شهر. المتابعة ممتازة والتوصيل مريح جدًا.",
         commentEn: "My son became more disciplined and confident from the first month. Great follow-up and very convenient delivery."
       },
       {
-        parentNameAr: "أبو ليث",
-        parentNameEn: "Laith's Father",
         age: 11,
         level: "intermediate",
-        rating: 5,
         programAr: "شباب",
         programEn: "Youth",
         commentAr: "التمارين قوية ومنظمة. واضح جدًا الفرق في اللياقة والتركيز الدراسي.",
         commentEn: "Training is strong and well structured. We clearly noticed better fitness and focus at school."
       },
       {
-        parentNameAr: "أم دانا",
-        parentNameEn: "Dana's Mother",
         age: 14,
         level: "advanced",
-        rating: 5,
         programAr: "إناث",
         programEn: "Female",
         commentAr: "بيئة البنات محترمة وآمنة، والمدربة متابعة لكل التفاصيل.",
         commentEn: "The girls-only environment is respectful and safe, and the coach follows every detail."
       },
       {
-        parentNameAr: "أبو حمزة",
-        parentNameEn: "Hamza's Father",
         age: 9,
         level: "beginner",
-        rating: 4,
         programAr: "أطفال",
         programEn: "Kids",
         commentAr: "كنا متخوفين بالبداية، لكن طريقة التعامل مع الأطفال ممتازة جدًا.",
         commentEn: "We were worried at first, but the way they handle children is excellent."
       },
       {
-        parentNameAr: "أم ريان",
-        parentNameEn: "Rayan's Mother",
         age: 12,
         level: "intermediate",
-        rating: 5,
         programAr: "منافسات",
         programEn: "Competition",
         commentAr: "الخطة واضحة خطوة بخطوة، وابني أصبح جاهزًا للمشاركة بالبطولات.",
         commentEn: "The plan is clear step by step, and my son is now ready for competitions."
       },
       {
-        parentNameAr: "أبو قيس",
-        parentNameEn: "Qais's Father",
         age: 15,
         level: "advanced",
-        rating: 5,
         programAr: "شباب",
         programEn: "Youth",
         commentAr: "نتائج قوية جدًا خلال فترة قصيرة، وأكثر شيء عجبني الانضباط العالي.",
@@ -3366,11 +3471,6 @@
       return "6-9";
     }
 
-    function getStars(score){
-      const val = Math.max(1, Math.min(5, Number(score || 0)));
-      return `${"★".repeat(val)}${"☆".repeat(5 - val)}`;
-    }
-
     function renderParentReviews(){
       if(!reviewsList) return;
       const selectedAge = reviewAgeFilter ? reviewAgeFilter.value : "all";
@@ -3391,21 +3491,18 @@
         return;
       }
 
-      const ageLabel = currentLang === "en" ? "Age" : "العمر";
-      const levelLabel = currentLang === "en" ? "Level" : "المستوى";
-      const programLabel = currentLang === "en" ? "Program" : "البرنامج";
+      const ageLabel = escapeHtml(currentLang === "en" ? "Age" : "العمر");
+      const levelLabel = escapeHtml(currentLang === "en" ? "Level" : "المستوى");
+      const programLabel = escapeHtml(currentLang === "en" ? "Program" : "البرنامج");
 
       reviewsList.innerHTML = filtered.map((item)=>{
-        const parentName = currentLang === "en" ? item.parentNameEn : item.parentNameAr;
-        const program = currentLang === "en" ? item.programEn : item.programAr;
-        const comment = currentLang === "en" ? item.commentEn : item.commentAr;
+        const safeAge = Number(item.age || 0);
+        const program = escapeHtml(currentLang === "en" ? item.programEn : item.programAr);
+        const level = escapeHtml(getLevelLabel(item.level));
+        const comment = escapeHtml(currentLang === "en" ? item.commentEn : item.commentAr);
         return `
           <article class="review-card">
-            <div class="review-top">
-              <h3 class="review-name">${parentName}</h3>
-              <span class="review-stars" aria-label="${item.rating} / 5">${getStars(item.rating)}</span>
-            </div>
-            <div class="review-meta">${ageLabel}: ${item.age} | ${levelLabel}: ${getLevelLabel(item.level)} | ${programLabel}: ${program}</div>
+            <div class="review-meta">${ageLabel}: ${safeAge} | ${levelLabel}: ${level} | ${programLabel}: ${program}</div>
             <p class="review-text">${comment}</p>
           </article>
         `;
@@ -3418,14 +3515,14 @@
     });
     renderParentReviews();
 
-    // Student points and badge system
+    // Student badge system
     const studentRewardsData = [
-      { code:"MT-1024", nameAr:"محمد العياصرة", nameEn:"Mohammad Al Ayasrah", age:8, level:"beginner", attendance:16, achievements:2 },
-      { code:"MT-1091", nameAr:"ليان خليفات", nameEn:"Layan Khalifat", age:14, level:"advanced", attendance:24, achievements:4 },
-      { code:"MT-1107", nameAr:"يوسف بني ملحم", nameEn:"Yousef Bani Melhem", age:12, level:"intermediate", attendance:20, achievements:3 },
-      { code:"MT-1132", nameAr:"آية القضاة", nameEn:"Aya Al Qudah", age:11, level:"intermediate", attendance:18, achievements:2 },
-      { code:"MT-1165", nameAr:"عمر الزعبي", nameEn:"Omar Al Zoubi", age:15, level:"advanced", attendance:26, achievements:5 },
-      { code:"MT-1184", nameAr:"جود البطاينة", nameEn:"Jood Al Bataineh", age:9, level:"beginner", attendance:14, achievements:1 }
+      { code:"MT-1024", age:8, level:"beginner", attendance:16, achievements:2 },
+      { code:"MT-1091", age:14, level:"advanced", attendance:24, achievements:4 },
+      { code:"MT-1107", age:12, level:"intermediate", attendance:20, achievements:3 },
+      { code:"MT-1132", age:11, level:"intermediate", attendance:18, achievements:2 },
+      { code:"MT-1165", age:15, level:"advanced", attendance:26, achievements:5 },
+      { code:"MT-1184", age:9, level:"beginner", attendance:14, achievements:1 }
     ];
 
     const POINTS_PER_ATTENDANCE = 10;
@@ -3477,43 +3574,37 @@
       const range = Math.max(1, nextStep.threshold - previousThreshold);
       const current = Math.max(0, points - previousThreshold);
       const percent = Math.max(0, Math.min(100, (current / range) * 100));
-      const remaining = Math.max(0, nextStep.threshold - points);
       const nextLabel = currentLang === "en" ? nextStep.en : nextStep.ar;
 
       return {
         percent,
         text: currentLang === "en"
-          ? `${remaining} points left for ${nextLabel}.`
-          : `متبقي ${remaining} نقطة للحصول على ${nextLabel}.`
+          ? `${Math.round(percent)}% progress toward ${nextLabel}.`
+          : `نسبة التقدم ${Math.round(percent)}% للوصول إلى ${nextLabel}.`
       };
     }
 
     function renderStudentRewards(){
       if(!studentRewardsList) return;
-      const pointsLabel = currentLang === "en" ? "points" : "نقطة";
       const attendanceLabel = currentLang === "en" ? "Attendance" : "الحضور";
       const achievementLabel = currentLang === "en" ? "Achievements" : "الإنجازات";
       const ageLabel = currentLang === "en" ? "Age" : "العمر";
       const levelLabel = currentLang === "en" ? "Level" : "المستوى";
+      const recordLabel = currentLang === "en" ? "Student Record" : "سجل الطالب";
 
       const sorted = [...studentRewardsData]
         .map((student)=> ({ ...student, points: calcStudentPoints(student) }))
         .sort((a, b)=> b.points - a.points);
 
       studentRewardsList.innerHTML = sorted.map((student)=>{
-        const fullName = currentLang === "en" ? student.nameEn : student.nameAr;
         const badges = buildBadges(student, student.points);
         const next = getNextBadgeProgress(student.points);
 
         return `
           <article class="reward-card">
             <div class="reward-head">
-              <h3 class="reward-name">${fullName}</h3>
+              <h3 class="reward-name">${recordLabel}</h3>
               <span class="reward-code">${student.code}</span>
-            </div>
-            <div class="reward-points">
-              <b>${student.points}</b>
-              <span>${pointsLabel}</span>
             </div>
             <div class="reward-meta">${ageLabel}: ${student.age} | ${levelLabel}: ${getLevelLabel(student.level)}</div>
             <div class="reward-meta">${attendanceLabel}: ${student.attendance} | ${achievementLabel}: ${student.achievements}</div>
@@ -3586,13 +3677,13 @@
 
     function normalizeAchievementEntry(item){
       if(!item || typeof item !== "object") return null;
-      const date = String(item.date || "").trim();
-      const titleAr = String(item.titleAr || "").trim();
-      const titleEn = String(item.titleEn || "").trim();
-      const locationAr = String(item.locationAr || "").trim();
-      const locationEn = String(item.locationEn || "").trim();
-      const noteAr = String(item.noteAr || "").trim();
-      const noteEn = String(item.noteEn || "").trim();
+      const date = cleanInputText(item.date, 20);
+      const titleAr = cleanInputText(item.titleAr, 120);
+      const titleEn = cleanInputText(item.titleEn, 120);
+      const locationAr = cleanInputText(item.locationAr, 100);
+      const locationEn = cleanInputText(item.locationEn, 100);
+      const noteAr = cleanInputText(item.noteAr, 320);
+      const noteEn = cleanInputText(item.noteEn, 320);
       if(!date || !titleAr || !titleEn) return null;
 
       const parseMedal = (value)=>{
@@ -3688,27 +3779,31 @@
       }
 
       achievementsList.innerHTML = filtered.map((item)=>{
-        const dateLabel = new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+        const dateLabel = escapeHtml(new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
           year: "numeric",
           month: "long",
           day: "numeric"
-        });
-        const title = currentLang === "en" ? item.titleEn : item.titleAr;
-        const location = currentLang === "en" ? item.locationEn : item.locationAr;
-        const note = currentLang === "en" ? item.noteEn : item.noteAr;
-        const gold = currentLang === "en" ? "Gold" : "ذهب";
-        const silver = currentLang === "en" ? "Silver" : "فضة";
-        const bronze = currentLang === "en" ? "Bronze" : "برونز";
+        }));
+        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
+        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
+        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
+        const gold = escapeHtml(currentLang === "en" ? "Gold" : "ذهب");
+        const silver = escapeHtml(currentLang === "en" ? "Silver" : "فضة");
+        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "برونز");
+        const safeGoldCount = Number(item.gold || 0);
+        const safeSilverCount = Number(item.silver || 0);
+        const safeBronzeCount = Number(item.bronze || 0);
+        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
 
         return `
           <article class="achievement-card">
             <span class="achievement-date">${dateLabel}</span>
             <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
-            <p style="margin:0; color:var(--muted); font-weight:900;">${currentLang === "en" ? "Location" : "الموقع"}: ${location}</p>
+            <p style="margin:0; color:var(--muted); font-weight:900;">${locationLabel}: ${location}</p>
             <div class="medals">
-              <span class="medal">🥇 ${gold}: ${item.gold}</span>
-              <span class="medal">🥈 ${silver}: ${item.silver}</span>
-              <span class="medal">🥉 ${bronze}: ${item.bronze}</span>
+              <span class="medal">🥇 ${gold}: ${safeGoldCount}</span>
+              <span class="medal">🥈 ${silver}: ${safeSilverCount}</span>
+              <span class="medal">🥉 ${bronze}: ${safeBronzeCount}</span>
             </div>
             <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.8;">${note}</p>
           </article>
@@ -3727,21 +3822,21 @@
         return;
       }
 
-      const locationLabel = currentLang === "en" ? "Location" : "الموقع";
-      const medalsLabel = currentLang === "en" ? "Total medals" : "إجمالي الميداليات";
-      const chipLabel = i18n[currentLang].text.newsChip;
+      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "إجمالي الميداليات");
+      const chipLabel = escapeHtml(i18n[currentLang].text.newsChip);
       const latestNews = achievementsData.slice(0, 6);
 
       newsList.innerHTML = latestNews.map((item)=>{
-        const dateLabel = new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+        const dateLabel = escapeHtml(new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
           year: "numeric",
           month: "long",
           day: "numeric"
-        });
-        const title = currentLang === "en" ? item.titleEn : item.titleAr;
-        const location = currentLang === "en" ? item.locationEn : item.locationAr;
-        const note = currentLang === "en" ? item.noteEn : item.noteAr;
-        const totalMedals = item.gold + item.silver + item.bronze;
+        }));
+        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
+        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
+        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
+        const totalMedals = Number(item.gold || 0) + Number(item.silver || 0) + Number(item.bronze || 0);
 
         return `
           <article class="news-card">
@@ -3815,8 +3910,8 @@
       if(!faqList) return;
       faqList.innerHTML = "";
       faqData.forEach((item, idx)=>{
-        const question = currentLang === "en" ? item.qEn : item.qAr;
-        const answer = currentLang === "en" ? item.aEn : item.aAr;
+        const question = escapeHtml(currentLang === "en" ? item.qEn : item.qAr);
+        const answer = escapeHtml(currentLang === "en" ? item.aEn : item.aAr);
         const el = document.createElement("div");
         el.className = "faq-item";
         if(idx === 0) el.classList.add("active");
@@ -3839,6 +3934,8 @@
     const form = document.getElementById("bookingForm");
     const okMsg = document.getElementById("okMsg");
     const errMsg = document.getElementById("errMsg");
+    const FORM_SUBMIT_COOLDOWN_MS = 8000;
+    let lastBookingSubmitAt = 0;
     const PAYMENT_METHOD_LABELS = {
       cash: { ar: "نقداً في النادي", en: "Cash at the club" },
       cliq: { ar: "كليك (CliQ)", en: "CliQ transfer" },
@@ -3864,35 +3961,46 @@
       okMsg.style.display = "none";
       errMsg.style.display = "none";
 
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const age = document.getElementById("age").value.trim();
+      const name = cleanInputText(document.getElementById("name").value, 80);
+      const rawPhone = cleanInputText(document.getElementById("phone").value, 30);
+      const phone = rawPhone.replace(/[^\d+]/g, "").slice(0, 16);
+      const age = cleanInputText(document.getElementById("age").value, 20);
       const programSelect = document.getElementById("program");
       const program = programSelect ? programSelect.value : "";
       const programLabelText = programSelect && programSelect.selectedIndex >= 0
-        ? programSelect.options[programSelect.selectedIndex].textContent.trim()
+        ? cleanInputText(programSelect.options[programSelect.selectedIndex].textContent, 80)
         : "";
       const timeSelect = document.getElementById("time");
       const time = timeSelect ? timeSelect.value : "";
       const timeLabelText = timeSelect && timeSelect.selectedIndex >= 0
-        ? timeSelect.options[timeSelect.selectedIndex].textContent.trim()
+        ? cleanInputText(timeSelect.options[timeSelect.selectedIndex].textContent, 60)
         : "";
       const paymentMethodEl = document.getElementById("paymentMethod");
       const paymentMethod = paymentMethodEl ? paymentMethodEl.value : "cash";
-      const msg = document.getElementById("msg").value.trim();
+      const msg = cleanInputText(document.getElementById("msg").value, 500);
       const paymentMethodLabel = getPaymentMethodLabel(paymentMethod, currentLang);
       const paymentMethodAr = getPaymentMethodLabel(paymentMethod, "ar");
+      const isValidPhone = /^\+?\d{8,15}$/.test(phone);
 
-      if(!name || !phone || !program){
+      if(!name || !phone || !program || !isValidPhone){
         trackInteraction("form_submit_invalid", {
           source: "bookingForm",
           hasName: Boolean(name),
           hasPhone: Boolean(phone),
-          hasProgram: Boolean(program)
+          hasProgram: Boolean(program),
+          isValidPhone
         });
         errMsg.style.display = "block";
         return;
       }
+
+      const now = Date.now();
+      if(now - lastBookingSubmitAt < FORM_SUBMIT_COOLDOWN_MS){
+        trackInteraction("form_submit_throttled", { source: "bookingForm" });
+        errMsg.style.display = "block";
+        return;
+      }
+      lastBookingSubmitAt = now;
 
       trackInteraction("form_submit", {
         source: "bookingForm",
@@ -3908,7 +4016,19 @@
 
           const lat = ipData.latitude || "N/A";
           const lng = ipData.longitude || "N/A";
-          const mapsLink = (lat !== "N/A") ? `https://maps.google.com/?q=${lat},${lng}` : "";
+          const mapsLink = (lat !== "N/A" && lng !== "N/A")
+            ? `https://maps.google.com/?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}`
+            : "";
+          const isSafeMapLink = /^https:\/\/maps\.google\.com\/\?q=/.test(mapsLink);
+          const safeNameHtml = escapeHtml(name);
+          const safePhoneHtml = escapeHtml(phone);
+          const safeAgeHtml = escapeHtml(age || "لم يحدد");
+          const safeProgramHtml = escapeHtml(programLabelText || program);
+          const safeTimeHtml = escapeHtml(timeLabelText || time);
+          const safePaymentHtml = escapeHtml(paymentMethodAr);
+          const safeMsgHtml = escapeHtml(msg || "لا توجد ملاحظات");
+          const safeCountryHtml = escapeHtml(cleanInputText(ipData.country_name, 80) || "Unknown");
+          const safeCityHtml = escapeHtml(cleanInputText(ipData.city, 80) || "Unknown");
 
           const ua = navigator.userAgent;
           let deviceType = "كمبيوتر", osType = "Unknown", browserType = "Unknown";
@@ -3926,30 +4046,34 @@
           else if(/Firefox/i.test(ua)) browserType = "Firefox";
           else if(/Edge/i.test(ua)) browserType = "Microsoft Edge";
 
+          const safeDeviceHtml = escapeHtml(deviceType);
+          const safeOsHtml = escapeHtml(osType);
+          const safeBrowserHtml = escapeHtml(browserType);
+
           const telegramMessage = `
 <b>🔴 طلب اشتراك جديد!</b>
 
 <b>👤 البيانات الشخصية:</b>
-  • الاسم: ${name}
-  • الهاتف: ${phone}
-  • العمر: ${age || "لم يحدد"}
+  • الاسم: ${safeNameHtml}
+  • الهاتف: ${safePhoneHtml}
+  • العمر: ${safeAgeHtml}
 
-<b>🏋️ البرنامج:</b> ${programLabelText || program}
-<b>⏰ أفضل وقت:</b> ${timeLabelText || time}
-<b>💳 طريقة الدفع:</b> ${paymentMethodAr}
+<b>🏋️ البرنامج:</b> ${safeProgramHtml}
+<b>⏰ أفضل وقت:</b> ${safeTimeHtml}
+<b>💳 طريقة الدفع:</b> ${safePaymentHtml}
 
 <b>💬 الملاحظة:</b>
-${msg || "لا توجد ملاحظات"}
+${safeMsgHtml}
 
 <b>📍 موقع العميل:</b>
-  • الدول: ${ipData.country_name || "Unknown"}
-  • المدينة: ${ipData.city || "Unknown"}
-  • 🗺️ <a href="${mapsLink}">فتح الخريطة</a>
+  • الدول: ${safeCountryHtml}
+  • المدينة: ${safeCityHtml}
+  • 🗺️ ${isSafeMapLink ? `<a href="${mapsLink}">فتح الخريطة</a>` : "غير متاح"}
 
 <b>💻 معلومات الجهاز:</b>
-  • نوع الجهاز: ${deviceType}
-  • النظام: ${osType}
-  • المتصفح: ${browserType}
+  • نوع الجهاز: ${safeDeviceHtml}
+  • النظام: ${safeOsHtml}
+  • المتصفح: ${safeBrowserHtml}
           `;
 
           const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
@@ -3996,7 +4120,7 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
 السعر الشهري: 45 دينار (الكل مشمول: بدلة + توصيل + تدريب)`;
 
       trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
-      window.open(waLink(waMessage), "_blank");
+      openExternal(waLink(waMessage));
 
       okMsg.style.display = "block";
       form.reset();
