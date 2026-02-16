@@ -24,19 +24,25 @@
 
   <style>
     :root{
-      --bg:#06131f;
-      --bg2:#11263a;
+      --bg:#04121f;
+      --bg2:#0d2a42;
+      --bg3:#154564;
       --text:rgba(248,251,255,.96);
       --muted:rgba(225,236,248,.78);
-      --accent:#ff6b35;
-      --accent2:#2de2e6;
+      --accent:#ff7b2f;
+      --accent2:#15d1c5;
       --accent3:#ffd166;
       --gold:#ffd166;
       --ok:#2ad29f;
       --purple:#ff8c42;
       --blue:#4fa3ff;
+      --surface:rgba(9,24,38,.62);
+      --surface-soft:rgba(10,29,45,.5);
+      --surface-line:rgba(142,191,235,.2);
+      --surface-line-strong:rgba(255,123,47,.42);
+      --nav-bg:rgba(4,14,23,.9);
       --shadow: 0 12px 30px rgba(0,0,0,.4);
-      --glow: 0 0 15px rgba(255,107,53,.3);
+      --glow: 0 0 15px rgba(255,123,47,.32);
       --radius:18px;
     }
 
@@ -45,7 +51,7 @@
     body{
       margin:0;
       font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 50%, #162f45 100%);
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 46%, var(--bg3) 100%);
       color:var(--text);
       overflow-x:hidden;
       position:relative;
@@ -58,8 +64,8 @@
       width:100%;
       height:100%;
       background:
-        radial-gradient(800px 400px at 20% 10%, rgba(255,107,53,.06), transparent 40%),
-        radial-gradient(600px 300px at 80% 70%, rgba(255,209,102,.04), transparent 40%);
+        radial-gradient(820px 420px at 20% 10%, rgba(255,123,47,.08), transparent 42%),
+        radial-gradient(640px 340px at 80% 70%, rgba(21,209,197,.08), transparent 44%);
       pointer-events:none;
       z-index:-1;
     }
@@ -70,8 +76,8 @@
     .nav{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(15px);
-      background: rgba(0,0,0,.75);
-      border-bottom: 1px solid rgba(255,107,53,.2);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--surface-line);
       box-shadow: 0 4px 20px rgba(0,0,0,.2);
       transition: all 300ms ease;
     }
@@ -80,7 +86,7 @@
       position:absolute;
       bottom:0; left:0; right:0;
       height:2px;
-      background: linear-gradient(90deg, transparent, rgba(255,107,53,.7), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,123,47,.85), transparent);
       background-size: 200% 100%;
     }
     .nav-inner{
@@ -94,8 +100,8 @@
     }
     .logo{
       width:40px; height:40px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(255,107,53,.95), rgba(255,209,102,.85));
-      box-shadow: 0 10px 30px rgba(255,107,53,.25);
+      background: linear-gradient(135deg, rgba(255,123,47,.95), rgba(255,209,102,.9));
+      box-shadow: 0 10px 30px rgba(255,123,47,.25);
       display:grid; place-items:center;
       color:#1a0f08; font-weight:1000;
       letter-spacing:.5px;
@@ -114,8 +120,8 @@
 
     /* Buttons */
     .btn{
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.06);
+      border:1px solid var(--surface-line);
+      background:var(--surface-soft);
       color:var(--text);
       padding:11px 14px;
       border-radius:14px;
@@ -129,23 +135,23 @@
     }
     .btn:hover{
       transform: translateY(-2px);
-      background:rgba(255,255,255,.12);
-      border-color:rgba(255,107,53,.35);
-      box-shadow: 0 0 15px rgba(255,107,53,.2);
+      background:rgba(255,255,255,.1);
+      border-color:var(--surface-line-strong);
+      box-shadow: 0 0 15px rgba(255,123,47,.24);
     }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(255,107,53,.98), rgba(255,107,53,.75));
-      border-color: rgba(255,107,53,.8);
-      box-shadow: 0 12px 30px rgba(255,107,53,.15);
+      background: linear-gradient(135deg, rgba(255,123,47,.98), rgba(255,158,72,.82));
+      border-color: rgba(255,123,47,.85);
+      box-shadow: 0 12px 30px rgba(255,123,47,.2);
     }
     .btn.primary:hover{
-      box-shadow: 0 15px 40px rgba(255,107,53,.25);
+      box-shadow: 0 15px 40px rgba(255,123,47,.32);
     }
     .btn.gold{
-      background: linear-gradient(135deg, rgba(255,209,102,.98), rgba(255,209,102,.65));
-      border-color: rgba(255,209,102,.75);
-      color:#0c1422;
-      box-shadow: 0 18px 50px rgba(255,209,102,.15);
+      background: linear-gradient(135deg, rgba(21,209,197,.96), rgba(133,245,233,.78));
+      border-color: rgba(21,209,197,.7);
+      color:#03232c;
+      box-shadow: 0 18px 50px rgba(21,209,197,.22);
     }
     .theme-toggle{
       min-width:46px;
@@ -176,8 +182,8 @@
     .hero-bg{
       position:absolute; inset:0;
       background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(255,107,53,.12), transparent 60%),
-        radial-gradient(1000px 600px at 80% 20%, rgba(255,209,102,.08), transparent 60%),
+        radial-gradient(1200px 620px at 20% 10%, rgba(255,123,47,.16), transparent 60%),
+        radial-gradient(1100px 650px at 80% 20%, rgba(21,209,197,.12), transparent 64%),
         linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.7));
       z-index:-2;
     }
@@ -229,8 +235,8 @@
       align-items:stretch;
     }
     .panel{
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
+      background: var(--surface-soft);
+      border:1px solid var(--surface-line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
@@ -238,8 +244,8 @@
       transition: all 400ms ease;
     }
     .panel:hover {
-      border-color: rgba(255,107,53,.32);
-      box-shadow: 0 15px 35px rgba(255,107,53,.1);
+      border-color: var(--surface-line-strong);
+      box-shadow: 0 15px 35px rgba(255,123,47,.14);
     }
     .hero-left{padding:22px 20px; position:relative; z-index:10}
     .hero-left::before {
@@ -1165,8 +1171,8 @@
     .nav{
       backdrop-filter:none;
       -webkit-backdrop-filter:none;
-      background: rgba(0,0,0,.92);
-      border-bottom:1px solid rgba(255,255,255,.1);
+      background: var(--nav-bg);
+      border-bottom:1px solid var(--surface-line);
       box-shadow:none;
       transition: background-color .18s ease, border-color .18s ease;
     }
@@ -1199,8 +1205,8 @@
     .schedule-table,
     .stat,
     .belt{
-      background: rgba(255,255,255,.04);
-      border-color: rgba(255,255,255,.14);
+      background: var(--surface-soft);
+      border-color: var(--surface-line);
     }
     .panel,
     .card,
@@ -1330,20 +1336,26 @@
 
     /* Light theme */
     html[data-theme="light"]{
-      --bg:#f4f8ff;
-      --bg2:#e6f1fb;
+      --bg:#f2f8ff;
+      --bg2:#e2f0fd;
+      --bg3:#d0e8fb;
       --text:rgba(18,38,56,.96);
       --muted:rgba(43,70,95,.78);
-      --accent:#f06a33;
-      --accent2:#00a9b2;
-      --accent3:#f4b942;
-      --gold:#f4b942;
+      --accent:#ff6f2f;
+      --accent2:#00b7aa;
+      --accent3:#ffc95a;
+      --gold:#ffc95a;
       --ok:#22b88f;
+      --surface:rgba(255,255,255,.94);
+      --surface-soft:rgba(255,255,255,.9);
+      --surface-line:rgba(16,48,74,.16);
+      --surface-line-strong:rgba(255,111,47,.42);
+      --nav-bg:rgba(249,252,255,.93);
       --shadow: 0 12px 28px rgba(17,42,68,.12);
-      --glow: 0 0 15px rgba(240,106,51,.22);
+      --glow: 0 0 15px rgba(255,111,47,.2);
     }
     html[data-theme="light"] body{
-      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 55%, #d7e8f7 100%);
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 52%, var(--bg3) 100%);
       color:var(--text);
     }
     html[data-theme="light"] body::before{
@@ -1352,15 +1364,15 @@
         radial-gradient(700px 360px at 84% 72%, rgba(0,169,178,.08), transparent 42%);
     }
     html[data-theme="light"] .nav{
-      background: rgba(248,252,255,.92);
-      border-bottom-color: rgba(20,55,84,.16);
+      background: var(--nav-bg);
+      border-bottom-color: var(--surface-line);
     }
     html[data-theme="light"] .nav-links a:hover{
       background: rgba(17,53,81,.08);
     }
     html[data-theme="light"] .btn{
       background: rgba(16,48,74,.06);
-      border-color: rgba(16,48,74,.18);
+      border-color: var(--surface-line);
       color:var(--text);
     }
     html[data-theme="light"] .btn:hover{
@@ -1369,9 +1381,9 @@
     }
     html[data-theme="light"] .btn.primary{color:#fff}
     html[data-theme="light"] .btn.gold{
-      color:#0d2d3f;
-      background: linear-gradient(135deg, rgba(0,169,178,.95), rgba(45,226,230,.72));
-      border-color: rgba(0,169,178,.55);
+      color:#2b1b05;
+      background: linear-gradient(135deg, rgba(255,201,90,.96), rgba(255,232,173,.82));
+      border-color: rgba(214,156,23,.52);
     }
     html[data-theme="light"] .panel,
     html[data-theme="light"] .card,
@@ -2030,6 +2042,7 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="newsTitle">أخبار النادي والإنجازات الجديدة</h2>
+          <p class="sec-desc" id="newsDesc">يتم إنشاء هذا القسم تلقائيًا من بيانات الإنجازات، لذلك إضافة إنجاز جديد ستظهر هنا مباشرة دون تعديل يدوي في الـHTML.</p>
         </div>
       </div>
       <div class="news-list" id="newsList" aria-live="polite"></div>
@@ -3781,8 +3794,8 @@
         date: "2026-02-15",
         titleAr: "بطولة البرق للمملكة",
         titleEn: "Al Barq National Championship",
-        locationAr: "المملكة الأردنية الهاشمية",
-        locationEn: "Jordan",
+        locationAr: "عمّان",
+        locationEn: "Amman",
         gold: 7,
         silver: 3,
         bronze: 2,
@@ -4175,7 +4188,7 @@
     }
 
     if(form){
-      form.addEventListener("submit", (e)=>{
+      form.addEventListener("submit", async (e)=>{
       e.preventDefault();
       okMsg.style.display = "none";
       errMsg.style.display = "none";
@@ -4264,11 +4277,13 @@
         turnstileToken,
         userAgent
       };
-      postLeadToSecureEndpoint(secureLeadPayload).then((ok)=>{
-        if(!ok){
-          console.warn("Secure lead endpoint is unavailable.");
-        }
-      });
+      const secureLeadOk = await postLeadToSecureEndpoint(secureLeadPayload);
+      if(!secureLeadOk){
+        trackInteraction("secure_endpoint_failed", { source: "bookingForm" });
+        showBookingErrorFromKey("bookingSecurityError");
+        resetTurnstile();
+        return;
+      }
 
       const waMessage = currentLang === "en"
         ? `Hi,
