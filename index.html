@@ -198,9 +198,10 @@
 
     .hero-slide{
       position:absolute; inset:0;
-      background-size: cover;
-      background-position:center 20%;
+      background-size: contain;
+      background-position:center center;
       background-repeat:no-repeat;
+      background-color:#081521;
       filter: saturate(1.05) contrast(1.05);
       opacity:0;
       transform: scale(1.03);
@@ -330,20 +331,22 @@
       width:100%;
       aspect-ratio: 16/9;
       background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      background-size: cover;
-      background-position:center;
+      background-size: contain;
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-color: rgba(6,19,31,.6);
       position:relative;
       transition: transform 600ms ease;
     }
-    #jerashImg{background-position:center 28%}
-    #coachImg{background-position:center 20%}
+    #jerashImg{background-position:center center}
+    #coachImg{background-position:center center}
     .mini-card:hover .img {
       transform: scale(1.08);
     }
     .img::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+      background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.22));
     }
     .mini-body{padding:14px; position:relative; z-index:1}
     .mini-title{margin:0; font-size:17px; font-weight:1000}
@@ -358,8 +361,10 @@
     .avatar{
       width:68px; height:68px; border-radius:18px;
       border:1px solid rgba(255,255,255,.14);
-      background-size: cover;
-      background-position:center;
+      background-size: contain;
+      background-repeat:no-repeat;
+      background-position:center center;
+      background-color: rgba(6,19,31,.6);
       flex: 0 0 auto;
       transition: all 400ms ease;
       box-shadow: 0 4px 12px rgba(0,0,0,.2);
@@ -1096,18 +1101,18 @@
         min-height: clamp(540px, 86svh, 820px);
       }
       .hero-slide{
-        background-size: cover;
-        background-position: center 14%;
+        background-size: contain;
+        background-position: center center;
         background-repeat: no-repeat;
         background-color: #081521;
       }
       .img{
-        background-position:center 20%;
+        background-position:center center;
         aspect-ratio: 16/10;
       }
-      #jerashImg{background-position:center 18%}
-      #coachImg{background-position:center 14%}
-      .avatar{background-position:center 14%}
+      #jerashImg{background-position:center center}
+      #coachImg{background-position:center center}
+      .avatar{background-position:center center}
     }
 
     /* Layout + performance tuning */
@@ -1415,7 +1420,7 @@
       background:transparent;
     }
     html[data-theme="light"] .img::after{
-      background: linear-gradient(180deg, transparent, rgba(15,42,64,.35));
+      background: linear-gradient(180deg, rgba(15,42,64,.04), rgba(15,42,64,.18));
     }
     html[data-theme="light"] footer{
       color:rgba(35,64,89,.86);
