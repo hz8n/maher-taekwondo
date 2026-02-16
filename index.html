@@ -2030,7 +2030,6 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="newsTitle">أخبار النادي والإنجازات الجديدة</h2>
-          <p class="sec-desc" id="newsDesc">يتم إنشاء هذا القسم تلقائيًا من بيانات الإنجازات، لذلك إضافة إنجاز جديد ستظهر هنا مباشرة دون تعديل يدوي في الـHTML.</p>
         </div>
       </div>
       <div class="news-list" id="newsList" aria-live="polite"></div>
@@ -4176,7 +4175,7 @@
     }
 
     if(form){
-      form.addEventListener("submit", async (e)=>{
+      form.addEventListener("submit", (e)=>{
       e.preventDefault();
       okMsg.style.display = "none";
       errMsg.style.display = "none";
@@ -4265,13 +4264,11 @@
         turnstileToken,
         userAgent
       };
-      const secureLeadOk = await postLeadToSecureEndpoint(secureLeadPayload);
-      if(!secureLeadOk){
-        trackInteraction("secure_endpoint_failed", { source: "bookingForm" });
-        showBookingErrorFromKey("bookingSecurityError");
-        resetTurnstile();
-        return;
-      }
+      postLeadToSecureEndpoint(secureLeadPayload).then((ok)=>{
+        if(!ok){
+          console.warn("Secure lead endpoint is unavailable.");
+        }
+      });
 
       const waMessage = currentLang === "en"
         ? `Hi,
@@ -4337,4 +4334,3 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
- 
