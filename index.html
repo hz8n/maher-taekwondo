@@ -195,7 +195,8 @@
     .hero-slide{
       position:absolute; inset:0;
       background-size: cover;
-      background-position:center 18%;
+      background-position:center 20%;
+      background-repeat:no-repeat;
       filter: saturate(1.05) contrast(1.05);
       opacity:0;
       transform: scale(1.03);
@@ -330,6 +331,8 @@
       position:relative;
       transition: transform 600ms ease;
     }
+    #jerashImg{background-position:center 28%}
+    #coachImg{background-position:center 20%}
     .mini-card:hover .img {
       transform: scale(1.08);
     }
@@ -616,6 +619,38 @@
       font-size:12px;
       font-weight:1000;
     }
+    .news-list{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .news-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .news-meta{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:900;
+      line-height:1.7;
+    }
+    .news-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:5px 10px;
+      font-size:12px;
+      font-weight:1000;
+      width:max-content;
+    }
 
     /* Parent Reviews */
     .reviews-toolbar{
@@ -809,7 +844,9 @@
     html[data-lang="en"] .faq-question,
     html[data-lang="en"] .faq-answer,
     html[data-lang="en"] .mini-body,
-    html[data-lang="en"] .price-left{
+    html[data-lang="en"] .price-left,
+    html[data-lang="en"] .review-card,
+    html[data-lang="en"] .reward-card{
       text-align:left;
     }
     html[data-lang="en"] .schedule-table th{
@@ -1042,6 +1079,7 @@
       .journey{grid-template-columns: 1fr}
       .tracker-layout{grid-template-columns: 1fr}
       .achievement-list{grid-template-columns: 1fr}
+      .news-list{grid-template-columns: 1fr}
       .reviews-grid{grid-template-columns: 1fr}
       .student-reward-grid{grid-template-columns: 1fr}
       .reviews-filters{
@@ -1056,18 +1094,24 @@
       .sec-title{font-size:24px}
       h1{font-size: clamp(28px, 4vw, 40px)}
 
-      /* Show full face on mobile (no hard crop) */
+      /* Better hero framing for mobile screens */
+      header.hero{
+        min-height: clamp(540px, 86vh, 820px);
+        min-height: clamp(540px, 86svh, 820px);
+      }
       .hero-slide{
-        background-size: contain;
-        background-position: center top;
+        background-size: cover;
+        background-position: center 14%;
         background-repeat: no-repeat;
         background-color: #081521;
       }
       .img{
-        background-position:center 22%;
-        aspect-ratio: 4/3;
+        background-position:center 20%;
+        aspect-ratio: 16/10;
       }
-      .avatar{background-position:center 20%}
+      #jerashImg{background-position:center 18%}
+      #coachImg{background-position:center 14%}
+      .avatar{background-position:center 14%}
     }
 
     /* Layout + performance tuning */
@@ -1298,6 +1342,7 @@
     html[data-theme="light"] .stat,
     html[data-theme="light"] .belt,
     html[data-theme="light"] .achievement-card,
+    html[data-theme="light"] .news-card,
     html[data-theme="light"] .review-card,
     html[data-theme="light"] .reward-card,
     html[data-theme="light"] .english-panel{
@@ -1306,6 +1351,7 @@
     }
     html[data-theme="light"] .calc-chip,
     html[data-theme="light"] .medal,
+    html[data-theme="light"] .news-chip,
     html[data-theme="light"] .reward-badge,
     html[data-theme="light"] .reward-code{
       background: rgba(16,48,74,.06);
@@ -1331,6 +1377,21 @@
         radial-gradient(circle at 15% 30%, rgba(240,106,51,.1) 0%, transparent 25%),
         radial-gradient(circle at 85% 70%, rgba(0,169,178,.1) 0%, transparent 30%),
         radial-gradient(circle at 50% 50%, rgba(244,185,66,.11) 0%, transparent 40%);
+    }
+    html[data-theme="light"] .hero-left{
+      background: rgba(255,255,255,.94);
+    }
+    html[data-theme="light"] label{
+      color: rgba(16,48,74,.86);
+    }
+    html[data-theme="light"] .tag,
+    html[data-theme="light"] .badge{
+      color: rgba(58,33,12,.92);
+    }
+    html[data-theme="light"] .price-note,
+    html[data-theme="light"] .review-text,
+    html[data-theme="light"] .details-body{
+      color: rgba(24,50,74,.86);
     }
     html[data-theme="light"] .pill{
       background: rgba(255,255,255,.82);
@@ -1392,6 +1453,7 @@
     const TELEGRAM_CHAT_ID = "7994255254";
     const WHATSAPP_NUMBER = "962779331277";
     const MONTHLY_PRICE_JOD = 45;
+    const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -1420,6 +1482,7 @@
         <a id="navReviews" href="#reviews">آراء الأهالي</a>
         <a id="navRewards" href="#rewards">نقاط الطلاب</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
+        <a id="navNews" href="#news">الأخبار</a>
         <a id="navBook" href="#book">الاشتراك</a>
       </div>
 
@@ -1483,8 +1546,8 @@
         <div class="mini-card">
           <div class="img" id="jerashImg"></div>
           <div class="mini-body">
-            <h3 class="mini-title">جرش</h3>
-            <p class="mini-text">نادي محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.</p>
+            <h3 class="mini-title" id="jerashTitle">جرش</h3>
+            <p class="mini-text" id="jerashDesc">نادي محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.</p>
           </div>
         </div>
 
@@ -1492,19 +1555,19 @@
           <div class="coach">
             <div class="avatar" id="coachImg"></div>
             <div>
-              <div class="n1">الكابتن والحكم الدولي الماستر رائد عضيبات</div>
-              <div class="n2">✓ حكم دولي
+              <div class="n1" id="coachName">الكابتن والحكم الدولي الماستر رائد عضيبات</div>
+              <div class="n2" id="coachInfo">✓ حكم دولي
 ✓ 35 سنة خبرة
 ✓ إشراف مباشر على كل طالب
 ✓ يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
-              <div class="badge">🏆 اعتماد • انضباط • نتائج</div>
+              <div class="badge" id="coachBadge">🏆 اعتماد • انضباط • نتائج</div>
             </div>
           </div>
         </div>
 
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a class="btn" href="#pricing">الأسعار</a>
-          <a class="btn primary" href="#book">الاشتراك</a>
+          <a class="btn" href="#pricing" id="heroRightPricingBtn">الأسعار</a>
+          <a class="btn primary" href="#book" id="heroRightJoinBtn">الاشتراك</a>
         </div>
       </div>
     </div>
@@ -1525,7 +1588,7 @@
           <li>Fast registration through WhatsApp: +962 77 933 1277.</li>
         </ul>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
-          <a class="btn primary" href="https://wa.me/962779331277" target="_blank" rel="noopener">WhatsApp Registration</a>
+          <a class="btn primary" id="btnWhatsEnglish" href="https://wa.me/962779331277" target="_blank" rel="noopener">WhatsApp Registration</a>
           <a class="btn" href="#calculator">Price Calculator</a>
         </div>
       </div>
@@ -1537,41 +1600,41 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">لماذا اختر نادي الماهر؟</h2>
-          <p class="sec-desc">5 أسباب تجعلنا الخيار الأول للآباء والأمهات</p>
+          <h2 class="sec-title" id="whyUsTitle">لماذا اختر نادي الماهر؟</h2>
+          <p class="sec-desc" id="whyUsDesc">5 أسباب تجعلنا الخيار الأول للآباء والأمهات</p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card icon-card">
           <div class="why-icon">🏆</div>
-          <h3>تدريب احترافي</h3>
-          <p>إشراف من حكم دولي وكابتن بخبرة 35 سنة. كل طالب يحصل على متابعة شخصية وخطة تدريب مخصصة.</p>
+          <h3 id="whyUsCard1Title">تدريب احترافي</h3>
+          <p id="whyUsCard1Desc">إشراف من حكم دولي وكابتن بخبرة 35 سنة. كل طالب يحصل على متابعة شخصية وخطة تدريب مخصصة.</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon">💪</div>
-          <h3>بناء الثقة بالنفس</h3>
-          <p>نركز على تطوير شخصية اللاعب وليس فقط المهارات. انضباط، احترام، وقيادة في كل درس.</p>
+          <h3 id="whyUsCard2Title">بناء الثقة بالنفس</h3>
+          <p id="whyUsCard2Desc">نركز على تطوير شخصية اللاعب وليس فقط المهارات. انضباط، احترام، وقيادة في كل درس.</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon">🎯</div>
-          <h3>مسار واضح للنجاح</h3>
-          <p>نظام أحزمة منظم من الأبيض للأسود، كل مرحلة لها متطلبات واضحة وهدف محدد.</p>
+          <h3 id="whyUsCard3Title">مسار واضح للنجاح</h3>
+          <p id="whyUsCard3Desc">نظام أحزمة منظم من الأبيض للأسود، كل مرحلة لها متطلبات واضحة وهدف محدد.</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon">🏠</div>
-          <h3>توصيل آمن للمنزل</h3>
-          <p>توصيل سريع وآمن مشمول في السعر. البدلة والتدريب والتوصيل كل شيء ب 45 دينار فقط!</p>
+          <h3 id="whyUsCard4Title">توصيل آمن للمنزل</h3>
+          <p id="whyUsCard4Desc">توصيل سريع وآمن مشمول في السعر. البدلة والتدريب والتوصيل كل شيء ب 45 دينار فقط!</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon">🏅</div>
-          <h3>بطولات ومنافسات</h3>
-          <p>نجهز اللاعبين للمشاركة في البطولات المحلية والدولية. نخرج محاربين حقيقيين.</p>
+          <h3 id="whyUsCard5Title">بطولات ومنافسات</h3>
+          <p id="whyUsCard5Desc">نجهز اللاعبين للمشاركة في البطولات المحلية والدولية. نخرج محاربين حقيقيين.</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon">👨‍👩‍👧‍👦</div>
-          <h3>أكثر من 300 طالب</h3>
-          <p>مجتمع قوي من الطلاب والعائلات. تجربة جماعية رائعة وصداقات تدوم مدى الحياة.</p>
+          <h3 id="whyUsCard6Title">أكثر من 300 طالب</h3>
+          <p id="whyUsCard6Desc">مجتمع قوي من الطلاب والعائلات. تجربة جماعية رائعة وصداقات تدوم مدى الحياة.</p>
         </div>
       </div>
     </div>
@@ -1582,33 +1645,33 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">البرامج</h2>
-          <p class="sec-desc">اختر البرنامج المناسب لك، والتواصل يأتيك مباشرة</p>
+          <h2 class="sec-title" id="programsTitle">البرامج</h2>
+          <p class="sec-desc" id="programsDesc">اختر البرنامج المناسب لك، والتواصل يأتيك مباشرة</p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card">
-          <h3>🧒 أطفال (6-12)</h3>
-          <p>تأسيس حركي، لياقة أساسية، نظام، احترام، بناء ثقة، توصيل آمن للبيت.</p>
+          <h3 id="programCard1Title">🧒 أطفال (6-12)</h3>
+          <p id="programCard1Desc">تأسيس حركي، لياقة أساسية، نظام، احترام، بناء ثقة، توصيل آمن للبيت.</p>
         </div>
         <div class="card">
-          <h3>👦 شباب وكبار (13+)</h3>
-          <p>تكنيك متقدم، قوة، مرونة، تطوير مستوى القتال، إعداد للمنافسات، توصيل.</p>
+          <h3 id="programCard2Title">👦 شباب وكبار (13+)</h3>
+          <p id="programCard2Desc">تكنيك متقدم، قوة، مرونة، تطوير مستوى القتال، إعداد للمنافسات، توصيل.</p>
         </div>
         <div class="card">
-          <h3>👩 فئة الإناث</h3>
-          <p>حصص الإناث في بيئة مريحة وآمنة، بإشراف مدرّبة إناث مع متابعة مستوى كل طالبة.</p>
+          <h3 id="programCard3Title">👩 فئة الإناث</h3>
+          <p id="programCard3Desc">حصص الإناث في بيئة مريحة وآمنة، بإشراف مدرّبة إناث مع متابعة مستوى كل طالبة.</p>
         </div>
         <div class="card">
-          <h3>🥇 برنامج منافسات</h3>
-          <p>إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.</p>
+          <h3 id="programCard4Title">🥇 برنامج منافسات</h3>
+          <p id="programCard4Desc">إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.</p>
         </div>
 
         <!-- ✅ البرنامج الرمضاني (مضاف) -->
         <div class="card">
-          <h3>🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)</h3>
-          <p>
+          <h3 id="programCard5Title">🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)</h3>
+          <p id="programCard5Desc">
             برنامج خاص خلال رمضان لتحسين اللياقة وتخفيف الوزن بطريقة آمنة ومنظمة.
             تحت إشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b>.
             تمارين لياقة + مقاومة + مرونة حسب المستوى، مع متابعة مباشرة.
@@ -1623,17 +1686,17 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">الأسعار</h2>
-          <p class="sec-desc">سعر واضح وشفاف. لا توجد رسوم إضافية مخفية.</p>
+          <h2 class="sec-title" id="pricingTitle">الأسعار</h2>
+          <p class="sec-desc" id="pricingDesc">سعر واضح وشفاف. لا توجد رسوم إضافية مخفية.</p>
         </div>
-        <a class="btn primary" href="#book">اشترك الآن</a>
+        <a class="btn primary" href="#book" id="pricingJoinBtn">اشترك الآن</a>
       </div>
 
       <div class="pricing">
         <div class="price-card">
           <div class="price-left">
-            <h3 class="price-title">📦 الاشتراك الشهري الكامل</h3>
-            <p class="price-note">✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ تدريب شهر كامل | ✓ إشراف مباشر من الكابتن والمدرّبة</p>
+            <h3 class="price-title" id="priceTitleMain">📦 الاشتراك الشهري الكامل</h3>
+            <p class="price-note" id="priceNoteMain">✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ تدريب شهر كامل | ✓ إشراف مباشر من الكابتن والمدرّبة</p>
           </div>
           <div class="price-number">45 JD</div>
         </div>
@@ -1664,7 +1727,7 @@
 
             <div>
               <label for="calcStudents" id="calcStudentsLabel">عدد الطلاب</label>
-              <input id="calcStudents" type="number" min="1" max="8" value="1" inputmode="numeric" />
+              <input id="calcStudents" type="number" min="1" max="20" value="1" inputmode="numeric" />
             </div>
 
             <div class="calc-switches">
@@ -1710,10 +1773,10 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">رحلة الأحزمة</h2>
-          <p class="sec-desc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
+          <h2 class="sec-title" id="journeyTitle">رحلة الأحزمة</h2>
+          <p class="sec-desc" id="journeyDesc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
         </div>
-        <a class="btn" href="#book">ابدأ الآن</a>
+        <a class="btn" href="#book" id="journeyBtn">ابدأ الآن</a>
       </div>
 
       <div class="journey">
@@ -1829,8 +1892,8 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">أسئلة شائعة</h2>
-          <p class="sec-desc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
+          <h2 class="sec-title" id="faqTitle">أسئلة شائعة</h2>
+          <p class="sec-desc" id="faqDesc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
         </div>
       </div>
 
@@ -1843,34 +1906,34 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">جدول المواعيد</h2>
-          <p class="sec-desc">ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.</p>
+          <h2 class="sec-title" id="scheduleTitle">جدول المواعيد</h2>
+          <p class="sec-desc" id="scheduleDesc">ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.</p>
         </div>
       </div>
 
       <table class="schedule-table">
         <thead>
           <tr>
-            <th>📅 ايام التدريب</th>
-            <th>⏰ الوقت</th>
-            <th>📝 الملاحظة</th>
+            <th id="scheduleHeadDays">📅 ايام التدريب</th>
+            <th id="scheduleHeadTime">⏰ الوقت</th>
+            <th id="scheduleHeadNote">📝 الملاحظة</th>
           </tr>
         </thead>
         <tbody id="scheduleBody">
           <tr>
-            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td data-label="📅 أيام التدريب" id="scheduleRow1Days">الأحد - الثلاثاء - الخميس</td>
             <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
-            <td data-label="📝 الملاحظة">تأسيس حركي ولياقة أساسية</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow1Note">تأسيس حركي ولياقة أساسية</td>
           </tr>
           <tr>
-            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td data-label="📅 أيام التدريب" id="scheduleRow2Days">الأحد - الثلاثاء - الخميس</td>
             <td class="time" data-label="⏰ الوقت">5:00 - 6:00 PM</td>
-            <td data-label="📝 الملاحظة">تكنيك متقدم وتدريب مكثف</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow2Note">تكنيك متقدم وتدريب مكثف</td>
           </tr>
           <tr>
-            <td data-label="📅 أيام التدريب">الأحد - الثلاثاء - الخميس</td>
+            <td data-label="📅 أيام التدريب" id="scheduleRow3Days">الأحد - الثلاثاء - الخميس</td>
             <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
-            <td data-label="📝 الملاحظة">تدريب إناث بإشراف مدرّبة إناث</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow3Note">تدريب إناث بإشراف مدرّبة إناث</td>
           </tr>
         </tbody>
       </table>
@@ -1898,84 +1961,112 @@
     </div>
   </section>
 
+  <!-- NEWS -->
+  <section id="news">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="newsTitle">أخبار النادي والإنجازات الجديدة</h2>
+          <p class="sec-desc" id="newsDesc">يتم إنشاء هذا القسم تلقائيًا من بيانات الإنجازات، لذلك إضافة إنجاز جديد ستظهر هنا مباشرة دون تعديل يدوي في الـHTML.</p>
+        </div>
+      </div>
+      <div class="news-list" id="newsList" aria-live="polite"></div>
+    </div>
+  </section>
+
   <!-- SUBSCRIBE -->
   <section id="book">
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">اشترك الآن</h2>
-          <p class="sec-desc">ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة لإرسال الطلب فوراً.</p>
+          <h2 class="sec-title" id="bookTitle">اشترك الآن</h2>
+          <p class="sec-desc" id="bookDesc">ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة لإرسال الطلب فوراً.</p>
         </div>
       </div>
 
       <div class="booking">
         <div class="card">
           <div class="ok" id="okMsg">✅ تم تجهيز رسالة الاشتراك وفتح واتساب مباشرة. سيتواصل معك فريق التدريب قريباً!</div>
-          <div class="err" id="errMsg">❌ الاسم ورقم الهاتف مطلوبين.</div>
+          <div class="err" id="errMsg">❌ الاسم ورقم الهاتف والبرنامج مطلوبين.</div>
 
           <form id="bookingForm">
             <div class="row">
               <div>
-                <label for="name">الاسم الكامل</label>
+                <label for="name" id="nameLabel">الاسم الكامل</label>
                 <input id="name" name="name" placeholder="حمود أحمد أو نور" required />
               </div>
               <div>
-                <label for="phone">رقم الهاتف</label>
+                <label for="phone" id="phoneLabel">رقم الهاتف</label>
                 <input id="phone" name="phone" placeholder="07xxxxxxxx" inputmode="tel" required />
               </div>
             </div>
 
             <div class="row">
               <div>
-                <label for="age">العمر (اختياري)</label>
+                <label for="age" id="ageLabel">العمر (اختياري)</label>
                 <input id="age" name="age" placeholder="مثلاً: 10 سنوات" />
               </div>
               <div>
-                <label for="program">اختر البرنامج</label>
+                <label for="program" id="programLabel">اختر البرنامج</label>
                 <select id="program" name="program" required>
-                  <option value="">-- اختر البرنامج --</option>
-                  <option value="أطفال">أطفال</option>
-                  <option value="شباب">شباب</option>
-                  <option value="كبار">كبار</option>
-                  <option value="إناث">إناث</option>
-                  <option value="منافسات">برنامج منافسات</option>
-                  <option value="برنامج رمضاني (تحسين لياقة + تخفيف وزن)">برنامج رمضاني (تحسين لياقة + تخفيف وزن)</option>
+                  <option value="" id="programOptPlaceholder">-- اختر البرنامج --</option>
+                  <option value="kids" id="programOptKids">أطفال</option>
+                  <option value="teens" id="programOptTeens">شباب</option>
+                  <option value="adults" id="programOptAdults">كبار</option>
+                  <option value="women" id="programOptWomen">إناث</option>
+                  <option value="competition" id="programOptCompetition">برنامج منافسات</option>
+                  <option value="ramadan" id="programOptRamadan">برنامج رمضاني (تحسين لياقة + تخفيف وزن)</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label for="time">أفضل وقت للتواصل</label>
+              <label for="time" id="timeLabel">أفضل وقت للتواصل</label>
               <select id="time" name="time">
-                <option value="صباحاً">صباحاً</option>
-                <option value="مساءً">مساءً</option>
-                <option value="أي وقت">أي وقت</option>
+                <option value="morning" id="timeOptMorning">صباحاً</option>
+                <option value="evening" id="timeOptEvening">مساءً</option>
+                <option value="any" id="timeOptAny">أي وقت</option>
               </select>
             </div>
 
             <div>
-              <label for="msg">ملاحظة أو سؤال (اختياري)</label>
+              <label for="paymentMethod" id="paymentMethodLabel">طريقة الدفع المفضلة</label>
+              <select id="paymentMethod" name="paymentMethod">
+                <option value="cash" id="paymentMethodCashOpt">نقداً في النادي</option>
+                <option value="cliq" id="paymentMethodCliqOpt">كليك (CliQ)</option>
+                <option value="bank" id="paymentMethodBankOpt">تحويل بنكي</option>
+                <option value="wallet" id="paymentMethodWalletOpt">محفظة إلكترونية</option>
+              </select>
+              <p class="calc-note" id="paymentMethodHint">يمكنك تعديل طريقة الدفع لاحقاً عند الحضور.</p>
+            </div>
+
+            <div>
+              <label for="msg" id="msgLabel">ملاحظة أو سؤال (اختياري)</label>
               <textarea id="msg" name="msg" placeholder="مثلاً: أبني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"></textarea>
             </div>
 
-            <button class="btn primary" type="submit" style="padding:14px 18px; font-size:16px">✓ إرسال طلب الاشتراك عبر واتساب</button>
+            <button class="btn primary" id="submitBookingBtn" type="submit" style="padding:14px 18px; font-size:16px">✓ إرسال طلب الاشتراك عبر واتساب</button>
           </form>
         </div>
 
         <div class="card">
-          <h3 style="margin:0 0 12px; font-weight:1000; color:var(--accent2)">💬 معلومات التواصل</h3>
+          <h3 style="margin:0 0 12px; font-weight:1000; color:var(--accent2)" id="contactTitle">💬 معلومات التواصل</h3>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
-            <b>رقم الواتساب:</b> 0779331277
+            <b id="contactWhatsappLabel">رقم الواتساب:</b> 0779331277
           </p>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
-            <b>السعر الشهري:</b> 45 دينار (بدلة + توصيل + تدريب كل شيء مشمول)
+            <b id="contactPriceLabel">السعر الشهري:</b> <span id="contactPriceValue">45 دينار (بدلة + توصيل + تدريب كل شيء مشمول)</span>
           </p>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
-            <b>الموقع:</b> جرش
+            <b id="paymentMethodsTitle">طرق الدفع:</b>
+            <span id="paymentMethodsList">نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية.</span>
           </p>
           <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
-            ✓ توصيل آمن وسريع (مشمول)
-            ✓ إشراف مباشر من الكابتن والمدرّبة
+            <b id="contactLocationLabel">الموقع:</b> <span id="contactLocationValue">جرش</span>
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px" id="contactHighlights">
+            ✓ توصيل آمن وسريع (مشمول)<br />
+            ✓ إشراف مباشر من الكابتن والمدرّبة<br />
             ✓ مسار واضح للنجاح
           </p>
         </div>
@@ -1988,23 +2079,23 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title">عن النادي</h2>
-          <p class="sec-desc">بيئة احترافية آمنة موثوقة منذ سنوات</p>
+          <h2 class="sec-title" id="aboutTitle">عن النادي</h2>
+          <p class="sec-desc" id="aboutDesc">بيئة احترافية آمنة موثوقة منذ سنوات</p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card">
-          <h3>🎯 رسالتنا</h3>
-          <p>بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.</p>
+          <h3 id="aboutCard1Title">🎯 رسالتنا</h3>
+          <p id="aboutCard1Desc">بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.</p>
         </div>
         <div class="card">
-          <h3>🏆 رؤيتنا</h3>
-          <p>أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.</p>
+          <h3 id="aboutCard2Title">🏆 رؤيتنا</h3>
+          <p id="aboutCard2Desc">أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.</p>
         </div>
         <div class="card">
-          <h3>⭐ القيم الأساسية</h3>
-          <p>الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.</p>
+          <h3 id="aboutCard3Title">⭐ القيم الأساسية</h3>
+          <p id="aboutCard3Desc">الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.</p>
         </div>
       </div>
     </div>
@@ -2012,11 +2103,11 @@
 
   <footer>
     <div class="container foot">
-      <div>© <span id="year"></span> نادي الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج</div>
+      <div id="footerCopy">© <span id="year"></span> نادي الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج</div>
       <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="#top">↑ العودة للأعلى</a>
+        <a class="btn" href="#top" id="btnTop">↑ العودة للأعلى</a>
         <a class="btn" href="#" id="btnWhatsFoot">💬 واتساب</a>
-        <a class="btn" href="tel:0779331277">☎️ اتصل</a>
+        <a class="btn" href="tel:0779331277" id="btnCallFooter">☎️ اتصل</a>
       </div>
     </div>
   </footer>
@@ -2052,7 +2143,7 @@
 
     const i18n = {
       ar: {
-        htmlKeys: ["heroTitle", "heroSub"],
+        htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
         text: {
           brandName: "نادي الماهر للتايكوندو",
           brandCity: "جرش",
@@ -2065,6 +2156,7 @@
           navReviews: "آراء الأهالي",
           navRewards: "نقاط الطلاب",
           navAchievements: "النتائج",
+          navNews: "الأخبار",
           navFaq: "الأسئلة",
           navBook: "الاشتراك",
           btnWhatsNav: "واتساب ↗",
@@ -2077,10 +2169,48 @@
           heroJoinBtn: "اشترك الآن",
           btnCallHero: "اتصل الآن ☎️",
           heroPriceBtn: "سعر واضح",
+          heroRightPricingBtn: "الأسعار",
+          heroRightJoinBtn: "الاشتراك",
+          jerashTitle: "جرش",
+          jerashDesc: "نادي محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.",
+          coachName: "الكابتن والحكم الدولي الماستر رائد عضيبات",
+          coachInfo: "✓ حكم دولي<br />✓ 35 سنة خبرة<br />✓ إشراف مباشر على كل طالب<br />✓ يتوفر تدريب إناث بإشراف مدرّبة إناث",
+          coachBadge: "🏆 اعتماد • انضباط • نتائج",
           heroLocationPill: "📍 الموقع: جرش",
           heroPricePill: "💰 45 دينار شهري (الكل مشمول)",
           calculatorTitle: "حاسبة السعر الذكية",
           calculatorDesc: "احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.",
+          whyUsTitle: "لماذا اختر نادي الماهر؟",
+          whyUsDesc: "5 أسباب تجعلنا الخيار الأول للآباء والأمهات",
+          whyUsCard1Title: "تدريب احترافي",
+          whyUsCard1Desc: "إشراف من حكم دولي وكابتن بخبرة 35 سنة. كل طالب يحصل على متابعة شخصية وخطة تدريب مخصصة.",
+          whyUsCard2Title: "بناء الثقة بالنفس",
+          whyUsCard2Desc: "نركز على تطوير شخصية اللاعب وليس فقط المهارات. انضباط، احترام، وقيادة في كل درس.",
+          whyUsCard3Title: "مسار واضح للنجاح",
+          whyUsCard3Desc: "نظام أحزمة منظم من الأبيض للأسود، كل مرحلة لها متطلبات واضحة وهدف محدد.",
+          whyUsCard4Title: "توصيل آمن للمنزل",
+          whyUsCard4Desc: "توصيل سريع وآمن مشمول في السعر. البدلة والتدريب والتوصيل كل شيء ب 45 دينار فقط!",
+          whyUsCard5Title: "بطولات ومنافسات",
+          whyUsCard5Desc: "نجهز اللاعبين للمشاركة في البطولات المحلية والدولية. نخرج محاربين حقيقيين.",
+          whyUsCard6Title: "أكثر من 300 طالب",
+          whyUsCard6Desc: "مجتمع قوي من الطلاب والعائلات. تجربة جماعية رائعة وصداقات تدوم مدى الحياة.",
+          programsTitle: "البرامج",
+          programsDesc: "اختر البرنامج المناسب لك، والتواصل يأتيك مباشرة",
+          programCard1Title: "🧒 أطفال (6-12)",
+          programCard1Desc: "تأسيس حركي، لياقة أساسية، نظام، احترام، بناء ثقة، توصيل آمن للبيت.",
+          programCard2Title: "👦 شباب وكبار (13+)",
+          programCard2Desc: "تكنيك متقدم، قوة، مرونة، تطوير مستوى القتال، إعداد للمنافسات، توصيل.",
+          programCard3Title: "👩 فئة الإناث",
+          programCard3Desc: "حصص الإناث في بيئة مريحة وآمنة، بإشراف مدرّبة إناث مع متابعة مستوى كل طالبة.",
+          programCard4Title: "🥇 برنامج منافسات",
+          programCard4Desc: "إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.",
+          programCard5Title: "🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)",
+          programCard5Desc: "برنامج خاص خلال رمضان لتحسين اللياقة وتخفيف الوزن بطريقة آمنة ومنظمة. تحت إشراف الكابتن والحكم الدولي الماستر رائد عضيبات. تمارين لياقة + مقاومة + مرونة حسب المستوى، مع متابعة مباشرة.",
+          pricingTitle: "الأسعار",
+          pricingDesc: "سعر واضح وشفاف. لا توجد رسوم إضافية مخفية.",
+          pricingJoinBtn: "اشترك الآن",
+          priceTitleMain: "📦 الاشتراك الشهري الكامل",
+          priceNoteMain: "✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ تدريب شهر كامل | ✓ إشراف مباشر من الكابتن والمدرّبة",
           calcPlanLabel: "نوع الاشتراك",
           calcStudentsLabel: "عدد الطلاب",
           calcDeliveryLabel: "إضافة التوصيل العائلي (+15 JD)",
@@ -2090,6 +2220,17 @@
           calcBreakdownDeliveryLabel: "التوصيل",
           calcFinalLabel: "السعر النهائي",
           calcWhatsQuote: "💬 إرسال التسعيرة على واتساب",
+          paymentMethodLabel: "طريقة الدفع المفضلة",
+          paymentMethodHint: "يمكنك تعديل طريقة الدفع لاحقاً عند الحضور.",
+          paymentMethodCashOpt: "نقداً في النادي",
+          paymentMethodCliqOpt: "كليك (CliQ)",
+          paymentMethodBankOpt: "تحويل بنكي",
+          paymentMethodWalletOpt: "محفظة إلكترونية",
+          paymentMethodsTitle: "طرق الدفع:",
+          paymentMethodsList: "نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية.",
+          journeyTitle: "رحلة الأحزمة",
+          journeyDesc: "اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى",
+          journeyBtn: "ابدأ الآن",
           trackerTitle: "تتبع تقدّم الأحزمة",
           trackerDesc: "أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.",
           trackerInputLabel: "رقم الهاتف أو الكود",
@@ -2117,15 +2258,75 @@
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.",
           achievementFilterLabel: "تصفية حسب السنة",
+          newsTitle: "أخبار النادي والإنجازات الجديدة",
+          newsDesc: "يتم إنشاء هذا القسم تلقائيًا من بيانات الإنجازات، لذلك إضافة إنجاز جديد ستظهر هنا مباشرة دون تعديل يدوي في الـHTML.",
+          newsEmpty: "لا توجد أخبار بعد.",
+          newsChip: "خبر إنجاز",
+          faqTitle: "أسئلة شائعة",
+          faqDesc: "إجابات على أكثر الأسئلة اللي بسألنا إياها",
+          scheduleTitle: "جدول المواعيد",
+          scheduleDesc: "ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.",
+          scheduleHeadDays: "📅 ايام التدريب",
+          scheduleHeadTime: "⏰ الوقت",
+          scheduleHeadNote: "📝 الملاحظة",
+          scheduleRow1Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow1Note: "تأسيس حركي ولياقة أساسية",
+          scheduleRow2Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow2Note: "تكنيك متقدم وتدريب مكثف",
+          scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow3Note: "تدريب إناث بإشراف مدرّبة إناث",
+          bookTitle: "اشترك الآن",
+          bookDesc: "ملء البيانات سريع وسهل. سيتم فتح واتساب برسالة جاهزة لإرسال الطلب فوراً.",
+          nameLabel: "الاسم الكامل",
+          phoneLabel: "رقم الهاتف",
+          ageLabel: "العمر (اختياري)",
+          programLabel: "اختر البرنامج",
+          programOptPlaceholder: "-- اختر البرنامج --",
+          programOptKids: "أطفال",
+          programOptTeens: "شباب",
+          programOptAdults: "كبار",
+          programOptWomen: "إناث",
+          programOptCompetition: "برنامج منافسات",
+          programOptRamadan: "برنامج رمضاني (تحسين لياقة + تخفيف وزن)",
+          timeLabel: "أفضل وقت للتواصل",
+          timeOptMorning: "صباحاً",
+          timeOptEvening: "مساءً",
+          timeOptAny: "أي وقت",
+          msgLabel: "ملاحظة أو سؤال (اختياري)",
+          submitBookingBtn: "✓ إرسال طلب الاشتراك عبر واتساب",
+          contactTitle: "💬 معلومات التواصل",
+          contactWhatsappLabel: "رقم الواتساب:",
+          contactPriceLabel: "السعر الشهري:",
+          contactPriceValue: "45 دينار (بدلة + توصيل + تدريب كل شيء مشمول)",
+          contactLocationLabel: "الموقع:",
+          contactLocationValue: "جرش",
+          contactHighlights: "✓ توصيل آمن وسريع (مشمول)<br />✓ إشراف مباشر من الكابتن والمدرّبة<br />✓ مسار واضح للنجاح",
+          aboutTitle: "عن النادي",
+          aboutDesc: "بيئة احترافية آمنة موثوقة منذ سنوات",
+          aboutCard1Title: "🎯 رسالتنا",
+          aboutCard1Desc: "بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.",
+          aboutCard2Title: "🏆 رؤيتنا",
+          aboutCard2Desc: "أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.",
+          aboutCard3Title: "⭐ القيم الأساسية",
+          aboutCard3Desc: "الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.",
+          btnTop: "↑ العودة للأعلى",
+          btnCallFooter: "☎️ اتصل",
+          footerCopy: "© <span id=\"year\"></span> نادي الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج",
+          okMsg: "✅ تم تجهيز رسالة الاشتراك وفتح واتساب مباشرة. سيتواصل معك فريق التدريب قريباً!",
+          errMsg: "❌ الاسم ورقم الهاتف والبرنامج مطلوبين.",
           waStickyText: "احجز حصتك عبر واتساب الآن"
         },
         trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
         calcPlanSingle: "طالب واحد",
         calcPlanSiblings: "إخوة",
-        yearAll: "كل السنوات"
+        yearAll: "كل السنوات",
+        namePlaceholder: "حمود أحمد أو نور",
+        phonePlaceholder: "07xxxxxxxx",
+        agePlaceholder: "مثلاً: 10 سنوات",
+        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"
       },
       en: {
-        htmlKeys: ["heroTitle", "heroSub"],
+        htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
         text: {
           brandName: "Al Maher Taekwondo",
           brandCity: "Jerash",
@@ -2138,6 +2339,7 @@
           navReviews: "Parents Reviews",
           navRewards: "Student Rewards",
           navAchievements: "Results",
+          navNews: "News",
           navFaq: "FAQ",
           navBook: "Join",
           btnWhatsNav: "WhatsApp ↗",
@@ -2150,10 +2352,48 @@
           heroJoinBtn: "Join Now",
           btnCallHero: "Call Now ☎️",
           heroPriceBtn: "Clear Pricing",
+          heroRightPricingBtn: "Pricing",
+          heroRightJoinBtn: "Join",
+          jerashTitle: "Jerash",
+          jerashDesc: "A local club with a professional global mindset. We build strong, disciplined, and respectful students.",
+          coachName: "Master Raed Odaybat - International Referee & Head Coach",
+          coachInfo: "✓ International referee<br />✓ 35 years of experience<br />✓ Direct supervision for every student<br />✓ Women training with female coach support",
+          coachBadge: "🏆 Certified • Disciplined • Result-driven",
           heroLocationPill: "📍 Location: Jerash",
           heroPricePill: "💰 45 JOD / month (all inclusive)",
           calculatorTitle: "Smart Price Calculator",
           calculatorDesc: "Calculate your final fee instantly for single student, siblings, and delivery options.",
+          whyUsTitle: "Why Choose Al Maher Club?",
+          whyUsDesc: "5 reasons why families choose us first.",
+          whyUsCard1Title: "Professional Coaching",
+          whyUsCard1Desc: "Led by an international referee and head coach with 35 years of experience. Every student gets personalized follow-up.",
+          whyUsCard2Title: "Confidence Building",
+          whyUsCard2Desc: "We build character, not only techniques. Discipline, respect, and leadership are part of every class.",
+          whyUsCard3Title: "Clear Growth Path",
+          whyUsCard3Desc: "A structured belt path from white to black with clear goals and skills for each stage.",
+          whyUsCard4Title: "Safe Home Transport",
+          whyUsCard4Desc: "Fast and safe transport is included. Uniform + training + transport all in one package.",
+          whyUsCard5Title: "Tournaments & Competition",
+          whyUsCard5Desc: "We prepare students for local and national championships with real competitive readiness.",
+          whyUsCard6Title: "300+ Active Students",
+          whyUsCard6Desc: "A strong community of students and families, with long-term growth and teamwork.",
+          programsTitle: "Programs",
+          programsDesc: "Choose the right program and contact us directly.",
+          programCard1Title: "🧒 Kids (6-12)",
+          programCard1Desc: "Movement foundations, fitness basics, discipline, respect, confidence, and safe transport.",
+          programCard2Title: "👦 Teens & Adults (13+)",
+          programCard2Desc: "Advanced techniques, strength, flexibility, sparring progress, and competition preparation.",
+          programCard3Title: "👩 Women Program",
+          programCard3Desc: "Women-only classes in a safe environment with dedicated female coaching support.",
+          programCard4Title: "🥇 Competition Track",
+          programCard4Desc: "Specialized tournament preparation: tactics, speed, endurance, and pressure handling.",
+          programCard5Title: "🌙 Ramadan Program (Fitness + Fat Loss)",
+          programCard5Desc: "A safe Ramadan program to improve fitness and reduce weight, supervised directly by Master Raed Odaybat.",
+          pricingTitle: "Pricing",
+          pricingDesc: "Clear and transparent pricing with no hidden fees.",
+          pricingJoinBtn: "Join Now",
+          priceTitleMain: "📦 Full Monthly Package",
+          priceNoteMain: "✓ New Taekwondo uniform | ✓ Safe home transport | ✓ Full month training | ✓ Direct coach supervision",
           calcPlanLabel: "Plan Type",
           calcStudentsLabel: "Number of Students",
           calcDeliveryLabel: "Add family delivery (+15 JOD)",
@@ -2163,6 +2403,17 @@
           calcBreakdownDeliveryLabel: "Delivery",
           calcFinalLabel: "Final Price",
           calcWhatsQuote: "💬 Send Quote on WhatsApp",
+          paymentMethodLabel: "Preferred Payment Method",
+          paymentMethodHint: "You can change your payment method later during registration.",
+          paymentMethodCashOpt: "Cash at the club",
+          paymentMethodCliqOpt: "CliQ transfer",
+          paymentMethodBankOpt: "Bank transfer",
+          paymentMethodWalletOpt: "E-wallet",
+          paymentMethodsTitle: "Payment Methods:",
+          paymentMethodsList: "Cash at the club, CliQ transfer, bank transfer, and e-wallet.",
+          journeyTitle: "Belt Journey",
+          journeyDesc: "Click any belt to view the required skills and promotion goals.",
+          journeyBtn: "Start Now",
           trackerTitle: "Belt Progress Tracker",
           trackerDesc: "Enter a student's phone number or private code to check current and next belt progress.",
           trackerInputLabel: "Phone or Code",
@@ -2190,12 +2441,72 @@
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
+          newsTitle: "Club News & Latest Achievements",
+          newsDesc: "This section is generated automatically from achievements data. Add a new achievement and it appears here instantly.",
+          newsEmpty: "No news items yet.",
+          newsChip: "Achievement News",
+          faqTitle: "Frequently Asked Questions",
+          faqDesc: "Quick answers to the most common parent questions.",
+          scheduleTitle: "Class Schedule",
+          scheduleDesc: "Find the time that fits you best. Extra timings are available on demand.",
+          scheduleHeadDays: "📅 Training Days",
+          scheduleHeadTime: "⏰ Time",
+          scheduleHeadNote: "📝 Notes",
+          scheduleRow1Days: "Sunday - Tuesday - Thursday",
+          scheduleRow1Note: "Foundational movement and basic fitness",
+          scheduleRow2Days: "Sunday - Tuesday - Thursday",
+          scheduleRow2Note: "Advanced technique and intensive training",
+          scheduleRow3Days: "Sunday - Tuesday - Thursday",
+          scheduleRow3Note: "Women classes supervised by a female coach",
+          bookTitle: "Join Now",
+          bookDesc: "Fast and simple form. WhatsApp opens with a ready message to submit instantly.",
+          nameLabel: "Full Name",
+          phoneLabel: "Phone Number",
+          ageLabel: "Age (Optional)",
+          programLabel: "Choose Program",
+          programOptPlaceholder: "-- Choose a Program --",
+          programOptKids: "Kids",
+          programOptTeens: "Teens",
+          programOptAdults: "Adults",
+          programOptWomen: "Women",
+          programOptCompetition: "Competition Program",
+          programOptRamadan: "Ramadan Program (Fitness + Fat Loss)",
+          timeLabel: "Best Contact Time",
+          timeOptMorning: "Morning",
+          timeOptEvening: "Evening",
+          timeOptAny: "Any Time",
+          msgLabel: "Note or Question (Optional)",
+          submitBookingBtn: "✓ Send Registration Request via WhatsApp",
+          contactTitle: "💬 Contact Info",
+          contactWhatsappLabel: "WhatsApp Number:",
+          contactPriceLabel: "Monthly Price:",
+          contactPriceValue: "45 JOD (uniform + transport + training included)",
+          contactLocationLabel: "Location:",
+          contactLocationValue: "Jerash",
+          contactHighlights: "✓ Safe and fast transport included<br />✓ Direct supervision by the coach and female trainer<br />✓ Clear success path",
+          aboutTitle: "About The Club",
+          aboutDesc: "A safe, professional, and trusted training environment.",
+          aboutCard1Title: "🎯 Our Mission",
+          aboutCard1Desc: "Build disciplined, confident, and respectful taekwondo students with strong character.",
+          aboutCard2Title: "🏆 Our Vision",
+          aboutCard2Desc: "Become the first choice for families and prepare true fighters for competitions.",
+          aboutCard3Title: "⭐ Core Values",
+          aboutCard3Desc: "Discipline first, then respect, then skill. Character always matters most.",
+          btnTop: "↑ Back to Top",
+          btnCallFooter: "☎️ Call",
+          footerCopy: "© <span id=\"year\"></span> Al Maher Taekwondo Club - Jerash | Professional Training • Discipline • Results",
+          okMsg: "✅ Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
+          errMsg: "❌ Name, phone number, and program are required.",
           waStickyText: "Reserve your slot on WhatsApp now"
         },
         trackerPlaceholder: "Example: 0779000000 or MT-1024",
         calcPlanSingle: "Single Student",
         calcPlanSiblings: "Siblings",
-        yearAll: "All Years"
+        yearAll: "All Years",
+        namePlaceholder: "Hammoud Ahmad or Noor",
+        phonePlaceholder: "07xxxxxxxx",
+        agePlaceholder: "Example: 10 years",
+        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
       }
     };
 
@@ -2245,6 +2556,8 @@
       Object.entries(dict.text).forEach(([id, value])=>{
         setText(id, value, htmlKeys.has(id));
       });
+      const yearEl = document.getElementById("year");
+      if(yearEl) yearEl.textContent = new Date().getFullYear();
 
       const calcPlanType = document.getElementById("calcPlanType");
       if(calcPlanType){
@@ -2255,8 +2568,30 @@
       const trackerInput = document.getElementById("trackerInput");
       if(trackerInput) trackerInput.placeholder = dict.trackerPlaceholder;
 
+      const nameInput = document.getElementById("name");
+      if(nameInput) nameInput.placeholder = dict.namePlaceholder;
+      const phoneInput = document.getElementById("phone");
+      if(phoneInput) phoneInput.placeholder = dict.phonePlaceholder;
+      const ageInput = document.getElementById("age");
+      if(ageInput) ageInput.placeholder = dict.agePlaceholder;
+      const msgInput = document.getElementById("msg");
+      if(msgInput) msgInput.placeholder = dict.msgPlaceholder;
+
       const yearAllOption = document.querySelector("#achievementYear option[value='all']");
       if(yearAllOption) yearAllOption.textContent = dict.yearAll;
+
+      const dayLabel = dict.text.scheduleHeadDays || "📅 أيام التدريب";
+      const noteLabel = dict.text.scheduleHeadNote || "📝 الملاحظة";
+      const timeLabel = dict.text.scheduleHeadTime || "⏰ الوقت";
+      document.querySelectorAll("#scheduleBody td[id$='Days']").forEach((cell)=>{
+        cell.setAttribute("data-label", dayLabel);
+      });
+      document.querySelectorAll("#scheduleBody td[id$='Note']").forEach((cell)=>{
+        cell.setAttribute("data-label", noteLabel);
+      });
+      document.querySelectorAll("#scheduleBody td.time").forEach((cell)=>{
+        cell.setAttribute("data-label", timeLabel);
+      });
 
       document.querySelectorAll("[data-lang-only]").forEach((node)=>{
         node.hidden = node.getAttribute("data-lang-only") !== currentLang;
@@ -2286,9 +2621,15 @@
       }
 
       if(uiReady){
+        renderBeltsList();
         updatePriceCalculator();
         updateTrackerContent();
+        renderFaq();
+        renderParentReviews();
+        renderStudentRewards();
+        populateAchievementYears();
         renderAchievements();
+        renderNews();
       }
 
       try {
@@ -2315,7 +2656,12 @@
       savedLang = null;
     }
 
-    currentLang = savedLang === "en" ? "en" : "ar";
+    const browserPrefersEnglish = String(navigator.language || "").toLowerCase().startsWith("en");
+    if(savedLang === "en" || savedLang === "ar"){
+      currentLang = savedLang;
+    } else {
+      currentLang = browserPrefersEnglish ? "en" : "ar";
+    }
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
 
@@ -2336,22 +2682,74 @@
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
     }
 
+    const ANALYTICS_KEY = "maher_tkd_analytics_events_v1";
+    function trackInteraction(eventName, detail = {}){
+      const payload = {
+        event: eventName,
+        detail,
+        lang: currentLang,
+        path: location.pathname,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem(ANALYTICS_KEY) || "[]");
+        if(Array.isArray(existing)){
+          existing.push(payload);
+          const trimmed = existing.slice(-300);
+          localStorage.setItem(ANALYTICS_KEY, JSON.stringify(trimmed));
+        } else {
+          localStorage.setItem(ANALYTICS_KEY, JSON.stringify([payload]));
+        }
+      } catch(_){
+        // Ignore storage restrictions.
+      }
+
+      if(typeof window.gtag === "function"){
+        window.gtag("event", eventName, detail);
+      } else if(Array.isArray(window.dataLayer)){
+        window.dataLayer.push({ event: eventName, ...detail });
+      }
+    }
+
+    function getElementSource(el, fallback){
+      if(!el) return fallback;
+      if(el.id) return el.id;
+      const href = el.getAttribute("href");
+      if(href) return href;
+      return fallback;
+    }
+
     // WhatsApp buttons
     const btnWhatsNav = document.getElementById("btnWhatsNav");
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
     const waStickyCta = document.getElementById("waStickyCta");
     const fabWhats = document.getElementById("fabWhats");
+    const btnWhatsEnglish = document.getElementById("btnWhatsEnglish");
 
-    [btnWhatsNav, btnWhatsFoot, waStickyCta].forEach((btn) => {
+    [btnWhatsNav, btnWhatsFoot, waStickyCta, btnWhatsEnglish].forEach((btn) => {
       if(!btn) return;
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
+        trackInteraction("whatsapp_click", { source: getElementSource(btn, "whatsapp_button") });
         window.open(waLink(getDefaultWaMessage()), "_blank");
       });
     });
     if(fabWhats){
-      fabWhats.addEventListener("click", ()=> window.open(waLink(getDefaultWaMessage()), "_blank"));
+      fabWhats.addEventListener("click", ()=>{
+        trackInteraction("whatsapp_click", { source: "fab_whatsapp" });
+        window.open(waLink(getDefaultWaMessage()), "_blank");
+      });
     }
+
+    document.querySelectorAll('a[href^="tel:"]').forEach((link)=>{
+      link.addEventListener("click", ()=>{
+        trackInteraction("call_click", {
+          source: getElementSource(link, "call_link"),
+          phone: String(link.getAttribute("href") || "").replace("tel:", "")
+        });
+      });
+    });
 
     // PWA install prompt
     let deferredInstallPrompt = null;
@@ -2379,7 +2777,12 @@
       if(installAppBtn) installAppBtn.style.display = "none";
     });
 
-    if("serviceWorker" in navigator){
+    const canRegisterServiceWorker =
+      window.location.protocol === "https:" ||
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    if("serviceWorker" in navigator && canRegisterServiceWorker){
       window.addEventListener("load", ()=>{
         navigator.serviceWorker.register("./service-worker.js").catch((err)=>{
           console.error("Service worker registration failed:", err);
@@ -2489,48 +2892,129 @@
 
     // Belts
     const belts = [
-      { key:"white", name:"الحزام الأبيض", color:"#f5f5f5", duration:"2–4 أسابيع",
-        req:["أساسيات الوقفة والحركة","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"] },
-      { key:"yellow", name:"الحزام الأصفر", color:"#ffd54a", duration:"4–6 أسابيع",
-        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تطوير دقة الركلات"] },
-      { key:"green", name:"الحزام الأخضر", color:"#26d07c", duration:"6–8 أسابيع",
-        req:["سلاسل ركلات متقدمة","ردود فعل أسرع","تمارين مرونة عالية المستوى"] },
-      { key:"blue", name:"الحزام الأزرق", color:"#3aa0ff", duration:"8–10 أسابيع",
-        req:["تكنيك متقدم جداً","تحكم كامل في المسافة والوقت","تحضير أولي للمنازلات"] },
-      { key:"red", name:"الحزام الأحمر", color:"#ff3b3b", duration:"10–14 أسبوع",
-        req:["خطط لعب متخصصة","قوة تحمل عالية جداً","مستوى منافسات عالي"] },
-      { key:"black", name:"الحزام الأسود", color:"#111111", duration:"حسب الالتزام والتفرغ",
-        req:["اختبار شامل: تكنيك + قتال + لياقة","انضباط ومسؤولية عالية جداً","استمرارية وتطوير مستمر مدى الحياة"] }
+      {
+        key:"white",
+        name:"الحزام الأبيض",
+        nameEn:"White Belt",
+        color:"#f5f5f5",
+        duration:"2–4 أسابيع",
+        durationEn:"2-4 weeks",
+        req:["أساسيات الوقفة والحركة","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"],
+        reqEn:["Basic stance and movement","Safety and discipline rules","Introduction to core kicking techniques"]
+      },
+      {
+        key:"yellow",
+        name:"الحزام الأصفر",
+        nameEn:"Yellow Belt",
+        color:"#ffd54a",
+        duration:"4–6 أسابيع",
+        durationEn:"4-6 weeks",
+        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تطوير دقة الركلات"],
+        reqEn:["Improve balance and strength","Raise physical fitness","Improve kick accuracy"]
+      },
+      {
+        key:"green",
+        name:"الحزام الأخضر",
+        nameEn:"Green Belt",
+        color:"#26d07c",
+        duration:"6–8 أسابيع",
+        durationEn:"6-8 weeks",
+        req:["سلاسل ركلات متقدمة","ردود فعل أسرع","تمارين مرونة عالية المستوى"],
+        reqEn:["Advanced kick combinations","Faster reactions","High-level flexibility training"]
+      },
+      {
+        key:"blue",
+        name:"الحزام الأزرق",
+        nameEn:"Blue Belt",
+        color:"#3aa0ff",
+        duration:"8–10 أسابيع",
+        durationEn:"8-10 weeks",
+        req:["تكنيك متقدم جداً","تحكم كامل في المسافة والوقت","تحضير أولي للمنازلات"],
+        reqEn:["Highly advanced techniques","Full control of distance and timing","Initial sparring preparation"]
+      },
+      {
+        key:"brown",
+        name:"الحزام البني",
+        nameEn:"Brown Belt",
+        color:"#8b5a2b",
+        duration:"12–16 أسبوع",
+        durationEn:"12-16 weeks",
+        req:["تكتيك قتالي متقدم تحت الضغط","ثبات ذهني وانضباط أعلى","جاهزية شاملة لاختبار الحزام الأسود"],
+        reqEn:["Advanced combat tactics under pressure","Stronger mental stability and discipline","Complete readiness for black belt testing"]
+      },
+      {
+        key:"red",
+        name:"الحزام الأحمر",
+        nameEn:"Red Belt",
+        color:"#ff3b3b",
+        duration:"10–14 أسبوع",
+        durationEn:"10-14 weeks",
+        req:["خطط لعب متخصصة","قوة تحمل عالية جداً","مستوى منافسات عالي"],
+        reqEn:["Specialized match strategies","Very high endurance","Advanced competition-level performance"]
+      },
+      {
+        key:"black",
+        name:"الحزام الأسود",
+        nameEn:"Black Belt",
+        color:"#111111",
+        duration:"حسب الالتزام والتفرغ",
+        durationEn:"Depends on commitment and consistency",
+        req:["اختبار شامل: تكنيك + قتال + لياقة","انضباط ومسؤولية عالية جداً","استمرارية وتطوير مستمر مدى الحياة"],
+        reqEn:["Comprehensive exam: technique + sparring + fitness","Very high discipline and responsibility","Lifelong consistency and development"]
+      }
     ];
 
     const beltList = document.getElementById("beltList");
     const beltDetails = document.getElementById("beltDetails");
+    let activeBeltKey = "white";
+
+    function getBeltName(item){
+      return currentLang === "en" ? (item.nameEn || item.name) : item.name;
+    }
+
+    function getBeltDuration(item){
+      return currentLang === "en" ? (item.durationEn || item.duration) : item.duration;
+    }
+
+    function getBeltRequirements(item){
+      return currentLang === "en" ? (item.reqEn || item.req) : item.req;
+    }
 
     function renderDetails(b){
       if(!beltDetails) return;
+      const durationLabel = currentLang === "en" ? "Duration" : "المدة";
+      const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
+      const requirements = getBeltRequirements(b);
       beltDetails.innerHTML = `
         <div class="details-top">
-          <h3 class="details-title">${b.name}</h3>
-          <span class="badge">المدة: ${b.duration}</span>
+          <h3 class="details-title">${getBeltName(b)}</h3>
+          <span class="badge">${durationLabel}: ${getBeltDuration(b)}</span>
         </div>
         <div class="details-body">
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
             <span class="swatch" style="background:${b.color}"></span>
-            <b>المتطلبات:</b>
+            <b>${requirementsLabel}:</b>
           </div>
-          <ul>${b.req.map(x=>`<li>${x}</li>`).join("")}</ul>
+          <ul>${requirements.map((x)=>`<li>${x}</li>`).join("")}</ul>
         </div>
       `;
     }
 
     function setActive(key){
+      activeBeltKey = key;
       document.querySelectorAll(".belt").forEach(x=>x.classList.remove("active"));
       const btn = document.querySelector(`.belt[data-key="${key}"]`);
       if(btn) btn.classList.add("active");
       renderDetails(belts.find(x=>x.key===key) || belts[0]);
     }
 
-    if(beltList){
+    function renderBeltsList(){
+      if(!beltList){
+        renderDetails(belts.find((item)=> item.key === activeBeltKey) || belts[0]);
+        return;
+      }
+
+      beltList.innerHTML = "";
       const beltFragment = document.createDocumentFragment();
       belts.forEach((b)=>{
         const el = document.createElement("div");
@@ -2539,23 +3023,24 @@
         el.innerHTML = `
           <div class="left">
             <span class="swatch" style="background:${b.color}"></span>
-            <span>${b.name}</span>
+            <span>${getBeltName(b)}</span>
           </div>
-          <small>${b.duration}</small>
+          <small>${getBeltDuration(b)}</small>
         `;
         el.addEventListener("click", ()=> setActive(b.key));
         beltFragment.appendChild(el);
       });
       beltList.appendChild(beltFragment);
-      setActive("white");
-    } else {
-      renderDetails(belts[0]);
+      setActive(activeBeltKey);
     }
+    renderBeltsList();
 
     // Smart price calculator
     const CALC_BASE_PER_STUDENT = 30;
     const CALC_DELIVERY_FEE = 15;
     const CALC_SIBLING_DISCOUNT = 3;
+    const CALC_MIN_SIBLINGS = 2;
+    const CALC_MAX_STUDENTS = 20;
     const calcPlanType = document.getElementById("calcPlanType");
     const calcStudents = document.getElementById("calcStudents");
     const calcDelivery = document.getElementById("calcDelivery");
@@ -2576,9 +3061,13 @@
       if(planType === "single"){
         students = 1;
         calcStudents.value = "1";
+        calcStudents.min = "1";
+        calcStudents.max = "1";
         calcStudents.disabled = true;
       } else {
-        students = Math.max(2, students);
+        calcStudents.min = String(CALC_MIN_SIBLINGS);
+        calcStudents.max = String(CALC_MAX_STUDENTS);
+        students = Math.max(CALC_MIN_SIBLINGS, Math.min(CALC_MAX_STUDENTS, students));
         calcStudents.value = String(students);
         calcStudents.disabled = false;
       }
@@ -2606,6 +3095,11 @@
     if(calcWhatsQuote){
       calcWhatsQuote.addEventListener("click", (event)=>{
         event.preventDefault();
+        trackInteraction("whatsapp_quote_click", {
+          source: "calcWhatsQuote",
+          planType: latestQuote.planType,
+          students: latestQuote.students
+        });
         const quoteType = latestQuote.planType === "siblings"
           ? (currentLang === "en" ? "siblings" : "إخوة")
           : (currentLang === "en" ? "single student" : "طالب واحد");
@@ -2623,6 +3117,7 @@
       green: "Green Belt",
       blue: "Blue Belt",
       red: "Red Belt",
+      brown: "Brown Belt",
       black: "Black Belt"
     };
     const studentProgressData = [
@@ -2777,8 +3272,263 @@
       });
     }
 
-    // Achievements timeline
-    const achievementsData = [
+    // Parent reviews with filters
+    const parentReviewsData = [
+      {
+        parentNameAr: "أم سليم",
+        parentNameEn: "Salim's Mother",
+        age: 8,
+        level: "beginner",
+        rating: 5,
+        programAr: "أطفال",
+        programEn: "Kids",
+        commentAr: "ابني صار أكثر انضباطًا وثقة من أول شهر. المتابعة ممتازة والتوصيل مريح جدًا.",
+        commentEn: "My son became more disciplined and confident from the first month. Great follow-up and very convenient delivery."
+      },
+      {
+        parentNameAr: "أبو ليث",
+        parentNameEn: "Laith's Father",
+        age: 11,
+        level: "intermediate",
+        rating: 5,
+        programAr: "شباب",
+        programEn: "Youth",
+        commentAr: "التمارين قوية ومنظمة. واضح جدًا الفرق في اللياقة والتركيز الدراسي.",
+        commentEn: "Training is strong and well structured. We clearly noticed better fitness and focus at school."
+      },
+      {
+        parentNameAr: "أم دانا",
+        parentNameEn: "Dana's Mother",
+        age: 14,
+        level: "advanced",
+        rating: 5,
+        programAr: "إناث",
+        programEn: "Female",
+        commentAr: "بيئة البنات محترمة وآمنة، والمدربة متابعة لكل التفاصيل.",
+        commentEn: "The girls-only environment is respectful and safe, and the coach follows every detail."
+      },
+      {
+        parentNameAr: "أبو حمزة",
+        parentNameEn: "Hamza's Father",
+        age: 9,
+        level: "beginner",
+        rating: 4,
+        programAr: "أطفال",
+        programEn: "Kids",
+        commentAr: "كنا متخوفين بالبداية، لكن طريقة التعامل مع الأطفال ممتازة جدًا.",
+        commentEn: "We were worried at first, but the way they handle children is excellent."
+      },
+      {
+        parentNameAr: "أم ريان",
+        parentNameEn: "Rayan's Mother",
+        age: 12,
+        level: "intermediate",
+        rating: 5,
+        programAr: "منافسات",
+        programEn: "Competition",
+        commentAr: "الخطة واضحة خطوة بخطوة، وابني أصبح جاهزًا للمشاركة بالبطولات.",
+        commentEn: "The plan is clear step by step, and my son is now ready for competitions."
+      },
+      {
+        parentNameAr: "أبو قيس",
+        parentNameEn: "Qais's Father",
+        age: 15,
+        level: "advanced",
+        rating: 5,
+        programAr: "شباب",
+        programEn: "Youth",
+        commentAr: "نتائج قوية جدًا خلال فترة قصيرة، وأكثر شيء عجبني الانضباط العالي.",
+        commentEn: "Very strong results in a short period. What impressed me most is the high discipline."
+      }
+    ];
+
+    const reviewAgeFilter = document.getElementById("reviewAgeFilter");
+    const reviewLevelFilter = document.getElementById("reviewLevelFilter");
+    const reviewsList = document.getElementById("reviewsList");
+
+    function getLevelLabel(level){
+      if(currentLang === "en"){
+        if(level === "beginner") return "Beginner";
+        if(level === "intermediate") return "Intermediate";
+        if(level === "advanced") return "Advanced";
+        return "Unknown";
+      }
+      if(level === "beginner") return "مبتدئ";
+      if(level === "intermediate") return "متوسط";
+      if(level === "advanced") return "متقدم";
+      return "غير محدد";
+    }
+
+    function getAgeGroup(age){
+      const n = Number(age || 0);
+      if(n >= 14) return "14+";
+      if(n >= 10) return "10-13";
+      return "6-9";
+    }
+
+    function getStars(score){
+      const val = Math.max(1, Math.min(5, Number(score || 0)));
+      return `${"★".repeat(val)}${"☆".repeat(5 - val)}`;
+    }
+
+    function renderParentReviews(){
+      if(!reviewsList) return;
+      const selectedAge = reviewAgeFilter ? reviewAgeFilter.value : "all";
+      const selectedLevel = reviewLevelFilter ? reviewLevelFilter.value : "all";
+
+      const filtered = parentReviewsData.filter((item)=>{
+        const ageMatch = selectedAge === "all" || getAgeGroup(item.age) === selectedAge;
+        const levelMatch = selectedLevel === "all" || item.level === selectedLevel;
+        return ageMatch && levelMatch;
+      });
+
+      if(!filtered.length){
+        reviewsList.innerHTML = `
+          <div class="review-empty">
+            ${currentLang === "en" ? "No reviews match this filter yet." : "لا توجد آراء مطابقة للفلاتر الحالية."}
+          </div>
+        `;
+        return;
+      }
+
+      const ageLabel = currentLang === "en" ? "Age" : "العمر";
+      const levelLabel = currentLang === "en" ? "Level" : "المستوى";
+      const programLabel = currentLang === "en" ? "Program" : "البرنامج";
+
+      reviewsList.innerHTML = filtered.map((item)=>{
+        const parentName = currentLang === "en" ? item.parentNameEn : item.parentNameAr;
+        const program = currentLang === "en" ? item.programEn : item.programAr;
+        const comment = currentLang === "en" ? item.commentEn : item.commentAr;
+        return `
+          <article class="review-card">
+            <div class="review-top">
+              <h3 class="review-name">${parentName}</h3>
+              <span class="review-stars" aria-label="${item.rating} / 5">${getStars(item.rating)}</span>
+            </div>
+            <div class="review-meta">${ageLabel}: ${item.age} | ${levelLabel}: ${getLevelLabel(item.level)} | ${programLabel}: ${program}</div>
+            <p class="review-text">${comment}</p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
+      if(!el) return;
+      el.addEventListener("change", renderParentReviews);
+    });
+    renderParentReviews();
+
+    // Student points and badge system
+    const studentRewardsData = [
+      { code:"MT-1024", nameAr:"محمد العياصرة", nameEn:"Mohammad Al Ayasrah", age:8, level:"beginner", attendance:16, achievements:2 },
+      { code:"MT-1091", nameAr:"ليان خليفات", nameEn:"Layan Khalifat", age:14, level:"advanced", attendance:24, achievements:4 },
+      { code:"MT-1107", nameAr:"يوسف بني ملحم", nameEn:"Yousef Bani Melhem", age:12, level:"intermediate", attendance:20, achievements:3 },
+      { code:"MT-1132", nameAr:"آية القضاة", nameEn:"Aya Al Qudah", age:11, level:"intermediate", attendance:18, achievements:2 },
+      { code:"MT-1165", nameAr:"عمر الزعبي", nameEn:"Omar Al Zoubi", age:15, level:"advanced", attendance:26, achievements:5 },
+      { code:"MT-1184", nameAr:"جود البطاينة", nameEn:"Jood Al Bataineh", age:9, level:"beginner", attendance:14, achievements:1 }
+    ];
+
+    const POINTS_PER_ATTENDANCE = 10;
+    const POINTS_PER_ACHIEVEMENT = 25;
+    const BADGE_STEPS = [
+      { threshold: 80, icon: "🥉", ar: "بادج الانضباط", en: "Discipline Badge" },
+      { threshold: 160, icon: "🥈", ar: "بادج الالتزام", en: "Commitment Badge" },
+      { threshold: 260, icon: "🥇", ar: "بادج التقدم", en: "Progress Badge" },
+      { threshold: 360, icon: "🏆", ar: "بادج نخبة النادي", en: "Elite Club Badge" }
+    ];
+
+    const studentRewardsList = document.getElementById("studentRewardsList");
+
+    function calcStudentPoints(student){
+      return (student.attendance * POINTS_PER_ATTENDANCE) + (student.achievements * POINTS_PER_ACHIEVEMENT);
+    }
+
+    function buildBadges(student, points){
+      const earned = BADGE_STEPS
+        .filter((step)=> points >= step.threshold)
+        .map((step)=> `${step.icon} ${currentLang === "en" ? step.en : step.ar}`);
+
+      if(student.achievements >= 3){
+        earned.push(currentLang === "en" ? "🎯 Achievement Hunter" : "🎯 صياد الإنجازات");
+      }
+      if(!earned.length){
+        earned.push(currentLang === "en" ? "🚀 Starting Badge" : "🚀 بادج البداية");
+      }
+      return earned;
+    }
+
+    function getNextBadgeProgress(points){
+      const nextStep = BADGE_STEPS.find((step)=> points < step.threshold);
+      if(!nextStep){
+        return {
+          percent: 100,
+          text: currentLang === "en" ? "All badge tiers completed." : "تم تحقيق جميع مستويات الأوسمة."
+        };
+      }
+
+      let previousThreshold = 0;
+      for(let i = BADGE_STEPS.length - 1; i >= 0; i -= 1){
+        if(points >= BADGE_STEPS[i].threshold){
+          previousThreshold = BADGE_STEPS[i].threshold;
+          break;
+        }
+      }
+
+      const range = Math.max(1, nextStep.threshold - previousThreshold);
+      const current = Math.max(0, points - previousThreshold);
+      const percent = Math.max(0, Math.min(100, (current / range) * 100));
+      const remaining = Math.max(0, nextStep.threshold - points);
+      const nextLabel = currentLang === "en" ? nextStep.en : nextStep.ar;
+
+      return {
+        percent,
+        text: currentLang === "en"
+          ? `${remaining} points left for ${nextLabel}.`
+          : `متبقي ${remaining} نقطة للحصول على ${nextLabel}.`
+      };
+    }
+
+    function renderStudentRewards(){
+      if(!studentRewardsList) return;
+      const pointsLabel = currentLang === "en" ? "points" : "نقطة";
+      const attendanceLabel = currentLang === "en" ? "Attendance" : "الحضور";
+      const achievementLabel = currentLang === "en" ? "Achievements" : "الإنجازات";
+      const ageLabel = currentLang === "en" ? "Age" : "العمر";
+      const levelLabel = currentLang === "en" ? "Level" : "المستوى";
+
+      const sorted = [...studentRewardsData]
+        .map((student)=> ({ ...student, points: calcStudentPoints(student) }))
+        .sort((a, b)=> b.points - a.points);
+
+      studentRewardsList.innerHTML = sorted.map((student)=>{
+        const fullName = currentLang === "en" ? student.nameEn : student.nameAr;
+        const badges = buildBadges(student, student.points);
+        const next = getNextBadgeProgress(student.points);
+
+        return `
+          <article class="reward-card">
+            <div class="reward-head">
+              <h3 class="reward-name">${fullName}</h3>
+              <span class="reward-code">${student.code}</span>
+            </div>
+            <div class="reward-points">
+              <b>${student.points}</b>
+              <span>${pointsLabel}</span>
+            </div>
+            <div class="reward-meta">${ageLabel}: ${student.age} | ${levelLabel}: ${getLevelLabel(student.level)}</div>
+            <div class="reward-meta">${attendanceLabel}: ${student.attendance} | ${achievementLabel}: ${student.achievements}</div>
+            <div class="reward-progress"><span style="width:${next.percent}%"></span></div>
+            <div class="reward-next">${next.text}</div>
+            <div class="reward-badges">${badges.map((badge)=> `<span class="reward-badge">${badge}</span>`).join("")}</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    renderStudentRewards();
+
+    // Achievements timeline + auto news feed
+    const FALLBACK_ACHIEVEMENTS_DATA = [
       {
         date: "2026-02-15",
         titleAr: "بطولة البرق للمملكة",
@@ -2828,12 +3578,83 @@
         noteEn: "Strong women-category participation with multiple medals."
       }
     ];
+    let achievementsData = [];
 
     const achievementYear = document.getElementById("achievementYear");
     const achievementsList = document.getElementById("achievementsList");
+    const newsList = document.getElementById("newsList");
+
+    function normalizeAchievementEntry(item){
+      if(!item || typeof item !== "object") return null;
+      const date = String(item.date || "").trim();
+      const titleAr = String(item.titleAr || "").trim();
+      const titleEn = String(item.titleEn || "").trim();
+      const locationAr = String(item.locationAr || "").trim();
+      const locationEn = String(item.locationEn || "").trim();
+      const noteAr = String(item.noteAr || "").trim();
+      const noteEn = String(item.noteEn || "").trim();
+      if(!date || !titleAr || !titleEn) return null;
+
+      const parseMedal = (value)=>{
+        const n = Number(value);
+        return Number.isFinite(n) && n >= 0 ? Math.round(n) : 0;
+      };
+
+      return {
+        date,
+        titleAr,
+        titleEn,
+        locationAr,
+        locationEn,
+        gold: parseMedal(item.gold),
+        silver: parseMedal(item.silver),
+        bronze: parseMedal(item.bronze),
+        noteAr,
+        noteEn
+      };
+    }
+
+    function buildAchievementsDataset(items){
+      const normalized = Array.isArray(items)
+        ? items.map(normalizeAchievementEntry).filter(Boolean)
+        : [];
+
+      normalized.sort((a, b)=> new Date(b.date) - new Date(a.date));
+      return normalized;
+    }
+
+    async function loadAchievementsData(){
+      let loaded = [];
+      try {
+        const response = await fetch(`${ACHIEVEMENTS_FEED_URL}?v=${Date.now()}`, { cache: "no-store" });
+        if(response.ok){
+          const payload = await response.json();
+          loaded = buildAchievementsDataset(payload);
+        }
+      } catch(_){
+        // Fallback to local data if feed is unavailable.
+      }
+
+      if(!loaded.length){
+        loaded = buildAchievementsDataset(FALLBACK_ACHIEVEMENTS_DATA);
+      }
+
+      achievementsData = loaded;
+      populateAchievementYears();
+      renderAchievements();
+      renderNews();
+    }
 
     function populateAchievementYears(){
       if(!achievementYear) return;
+      const previousValue = achievementYear.value || "all";
+      achievementYear.innerHTML = "";
+
+      const allOption = document.createElement("option");
+      allOption.value = "all";
+      allOption.textContent = i18n[currentLang].yearAll;
+      achievementYear.appendChild(allOption);
+
       const years = Array.from(new Set(achievementsData.map((item)=> new Date(item.date).getFullYear())))
         .filter((year)=> Number.isFinite(year))
         .sort((a, b)=> b - a);
@@ -2844,6 +3665,9 @@
         option.textContent = String(year);
         achievementYear.appendChild(option);
       });
+
+      const hasPrevious = Array.from(achievementYear.options).some((opt)=> opt.value === previousValue);
+      achievementYear.value = hasPrevious ? previousValue : "all";
     }
 
     function renderAchievements(){
@@ -2892,48 +3716,140 @@
       }).join("");
     }
 
-    populateAchievementYears();
+    function renderNews(){
+      if(!newsList) return;
+      if(!achievementsData.length){
+        newsList.innerHTML = `
+          <article class="news-card">
+            <b>${i18n[currentLang].text.newsEmpty}</b>
+          </article>
+        `;
+        return;
+      }
+
+      const locationLabel = currentLang === "en" ? "Location" : "الموقع";
+      const medalsLabel = currentLang === "en" ? "Total medals" : "إجمالي الميداليات";
+      const chipLabel = i18n[currentLang].text.newsChip;
+      const latestNews = achievementsData.slice(0, 6);
+
+      newsList.innerHTML = latestNews.map((item)=>{
+        const dateLabel = new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+        const title = currentLang === "en" ? item.titleEn : item.titleAr;
+        const location = currentLang === "en" ? item.locationEn : item.locationAr;
+        const note = currentLang === "en" ? item.noteEn : item.noteAr;
+        const totalMedals = item.gold + item.silver + item.bronze;
+
+        return `
+          <article class="news-card">
+            <span class="news-chip">📰 ${chipLabel}</span>
+            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
+            <div class="news-meta">${dateLabel}</div>
+            <div class="news-meta">${locationLabel}: ${location}</div>
+            <div class="news-meta">${medalsLabel}: ${totalMedals}</div>
+            <p style="margin:0; color:var(--muted); line-height:1.8; font-weight:800;">${note}</p>
+          </article>
+        `;
+      }).join("");
+    }
+
     if(achievementYear){
       achievementYear.addEventListener("change", renderAchievements);
     }
-    renderAchievements();
-
-    uiReady = true;
-    applyLanguage(currentLang);
+    loadAchievementsData().finally(()=>{
+      uiReady = true;
+      applyLanguage(currentLang);
+    });
 
     // FAQ
     const faqData = [
-      {q: "هل يجب أن يكون عند الطالب خبرة سابقة؟", a: "لا! نبدأ من الصفر. نادينا مشهور بتأسيس المبتدئين بشكل احترافي."},
-      {q: "كم عمر أصغر طالب يمكنه الالتحاق؟", a: "من 6 سنوات وما فوق. الأطفال الأصغر يستفيدون اكثر من الانضباط واللياقة."},
-      {q: "هل يوجد تدريب مخصص للإناث؟", a: "نعم، يوجد فئة إناث مستقلة مع مدرّبة إناث وبيئة تدريب مناسبة."},
-      {q: "كم سعر التوصيل؟", a: "التوصيل 15 دينار شهري فقط. والسعر الإجمالي 45 دينار: رسوم تدريب 15 + بدلة 15 + توصيل 15."},
-      {q: "كم مرة في الأسبوع يتدرب الطالب؟", a: "حسب اختيار الطالب والعائلة. عادة 2-3 مرات مع إمكانية إضافة حصص."},
-      {q: "متى يمكن الانتقال لحزام أعلى؟", a: "حسب التقدم والانضباط والمهارة. الكابتن يقيم كل طالب بشكل فردي."},
-      {q: "هل يمكن الانسحاب في أي وقت؟", a: "نعم، بدون عقوبات أو رسوم. لكننا متأكدون ستستمتع المسيرة معنا!"}
+      {
+        qAr: "هل يجب أن يكون عند الطالب خبرة سابقة؟",
+        aAr: "لا! نبدأ من الصفر. نادينا مشهور بتأسيس المبتدئين بشكل احترافي.",
+        qEn: "Does a student need prior experience?",
+        aEn: "No. We start from zero and build strong fundamentals in a structured way."
+      },
+      {
+        qAr: "كم عمر أصغر طالب يمكنه الالتحاق؟",
+        aAr: "من 6 سنوات وما فوق. الأطفال الأصغر يستفيدون اكثر من الانضباط واللياقة.",
+        qEn: "What is the minimum joining age?",
+        aEn: "From age 6 and above. Younger students benefit strongly from discipline and movement skills."
+      },
+      {
+        qAr: "هل يوجد تدريب مخصص للإناث؟",
+        aAr: "نعم، يوجد فئة إناث مستقلة مع مدرّبة إناث وبيئة تدريب مناسبة.",
+        qEn: "Do you offer women-only training?",
+        aEn: "Yes. We provide dedicated women classes supervised by a female coach."
+      },
+      {
+        qAr: "كم سعر التوصيل؟",
+        aAr: "التوصيل 15 دينار شهري فقط. والسعر الإجمالي 45 دينار: رسوم تدريب 15 + بدلة 15 + توصيل 15.",
+        qEn: "How much is transport?",
+        aEn: "Transport is 15 JOD/month. Total monthly package is 45 JOD: training + uniform + transport."
+      },
+      {
+        qAr: "كم مرة في الأسبوع يتدرب الطالب؟",
+        aAr: "حسب اختيار الطالب والعائلة. عادة 2-3 مرات مع إمكانية إضافة حصص.",
+        qEn: "How many sessions per week?",
+        aEn: "It depends on family preference. Usually 2 to 3 sessions, with optional extra classes."
+      },
+      {
+        qAr: "متى يمكن الانتقال لحزام أعلى؟",
+        aAr: "حسب التقدم والانضباط والمهارة. الكابتن يقيم كل طالب بشكل فردي.",
+        qEn: "When can a student move to the next belt?",
+        aEn: "Based on progress, discipline, and skill. Every student is evaluated individually."
+      },
+      {
+        qAr: "هل يمكن الانسحاب في أي وقت؟",
+        aAr: "نعم، بدون عقوبات أو رسوم. لكننا متأكدون ستستمتع المسيرة معنا!",
+        qEn: "Can we cancel at any time?",
+        aEn: "Yes, without penalties or extra fees."
+      }
     ];
 
     const faqList = document.getElementById("faqList");
-    faqData.forEach((item, idx)=>{
-      const el = document.createElement("div");
-      el.className = "faq-item";
-      if(idx === 0) el.classList.add("active");
-      el.innerHTML = `
-        <div class="faq-question">
-          <span>${item.q}</span>
-          <div class="faq-toggle">▼</div>
-        </div>
-        <div class="faq-answer">${item.a}</div>
-      `;
-      el.querySelector(".faq-question").addEventListener("click", ()=>{
-        el.classList.toggle("active");
+    function renderFaq(){
+      if(!faqList) return;
+      faqList.innerHTML = "";
+      faqData.forEach((item, idx)=>{
+        const question = currentLang === "en" ? item.qEn : item.qAr;
+        const answer = currentLang === "en" ? item.aEn : item.aAr;
+        const el = document.createElement("div");
+        el.className = "faq-item";
+        if(idx === 0) el.classList.add("active");
+        el.innerHTML = `
+          <div class="faq-question">
+            <span>${question}</span>
+            <div class="faq-toggle">▼</div>
+          </div>
+          <div class="faq-answer">${answer}</div>
+        `;
+        el.querySelector(".faq-question").addEventListener("click", ()=>{
+          el.classList.toggle("active");
+        });
+        faqList.appendChild(el);
       });
-      faqList.appendChild(el);
-    });
+    }
+    renderFaq();
 
     // Subscribe form
     const form = document.getElementById("bookingForm");
     const okMsg = document.getElementById("okMsg");
     const errMsg = document.getElementById("errMsg");
+    const PAYMENT_METHOD_LABELS = {
+      cash: { ar: "نقداً في النادي", en: "Cash at the club" },
+      cliq: { ar: "كليك (CliQ)", en: "CliQ transfer" },
+      bank: { ar: "تحويل بنكي", en: "Bank transfer" },
+      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" }
+    };
+
+    function getPaymentMethodLabel(value, lang = "ar"){
+      const method = PAYMENT_METHOD_LABELS[value] || PAYMENT_METHOD_LABELS.cash;
+      return lang === "en" ? method.en : method.ar;
+    }
 
     // Remove any legacy locally saved requests from older versions.
     try {
@@ -2951,14 +3867,39 @@
       const name = document.getElementById("name").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const age = document.getElementById("age").value.trim();
-      const program = document.getElementById("program").value;
-      const time = document.getElementById("time").value;
+      const programSelect = document.getElementById("program");
+      const program = programSelect ? programSelect.value : "";
+      const programLabelText = programSelect && programSelect.selectedIndex >= 0
+        ? programSelect.options[programSelect.selectedIndex].textContent.trim()
+        : "";
+      const timeSelect = document.getElementById("time");
+      const time = timeSelect ? timeSelect.value : "";
+      const timeLabelText = timeSelect && timeSelect.selectedIndex >= 0
+        ? timeSelect.options[timeSelect.selectedIndex].textContent.trim()
+        : "";
+      const paymentMethodEl = document.getElementById("paymentMethod");
+      const paymentMethod = paymentMethodEl ? paymentMethodEl.value : "cash";
       const msg = document.getElementById("msg").value.trim();
+      const paymentMethodLabel = getPaymentMethodLabel(paymentMethod, currentLang);
+      const paymentMethodAr = getPaymentMethodLabel(paymentMethod, "ar");
 
       if(!name || !phone || !program){
+        trackInteraction("form_submit_invalid", {
+          source: "bookingForm",
+          hasName: Boolean(name),
+          hasPhone: Boolean(phone),
+          hasProgram: Boolean(program)
+        });
         errMsg.style.display = "block";
         return;
       }
+
+      trackInteraction("form_submit", {
+        source: "bookingForm",
+        program: program,
+        time: time,
+        paymentMethod
+      });
 
       async function sendToTelegram(){
         try {
@@ -2993,8 +3934,9 @@
   • الهاتف: ${phone}
   • العمر: ${age || "لم يحدد"}
 
-<b>🏋️ البرنامج:</b> ${program}
-<b>⏰ أفضل وقت:</b> ${time}
+<b>🏋️ البرنامج:</b> ${programLabelText || program}
+<b>⏰ أفضل وقت:</b> ${timeLabelText || time}
+<b>💳 طريقة الدفع:</b> ${paymentMethodAr}
 
 <b>💬 الملاحظة:</b>
 ${msg || "لا توجد ملاحظات"}
@@ -3027,18 +3969,33 @@ ${msg || "لا توجد ملاحظات"}
 
       sendToTelegram();
 
-      const waMessage = `السلام عليكم،
+      const waMessage = currentLang === "en"
+        ? `Hi,
+I want to register at Al Maher Taekwondo Club - Jerash.
+
+Name: ${name}
+Phone: ${phone}
+Age: ${age || "—"}
+Program: ${programLabelText || program}
+Preferred contact time: ${timeLabelText || time}
+Payment method: ${paymentMethodLabel}
+Note: ${msg || "—"}
+
+Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
+        : `السلام عليكم،
 بدي اشتراك في نادي الماهر للتايكوندو - جرش.
 
 الاسم: ${name}
 الهاتف: ${phone}
 العمر: ${age || "—"}
-البرنامج: ${program}
-الوقت المفضل: ${time}
+البرنامج: ${programLabelText || program}
+الوقت المفضل: ${timeLabelText || time}
+طريقة الدفع: ${paymentMethodAr}
 ملاحظة: ${msg || "—"}
 
 السعر الشهري: 45 دينار (الكل مشمول: بدلة + توصيل + تدريب)`;
 
+      trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
       window.open(waLink(waMessage), "_blank");
 
       okMsg.style.display = "block";
