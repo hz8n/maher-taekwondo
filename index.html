@@ -3422,6 +3422,7 @@
         name:"الحزام الأبيض",
         nameEn:"White Belt",
         color:"#f5f5f5",
+        fee:0,
         duration:"2–4 أسابيع",
         durationEn:"2-4 weeks",
         req:["أساسيات الوقفة والحركة","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"],
@@ -3432,6 +3433,7 @@
         name:"الحزام الأصفر",
         nameEn:"Yellow Belt",
         color:"#ffd54a",
+        fee:10,
         duration:"4–6 أسابيع",
         durationEn:"4-6 weeks",
         req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تطوير دقة الركلات"],
@@ -3442,6 +3444,9 @@
         name:"الحزام الأخضر",
         nameEn:"Green Belt",
         color:"#26d07c",
+        fee:15,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
         duration:"6–8 أسابيع",
         durationEn:"6-8 weeks",
         req:["سلاسل ركلات متقدمة","ردود فعل أسرع","تمارين مرونة عالية المستوى"],
@@ -3452,6 +3457,9 @@
         name:"الحزام الأزرق",
         nameEn:"Blue Belt",
         color:"#3aa0ff",
+        fee:35,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
         duration:"8–10 أسابيع",
         durationEn:"8-10 weeks",
         req:["تكنيك متقدم جداً","تحكم كامل في المسافة والوقت","تحضير أولي للمنازلات"],
@@ -3462,6 +3470,9 @@
         name:"الحزام البني",
         nameEn:"Brown Belt",
         color:"#8b5a2b",
+        fee:40,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
         duration:"12–16 أسبوع",
         durationEn:"12-16 weeks",
         req:["تكتيك قتالي متقدم تحت الضغط","ثبات ذهني وانضباط أعلى","جاهزية شاملة لاختبار الحزام الأسود"],
@@ -3472,6 +3483,9 @@
         name:"الحزام الأحمر",
         nameEn:"Red Belt",
         color:"#ff3b3b",
+        fee:50,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
         duration:"10–14 أسبوع",
         durationEn:"10-14 weeks",
         req:["خطط لعب متخصصة","قوة تحمل عالية جداً","مستوى منافسات عالي"],
@@ -3482,6 +3496,9 @@
         name:"الحزام الأسود",
         nameEn:"Black Belt",
         color:"#111111",
+        fee:180,
+        issuerAr:"من الاتحاد الأردني للتايكواندو",
+        issuerEn:"Issued by the Jordan Taekwondo Federation",
         duration:"حسب الالتزام والتفرغ",
         durationEn:"Depends on commitment and consistency",
         req:["اختبار شامل: تكنيك + قتال + لياقة","انضباط ومسؤولية عالية جداً","استمرارية وتطوير مستمر مدى الحياة"],
@@ -3505,22 +3522,60 @@
       return currentLang === "en" ? (item.reqEn || item.req) : item.req;
     }
 
+    function getBeltFeeLabel(item){
+      const fee = Number(item && item.fee);
+      if(!Number.isFinite(fee) || fee <= 0){
+        return currentLang === "en" ? "No fee" : "بدون رسوم";
+      }
+      return currentLang === "en" ? `${fee} JOD` : `${fee} دينار`;
+    }
+
+    function getBeltSubGrades(item){
+      if(!item) return [];
+      const list = currentLang === "en"
+        ? item.subGradesEn
+        : item.subGradesAr;
+      return Array.isArray(list) ? list : [];
+    }
+
+    function getBeltIssuer(item){
+      if(!item) return "";
+      return currentLang === "en"
+        ? (item.issuerEn || "")
+        : (item.issuerAr || "");
+    }
+
     function renderDetails(b){
       if(!beltDetails) return;
       const durationLabel = currentLang === "en" ? "Duration" : "المدة";
+      const feeLabel = currentLang === "en" ? "Belt fee" : "رسوم الحزام";
+      const issuerLabel = currentLang === "en" ? "Certification" : "الاعتماد";
+      const gradesLabel = currentLang === "en" ? "Sub-grades" : "درجات الحزام";
       const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
       const requirements = getBeltRequirements(b);
+      const subGrades = getBeltSubGrades(b);
+      const issuer = getBeltIssuer(b);
       beltDetails.innerHTML = `
         <div class="details-top">
           <h3 class="details-title">${getBeltName(b)}</h3>
-          <span class="badge">${durationLabel}: ${getBeltDuration(b)}</span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="badge">${durationLabel}: ${getBeltDuration(b)}</span>
+            <span class="badge">${feeLabel}: ${getBeltFeeLabel(b)}</span>
+          </div>
         </div>
         <div class="details-body">
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
             <span class="swatch" style="background:${b.color}"></span>
             <b>${requirementsLabel}:</b>
           </div>
+          ${subGrades.length ? `
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+              <b>${gradesLabel}:</b>
+              ${subGrades.map((grade)=>`<span class="badge" style="margin-top:0;">${grade}</span>`).join("")}
+            </div>
+          ` : ""}
           <ul>${requirements.map((x)=>`<li>${x}</li>`).join("")}</ul>
+          ${issuer ? `<p style="margin:10px 0 0; color:var(--muted); font-weight:900;">${issuerLabel}: ${issuer}</p>` : ""}
         </div>
       `;
     }
@@ -3550,7 +3605,7 @@
             <span class="swatch" style="background:${b.color}"></span>
             <span>${getBeltName(b)}</span>
           </div>
-          <small>${getBeltDuration(b)}</small>
+          <small>${getBeltDuration(b)} • ${getBeltFeeLabel(b)}${getBeltSubGrades(b).length ? (currentLang === "en" ? " • 2 grades" : " • درجتان") : ""}</small>
         `;
         el.addEventListener("click", ()=> setActive(b.key));
         beltFragment.appendChild(el);
@@ -4475,6 +4530,4 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
-
-
 
