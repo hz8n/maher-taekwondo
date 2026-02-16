@@ -1,0 +1,32 @@
+﻿{
+  "name": "نادي الماهر للتايكوندو - جرش",
+  "short_name": "نادي الماهر",
+  "description": "تدريب احترافي للتايكوندو في جرش للأطفال والكبار والإناث.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#06131f",
+  "theme_color": "#06131f",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
