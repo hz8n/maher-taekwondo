@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>نادي الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك</title>
   <meta name="description" content="نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://ipapi.co https://api.telegram.org; upgrade-insecure-requests;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com; upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=()" />
@@ -20,6 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 
   <style>
     :root{
@@ -977,6 +978,16 @@
     .ok,.err{display:none; padding:12px 14px; border-radius:14px; font-weight:1000; font-size:14px}
     .ok{border:1px solid rgba(46,229,157,.35); background: rgba(46,229,157,.10)}
     .err{border:1px solid rgba(255,42,42,.35); background: rgba(255,42,42,.10)}
+    .bot-trap{
+      position:absolute !important;
+      left:-10000px !important;
+      top:auto !important;
+      width:1px !important;
+      height:1px !important;
+      overflow:hidden !important;
+      opacity:0 !important;
+      pointer-events:none !important;
+    }
     .payment-details{
       margin-top:10px;
       padding:12px;
@@ -1026,6 +1037,35 @@
       color:var(--text);
     }
     .payment-copy-status.error{
+      border-color: rgba(255,42,42,.35);
+      background: rgba(255,42,42,.12);
+    }
+    .turnstile-wrap{
+      margin-top:8px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(45,226,230,.25);
+      background:rgba(45,226,230,.06);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .turnstile-widget{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+    }
+    .turnstile-status{
+      display:none;
+      border-radius:12px;
+      padding:8px 10px;
+      font-weight:900;
+      font-size:12px;
+      border:1px solid rgba(42,210,159,.35);
+      background:rgba(42,210,159,.12);
+      color:var(--text);
+    }
+    .turnstile-status.error{
       border-color: rgba(255,42,42,.35);
       background: rgba(255,42,42,.12);
     }
@@ -1346,7 +1386,8 @@
     html[data-theme="light"] .news-card,
     html[data-theme="light"] .review-card,
     html[data-theme="light"] .review-form-card,
-    html[data-theme="light"] .english-panel{
+    html[data-theme="light"] .english-panel,
+    html[data-theme="light"] .turnstile-wrap{
       background: rgba(255,255,255,.88);
       border-color: rgba(16,48,74,.14);
     }
@@ -1452,15 +1493,15 @@
       }
     }
 
-    const TELEGRAM_BOT_TOKEN = "8046186892:AAEGiPQCzjkIx5O56-zr7DH2EcNs2fbTNLQ";
-    const TELEGRAM_CHAT_ID = "7994255254";
     const WHATSAPP_NUMBER = "962779331277";
     const MONTHLY_PRICE_JOD = 45;
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
+    const LEAD_SUBMIT_ENDPOINT = "/api/lead";
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
     const COACH_IMAGE = DEFAULT_IMAGE;
+    const TURNSTILE_SITE_KEY = "1x00000000000000000000AA"; // Replace with your own Cloudflare Turnstile site key
   </script>
 </head>
 
@@ -2015,18 +2056,23 @@
             <div class="row">
               <div>
                 <label for="name" id="nameLabel">الاسم الكامل</label>
-                <input id="name" name="name" placeholder="حمود أحمد أو نور" required />
+                <input id="name" name="name" placeholder="حمود أحمد أو نور" maxlength="80" required />
               </div>
               <div>
                 <label for="phone" id="phoneLabel">رقم الهاتف</label>
-                <input id="phone" name="phone" placeholder="07xxxxxxxx" inputmode="tel" required />
+                <input id="phone" name="phone" placeholder="07xxxxxxxx" inputmode="tel" maxlength="16" required />
               </div>
+            </div>
+
+            <div class="bot-trap" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
             </div>
 
             <div class="row">
               <div>
                 <label for="age" id="ageLabel">العمر (اختياري)</label>
-                <input id="age" name="age" placeholder="مثلاً: 10 سنوات" />
+                <input id="age" name="age" placeholder="مثلاً: 10 سنوات" maxlength="20" />
               </div>
               <div>
                 <label for="program" id="programLabel">اختر البرنامج</label>
@@ -2090,9 +2136,16 @@
               </div>
             </div>
 
+            <div class="turnstile-wrap">
+              <label id="turnstileLabel">تحقق الأمان (Cloudflare)</label>
+              <div class="turnstile-widget" id="turnstileWidget" aria-live="polite"></div>
+              <p class="calc-note" id="turnstileHint">للحماية من السبام، يرجى إكمال التحقق الأمني قبل إرسال الطلب.</p>
+              <p class="turnstile-status" id="turnstileStatus" aria-live="polite"></p>
+            </div>
+
             <div>
               <label for="msg" id="msgLabel">ملاحظة أو سؤال (اختياري)</label>
-              <textarea id="msg" name="msg" placeholder="مثلاً: أبني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"></textarea>
+              <textarea id="msg" name="msg" maxlength="500" placeholder="مثلاً: أبني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"></textarea>
             </div>
 
             <button class="btn primary" id="submitBookingBtn" type="submit" style="padding:14px 18px; font-size:16px">✓ إرسال طلب الاشتراك عبر واتساب</button>
@@ -2200,6 +2253,8 @@
     const copyBankIbanBtn = document.getElementById("copyBankIbanBtn");
     const copyWalletNumberBtn = document.getElementById("copyWalletNumberBtn");
     const copyCryptoAddressBtn = document.getElementById("copyCryptoAddressBtn");
+    const turnstileWidgetEl = document.getElementById("turnstileWidget");
+    const turnstileStatusEl = document.getElementById("turnstileStatus");
     const rootEl = document.documentElement;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -2311,6 +2366,14 @@
           copyCryptoAddressBtn: "نسخ عنوان المحفظة",
           paymentCopySuccess: "تم نسخ بيانات الدفع.",
           paymentCopyError: "تعذر النسخ تلقائيًا، انسخها يدويًا.",
+          turnstileLabel: "تحقق الأمان (Cloudflare)",
+          turnstileHint: "للحماية من السبام، يرجى إكمال التحقق الأمني قبل إرسال الطلب.",
+          turnstileVerified: "تم التحقق الأمني بنجاح.",
+          turnstileRequiredError: "أكمل تحقق Cloudflare الأمني قبل الإرسال.",
+          turnstileLoadError: "تعذر تحميل تحقق Cloudflare. حدّث الصفحة وحاول مرة أخرى.",
+          turnstileExpired: "انتهت صلاحية التحقق الأمني. أعد التحقق ثم أرسل الطلب.",
+          bookingTooFastError: "تم رفض الطلب لأسباب أمنية. يرجى تعبئة النموذج ببطء ثم المحاولة مرة أخرى.",
+          bookingSecurityError: "تم رفض الطلب لأسباب أمنية. يرجى إعادة المحاولة.",
           paymentMethodsTitle: "طرق الدفع:",
           paymentMethodsList: "نقداً في النادي، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية، ودفع مشفّر (USDT).",
           journeyTitle: "رحلة الأحزمة",
@@ -2532,6 +2595,14 @@
           copyCryptoAddressBtn: "Copy Wallet Address",
           paymentCopySuccess: "Payment details copied.",
           paymentCopyError: "Could not copy automatically. Please copy manually.",
+          turnstileLabel: "Security Check (Cloudflare)",
+          turnstileHint: "To protect against spam, complete the security check before submitting.",
+          turnstileVerified: "Security verification completed successfully.",
+          turnstileRequiredError: "Please complete Cloudflare security verification before submitting.",
+          turnstileLoadError: "Cloudflare verification failed to load. Refresh the page and try again.",
+          turnstileExpired: "Security verification expired. Please verify again before submitting.",
+          bookingTooFastError: "Submission was blocked for security reasons. Please fill the form naturally and try again.",
+          bookingSecurityError: "Submission was blocked for security reasons. Please try again.",
           paymentMethodsTitle: "Payment Methods:",
           paymentMethodsList: "Cash at the club, CliQ transfer, bank transfer, e-wallet, and crypto payment (USDT).",
           journeyTitle: "Belt Journey",
@@ -2677,7 +2748,19 @@
         .slice(0, maxLength);
     }
 
+    const EXTERNAL_URL_ALLOWLIST = new Set(["wa.me", "www.wa.me", "api.whatsapp.com"]);
+    function isAllowedExternalUrl(url){
+      try {
+        const parsed = new URL(String(url || ""), window.location.origin);
+        if(parsed.protocol !== "https:") return false;
+        return EXTERNAL_URL_ALLOWLIST.has(parsed.hostname.toLowerCase());
+      } catch(_){
+        return false;
+      }
+    }
+
     function openExternal(url){
+      if(!isAllowedExternalUrl(url)) return;
       const win = window.open(String(url || ""), "_blank", "noopener,noreferrer");
       if(win) win.opener = null;
     }
@@ -2730,6 +2813,73 @@
         paymentCopyStatus.style.display = "none";
         paymentCopyStatus.classList.remove("error");
       }, 2600);
+    }
+
+    let turnstileToken = "";
+    let turnstileWidgetId = null;
+    let turnstileInitAttempts = 0;
+    const BOOKING_MIN_FILL_MS = 2500;
+    const bookingFormOpenedAt = Date.now();
+
+    function showTurnstileStatus(messageKey, isError = false){
+      if(!turnstileStatusEl) return;
+      const message = i18n[currentLang] && i18n[currentLang].text
+        ? i18n[currentLang].text[messageKey]
+        : "";
+      if(!message){
+        turnstileStatusEl.style.display = "none";
+        turnstileStatusEl.classList.remove("error");
+        return;
+      }
+      turnstileStatusEl.textContent = message;
+      turnstileStatusEl.style.display = "block";
+      turnstileStatusEl.classList.toggle("error", Boolean(isError));
+    }
+
+    function mountTurnstile(){
+      if(!turnstileWidgetEl) return;
+      if(turnstileWidgetId !== null) return;
+
+      if(typeof window.turnstile !== "object" || typeof window.turnstile.render !== "function"){
+        turnstileInitAttempts += 1;
+        if(turnstileInitAttempts <= 30){
+          setTimeout(mountTurnstile, 250);
+        } else {
+          showTurnstileStatus("turnstileLoadError", true);
+        }
+        return;
+      }
+
+      turnstileWidgetId = window.turnstile.render(turnstileWidgetEl, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "auto",
+        language: "auto",
+        action: "booking_submit",
+        callback(token){
+          turnstileToken = cleanInputText(token, 2048);
+          showTurnstileStatus("turnstileVerified");
+        },
+        "expired-callback"(){
+          turnstileToken = "";
+          showTurnstileStatus("turnstileExpired", true);
+        },
+        "error-callback"(){
+          turnstileToken = "";
+          showTurnstileStatus("turnstileLoadError", true);
+        }
+      });
+    }
+
+    function resetTurnstile(){
+      turnstileToken = "";
+      if(typeof window.turnstile === "object" && turnstileWidgetId !== null){
+        try {
+          window.turnstile.reset(turnstileWidgetId);
+        } catch(_){
+          // Ignore widget reset errors.
+        }
+      }
+      showTurnstileStatus("", false);
     }
 
     function updatePaymentMethodDetails(){
@@ -2838,6 +2988,10 @@
       }
 
       updatePaymentMethodDetails();
+      mountTurnstile();
+      if(turnstileToken){
+        showTurnstileStatus("turnstileVerified");
+      }
 
       setThemeToggleLabel(rootEl.getAttribute("data-theme") || "dark");
 
@@ -3953,6 +4107,40 @@
       return lang === "en" ? method.en : method.ar;
     }
 
+    function showBookingErrorFromKey(messageKey){
+      if(!errMsg) return;
+      const fallback = i18n[currentLang] && i18n[currentLang].text ? i18n[currentLang].text.errMsg : "";
+      const message = i18n[currentLang] && i18n[currentLang].text ? i18n[currentLang].text[messageKey] : "";
+      errMsg.textContent = message || fallback || errMsg.textContent;
+      errMsg.style.display = "block";
+    }
+
+    async function postLeadToSecureEndpoint(payload){
+      if(typeof LEAD_SUBMIT_ENDPOINT !== "string" || !LEAD_SUBMIT_ENDPOINT.startsWith("/")){
+        return false;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(()=> controller.abort(), 8000);
+      try {
+        const response = await fetch(LEAD_SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer",
+          signal: controller.signal
+        });
+        return response.ok;
+      } catch(_){
+        return false;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
     if(paymentMethodSelect){
       paymentMethodSelect.addEventListener("change", updatePaymentMethodDetails);
     }
@@ -3992,6 +4180,9 @@
       e.preventDefault();
       okMsg.style.display = "none";
       errMsg.style.display = "none";
+      if(errMsg && i18n[currentLang] && i18n[currentLang].text){
+        errMsg.textContent = i18n[currentLang].text.errMsg;
+      }
 
       const name = cleanInputText(document.getElementById("name").value, 80);
       const rawPhone = cleanInputText(document.getElementById("phone").value, 30);
@@ -4010,9 +4201,11 @@
       const paymentMethodEl = document.getElementById("paymentMethod");
       const paymentMethod = paymentMethodEl ? paymentMethodEl.value : "cash";
       const msg = cleanInputText(document.getElementById("msg").value, 500);
+      const websiteTrap = cleanInputText(document.getElementById("website") ? document.getElementById("website").value : "", 120);
       const paymentMethodLabel = getPaymentMethodLabel(paymentMethod, currentLang);
       const paymentMethodAr = getPaymentMethodLabel(paymentMethod, "ar");
       const isValidPhone = /^\+?\d{8,15}$/.test(phone);
+      const formFillDuration = Date.now() - bookingFormOpenedAt;
 
       if(!name || !phone || !program || !isValidPhone){
         trackInteraction("form_submit_invalid", {
@@ -4022,14 +4215,32 @@
           hasProgram: Boolean(program),
           isValidPhone
         });
-        errMsg.style.display = "block";
+        showBookingErrorFromKey("errMsg");
+        return;
+      }
+
+      if(websiteTrap){
+        trackInteraction("bot_trap_triggered", { source: "bookingForm" });
+        showBookingErrorFromKey("bookingSecurityError");
+        return;
+      }
+
+      if(formFillDuration < BOOKING_MIN_FILL_MS){
+        trackInteraction("form_submit_too_fast", { source: "bookingForm", ms: formFillDuration });
+        showBookingErrorFromKey("bookingTooFastError");
+        return;
+      }
+
+      if(!turnstileToken){
+        trackInteraction("turnstile_missing", { source: "bookingForm" });
+        showBookingErrorFromKey("turnstileRequiredError");
         return;
       }
 
       const now = Date.now();
       if(now - lastBookingSubmitAt < FORM_SUBMIT_COOLDOWN_MS){
         trackInteraction("form_submit_throttled", { source: "bookingForm" });
-        errMsg.style.display = "block";
+        showBookingErrorFromKey("errMsg");
         return;
       }
       lastBookingSubmitAt = now;
@@ -4041,89 +4252,24 @@
         paymentMethod
       });
 
-      async function sendToTelegram(){
-        try {
-          const ipResponse = await fetch('https://ipapi.co/json/');
-          const ipData = await ipResponse.json();
-
-          const lat = ipData.latitude || "N/A";
-          const lng = ipData.longitude || "N/A";
-          const mapsLink = (lat !== "N/A" && lng !== "N/A")
-            ? `https://maps.google.com/?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}`
-            : "";
-          const isSafeMapLink = /^https:\/\/maps\.google\.com\/\?q=/.test(mapsLink);
-          const safeNameHtml = escapeHtml(name);
-          const safePhoneHtml = escapeHtml(phone);
-          const safeAgeHtml = escapeHtml(age || "لم يحدد");
-          const safeProgramHtml = escapeHtml(programLabelText || program);
-          const safeTimeHtml = escapeHtml(timeLabelText || time);
-          const safePaymentHtml = escapeHtml(paymentMethodAr);
-          const safeMsgHtml = escapeHtml(msg || "لا توجد ملاحظات");
-          const safeCountryHtml = escapeHtml(cleanInputText(ipData.country_name, 80) || "Unknown");
-          const safeCityHtml = escapeHtml(cleanInputText(ipData.city, 80) || "Unknown");
-
-          const ua = navigator.userAgent;
-          let deviceType = "كمبيوتر", osType = "Unknown", browserType = "Unknown";
-
-          if(/Mobile|Android|iPhone|iPad|iPod/i.test(ua)) deviceType = "هاتف ذكي";
-          else if(/Tablet|iPad/i.test(ua)) deviceType = "تابلت";
-
-          if(/Windows/i.test(ua)) osType = "Windows";
-          else if(/Mac/i.test(ua)) osType = "macOS";
-          else if(/Android/i.test(ua)) osType = "Android";
-          else if(/iPhone|iPad/i.test(ua)) osType = "iOS";
-
-          if(/Chrome/i.test(ua) && !/Edge/i.test(ua)) browserType = "Google Chrome";
-          else if(/Safari/i.test(ua) && !/Chrome/i.test(ua)) browserType = "Safari";
-          else if(/Firefox/i.test(ua)) browserType = "Firefox";
-          else if(/Edge/i.test(ua)) browserType = "Microsoft Edge";
-
-          const safeDeviceHtml = escapeHtml(deviceType);
-          const safeOsHtml = escapeHtml(osType);
-          const safeBrowserHtml = escapeHtml(browserType);
-
-          const telegramMessage = `
-<b>🔴 طلب اشتراك جديد!</b>
-
-<b>👤 البيانات الشخصية:</b>
-  • الاسم: ${safeNameHtml}
-  • الهاتف: ${safePhoneHtml}
-  • العمر: ${safeAgeHtml}
-
-<b>🏋️ البرنامج:</b> ${safeProgramHtml}
-<b>⏰ أفضل وقت:</b> ${safeTimeHtml}
-<b>💳 طريقة الدفع:</b> ${safePaymentHtml}
-
-<b>💬 الملاحظة:</b>
-${safeMsgHtml}
-
-<b>📍 موقع العميل:</b>
-  • الدول: ${safeCountryHtml}
-  • المدينة: ${safeCityHtml}
-  • 🗺️ ${isSafeMapLink ? `<a href="${mapsLink}">فتح الخريطة</a>` : "غير متاح"}
-
-<b>💻 معلومات الجهاز:</b>
-  • نوع الجهاز: ${safeDeviceHtml}
-  • النظام: ${safeOsHtml}
-  • المتصفح: ${safeBrowserHtml}
-          `;
-
-          const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-          await fetch(telegramURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: TELEGRAM_CHAT_ID,
-              text: telegramMessage.trim(),
-              parse_mode: 'HTML'
-            })
-          });
-        } catch(err){
-          console.error("Telegram error:", err);
+      const userAgent = cleanInputText(navigator.userAgent || "", 260);
+      const secureLeadPayload = {
+        name,
+        phone,
+        age: age || "",
+        program: programLabelText || program,
+        preferredTime: timeLabelText || time,
+        paymentMethod: paymentMethodAr,
+        message: msg || "",
+        lang: currentLang,
+        turnstileToken,
+        userAgent
+      };
+      postLeadToSecureEndpoint(secureLeadPayload).then((ok)=>{
+        if(!ok){
+          console.warn("Secure lead endpoint is unavailable.");
         }
-      }
-
-      sendToTelegram();
+      });
 
       const waMessage = currentLang === "en"
         ? `Hi,
@@ -4156,6 +4302,7 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
 
       okMsg.style.display = "block";
       form.reset();
+      resetTurnstile();
       });
     }
 
