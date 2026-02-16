@@ -1,0 +1,50 @@
+[
+  {
+    "date": "2026-02-15",
+    "titleAr": "بطولة البرق للمملكة",
+    "titleEn": "Al Barq National Championship",
+    "locationAr": "المملكة الأردنية الهاشمية",
+    "locationEn": "Jordan",
+    "gold": 7,
+    "silver": 3,
+    "bronze": 2,
+    "noteAr": "حققت المركز الخامس على مستوى المملكة، وحقق النادي 7 ميداليات ذهبية و3 فضية و2 برونزية.",
+    "noteEn": "I achieved 5th place nationwide, and the club won 7 gold, 3 silver, and 2 bronze medals."
+  },
+  {
+    "date": "2026-01-30",
+    "titleAr": "بطولة جرش المفتوحة للتايكوندو",
+    "titleEn": "Jerash Open Taekwondo Championship",
+    "locationAr": "جرش",
+    "locationEn": "Jerash",
+    "gold": 4,
+    "silver": 3,
+    "bronze": 5,
+    "noteAr": "تأهل 3 لاعبين لمنتخب المحافظة بعد أداء قوي.",
+    "noteEn": "Three players qualified to the governorate team after strong performance."
+  },
+  {
+    "date": "2025-11-14",
+    "titleAr": "بطولة شمال المملكة",
+    "titleEn": "North Region Championship",
+    "locationAr": "إربد",
+    "locationEn": "Irbid",
+    "gold": 2,
+    "silver": 4,
+    "bronze": 3,
+    "noteAr": "تحقيق أفضل فريق ناشئين في البطولة.",
+    "noteEn": "Awarded best junior team in the tournament."
+  },
+  {
+    "date": "2025-08-09",
+    "titleAr": "بطولة الأندية الأردنية",
+    "titleEn": "Jordan Clubs Championship",
+    "locationAr": "عمّان",
+    "locationEn": "Amman",
+    "gold": 3,
+    "silver": 1,
+    "bronze": 4,
+    "noteAr": "مشاركة قوية لفئة الإناث وتحقيق ميداليات متنوعة.",
+    "noteEn": "Strong women-category participation with multiple medals."
+  }
+]
