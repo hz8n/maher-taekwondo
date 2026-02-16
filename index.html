@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>نادي الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك</title>
   <meta name="description" content="نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب." />
+  <meta name="theme-color" content="#06131f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="نادي الماهر" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ff6b35'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='30' font-family='Arial' fill='white'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,6 +148,14 @@
       padding-inline:12px;
       font-size:18px;
       line-height:1;
+    }
+    .lang-toggle{
+      min-width:54px;
+      justify-content:center;
+    }
+    .install-btn{
+      display:none;
+      white-space:nowrap;
     }
 
     /* HERO */
@@ -457,6 +471,194 @@
     .price-note{margin:0; color:rgba(255,255,255,.78); font-weight:900; line-height:1.9; font-size:15px;}
     .price-number{font-size:32px; font-weight:1100; color:var(--gold); white-space:nowrap; position:relative; z-index:1}
 
+    /* Smart Calculator */
+    .calculator-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .calc-switches{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:6px;
+    }
+    .calc-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:9px 13px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .calc-chip input{width:auto}
+    .calc-summary{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .calc-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px dashed rgba(255,255,255,.14);
+      padding-bottom:8px;
+      font-weight:900;
+    }
+    .calc-row:last-of-type{border-bottom:none}
+    .calc-final{
+      border-radius:14px;
+      border:1px solid rgba(255,209,102,.4);
+      background:rgba(255,209,102,.12);
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:22px;
+      font-weight:1000;
+      color:var(--gold);
+    }
+    .calc-note{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+      font-weight:800;
+    }
+
+    /* Belt Tracker */
+    .tracker-layout{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .tracker-empty{
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.8;
+      font-size:15px;
+    }
+    .tracker-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .tracker-progress{
+      height:12px;
+      border-radius:999px;
+      overflow:hidden;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.14);
+      margin:12px 0 10px;
+    }
+    .tracker-progress > span{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      transition: width 500ms ease;
+    }
+    .tracker-goals{
+      margin:10px 0 0;
+      padding-inline:18px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.8;
+    }
+    .tracker-goals li{margin:6px 0}
+
+    /* Achievements */
+    .achievement-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .achievement-list{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .achievement-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+    .achievement-date{
+      color:var(--accent2);
+      font-weight:1000;
+      font-size:13px;
+    }
+    .medals{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .medal{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:1000;
+    }
+
+    /* English quick panel */
+    .english-quick[hidden]{display:none}
+    .english-panel{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(45,226,230,.35);
+      border-radius:18px;
+      padding:18px;
+    }
+    .english-panel h3{
+      margin:0 0 10px;
+      font-size:24px;
+      font-weight:1000;
+      color:var(--accent2);
+    }
+    .english-list{
+      margin:10px 0 0;
+      padding-inline:18px;
+      line-height:1.9;
+      color:var(--muted);
+      font-weight:800;
+    }
+    html[data-lang="en"] body{
+      direction:ltr;
+    }
+    html[data-lang="en"] .sec-head,
+    html[data-lang="en"] .card,
+    html[data-lang="en"] .price-card,
+    html[data-lang="en"] .details,
+    html[data-lang="en"] .faq-question,
+    html[data-lang="en"] .faq-answer,
+    html[data-lang="en"] .mini-body,
+    html[data-lang="en"] .price-left{
+      text-align:left;
+    }
+    html[data-lang="en"] .schedule-table th{
+      text-align:left;
+    }
+    html[data-lang="en"] .float{
+      left:auto;
+      right:16px;
+    }
+
     /* Journey */
     .journey{display:grid; grid-template-columns: .9fr 1.1fr; gap:16px}
     .belt-list{display:flex; flex-direction:column; gap:10px}
@@ -608,6 +810,21 @@
       background: rgba(0,0,0,.3);
       box-shadow: 0 0 15px rgba(255,107,53,.1);
     }
+    input[type="checkbox"],
+    input[type="radio"]{
+      width:18px;
+      height:18px;
+      padding:0;
+      margin:0;
+      border-radius:5px;
+      background:transparent;
+      accent-color: var(--accent);
+    }
+    input[type="checkbox"]:focus,
+    input[type="radio"]:focus{
+      box-shadow:none;
+      background:transparent;
+    }
     textarea{min-height:100px; resize:vertical}
     .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
     form{display:flex; flex-direction:column; gap:12px}
@@ -654,10 +871,16 @@
 
     @media (max-width: 980px){
       .nav-links{display:none}
+      .nav-cta{gap:8px}
+      #btnWhatsNav,
+      #navJoinBtn{display:none}
       .hero-grid{grid-template-columns: 1fr}
       .stats{grid-template-columns: repeat(2,1fr)}
       .grid{grid-template-columns: 1fr}
+      .calculator-grid{grid-template-columns: 1fr}
       .journey{grid-template-columns: 1fr}
+      .tracker-layout{grid-template-columns: 1fr}
+      .achievement-list{grid-template-columns: 1fr}
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
       .sec-head{margin-bottom:20px}
@@ -904,9 +1127,21 @@
     html[data-theme="light"] .faq-item,
     html[data-theme="light"] .schedule-table,
     html[data-theme="light"] .stat,
-    html[data-theme="light"] .belt{
+    html[data-theme="light"] .belt,
+    html[data-theme="light"] .achievement-card,
+    html[data-theme="light"] .english-panel{
       background: rgba(255,255,255,.88);
       border-color: rgba(16,48,74,.14);
+    }
+    html[data-theme="light"] .calc-chip,
+    html[data-theme="light"] .medal{
+      background: rgba(16,48,74,.06);
+      border-color: rgba(16,48,74,.2);
+      color:var(--text);
+    }
+    html[data-theme="light"] .tracker-progress{
+      background: rgba(16,48,74,.08);
+      border-color: rgba(16,48,74,.18);
     }
     html[data-theme="light"] .hero-bg{
       background:
@@ -946,6 +1181,10 @@
       background:#fff;
       border-color: rgba(240,106,51,.6);
       box-shadow: 0 0 0 3px rgba(240,106,51,.12);
+    }
+    html[data-theme="light"] input[type="checkbox"],
+    html[data-theme="light"] input[type="radio"]{
+      background:transparent;
     }
     html[data-theme="light"] .img::after{
       background: linear-gradient(180deg, transparent, rgba(15,42,64,.35));
@@ -990,24 +1229,27 @@
       <a class="brand" href="#top">
         <div class="logo">MT</div>
         <div>
-          <div class="t1">نادي الماهر للتايكوندو</div>
-          <div class="t2">جرش</div>
+          <div class="t1" id="brandName">نادي الماهر للتايكوندو</div>
+          <div class="t2" id="brandCity">جرش</div>
         </div>
       </a>
 
       <div class="nav-links">
-        <a href="#why-us">لماذا اخترنا</a>
-        <a href="#programs">البرامج</a>
-        <a href="#pricing">الأسعار</a>
-        <a href="#journey">الأحزمة</a>
-        <a href="#faq">أسئلة شائعة</a>
-        <a href="#book">الاشتراك</a>
+        <a id="navWhyUs" href="#why-us">لماذا اخترنا</a>
+        <a id="navPrograms" href="#programs">البرامج</a>
+        <a id="navPricing" href="#pricing">الأسعار</a>
+        <a id="navCalculator" href="#calculator">الحاسبة</a>
+        <a id="navTracker" href="#tracker">التتبع</a>
+        <a id="navAchievements" href="#achievements">النتائج</a>
+        <a id="navBook" href="#book">الاشتراك</a>
       </div>
 
       <div class="nav-cta">
         <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="تفعيل الوضع الفاتح" title="تفعيل الوضع الفاتح">☀️</button>
+        <button class="btn lang-toggle" id="langToggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
+        <button class="btn install-btn" id="installAppBtn" type="button">📲 تثبيت التطبيق</button>
         <a class="btn" id="btnWhatsNav" href="#">واتساب ↗</a>
-        <a class="btn primary" href="#book">اشترك الآن</a>
+        <a class="btn primary" id="navJoinBtn" href="#book">اشترك الآن</a>
       </div>
     </div>
   </div>
@@ -1020,21 +1262,21 @@
 
     <div class="container hero-grid">
       <div class="panel hero-left">
-        <div class="tag">🥋 ابدأ رحلتك الآن</div>
-        <h1>نادي الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span></h1>
-        <p class="sub">
+        <div class="tag" id="heroTag">🥋 ابدأ رحلتك الآن</div>
+        <h1 id="heroTitle">نادي الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span></h1>
+        <p class="sub" id="heroSub">
           تدريب احترافي للأطفال والكبار وفئة الإناث من الصفر للحزام الأسود. بإشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b> (خبرة 35 سنة) مع توفر <b>مدرّبة إناث</b>. لياقة • انضباط • ثقة بالنفس • مسار واضح للنجاح.
         </p>
 
         <div class="hero-actions">
-          <a class="btn primary" href="#book">اشترك الآن</a>
+          <a class="btn primary" id="heroJoinBtn" href="#book">اشترك الآن</a>
           <a class="btn" id="btnCallHero" href="tel:0779331277">اتصل الآن ☎️</a>
-          <a class="btn gold" href="#pricing">سعر واضح</a>
+          <a class="btn gold" id="heroPriceBtn" href="#pricing">سعر واضح</a>
         </div>
 
         <div class="pills">
-          <span class="pill">📍 الموقع: جرش</span>
-          <span class="pill price">💰 45 دينار شهري (الكل مشمول)</span>
+          <span class="pill" id="heroLocationPill">📍 الموقع: جرش</span>
+          <span class="pill price" id="heroPricePill">💰 45 دينار شهري (الكل مشمول)</span>
           <a class="pill phone" href="tel:0779331277">📞 0779331277</a>
         </div>
 
@@ -1088,6 +1330,28 @@
       </div>
     </div>
   </header>
+
+  <section id="englishQuick" class="english-quick" data-lang-only="en" hidden>
+    <div class="container">
+      <div class="english-panel">
+        <h3>Quick English Version</h3>
+        <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.9;">
+          Al Maher Taekwondo Club in Jerash offers professional training for kids, teens, adults, and women.
+          Monthly plans start from 45 JD (training + uniform + delivery package available).
+        </p>
+        <ul class="english-list">
+          <li>Certified head coach with 35+ years of experience.</li>
+          <li>Women-only training with female coach supervision.</li>
+          <li>Clear belt journey and competition preparation.</li>
+          <li>Fast registration through WhatsApp: +962 77 933 1277.</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn primary" href="https://wa.me/962779331277" target="_blank" rel="noopener">WhatsApp Registration</a>
+          <a class="btn" href="#calculator">Price Calculator</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- WHY US -->
   <section id="why-us">
@@ -1198,6 +1462,70 @@
     </div>
   </section>
 
+  <!-- SMART PRICE CALCULATOR -->
+  <section id="calculator">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="calculatorTitle">حاسبة السعر الذكية</h2>
+          <p class="sec-desc" id="calculatorDesc">احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.</p>
+        </div>
+      </div>
+
+      <div class="calculator-grid">
+        <div class="card">
+          <form id="priceCalculatorForm">
+            <div>
+              <label for="calcPlanType" id="calcPlanLabel">نوع الاشتراك</label>
+              <select id="calcPlanType" name="planType">
+                <option value="single">طالب واحد</option>
+                <option value="siblings">إخوة</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="calcStudents" id="calcStudentsLabel">عدد الطلاب</label>
+              <input id="calcStudents" type="number" min="1" max="8" value="1" inputmode="numeric" />
+            </div>
+
+            <div class="calc-switches">
+              <label class="calc-chip" for="calcDelivery">
+                <input id="calcDelivery" type="checkbox" checked />
+                <span id="calcDeliveryLabel">إضافة التوصيل العائلي (+15 JD)</span>
+              </label>
+            </div>
+
+            <p class="calc-note" id="calcFormulaNote">
+              معادلة الحسبة: 30 دينار لكل طالب (تدريب + بدلة)، وخصم 3 دنانير لكل أخ بعد الطالب الأول، والتوصيل 15 دينار للعائلة.
+            </p>
+          </form>
+        </div>
+
+        <div class="card calc-summary">
+          <div class="calc-row">
+            <span id="calcBreakdownBaseLabel">المجموع الأساسي</span>
+            <b id="calcBreakdownBase">0 JD</b>
+          </div>
+          <div class="calc-row">
+            <span id="calcBreakdownDiscountLabel">خصم الإخوة</span>
+            <b id="calcBreakdownDiscount">0 JD</b>
+          </div>
+          <div class="calc-row">
+            <span id="calcBreakdownDeliveryLabel">التوصيل</span>
+            <b id="calcBreakdownDelivery">0 JD</b>
+          </div>
+
+          <div class="calc-final">
+            <span id="calcFinalLabel">السعر النهائي</span>
+            <span id="calcFinalTotal">0 JD</span>
+          </div>
+
+          <a class="btn primary" id="calcWhatsQuote" href="#">💬 إرسال التسعيرة على واتساب</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- JOURNEY -->
   <section id="journey">
     <div class="container">
@@ -1212,6 +1540,54 @@
       <div class="journey">
         <div class="belt-list" id="beltList"></div>
         <div class="details" id="beltDetails" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="tracker">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="trackerTitle">تتبع تقدّم الأحزمة</h2>
+          <p class="sec-desc" id="trackerDesc">أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.</p>
+        </div>
+      </div>
+
+      <div class="tracker-layout">
+        <div class="card">
+          <label for="trackerInput" id="trackerInputLabel">رقم الهاتف أو الكود</label>
+          <div class="row">
+            <input id="trackerInput" type="text" placeholder="مثال: 0779000000 أو MT-1024" />
+            <button class="btn primary" id="trackerBtn" type="button">عرض التقدم</button>
+          </div>
+          <p class="calc-note" id="trackerHint">
+            يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة النادي ويتم تحديثها باستمرار.
+          </p>
+        </div>
+
+        <div class="card" id="trackerPanel" aria-live="polite">
+          <p class="tracker-empty" id="trackerEmpty">لم يتم إدخال أي كود بعد.</p>
+
+          <div id="trackerResult" style="display:none;">
+            <div class="tracker-top">
+              <h3 style="margin:0; font-size:20px; font-weight:1000;" id="trackerStudentName">—</h3>
+              <span class="badge" id="trackerStudentCode">—</span>
+            </div>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel">الحزام الحالي:</span> <b id="trackerCurrentBelt">—</b></p>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerNextLabel">الحزام القادم:</span> <b id="trackerNextBelt">—</b></p>
+
+            <div class="tracker-progress">
+              <span id="trackerProgressBar"></span>
+            </div>
+            <p style="margin:0 0 8px; color:var(--muted); font-weight:900;" id="trackerProgressText">—</p>
+
+            <div style="font-weight:1000; margin-top:8px;" id="trackerGoalsLabel">المهارات المطلوبة للترقية:</div>
+            <ul class="tracker-goals" id="trackerGoals"></ul>
+
+            <p style="margin:8px 0 0; color:var(--muted); font-weight:900;" id="trackerExamDate">—</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1266,6 +1642,27 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="achievementsTitle">نتائج البطولات والإنجازات</h2>
+          <p class="sec-desc" id="achievementsDesc">تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.</p>
+        </div>
+      </div>
+
+      <div class="achievement-head">
+        <label for="achievementYear" id="achievementFilterLabel" style="margin:0;">تصفية حسب السنة</label>
+        <select id="achievementYear" style="max-width:200px;">
+          <option value="all">كل السنوات</option>
+        </select>
+      </div>
+
+      <div class="achievement-list" id="achievementsList"></div>
     </div>
   </section>
 
@@ -1409,13 +1806,152 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
     </svg>
-    <span>احجز حصتك عبر واتساب الآن</span>
+    <span id="waStickyText">احجز حصتك عبر واتساب الآن</span>
   </a>
 
   <script>
     const THEME_KEY = "maher_theme";
+    const LANG_KEY = "maher_lang";
     const themeToggle = document.getElementById("themeToggle");
+    const langToggle = document.getElementById("langToggle");
+    const installAppBtn = document.getElementById("installAppBtn");
     const rootEl = document.documentElement;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const i18n = {
+      ar: {
+        htmlKeys: ["heroTitle", "heroSub"],
+        text: {
+          brandName: "نادي الماهر للتايكوندو",
+          brandCity: "جرش",
+          navWhyUs: "لماذا اخترنا",
+          navPrograms: "البرامج",
+          navPricing: "الأسعار",
+          navCalculator: "الحاسبة",
+          navJourney: "الأحزمة",
+          navTracker: "التتبع",
+          navAchievements: "النتائج",
+          navFaq: "الأسئلة",
+          navBook: "الاشتراك",
+          btnWhatsNav: "واتساب ↗",
+          btnWhatsFoot: "💬 واتساب",
+          navJoinBtn: "اشترك الآن",
+          installAppBtn: "📲 تثبيت التطبيق",
+          heroTag: "🥋 ابدأ رحلتك الآن",
+          heroTitle: "نادي الماهر للتايكوندو – <span style=\"color:var(--gold)\">جرش</span>",
+          heroSub: "تدريب احترافي للأطفال والكبار وفئة الإناث من الصفر للحزام الأسود. بإشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b> (خبرة 35 سنة) مع توفر <b>مدرّبة إناث</b>. لياقة • انضباط • ثقة بالنفس • مسار واضح للنجاح.",
+          heroJoinBtn: "اشترك الآن",
+          btnCallHero: "اتصل الآن ☎️",
+          heroPriceBtn: "سعر واضح",
+          heroLocationPill: "📍 الموقع: جرش",
+          heroPricePill: "💰 45 دينار شهري (الكل مشمول)",
+          calculatorTitle: "حاسبة السعر الذكية",
+          calculatorDesc: "احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.",
+          calcPlanLabel: "نوع الاشتراك",
+          calcStudentsLabel: "عدد الطلاب",
+          calcDeliveryLabel: "إضافة التوصيل العائلي (+15 JD)",
+          calcFormulaNote: "معادلة الحسبة: 30 دينار لكل طالب (تدريب + بدلة)، وخصم 3 دنانير لكل أخ بعد الطالب الأول، والتوصيل 15 دينار للعائلة.",
+          calcBreakdownBaseLabel: "المجموع الأساسي",
+          calcBreakdownDiscountLabel: "خصم الإخوة",
+          calcBreakdownDeliveryLabel: "التوصيل",
+          calcFinalLabel: "السعر النهائي",
+          calcWhatsQuote: "💬 إرسال التسعيرة على واتساب",
+          trackerTitle: "تتبع تقدّم الأحزمة",
+          trackerDesc: "أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.",
+          trackerInputLabel: "رقم الهاتف أو الكود",
+          trackerBtn: "عرض التقدم",
+          trackerHint: "يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة النادي ويتم تحديثها باستمرار.",
+          trackerEmpty: "لم يتم إدخال أي كود بعد.",
+          trackerCurrentLabel: "الحزام الحالي:",
+          trackerNextLabel: "الحزام القادم:",
+          trackerGoalsLabel: "المهارات المطلوبة للترقية:",
+          achievementsTitle: "نتائج البطولات والإنجازات",
+          achievementsDesc: "تحديثات مستمرة لنتائج النادي في البطولات المحلية والخارجية.",
+          achievementFilterLabel: "تصفية حسب السنة",
+          waStickyText: "احجز حصتك عبر واتساب الآن"
+        },
+        trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
+        calcPlanSingle: "طالب واحد",
+        calcPlanSiblings: "إخوة",
+        yearAll: "كل السنوات"
+      },
+      en: {
+        htmlKeys: ["heroTitle", "heroSub"],
+        text: {
+          brandName: "Al Maher Taekwondo",
+          brandCity: "Jerash",
+          navWhyUs: "Why Us",
+          navPrograms: "Programs",
+          navPricing: "Pricing",
+          navCalculator: "Calculator",
+          navJourney: "Belts",
+          navTracker: "Tracker",
+          navAchievements: "Results",
+          navFaq: "FAQ",
+          navBook: "Join",
+          btnWhatsNav: "WhatsApp ↗",
+          btnWhatsFoot: "💬 WhatsApp",
+          navJoinBtn: "Join Now",
+          installAppBtn: "📲 Install App",
+          heroTag: "🥋 Start Your Journey",
+          heroTitle: "Al Maher Taekwondo - <span style=\"color:var(--gold)\">Jerash</span>",
+          heroSub: "Professional taekwondo training for kids, adults, and women, from beginner to black belt. Led by <b>Master Raed Odaybat</b> (35 years of experience) with dedicated female coaching support.",
+          heroJoinBtn: "Join Now",
+          btnCallHero: "Call Now ☎️",
+          heroPriceBtn: "Clear Pricing",
+          heroLocationPill: "📍 Location: Jerash",
+          heroPricePill: "💰 45 JOD / month (all inclusive)",
+          calculatorTitle: "Smart Price Calculator",
+          calculatorDesc: "Calculate your final fee instantly for single student, siblings, and delivery options.",
+          calcPlanLabel: "Plan Type",
+          calcStudentsLabel: "Number of Students",
+          calcDeliveryLabel: "Add family delivery (+15 JOD)",
+          calcFormulaNote: "Formula: 30 JOD per student (training + uniform), 3 JOD discount for each sibling after the first, and 15 JOD family delivery fee.",
+          calcBreakdownBaseLabel: "Base Total",
+          calcBreakdownDiscountLabel: "Sibling Discount",
+          calcBreakdownDeliveryLabel: "Delivery",
+          calcFinalLabel: "Final Price",
+          calcWhatsQuote: "💬 Send Quote on WhatsApp",
+          trackerTitle: "Belt Progress Tracker",
+          trackerDesc: "Enter a student's phone number or private code to check current and next belt progress.",
+          trackerInputLabel: "Phone or Code",
+          trackerBtn: "Check Progress",
+          trackerHint: "Use either phone number or student code. Data is managed and updated from the club dashboard.",
+          trackerEmpty: "No code entered yet.",
+          trackerCurrentLabel: "Current belt:",
+          trackerNextLabel: "Next belt:",
+          trackerGoalsLabel: "Required skills for promotion:",
+          achievementsTitle: "Tournament Results & Achievements",
+          achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
+          achievementFilterLabel: "Filter by year",
+          waStickyText: "Reserve your slot on WhatsApp now"
+        },
+        trackerPlaceholder: "Example: 0779000000 or MT-1024",
+        calcPlanSingle: "Single Student",
+        calcPlanSiblings: "Siblings",
+        yearAll: "All Years"
+      }
+    };
+
+    let currentLang = "ar";
+    let uiReady = false;
+
+    function setText(id, value, asHtml = false){
+      const el = document.getElementById(id);
+      if(!el || typeof value !== "string") return;
+      if(asHtml) el.innerHTML = value;
+      else el.textContent = value;
+    }
+
+    function setThemeToggleLabel(theme){
+      if(!themeToggle) return;
+      const enableText = currentLang === "en"
+        ? (theme === "light" ? "Enable dark mode" : "Enable light mode")
+        : (theme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح");
+      themeToggle.textContent = theme === "light" ? "🌙" : "☀️";
+      themeToggle.setAttribute("title", enableText);
+      themeToggle.setAttribute("aria-label", enableText);
+    }
 
     function applyTheme(theme){
       const nextTheme = theme === "light" ? "light" : "dark";
@@ -1428,26 +1964,104 @@
         // Ignore storage restrictions in private mode.
       }
 
-      if(themeToggle){
-        const enableText = nextTheme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح";
-        themeToggle.textContent = nextTheme === "light" ? "🌙" : "☀️";
-        themeToggle.setAttribute("title", enableText);
-        themeToggle.setAttribute("aria-label", enableText);
+      setThemeToggleLabel(nextTheme);
+    }
+
+    function applyLanguage(lang){
+      currentLang = lang === "en" ? "en" : "ar";
+      const dict = i18n[currentLang];
+      const htmlKeys = new Set(dict.htmlKeys || []);
+
+      rootEl.setAttribute("data-lang", currentLang);
+      rootEl.setAttribute("lang", currentLang);
+      rootEl.setAttribute("dir", currentLang === "en" ? "ltr" : "rtl");
+
+      Object.entries(dict.text).forEach(([id, value])=>{
+        setText(id, value, htmlKeys.has(id));
+      });
+
+      const calcPlanType = document.getElementById("calcPlanType");
+      if(calcPlanType){
+        if(calcPlanType.options[0]) calcPlanType.options[0].textContent = dict.calcPlanSingle;
+        if(calcPlanType.options[1]) calcPlanType.options[1].textContent = dict.calcPlanSiblings;
+      }
+
+      const trackerInput = document.getElementById("trackerInput");
+      if(trackerInput) trackerInput.placeholder = dict.trackerPlaceholder;
+
+      const yearAllOption = document.querySelector("#achievementYear option[value='all']");
+      if(yearAllOption) yearAllOption.textContent = dict.yearAll;
+
+      document.querySelectorAll("[data-lang-only]").forEach((node)=>{
+        node.hidden = node.getAttribute("data-lang-only") !== currentLang;
+      });
+
+      if(langToggle){
+        const nextLabel = currentLang === "en" ? "AR" : "EN";
+        const nextTitle = currentLang === "en" ? "التبديل إلى العربية" : "Switch to English";
+        langToggle.textContent = nextLabel;
+        langToggle.setAttribute("title", nextTitle);
+        langToggle.setAttribute("aria-label", nextTitle);
+      }
+
+      setThemeToggleLabel(rootEl.getAttribute("data-theme") || "dark");
+
+      document.title = currentLang === "en"
+        ? "Al Maher Taekwondo Club - Jerash | Join Now"
+        : "نادي الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك";
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if(metaDescription){
+        metaDescription.setAttribute(
+          "content",
+          currentLang === "en"
+            ? "Al Maher Taekwondo Club in Jerash. Professional training for kids, adults, and women. Join now."
+            : "نادي الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب."
+        );
+      }
+
+      if(uiReady){
+        updatePriceCalculator();
+        updateTrackerContent();
+        renderAchievements();
+      }
+
+      try {
+        localStorage.setItem(LANG_KEY, currentLang);
+      } catch(_){
+        // Ignore storage restrictions in private mode.
       }
     }
 
+    function getDefaultWaMessage(){
+      if(currentLang === "en"){
+        return "Hi, I would like to ask about joining Al Maher Taekwondo Club in Jerash. The monthly package starts from 45 JOD.";
+      }
+      return "السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).";
+    }
+
     let savedTheme = null;
+    let savedLang = null;
     try {
       savedTheme = localStorage.getItem(THEME_KEY);
+      savedLang = localStorage.getItem(LANG_KEY);
     } catch(_){
       savedTheme = null;
+      savedLang = null;
     }
+
+    currentLang = savedLang === "en" ? "en" : "ar";
     applyTheme(savedTheme === "light" ? "light" : "dark");
+    applyLanguage(currentLang);
 
     if(themeToggle){
       themeToggle.addEventListener("click", ()=>{
         const isLight = rootEl.getAttribute("data-theme") === "light";
         applyTheme(isLight ? "dark" : "light");
+      });
+    }
+    if(langToggle){
+      langToggle.addEventListener("click", ()=>{
+        applyLanguage(currentLang === "en" ? "ar" : "en");
       });
     }
 
@@ -1461,18 +2075,50 @@
     const btnWhatsFoot = document.getElementById("btnWhatsFoot");
     const waStickyCta = document.getElementById("waStickyCta");
     const fabWhats = document.getElementById("fabWhats");
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const defaultMsg = `السلام عليكم، بدي استفسر عن الاشتراك في نادي الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).`;
 
     [btnWhatsNav, btnWhatsFoot, waStickyCta].forEach((btn) => {
       if(!btn) return;
       btn.addEventListener("click", (e)=>{
         e.preventDefault();
-        window.open(waLink(defaultMsg), "_blank");
+        window.open(waLink(getDefaultWaMessage()), "_blank");
       });
     });
     if(fabWhats){
-      fabWhats.addEventListener("click", ()=> window.open(waLink(defaultMsg), "_blank"));
+      fabWhats.addEventListener("click", ()=> window.open(waLink(getDefaultWaMessage()), "_blank"));
+    }
+
+    // PWA install prompt
+    let deferredInstallPrompt = null;
+    window.addEventListener("beforeinstallprompt", (event)=>{
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if(installAppBtn) installAppBtn.style.display = "inline-flex";
+    });
+
+    if(installAppBtn){
+      installAppBtn.addEventListener("click", async ()=>{
+        if(!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        try {
+          await deferredInstallPrompt.userChoice;
+        } catch(_){
+          // Ignore prompt errors.
+        }
+        deferredInstallPrompt = null;
+        installAppBtn.style.display = "none";
+      });
+    }
+
+    window.addEventListener("appinstalled", ()=>{
+      if(installAppBtn) installAppBtn.style.display = "none";
+    });
+
+    if("serviceWorker" in navigator){
+      window.addEventListener("load", ()=>{
+        navigator.serviceWorker.register("./service-worker.js").catch((err)=>{
+          console.error("Service worker registration failed:", err);
+        });
+      });
     }
 
     // Set Jerash + coach images
@@ -1640,6 +2286,343 @@
       renderDetails(belts[0]);
     }
 
+    // Smart price calculator
+    const CALC_BASE_PER_STUDENT = 30;
+    const CALC_DELIVERY_FEE = 15;
+    const CALC_SIBLING_DISCOUNT = 3;
+    const calcPlanType = document.getElementById("calcPlanType");
+    const calcStudents = document.getElementById("calcStudents");
+    const calcDelivery = document.getElementById("calcDelivery");
+    const calcBreakdownBase = document.getElementById("calcBreakdownBase");
+    const calcBreakdownDiscount = document.getElementById("calcBreakdownDiscount");
+    const calcBreakdownDelivery = document.getElementById("calcBreakdownDelivery");
+    const calcFinalTotal = document.getElementById("calcFinalTotal");
+    const calcWhatsQuote = document.getElementById("calcWhatsQuote");
+    let latestQuote = { students: 1, total: 0, base: 0, discount: 0, delivery: 0, planType: "single" };
+
+    function updatePriceCalculator(){
+      if(!calcPlanType || !calcStudents || !calcDelivery) return;
+
+      let students = Math.max(1, Number(calcStudents.value || 1));
+      const planType = calcPlanType.value === "siblings" ? "siblings" : "single";
+      const hasDelivery = calcDelivery.checked;
+
+      if(planType === "single"){
+        students = 1;
+        calcStudents.value = "1";
+        calcStudents.disabled = true;
+      } else {
+        students = Math.max(2, students);
+        calcStudents.value = String(students);
+        calcStudents.disabled = false;
+      }
+
+      const base = students * CALC_BASE_PER_STUDENT;
+      const discount = planType === "siblings" ? (students - 1) * CALC_SIBLING_DISCOUNT : 0;
+      const delivery = hasDelivery ? CALC_DELIVERY_FEE : 0;
+      const total = base - discount + delivery;
+
+      latestQuote = { students, total, base, discount, delivery, planType };
+
+      if(calcBreakdownBase) calcBreakdownBase.textContent = `${base} JD`;
+      if(calcBreakdownDiscount) calcBreakdownDiscount.textContent = `-${discount} JD`;
+      if(calcBreakdownDelivery) calcBreakdownDelivery.textContent = `${delivery} JD`;
+      if(calcFinalTotal) calcFinalTotal.textContent = `${total} JD`;
+    }
+
+    [calcPlanType, calcStudents, calcDelivery].forEach((el)=>{
+      if(!el) return;
+      el.addEventListener("input", updatePriceCalculator);
+      el.addEventListener("change", updatePriceCalculator);
+    });
+    updatePriceCalculator();
+
+    if(calcWhatsQuote){
+      calcWhatsQuote.addEventListener("click", (event)=>{
+        event.preventDefault();
+        const quoteType = latestQuote.planType === "siblings"
+          ? (currentLang === "en" ? "siblings" : "إخوة")
+          : (currentLang === "en" ? "single student" : "طالب واحد");
+        const quoteMessage = currentLang === "en"
+          ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
+          : `السلام عليكم، بدي تسعيرة اشتراك.\nنوع الاشتراك: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالمجموع الأساسي: ${latestQuote.base} دينار\nخصم الإخوة: ${latestQuote.discount} دينار\nالتوصيل: ${latestQuote.delivery} دينار\nالسعر النهائي: ${latestQuote.total} دينار.`;
+        window.open(waLink(quoteMessage), "_blank");
+      });
+    }
+
+    // Belt progress tracker
+    const beltNamesEn = {
+      white: "White Belt",
+      yellow: "Yellow Belt",
+      green: "Green Belt",
+      blue: "Blue Belt",
+      red: "Red Belt",
+      black: "Black Belt"
+    };
+    const studentProgressData = [
+      {
+        code: "MT-1024",
+        phone: "0779000000",
+        nameAr: "محمد العياصرة",
+        nameEn: "Mohammad Al Ayasrah",
+        belt: "yellow",
+        progress: 64,
+        goalsAr: ["تثبيت الركلات الأساسية بدقة", "تحسين اللياقة والتحمل", "تحكم أفضل في التوازن"],
+        goalsEn: ["Stabilize core kick techniques", "Improve stamina and fitness", "Build stronger balance control"],
+        nextExamDate: "2026-03-20"
+      },
+      {
+        code: "MT-1091",
+        phone: "0779554433",
+        nameAr: "ليان خليفات",
+        nameEn: "Layan Khalifat",
+        belt: "green",
+        progress: 82,
+        goalsAr: ["رفع سرعة رد الفعل", "إتقان سلاسل الركلات", "جاهزية نفسية للاختبار"],
+        goalsEn: ["Increase reaction speed", "Master kick combinations", "Build mental readiness for exam"],
+        nextExamDate: "2026-04-03"
+      },
+      {
+        code: "MT-1107",
+        phone: "0780011223",
+        nameAr: "يوسف بني ملحم",
+        nameEn: "Yousef Bani Melhem",
+        belt: "blue",
+        progress: 51,
+        goalsAr: ["تحكم المسافة والوقت", "تحسين قرارات القتال", "تطوير القوة الانفجارية"],
+        goalsEn: ["Control distance and timing", "Improve sparring decisions", "Develop explosive power"],
+        nextExamDate: "2026-04-25"
+      }
+    ];
+
+    const trackerInput = document.getElementById("trackerInput");
+    const trackerBtn = document.getElementById("trackerBtn");
+    const trackerEmpty = document.getElementById("trackerEmpty");
+    const trackerResult = document.getElementById("trackerResult");
+    const trackerStudentName = document.getElementById("trackerStudentName");
+    const trackerStudentCode = document.getElementById("trackerStudentCode");
+    const trackerCurrentBelt = document.getElementById("trackerCurrentBelt");
+    const trackerNextBelt = document.getElementById("trackerNextBelt");
+    const trackerProgressBar = document.getElementById("trackerProgressBar");
+    const trackerProgressText = document.getElementById("trackerProgressText");
+    const trackerGoals = document.getElementById("trackerGoals");
+    const trackerExamDate = document.getElementById("trackerExamDate");
+    let activeTrackedStudent = null;
+
+    function normalizeDigits(value){
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function findStudentProgress(query){
+      const term = String(query || "").trim();
+      if(!term) return null;
+
+      const normalizedPhone = normalizeDigits(term);
+      const normalizedCode = term.toUpperCase();
+
+      return studentProgressData.find((record)=>{
+        const phone = normalizeDigits(record.phone);
+        const code = record.code.toUpperCase();
+        const phoneMatch = normalizedPhone && (phone === normalizedPhone || phone.endsWith(normalizedPhone));
+        return code === normalizedCode || phoneMatch;
+      }) || null;
+    }
+
+    function getNextBeltKey(currentKey){
+      const currentIndex = belts.findIndex((item)=> item.key === currentKey);
+      if(currentIndex < 0 || currentIndex >= belts.length - 1) return null;
+      return belts[currentIndex + 1].key;
+    }
+
+    function getBeltLabel(key){
+      if(currentLang === "en") return beltNamesEn[key] || key;
+      const belt = belts.find((item)=> item.key === key);
+      return belt ? belt.name : key;
+    }
+
+    function formatExamDate(isoDate){
+      if(!isoDate) return "—";
+      const parsed = new Date(isoDate);
+      if(Number.isNaN(parsed.getTime())) return isoDate;
+      return parsed.toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    }
+
+    function updateTrackerContent(){
+      if(!trackerEmpty || !trackerResult) return;
+
+      if(!activeTrackedStudent){
+        trackerResult.style.display = "none";
+        trackerEmpty.style.display = "block";
+        trackerEmpty.textContent = i18n[currentLang].text.trackerEmpty;
+        return;
+      }
+
+      const nextBeltKey = getNextBeltKey(activeTrackedStudent.belt);
+      const goals = currentLang === "en" ? activeTrackedStudent.goalsEn : activeTrackedStudent.goalsAr;
+
+      trackerResult.style.display = "block";
+      trackerEmpty.style.display = "none";
+      trackerStudentName.textContent = currentLang === "en" ? activeTrackedStudent.nameEn : activeTrackedStudent.nameAr;
+      trackerStudentCode.textContent = activeTrackedStudent.code;
+      trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
+      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم الوصول للحزام الأسود");
+      trackerProgressBar.style.width = `${Math.max(0, Math.min(100, activeTrackedStudent.progress))}%`;
+      trackerProgressText.textContent = currentLang === "en"
+        ? `${activeTrackedStudent.progress}% completed before the next belt test.`
+        : `${activeTrackedStudent.progress}% مكتمل قبل اختبار الحزام القادم.`;
+      trackerGoals.innerHTML = goals.map((goal)=> `<li>${goal}</li>`).join("");
+      trackerExamDate.textContent = currentLang === "en"
+        ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
+        : `موعد الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
+    }
+
+    function searchTracker(){
+      if(!trackerInput) return;
+      const found = findStudentProgress(trackerInput.value);
+      if(!found){
+        activeTrackedStudent = null;
+        if(trackerEmpty){
+          trackerEmpty.style.display = "block";
+          trackerEmpty.textContent = currentLang === "en"
+            ? "No student found with this phone/code. Please check and try again."
+            : "لم يتم العثور على طالب بهذا الرقم/الكود. تأكد من البيانات وحاول مرة أخرى.";
+        }
+        if(trackerResult) trackerResult.style.display = "none";
+        return;
+      }
+
+      activeTrackedStudent = found;
+      updateTrackerContent();
+    }
+
+    if(trackerBtn){
+      trackerBtn.addEventListener("click", searchTracker);
+    }
+    if(trackerInput){
+      trackerInput.addEventListener("keydown", (event)=>{
+        if(event.key === "Enter"){
+          event.preventDefault();
+          searchTracker();
+        }
+      });
+    }
+
+    // Achievements timeline
+    const achievementsData = [
+      {
+        date: "2026-01-30",
+        titleAr: "بطولة جرش المفتوحة للتايكوندو",
+        titleEn: "Jerash Open Taekwondo Championship",
+        locationAr: "جرش",
+        locationEn: "Jerash",
+        gold: 4,
+        silver: 3,
+        bronze: 5,
+        noteAr: "تأهل 3 لاعبين لمنتخب المحافظة بعد أداء قوي.",
+        noteEn: "Three players qualified to the governorate team after strong performance."
+      },
+      {
+        date: "2025-11-14",
+        titleAr: "بطولة شمال المملكة",
+        titleEn: "North Region Championship",
+        locationAr: "إربد",
+        locationEn: "Irbid",
+        gold: 2,
+        silver: 4,
+        bronze: 3,
+        noteAr: "تحقيق أفضل فريق ناشئين في البطولة.",
+        noteEn: "Awarded best junior team in the tournament."
+      },
+      {
+        date: "2025-08-09",
+        titleAr: "بطولة الأندية الأردنية",
+        titleEn: "Jordan Clubs Championship",
+        locationAr: "عمّان",
+        locationEn: "Amman",
+        gold: 3,
+        silver: 1,
+        bronze: 4,
+        noteAr: "مشاركة قوية لفئة الإناث وتحقيق ميداليات متنوعة.",
+        noteEn: "Strong women-category participation with multiple medals."
+      }
+    ];
+
+    const achievementYear = document.getElementById("achievementYear");
+    const achievementsList = document.getElementById("achievementsList");
+
+    function populateAchievementYears(){
+      if(!achievementYear) return;
+      const years = Array.from(new Set(achievementsData.map((item)=> new Date(item.date).getFullYear())))
+        .filter((year)=> Number.isFinite(year))
+        .sort((a, b)=> b - a);
+
+      years.forEach((year)=>{
+        const option = document.createElement("option");
+        option.value = String(year);
+        option.textContent = String(year);
+        achievementYear.appendChild(option);
+      });
+    }
+
+    function renderAchievements(){
+      if(!achievementsList || !achievementYear) return;
+      const selectedYear = achievementYear.value;
+      const filtered = achievementsData.filter((item)=>{
+        if(selectedYear === "all") return true;
+        return String(new Date(item.date).getFullYear()) === selectedYear;
+      });
+
+      if(!filtered.length){
+        achievementsList.innerHTML = `
+          <div class="achievement-card">
+            <b>${currentLang === "en" ? "No results for this year yet." : "لا توجد نتائج مسجلة لهذه السنة بعد."}</b>
+          </div>
+        `;
+        return;
+      }
+
+      achievementsList.innerHTML = filtered.map((item)=>{
+        const dateLabel = new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+        const title = currentLang === "en" ? item.titleEn : item.titleAr;
+        const location = currentLang === "en" ? item.locationEn : item.locationAr;
+        const note = currentLang === "en" ? item.noteEn : item.noteAr;
+        const gold = currentLang === "en" ? "Gold" : "ذهب";
+        const silver = currentLang === "en" ? "Silver" : "فضة";
+        const bronze = currentLang === "en" ? "Bronze" : "برونز";
+
+        return `
+          <article class="achievement-card">
+            <span class="achievement-date">${dateLabel}</span>
+            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
+            <p style="margin:0; color:var(--muted); font-weight:900;">${currentLang === "en" ? "Location" : "الموقع"}: ${location}</p>
+            <div class="medals">
+              <span class="medal">🥇 ${gold}: ${item.gold}</span>
+              <span class="medal">🥈 ${silver}: ${item.silver}</span>
+              <span class="medal">🥉 ${bronze}: ${item.bronze}</span>
+            </div>
+            <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.8;">${note}</p>
+          </article>
+        `;
+      }).join("");
+    }
+
+    populateAchievementYears();
+    if(achievementYear){
+      achievementYear.addEventListener("change", renderAchievements);
+    }
+    renderAchievements();
+
+    uiReady = true;
+    applyLanguage(currentLang);
+
     // FAQ
     const faqData = [
       {q: "هل يجب أن يكون عند الطالب خبرة سابقة؟", a: "لا! نبدأ من الصفر. نادينا مشهور بتأسيس المبتدئين بشكل احترافي."},
@@ -1675,7 +2658,11 @@
     const errMsg = document.getElementById("errMsg");
 
     // Remove any legacy locally saved requests from older versions.
-    localStorage.removeItem("maher_tkd_subscriptions");
+    try {
+      localStorage.removeItem("maher_tkd_subscriptions");
+    } catch(_){
+      // Ignore storage restrictions in private mode.
+    }
 
     if(form){
       form.addEventListener("submit", (e)=>{
@@ -1810,5 +2797,3 @@ ${msg || "لا توجد ملاحظات"}
   </script>
 </body>
 </html>
-
-
