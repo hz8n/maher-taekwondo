@@ -4176,7 +4176,7 @@
     }
 
     if(form){
-      form.addEventListener("submit", (e)=>{
+      form.addEventListener("submit", async (e)=>{
       e.preventDefault();
       okMsg.style.display = "none";
       errMsg.style.display = "none";
@@ -4265,11 +4265,13 @@
         turnstileToken,
         userAgent
       };
-      postLeadToSecureEndpoint(secureLeadPayload).then((ok)=>{
-        if(!ok){
-          console.warn("Secure lead endpoint is unavailable.");
-        }
-      });
+      const secureLeadOk = await postLeadToSecureEndpoint(secureLeadPayload);
+      if(!secureLeadOk){
+        trackInteraction("secure_endpoint_failed", { source: "bookingForm" });
+        showBookingErrorFromKey("bookingSecurityError");
+        resetTurnstile();
+        return;
+      }
 
       const waMessage = currentLang === "en"
         ? `Hi,
@@ -4335,3 +4337,4 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
+ 
