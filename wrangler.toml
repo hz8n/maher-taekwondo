@@ -1,0 +1,19 @@
+name = "maher-lead-security-worker"
+main = "cloudflare-worker.js"
+compatibility_date = "2026-02-16"
+workers_dev = true
+
+[vars]
+# Worker hardening defaults (adjust based on your traffic)
+RATE_LIMIT_MAX_REQUESTS = "12"
+RATE_LIMIT_WINDOW_SECONDS = "60"
+MAX_BODY_BYTES = "8192"
+
+# Optional: lock requests to one frontend origin (recommended in production)
+# ALLOWED_ORIGIN = "https://your-domain.com"
+
+# For same-origin /api/lead on your own domain, add a route:
+# routes = [
+#   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" }
+# ]
+
