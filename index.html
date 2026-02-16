@@ -118,62 +118,6 @@
     .nav-links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
     .nav-cta{display:flex; gap:10px; align-items:center}
 
-    /* Attention strip */
-    .alert-strip{
-      position:relative;
-      overflow:hidden;
-      border-bottom:1px solid var(--surface-line);
-      background: linear-gradient(110deg, rgba(255,51,102,.18), rgba(0,213,255,.16), rgba(255,200,87,.18));
-      background-size: 220% 220%;
-      animation: alertFlow 8s linear infinite;
-    }
-    .alert-inner{
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:8px 0;
-      flex-wrap:wrap;
-    }
-    .alert-main{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:1000;
-    }
-    .alert-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border-radius:999px;
-      padding:6px 10px;
-      font-size:12px;
-      border:1px solid rgba(255,255,255,.35);
-      background: rgba(4,10,22,.6);
-      animation: pulseBadge 1.8s ease-in-out infinite;
-      white-space:nowrap;
-    }
-    .alert-text{
-      color:rgba(255,255,255,.94);
-      line-height:1.8;
-      font-size:13px;
-    }
-    .alert-btn{
-      border-color:rgba(255,255,255,.34);
-      background:rgba(4,10,22,.45);
-      white-space:nowrap;
-    }
-
-    @keyframes alertFlow{
-      0% { background-position:0% 50%; }
-      100% { background-position:100% 50%; }
-    }
-    @keyframes pulseBadge{
-      0%, 100% { transform:scale(1); box-shadow:0 0 0 rgba(255,51,102,0); }
-      50% { transform:scale(1.06); box-shadow:0 0 0 10px rgba(255,51,102,0); }
-    }
-
     /* Buttons */
     .btn{
       border:1px solid var(--surface-line);
@@ -1236,16 +1180,6 @@
       .nav-cta{gap:8px}
       #btnWhatsNav,
       #navJoinBtn{display:none}
-      .alert-inner{
-        align-items:flex-start;
-      }
-      .alert-main{
-        width:100%;
-      }
-      .alert-btn{
-        width:100%;
-        justify-content:center;
-      }
       .hero-grid{grid-template-columns: 1fr}
       .stats{grid-template-columns: repeat(2,1fr)}
       .grid{grid-template-columns: 1fr}
@@ -1514,22 +1448,6 @@
       background: linear-gradient(135deg, rgba(255,201,90,.96), rgba(255,232,173,.82));
       border-color: rgba(214,156,23,.52);
     }
-    html[data-theme="light"] .alert-strip{
-      border-bottom-color: rgba(9,58,91,.18);
-      background: linear-gradient(110deg, rgba(255,59,104,.18), rgba(0,174,205,.16), rgba(247,181,71,.18));
-    }
-    html[data-theme="light"] .alert-badge{
-      background: rgba(255,255,255,.8);
-      color: rgba(35,58,77,.95);
-      border-color: rgba(9,58,91,.22);
-    }
-    html[data-theme="light"] .alert-text{
-      color: rgba(25,52,74,.95);
-    }
-    html[data-theme="light"] .alert-btn{
-      background: rgba(255,255,255,.72);
-      border-color: rgba(9,58,91,.2);
-    }
     html[data-theme="light"] .pulse-cta::after{
       border-color: rgba(255,59,104,.55);
     }
@@ -1709,16 +1627,6 @@
         <a class="btn" id="btnWhatsNav" href="#">واتساب ↗</a>
         <a class="btn primary pulse-cta" id="navJoinBtn" href="#book">اشترك الآن</a>
       </div>
-    </div>
-  </div>
-
-  <div class="alert-strip">
-    <div class="container alert-inner">
-      <div class="alert-main">
-        <span class="alert-badge" id="alertBadge">🔥 جديد</span>
-        <span class="alert-text" id="alertText">بطولة البرق في عمّان قادمة قريبًا، والمقاعد الجديدة محدودة هذا الشهر.</span>
-      </div>
-      <a class="btn alert-btn" id="alertBtn" href="#book">احجز مكانك الآن</a>
     </div>
   </div>
 
@@ -2471,9 +2379,6 @@
           btnWhatsNav: "واتساب ↗",
           btnWhatsFoot: "💬 واتساب",
           navJoinBtn: "اشترك الآن",
-          alertBadge: "🔥 جديد",
-          alertText: "بطولة البرق في عمّان قادمة قريبًا، والمقاعد الجديدة محدودة هذا الشهر.",
-          alertBtn: "احجز مكانك الآن",
           installAppBtn: "📲 تثبيت التطبيق",
           heroTag: "🥋 ابدأ رحلتك الآن",
           heroTitle: "نادي الماهر للتايكوندو – <span style=\"color:var(--gold)\">جرش</span>",
@@ -2708,9 +2613,6 @@
           btnWhatsNav: "WhatsApp ↗",
           btnWhatsFoot: "💬 WhatsApp",
           navJoinBtn: "Join Now",
-          alertBadge: "🔥 New",
-          alertText: "Al Barq Championship in Amman is coming soon, and new seats are limited this month.",
-          alertBtn: "Reserve Your Spot",
           installAppBtn: "📲 Install App",
           heroTag: "🥋 Start Your Journey",
           heroTitle: "Al Maher Taekwondo - <span style=\"color:var(--gold)\">Jerash</span>",
