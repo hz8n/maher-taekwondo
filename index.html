@@ -2877,16 +2877,30 @@
     }
     #journey .belt-list{
       position:sticky;
-      top:106px;
-      max-height:72vh;
+      top:88px;
+      max-height:calc(100vh - 112px);
       overflow:auto;
-      padding-inline-end:4px;
+      padding:8px;
       scrollbar-width:thin;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(160deg, rgba(0,209,255,.08), rgba(255,61,129,.07));
     }
     #journey .belt{
-      min-height:64px;
+      min-height:66px;
       padding:14px 12px;
       gap:12px;
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(145deg, rgba(0,209,255,.1), rgba(255,61,129,.08));
+    }
+    #journey .belt:hover{
+      border-color: rgba(0,209,255,.4);
+      background: linear-gradient(145deg, rgba(0,209,255,.15), rgba(255,61,129,.12));
+    }
+    #journey .belt.active{
+      outline:none;
+      border-color: rgba(255,61,129,.58);
+      box-shadow: 0 0 0 2px rgba(255,61,129,.34);
     }
     #journey .belt .left{
       flex:1 1 auto;
@@ -2917,6 +2931,9 @@
       #journey .belt-list{
         position:static;
         max-height:none;
+        border:none;
+        background:transparent;
+        padding:0;
       }
     }
 
@@ -2933,7 +2950,7 @@
         gap:10px;
         overflow-x:auto;
         overflow-y:hidden;
-        padding-bottom:6px;
+        padding:0 0 6px;
         scroll-snap-type:x mandatory;
         scrollbar-width:none;
         -ms-overflow-style:none;
