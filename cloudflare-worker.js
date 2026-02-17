@@ -1,449 +1,6121 @@
-const JSON_HEADERS = {
-  "Content-Type": "application/json; charset=utf-8",
-  "Cache-Control": "no-store",
-  "X-Content-Type-Options": "nosniff",
-  "Referrer-Policy": "no-referrer",
-  "Cross-Origin-Resource-Policy": "same-origin",
-  "X-Frame-Options": "DENY"
-};
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مركز الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك</title>
+  <meta name="description" content="مركز الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com; upgrade-insecure-requests;" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=()" />
+  <meta name="theme-color" content="#081226" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="مركز الماهر" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ff3d81'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-size='30' font-family='Arial' fill='white'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
-const MAX_LEN = {
-  name: 80,
-  phone: 16,
-  age: 20,
-  program: 80,
-  preferredTime: 60,
-  paymentMethod: 60,
-  message: 500,
-  lang: 5,
-  userAgent: 260,
-  turnstileToken: 2048,
-  reviewLevel: 24,
-  reviewProgram: 60,
-  reviewComment: 450
-};
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
 
-const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 12;
-const DEFAULT_RATE_LIMIT_WINDOW_SECONDS = 60;
-const DEFAULT_MAX_BODY_BYTES = 8192;
-const DEFAULT_REVIEWS_MAX_BODY_BYTES = 4096;
-const DEFAULT_REVIEWS_MAX_ITEMS = 300;
-const REVIEWS_KV_KEY = "maher_reviews_v1";
-const REVIEW_ALLOWED_LEVELS = new Set(["beginner", "intermediate", "advanced"]);
+  <style>
+    :root{
+      --bg:#081226;
+      --bg2:#102447;
+      --bg3:#173664;
+      --text:rgba(248,251,255,.96);
+      --muted:rgba(225,236,248,.78);
+      --accent:#00d1ff;
+      --accent2:#ff3d81;
+      --accent3:#8ae8ff;
+      --gold:#ffd166;
+      --ok:#2ad29f;
+      --purple:#ff3d81;
+      --blue:#00d1ff;
+      --tone-cyan:rgba(0,209,255,.14);
+      --tone-pink:rgba(255,61,129,.14);
+      --tone-mint:rgba(42,210,159,.14);
+      --tone-gold:rgba(255,209,102,.14);
+      --surface:rgba(12,19,39,.68);
+      --surface-soft:rgba(13,28,54,.56);
+      --surface-line:rgba(0,209,255,.28);
+      --surface-line-strong:rgba(255,61,129,.54);
+      --nav-bg:rgba(6,14,30,.92);
+      --shadow: 0 12px 30px rgba(0,0,0,.4);
+      --glow: 0 0 15px rgba(0,209,255,.3);
+      --radius:18px;
+    }
 
-function cleanText(value, maxLength = 200) {
-  return String(value == null ? "" : value).replace(/\s+/g, " ").trim().slice(0, maxLength);
-}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 46%, var(--bg3) 100%);
+      color:var(--text);
+      overflow-x:hidden;
+      position:relative;
+    }
+    body::before {
+      content:"";
+      position:fixed;
+      top:-50%;
+      right:-50%;
+      width:100%;
+      height:100%;
+      background:
+        radial-gradient(820px 420px at 20% 10%, rgba(255,61,129,.08), transparent 42%),
+        radial-gradient(640px 340px at 80% 70%, rgba(0,209,255,.08), transparent 44%);
+      pointer-events:none;
+      z-index:-1;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(0,209,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,61,129,.08) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,209,255,.16) 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(255,61,129,.13) 1px, transparent 1.5px);
+      background-size: 34px 34px, 34px 34px, 22px 22px, 30px 30px;
+      background-position: 0 0, 0 0, 11px 9px, 4px 6px;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1140px, 94vw); margin-inline:auto}
 
-function escapeHtml(value) {
-  return String(value == null ? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(15px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--surface-line);
+      box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      transition: all 300ms ease;
+    }
+    .nav::after {
+      content:"";
+      position:absolute;
+      bottom:0; left:0; right:0;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(255,61,129,.85), transparent);
+      background-size: 200% 100%;
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(255,61,129,.95), rgba(0,209,255,.9));
+      box-shadow: 0 10px 30px rgba(255,61,129,.25);
+      display:grid; place-items:center;
+      color:#1a0f08; font-weight:1000;
+      letter-spacing:.5px;
+    }
+    .brand .t1{font-size:14px; opacity:.95}
+    .brand .t2{font-size:12px; color:var(--muted); font-weight:900}
 
-function jsonResponse(status, payload, extraHeaders = {}) {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: { ...JSON_HEADERS, ...extraHeaders }
-  });
-}
+    .nav-links{
+      display:flex; gap:10px; align-items:center;
+      color:var(--muted);
+      font-weight:800;
+    }
+    .nav-links a{padding:8px 10px; border-radius:12px}
+    .nav-links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .nav-cta{display:flex; gap:10px; align-items:center}
 
-function getPositiveInt(value, fallback) {
-  const num = Number.parseInt(String(value == null ? "" : value), 10);
-  if (!Number.isFinite(num) || num <= 0) return fallback;
-  return num;
-}
+    /* Buttons */
+    .btn{
+      border:1px solid var(--surface-line);
+      background:var(--surface-soft);
+      color:var(--text);
+      padding:11px 14px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s transform, .18s background, .18s border, .18s box-shadow;
+      display:inline-flex; align-items:center; gap:8px;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background:rgba(255,255,255,.1);
+      border-color:var(--surface-line-strong);
+      box-shadow: 0 0 15px rgba(255,61,129,.24);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(255,61,129,.98), rgba(255,120,163,.82));
+      border-color: rgba(255,61,129,.85);
+      box-shadow: 0 12px 30px rgba(255,61,129,.2);
+    }
+    .btn.primary:hover{
+      box-shadow: 0 15px 40px rgba(255,61,129,.32);
+    }
+    .btn.gold{
+      background: linear-gradient(135deg, rgba(0,209,255,.96), rgba(118,234,255,.78));
+      border-color: rgba(0,209,255,.7);
+      color:#03232c;
+      box-shadow: 0 18px 50px rgba(0,209,255,.22);
+    }
+    .theme-toggle{
+      min-width:46px;
+      justify-content:center;
+      padding-inline:12px;
+      font-size:18px;
+      line-height:1;
+    }
+    .lang-toggle{
+      min-width:54px;
+      justify-content:center;
+    }
+    .install-btn{
+      display:none;
+      white-space:nowrap;
+    }
 
-function isAllowedOrigin(request, env) {
-  const origin = request.headers.get("Origin");
-  const allowedOrigin = cleanText(env.ALLOWED_ORIGIN || "", 200);
-  if (!origin || !allowedOrigin) return true;
-  return origin === allowedOrigin;
-}
+    /* HERO */
+    header.hero{
+      position:relative;
+      min-height: 80vh;
+      display:flex;
+      align-items:stretch;
+      padding: 30px 0 20px;
+      isolation:isolate;
+      overflow:hidden;
+    }
+    .hero-bg{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 620px at 20% 10%, rgba(255,61,129,.16), transparent 60%),
+        radial-gradient(1100px 650px at 80% 20%, rgba(0,209,255,.12), transparent 64%),
+        linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.7));
+      z-index:-2;
+    }
 
-function getClientIp(request) {
-  const cfIp = cleanText(request.headers.get("CF-Connecting-IP"), 64);
-  if (cfIp) return cfIp;
-  return cleanText(request.headers.get("X-Forwarded-For"), 128).split(",")[0].trim();
-}
+    .hero-bg::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 15% 30%, rgba(255,61,129,.1) 0%, transparent 25%),
+        radial-gradient(circle at 85% 70%, rgba(0,209,255,.08) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(0,209,255,.06) 0%, transparent 40%);
+      z-index:1;
+      pointer-events:none;
+    }
 
-async function applyIpRateLimit(request, env, scope = "default") {
-  const ip = getClientIp(request) || "unknown";
-  const windowSeconds = getPositiveInt(env.RATE_LIMIT_WINDOW_SECONDS, DEFAULT_RATE_LIMIT_WINDOW_SECONDS);
-  const maxRequests = getPositiveInt(env.RATE_LIMIT_MAX_REQUESTS, DEFAULT_RATE_LIMIT_MAX_REQUESTS);
-  const now = Math.floor(Date.now() / 1000);
+    .particle { display:none; }
+    .geometric-shape { display:none; }
 
-  const cache = caches.default;
-  const cacheKey = new Request(
-    `https://rate-limit.local/${encodeURIComponent(scope)}/${encodeURIComponent(ip)}`
-  );
-  let state = {
-    count: 0,
-    resetAt: now + windowSeconds
-  };
+    .hero-slide{
+      position:absolute; inset:0;
+      background-size: contain;
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-color:#081521;
+      filter: saturate(1.05) contrast(1.05);
+      opacity:0;
+      transform: scale(1.03);
+      transition: opacity 800ms ease, transform 1200ms ease;
+      z-index:-3;
+    }
+    .hero-slide.active{
+      opacity:1;
+      transform: scale(1.0);
+    }
+    .hero-slide.fallback{
+      background:
+        radial-gradient(800px 500px at 30% 30%, rgba(255,42,42,.28), transparent 60%),
+        radial-gradient(900px 500px at 70% 20%, rgba(0,209,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
 
-  try {
-    const cached = await cache.match(cacheKey);
-    if (cached) {
-      const parsed = await cached.json();
-      const cachedCount = Number(parsed && parsed.count);
-      const cachedResetAt = Number(parsed && parsed.resetAt);
-      if (Number.isFinite(cachedCount) && Number.isFinite(cachedResetAt)) {
-        state = { count: cachedCount, resetAt: cachedResetAt };
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      width:100%;
+      padding: 24px 0;
+      align-items:stretch;
+    }
+    .panel{
+      background: var(--surface-soft);
+      border:1px solid var(--surface-line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      transition: all 400ms ease;
+    }
+    .panel:hover {
+      border-color: var(--surface-line-strong);
+      box-shadow: 0 15px 35px rgba(255,61,129,.14);
+    }
+    .hero-left{padding:22px 20px; position:relative; z-index:10}
+    .hero-left::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,61,129,.08) 50%, transparent 70%);
+      pointer-events:none;
+      background-size: 200% 200%;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      background: rgba(255,61,129,.18);
+      border:1px solid rgba(255,61,129,.4);
+      border-radius:999px;
+      color: rgba(255,255,255,.92);
+      font-weight:1000;
+      font-size:13px;
+      margin-bottom:8px;
+    }
+    h1{
+      margin:12px 0 14px;
+      font-size: clamp(32px, 5vw, 50px);
+      line-height:1.15;
+      font-weight:1000;
+      letter-spacing:.2px;
+    }
+    .sub{
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.95;
+      margin:0 0 18px;
+      font-size: 17px;
+      max-width: 60ch;
+    }
+    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:12px}
+    .pulse-cta{
+      position:relative;
+      isolation:isolate;
+    }
+    .pulse-cta::after{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      border-radius:18px;
+      border:1px solid rgba(255,61,129,.55);
+      opacity:.5;
+      z-index:-1;
+      animation:pulseCta 2.2s ease-out infinite;
+    }
+    @keyframes pulseCta{
+      0% { transform:scale(.96); opacity:.65; }
+      70% { transform:scale(1.08); opacity:0; }
+      100% { transform:scale(1.08); opacity:0; }
+    }
+
+    .spotlight{
+      margin-top:14px;
+      border:1px solid rgba(0,209,255,.35);
+      background:linear-gradient(135deg, rgba(255,61,129,.16), rgba(0,209,255,.14));
+      border-radius:16px;
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .spotlight-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      border-radius:999px;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.3);
+      background:rgba(4,10,22,.5);
+      font-size:12px;
+      font-weight:1000;
+    }
+    .spotlight-text{
+      margin:0;
+      font-weight:900;
+      line-height:1.8;
+      color:rgba(255,255,255,.95);
+      font-size:14px;
+    }
+    .spotlight-points{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .spotlight-point{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.24);
+      background:rgba(4,10,22,.45);
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:900;
+      color:rgba(255,255,255,.9);
+    }
+    .pills{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 14px;
+      border-radius:999px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.84);
+      font-weight:900;
+      font-size:13px;
+    }
+    .pill.price{
+      border-color: rgba(0,209,255,.4);
+      background: rgba(0,209,255,.12);
+    }
+    .pill.phone{
+      border-color: rgba(42,210,159,.35);
+      background: rgba(42,210,159,.1);
+    }
+
+    .stats{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:12px;
+    }
+    .stat{
+      padding:14px 12px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+    }
+    .stat .num{font-size:26px; font-weight:1000}
+    .stat .lbl{color:var(--muted); font-weight:900; margin-top:6px; font-size:13px}
+
+    /* Right panel */
+    .hero-right{padding:16px; position:relative; z-index:10}
+    .mini-card{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+      position:relative;
+      transition: all 400ms ease;
+      margin-bottom:12px;
+    }
+    .mini-card:hover {
+      border-color: rgba(255,61,129,.35);
+      box-shadow: 0 12px 30px rgba(255,61,129,.1);
+      transform: translateY(-6px);
+    }
+    .img{
+      width:100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      background-size: contain;
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-color: rgba(6,19,31,.6);
+      position:relative;
+      transition: transform 600ms ease;
+    }
+    #jerashImg{background-position:center center}
+    #coachImg{background-position:center center}
+    .mini-card:hover .img {
+      transform: scale(1.08);
+    }
+    .img::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.22));
+    }
+    .mini-body{padding:14px; position:relative; z-index:1}
+    .mini-title{margin:0; font-size:17px; font-weight:1000}
+    .mini-text{margin:8px 0 0; color:var(--muted); font-weight:800; line-height:1.8}
+
+    .coach{
+      display:flex; gap:14px; align-items:center;
+      padding:14px;
+      position:relative;
+      z-index:1;
+    }
+    .avatar{
+      width:68px; height:68px; border-radius:18px;
+      border:1px solid rgba(255,255,255,.14);
+      background-size: contain;
+      background-repeat:no-repeat;
+      background-position:center center;
+      background-color: rgba(6,19,31,.6);
+      flex: 0 0 auto;
+      transition: all 400ms ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    }
+    .mini-card:hover .avatar {
+      border-color: rgba(255,61,129,.4);
+      box-shadow: 0 8px 20px rgba(255,61,129,.15);
+    }
+    .coach .n1{font-weight:1000; font-size:16px}
+    .coach .n2{color:var(--muted); font-weight:900; margin-top:6px; line-height:1.7; font-size:13px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(0,209,255,.12);
+      border:1px solid rgba(0,209,255,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:1000;
+      font-size:12px;
+      margin-top:8px;
+      transition: all 300ms ease;
+    }
+    .badge:hover {
+      background: rgba(0,209,255,.18);
+      border-color: rgba(0,209,255,.5);
+      box-shadow: 0 0 15px rgba(0,209,255,.25);
+    }
+
+    /* Sections */
+    section{padding:48px 0}
+    .sec-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:12px; margin-bottom:28px;
+    }
+    .sec-title{font-size:28px; margin:0; font-weight:1000}
+    .sec-desc{
+      margin:8px 0 0; color:var(--muted);
+      font-weight:800; line-height:1.85; max-width: 70ch;
+      font-size:15px;
+    }
+
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    .card{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      padding:18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      transition: all 300ms ease;
+      overflow:hidden;
+    }
+    .card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(135deg, rgba(255,61,129,.12), transparent);
+      opacity:0;
+      transition: opacity 300ms ease;
+      pointer-events:none;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,61,129,.32);
+      box-shadow: 0 16px 40px rgba(255,61,129,.12);
+    }
+    .card:hover::before { opacity:1; }
+    .card h3{margin:0 0 10px; font-size:18px; font-weight:1000; position:relative; z-index:1}
+    .card p{margin:0; color:var(--muted); font-weight:800; line-height:1.9; position:relative; z-index:1; font-size:15px}
+
+    /* Icon cards */
+    .card.icon-card{
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+    }
+
+    /* Why Us Icons */
+    .why-icon{
+      font-size:48px;
+      margin-bottom:14px;
+      display:flex;
+      justify-content:center;
+    }
+
+    /* Pricing */
+    .pricing{display:grid; grid-template-columns: 1fr; gap:14px;}
+    .price-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:18px;
+      border-radius:18px;
+      background: rgba(0,209,255,.1);
+      border:1px solid rgba(0,209,255,.3);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition: all 400ms ease;
+    }
+    .price-card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, transparent, rgba(0,209,255,.15), transparent);
+      transform: translateX(-100%);
+      pointer-events:none;
+    }
+    .price-card:hover {
+      border-color: rgba(0,209,255,.5);
+      background: rgba(0,209,255,.15);
+      box-shadow: 0 12px 30px rgba(0,209,255,.15);
+      transform: translateY(-4px);
+    }
+    .price-left{display:flex; flex-direction:column; gap:8px; position:relative; z-index:1}
+    .price-title{margin:0; font-size:19px; font-weight:1000;}
+    .price-note{margin:0; color:rgba(255,255,255,.78); font-weight:900; line-height:1.9; font-size:15px;}
+    .price-number{font-size:32px; font-weight:1100; color:var(--gold); white-space:nowrap; position:relative; z-index:1}
+
+    /* Smart Calculator */
+    .calculator-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .calc-switches{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:6px;
+    }
+    .calc-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:9px 13px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .calc-chip input{width:auto}
+    .calc-summary{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .calc-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px dashed rgba(255,255,255,.14);
+      padding-bottom:8px;
+      font-weight:900;
+    }
+    .calc-row:last-of-type{border-bottom:none}
+    .calc-final{
+      border-radius:14px;
+      border:1px solid rgba(0,209,255,.4);
+      background:rgba(0,209,255,.12);
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:22px;
+      font-weight:1000;
+      color:var(--gold);
+    }
+    .calc-note{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+      font-weight:800;
+    }
+
+    /* Belt Tracker */
+    .tracker-layout{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    .tracker-empty{
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.8;
+      font-size:15px;
+    }
+    .tracker-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .tracker-progress{
+      height:12px;
+      border-radius:999px;
+      overflow:hidden;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.14);
+      margin:12px 0 10px;
+    }
+    .tracker-progress > span{
+      display:block;
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent3));
+      transition: width 500ms ease;
+    }
+    .tracker-goals{
+      margin:10px 0 0;
+      padding-inline:18px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.8;
+    }
+    .tracker-goals li{margin:6px 0}
+
+    /* Achievements */
+    .achievement-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .achievement-list{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .achievement-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+    .achievement-date{
+      color:var(--accent2);
+      font-weight:1000;
+      font-size:13px;
+    }
+    .medals{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .medal{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:6px 10px;
+      font-size:12px;
+      font-weight:1000;
+    }
+    .news-list{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .news-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .news-meta{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:900;
+      line-height:1.7;
+    }
+    .news-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);
+      padding:5px 10px;
+      font-size:12px;
+      font-weight:1000;
+      width:max-content;
+    }
+
+    /* Parent Reviews */
+    .reviews-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .reviews-filters{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .review-filter{
+      min-width:180px;
+    }
+    .reviews-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .review-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .review-meta{
+      color:var(--muted);
+      font-weight:900;
+      font-size:13px;
+      line-height:1.8;
+    }
+    .review-text{
+      margin:0;
+      color:rgba(255,255,255,.88);
+      font-weight:800;
+      line-height:1.85;
+      font-size:14px;
+    }
+    .review-empty{
+      grid-column:1 / -1;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.2);
+      padding:18px;
+      color:var(--muted);
+      font-weight:900;
+      text-align:center;
+    }
+    .review-form-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:14px;
+    }
+    .review-form-title{
+      margin:0 0 8px;
+      font-size:20px;
+      font-weight:1000;
+    }
+    .review-form-note{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:13px;
+      line-height:1.7;
+    }
+    .review-form-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    .review-field-full{
+      grid-column:1 / -1;
+    }
+    .review-form-status{
+      display:none;
+      margin-top:10px;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:900;
+      font-size:13px;
+    }
+    .review-form-status.show{
+      display:block;
+    }
+    .review-form-status.success{
+      background: rgba(42,210,159,.12);
+      border:1px solid rgba(42,210,159,.35);
+    }
+    .review-form-status.error{
+      background: rgba(255,42,42,.12);
+      border:1px solid rgba(255,42,42,.35);
+    }
+
+    /* English quick panel */
+    .english-quick[hidden]{display:none}
+    .english-panel{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(0,209,255,.35);
+      border-radius:18px;
+      padding:18px;
+    }
+    .english-panel h3{
+      margin:0 0 10px;
+      font-size:24px;
+      font-weight:1000;
+      color:var(--accent2);
+    }
+    .english-list{
+      margin:10px 0 0;
+      padding-inline:18px;
+      line-height:1.9;
+      color:var(--muted);
+      font-weight:800;
+    }
+    html[data-lang="en"] body{
+      direction:ltr;
+    }
+    html[data-lang="en"] .sec-head,
+    html[data-lang="en"] .card,
+    html[data-lang="en"] .price-card,
+    html[data-lang="en"] .details,
+    html[data-lang="en"] .faq-question,
+    html[data-lang="en"] .faq-answer,
+    html[data-lang="en"] .mini-body,
+    html[data-lang="en"] .price-left,
+    html[data-lang="en"] .review-card{
+      text-align:left;
+    }
+    html[data-lang="en"] .schedule-table th{
+      text-align:left;
+    }
+    html[data-lang="en"] .float{
+      left:auto;
+      right:16px;
+    }
+
+    /* Journey */
+    .journey{display:grid; grid-template-columns: .9fr 1.1fr; gap:16px}
+    .belt-list{display:flex; flex-direction:column; gap:10px}
+    .belt{
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:flex; align-items:center; justify-content:space-between;
+      cursor:pointer;
+      transition:.18s transform, .18s background, .18s border, .18s box-shadow;
+      user-select:none;
+      font-weight:1000;
+      position:relative;
+      overflow:hidden;
+    }
+    .belt:hover{
+      transform: translateY(-3px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 12px 30px rgba(0,0,0,.3);
+    }
+    .belt.active{
+      outline:2px solid rgba(255,61,129,.65);
+      border-color: rgba(255,61,129,.5);
+      background: rgba(255,61,129,.15);
+      box-shadow: 0 0 12px rgba(255,61,129,.2);
+    }
+    .left{display:flex; align-items:center; gap:10px; position:relative; z-index:1}
+    .swatch{width:16px; height:16px; border-radius:6px; border:1px solid rgba(255,255,255,.28)}
+    .belt small{color:var(--muted); font-weight:1000; position:relative; z-index:1}
+
+    .details{
+      border-radius:18px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      padding:18px;
+      box-shadow: var(--shadow);
+      min-height: 280px;
+      position:relative;
+      overflow:hidden;
+      transition: all 400ms ease;
+    }
+    .details:hover {
+      border-color: rgba(255,61,129,.35);
+      box-shadow: 0 12px 30px rgba(255,61,129,.1);
+    }
+    .details-top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      padding-bottom:12px; margin-bottom:12px;
+      position:relative; z-index:1;
+    }
+    .details-title{margin:0; font-size:19px; font-weight:1000}
+    .details-body{color: rgba(255,255,255,.82); line-height:1.95; font-weight:800; position:relative; z-index:1; font-size:15px}
+    .details-body ul{margin:12px 0 0; padding:0 18px}
+    .details-body li{margin:8px 0}
+
+    /* FAQ */
+    .faq-list{display:flex; flex-direction:column; gap:12px}
+    .faq-item{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      overflow:hidden;
+      transition: all 300ms ease;
+    }
+    .faq-item.active {
+      border-color: rgba(255,61,129,.32);
+      background: rgba(255,61,129,.08);
+    }
+    .faq-question{
+      padding:16px 18px;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between;
+      font-weight:1000;
+      transition: all 300ms ease;
+      user-select:none;
+    }
+    .faq-item:hover .faq-question{ color:var(--accent); }
+    .faq-toggle{
+      width:24px; height:24px;
+      display:flex; align-items:center; justify-content:center;
+      transition: transform 300ms ease;
+      font-weight:1000;
+    }
+    .faq-item.active .faq-toggle{ transform: rotate(180deg); }
+    .faq-answer{
+      padding:0 18px 16px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.9;
+      display:none;
+      font-size:15px;
+    }
+    .faq-item.active .faq-answer{ display:block; }
+
+    /* Schedule */
+    .schedule-table{
+      width:100%;
+      border-collapse:collapse;
+      background: rgba(255,255,255,.05);
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .schedule-table th{
+      background: rgba(255,61,129,.1);
+      padding:14px 16px;
+      text-align:right;
+      font-weight:1000;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .schedule-table td{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-weight:800;
+    }
+    .schedule-table tr:hover{ background: rgba(255,61,129,.05); }
+    .schedule-table tr:last-child td{ border-bottom:none; }
+    .time{color:var(--accent2); font-weight:1000}
+    .level{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px;
+      background: rgba(42,210,159,.15);
+      border:1px solid rgba(42,210,159,.3);
+      border-radius:999px;
+      font-size:13px;
+      color:rgba(0,209,255,.9);
+    }
+
+    /* Booking */
+    .booking{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    label{font-weight:1000; color: rgba(255,255,255,.86); font-size:14px; display:block; margin-bottom:6px}
+    input, select, textarea{
+      width:100%;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+      font-family: inherit;
+      font-weight:900;
+      transition: all 300ms ease;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(255,61,129,.5);
+      background: rgba(0,0,0,.3);
+      box-shadow: 0 0 15px rgba(255,61,129,.1);
+    }
+    input[type="checkbox"],
+    input[type="radio"]{
+      width:18px;
+      height:18px;
+      padding:0;
+      margin:0;
+      border-radius:5px;
+      background:transparent;
+      accent-color: var(--accent);
+    }
+    input[type="checkbox"]:focus,
+    input[type="radio"]:focus{
+      box-shadow:none;
+      background:transparent;
+    }
+    textarea{min-height:100px; resize:vertical}
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    form{display:flex; flex-direction:column; gap:12px}
+    form > div{display:flex; flex-direction:column}
+    .ok,.err{display:none; padding:12px 14px; border-radius:14px; font-weight:1000; font-size:14px}
+    .ok{border:1px solid rgba(46,229,157,.35); background: rgba(46,229,157,.10)}
+    .err{border:1px solid rgba(255,42,42,.35); background: rgba(255,42,42,.10)}
+    .bot-trap{
+      position:absolute !important;
+      left:-10000px !important;
+      top:auto !important;
+      width:1px !important;
+      height:1px !important;
+      overflow:hidden !important;
+      opacity:0 !important;
+      pointer-events:none !important;
+    }
+    .payment-details{
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .payment-option{
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.2);
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .payment-option b{
+      font-size:14px;
+      font-weight:1000;
+    }
+    .payment-line{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:900;
+      line-height:1.7;
+      flex-wrap:wrap;
+    }
+    .payment-value{
+      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      word-break:break-word;
+    }
+    .payment-copy-status{
+      display:none;
+      border-radius:12px;
+      padding:9px 10px;
+      font-weight:900;
+      font-size:12px;
+      border:1px solid rgba(42,210,159,.35);
+      background:rgba(42,210,159,.12);
+      color:var(--text);
+    }
+    .payment-copy-status.error{
+      border-color: rgba(255,42,42,.35);
+      background: rgba(255,42,42,.12);
+    }
+    .turnstile-wrap{
+      margin-top:8px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(0,209,255,.25);
+      background:rgba(0,209,255,.06);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .turnstile-widget{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+    }
+    .turnstile-status{
+      display:none;
+      border-radius:12px;
+      padding:8px 10px;
+      font-weight:900;
+      font-size:12px;
+      border:1px solid rgba(42,210,159,.35);
+      background:rgba(42,210,159,.12);
+      color:var(--text);
+    }
+    .turnstile-status.error{
+      border-color: rgba(255,42,42,.35);
+      background: rgba(255,42,42,.12);
+    }
+
+    footer{
+      padding:32px 0 50px;
+      color: rgba(255,255,255,.70);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .foot{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px}
+    footer p{margin:0; font-weight:800; line-height:1.8; font-size:14px}
+
+    /* Floating buttons */
+    .float{
+      position:fixed;
+      left:16px; bottom:16px;
+      display:flex; flex-direction:column; gap:10px;
+      z-index:60;
+    }
+    .fab{
+      width:52px; height:52px; border-radius:16px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      cursor:pointer;
+      transition: .18s transform, .18s background, .18s box-shadow;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .fab:hover{
+      transform: translateY(-4px);
+      background: rgba(255,255,255,.15);
+      box-shadow: 0 15px 40px rgba(0,0,0,.4);
+    }
+    .fab.up{display:none}
+    .wa-sticky-cta{display:none}
+    .reveal-item{
+      opacity:0;
+      transform: translateY(20px) scale(.985);
+      transition:
+        opacity 560ms ease,
+        transform 620ms cubic-bezier(.22,.61,.36,1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal-item.reveal-visible{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+    .tilt-card{
+      transform-style: preserve-3d;
+      transition: transform 260ms ease;
+      will-change: transform;
+    }
+    .tilt-card.is-tilting{
+      transition:none;
+    }
+
+    @media (max-width: 980px){
+      body::after{
+        opacity:.12;
+        background-size: 30px 30px, 30px 30px, 20px 20px, 26px 26px;
+      }
+      .nav-links{display:none}
+      .nav-cta{gap:8px}
+      #btnWhatsNav,
+      #navJoinBtn{display:none}
+      .hero-grid{grid-template-columns: 1fr}
+      .stats{grid-template-columns: repeat(2,1fr)}
+      .grid{grid-template-columns: 1fr}
+      .calculator-grid{grid-template-columns: 1fr}
+      .journey{grid-template-columns: 1fr}
+      .tracker-layout{grid-template-columns: 1fr}
+      .achievement-list{grid-template-columns: 1fr}
+      .news-list{grid-template-columns: 1fr}
+      .reviews-grid{grid-template-columns: 1fr}
+      .reviews-filters{
+        width:100%;
+      }
+      .review-filter{
+        flex:1 1 180px;
+      }
+      .review-form-grid{
+        grid-template-columns: 1fr;
+      }
+      .booking{grid-template-columns: 1fr}
+      section{padding:36px 0}
+      .sec-head{margin-bottom:20px}
+      .sec-title{font-size:24px}
+      h1{font-size: clamp(28px, 4vw, 40px)}
+
+      /* Better hero framing for mobile screens */
+      header.hero{
+        min-height: clamp(540px, 86vh, 820px);
+        min-height: clamp(540px, 86svh, 820px);
+      }
+      .hero-slide{
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: #081521;
+      }
+      .img{
+        background-position:center center;
+        aspect-ratio: 16/10;
+      }
+      #jerashImg{background-position:center center}
+      #coachImg{background-position:center center}
+      .avatar{background-position:center center}
+    }
+
+    /* Layout + performance tuning */
+    section[id], header[id]{scroll-margin-top:88px}
+    section{
+      content-visibility:auto;
+      contain-intrinsic-size: 760px;
+    }
+    body::before{display:none}
+    .nav{
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      background: var(--nav-bg);
+      border-bottom:1px solid var(--surface-line);
+      box-shadow:none;
+      transition: background-color .18s ease, border-color .18s ease;
+    }
+    .nav::after{display:none}
+    .hero-bg::before{display:none}
+    .hero-left::before{display:none}
+    .logo,
+    .btn.primary,
+    .btn.gold,
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .fab,
+    .mini-card,
+    .avatar{box-shadow:none}
+    .btn{
+      transition: background-color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:none;
+    }
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .mini-card,
+    .faq-item,
+    .schedule-table,
+    .stat,
+    .belt{
+      background: var(--surface-soft);
+      border-color: var(--surface-line);
+    }
+    .panel,
+    .card,
+    .price-card,
+    .details,
+    .mini-card,
+    .belt,
+    .faq-item,
+    .faq-question,
+    .img,
+    .avatar,
+    .badge{
+      transition: background-color .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .hero-slide{
+      filter:none;
+      transform:none;
+      transition: opacity 450ms ease;
+      will-change: opacity;
+    }
+    .hero-slide.active{transform:none}
+    .mini-card:hover,
+    .card:hover,
+    .price-card:hover,
+    .belt:hover,
+    .panel:hover,
+    .details:hover,
+    .fab:hover{
+      transform:none;
+      box-shadow:none;
+    }
+    .mini-card:hover .img{transform:none}
+    .badge:hover{box-shadow:none}
+    .grid{grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))}
+    .sec-head{
+      align-items:flex-end;
+      padding-bottom:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      margin-bottom:22px;
+    }
+    .sec-title{font-size: clamp(22px, 2.8vw, 30px)}
+    .booking{align-items:start}
+    .booking > .card:last-child{
+      position:sticky;
+      top:96px;
+      align-self:start;
+    }
+    .float{left:12px; bottom:12px}
+    .fab{
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+      background: rgba(0,0,0,.62);
+      transition: background-color .18s ease;
+    }
+
+    @media (max-width: 980px){
+      body{padding-bottom:92px}
+      .booking > .card:last-child{position:static}
+      .theme-toggle{
+        min-width:42px;
+        padding-inline:10px;
+      }
+
+      /* Mobile-first schedule cards */
+      .schedule-table{
+        border:0;
+        background:transparent;
+      }
+      .schedule-table thead{display:none}
+      .schedule-table tbody{
+        display:grid;
+        gap:10px;
+      }
+      .schedule-table tr{
+        display:block;
+        padding:12px 14px;
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+      }
+      .schedule-table td{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+        padding:10px 0;
+        border-bottom:1px solid rgba(255,255,255,.1);
+      }
+      .schedule-table td:first-child{padding-top:0}
+      .schedule-table td:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+      }
+      .schedule-table td::before{
+        content: attr(data-label);
+        color:var(--muted);
+        font-weight:900;
+        white-space:nowrap;
+        flex:0 0 auto;
+      }
+
+      /* Sticky WhatsApp CTA on mobile */
+      .wa-sticky-cta{
+        position:fixed;
+        right:12px;
+        left:12px;
+        bottom:calc(10px + env(safe-area-inset-bottom));
+        z-index:85;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        padding:13px 16px;
+        border-radius:14px;
+        border:1px solid rgba(46,229,157,.35);
+        background: linear-gradient(135deg, #0f9f5f, #18c47a);
+        color:#fff;
+        font-weight:1000;
+      }
+      .wa-sticky-cta svg{flex:0 0 auto}
+      .float{
+        left:12px;
+        bottom:calc(84px + env(safe-area-inset-bottom));
+      }
+      .float .whatsapp{display:none}
+    }
+
+    /* Light theme */
+    html[data-theme="light"]{
+      --bg:#fff7f2;
+      --bg2:#e9f8ff;
+      --bg3:#ffe9f1;
+      --text:rgba(18,38,56,.96);
+      --muted:rgba(43,70,95,.78);
+      --accent:#ff3b68;
+      --accent2:#00aecd;
+      --accent3:#4adfff;
+      --gold:#c98a1f;
+      --ok:#22b88f;
+      --tone-cyan:rgba(0,174,205,.18);
+      --tone-pink:rgba(255,59,104,.15);
+      --tone-mint:rgba(34,184,143,.13);
+      --tone-gold:rgba(201,138,31,.14);
+      --surface:rgba(255,255,255,.95);
+      --surface-soft:rgba(255,255,255,.9);
+      --surface-line:rgba(9,58,91,.17);
+      --surface-line-strong:rgba(255,59,104,.44);
+      --nav-bg:rgba(255,251,255,.92);
+      --shadow: 0 12px 28px rgba(17,42,68,.12);
+      --glow: 0 0 15px rgba(255,59,104,.2);
+    }
+    html[data-theme="light"] body{
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 52%, var(--bg3) 100%);
+      color:var(--text);
+    }
+    html[data-theme="light"] body::before{
+      background:
+        radial-gradient(900px 420px at 15% 8%, rgba(255,59,104,.08), transparent 42%),
+        radial-gradient(700px 360px at 84% 72%, rgba(0,174,205,.08), transparent 42%);
+    }
+    html[data-theme="light"] body::after{
+      opacity:.14;
+      background-image:
+        linear-gradient(rgba(0,174,205,.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,59,104,.08) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0,174,205,.15) 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(255,59,104,.12) 1px, transparent 1.5px);
+    }
+    html[data-theme="light"] .nav{
+      background: var(--nav-bg);
+      border-bottom-color: var(--surface-line);
+    }
+    html[data-theme="light"] .nav-links a:hover{
+      background: rgba(17,53,81,.08);
+    }
+    html[data-theme="light"] .btn{
+      background: rgba(16,48,74,.06);
+      border-color: var(--surface-line);
+      color:var(--text);
+    }
+    html[data-theme="light"] .btn:hover{
+      background: rgba(16,48,74,.12);
+      border-color: rgba(255,59,104,.45);
+    }
+    html[data-theme="light"] .btn.primary{color:#fff}
+    html[data-theme="light"] .btn.gold{
+      color:#2b1b05;
+      background: linear-gradient(135deg, rgba(74,223,255,.96), rgba(179,242,255,.82));
+      border-color: rgba(0,156,191,.52);
+    }
+    html[data-theme="light"] .pulse-cta::after{
+      border-color: rgba(255,59,104,.55);
+    }
+    html[data-theme="light"] .spotlight{
+      border-color: rgba(0,174,205,.35);
+      background: linear-gradient(135deg, rgba(255,59,104,.15), rgba(0,174,205,.14));
+    }
+    html[data-theme="light"] .spotlight-kicker,
+    html[data-theme="light"] .spotlight-point{
+      background: rgba(255,255,255,.76);
+      border-color: rgba(9,58,91,.22);
+      color: rgba(25,52,74,.95);
+    }
+    html[data-theme="light"] .spotlight-text{
+      color: rgba(25,52,74,.95);
+    }
+    html[data-theme="light"] .panel,
+    html[data-theme="light"] .card,
+    html[data-theme="light"] .mini-card,
+    html[data-theme="light"] .price-card,
+    html[data-theme="light"] .details,
+    html[data-theme="light"] .faq-item,
+    html[data-theme="light"] .schedule-table,
+    html[data-theme="light"] .stat,
+    html[data-theme="light"] .belt,
+    html[data-theme="light"] .achievement-card,
+    html[data-theme="light"] .news-card,
+    html[data-theme="light"] .review-card,
+    html[data-theme="light"] .review-form-card,
+    html[data-theme="light"] .english-panel,
+    html[data-theme="light"] .turnstile-wrap{
+      background: rgba(255,255,255,.88);
+      border-color: rgba(16,48,74,.14);
+    }
+    html[data-theme="light"] .calc-chip,
+    html[data-theme="light"] .medal,
+    html[data-theme="light"] .news-chip{
+      background: rgba(16,48,74,.06);
+      border-color: rgba(16,48,74,.2);
+      color:var(--text);
+    }
+    html[data-theme="light"] .tracker-progress{
+      background: rgba(16,48,74,.08);
+      border-color: rgba(16,48,74,.18);
+    }
+    html[data-theme="light"] .hero-bg{
+      background:
+        radial-gradient(1200px 600px at 20% 12%, rgba(255,59,104,.12), transparent 60%),
+        radial-gradient(1000px 650px at 80% 18%, rgba(0,174,205,.11), transparent 64%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(214,232,247,.7));
+    }
+    html[data-theme="light"] .hero-bg::before{
+      background:
+        radial-gradient(circle at 15% 30%, rgba(255,59,104,.1) 0%, transparent 25%),
+        radial-gradient(circle at 85% 70%, rgba(0,174,205,.1) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(74,223,255,.11) 0%, transparent 40%);
+    }
+    html[data-theme="light"] .hero-left{
+      background: rgba(255,255,255,.94);
+    }
+    html[data-theme="light"] label{
+      color: rgba(16,48,74,.86);
+    }
+    html[data-theme="light"] .tag,
+    html[data-theme="light"] .badge{
+      color: rgba(58,33,12,.92);
+    }
+    html[data-theme="light"] .price-note,
+    html[data-theme="light"] .review-text,
+    html[data-theme="light"] .details-body{
+      color: rgba(24,50,74,.86);
+    }
+    html[data-theme="light"] .pill{
+      background: rgba(255,255,255,.82);
+      border-color: rgba(16,48,74,.14);
+      color:rgba(24,50,74,.9);
+    }
+    html[data-theme="light"] .pill.price{
+      border-color: rgba(74,223,255,.5);
+      background: rgba(74,223,255,.16);
+    }
+    html[data-theme="light"] .pill.phone{
+      border-color: rgba(0,174,205,.5);
+      background: rgba(0,174,205,.14);
+    }
+    html[data-theme="light"] input,
+    html[data-theme="light"] select,
+    html[data-theme="light"] textarea{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(16,48,74,.2);
+      color:var(--text);
+    }
+    html[data-theme="light"] input:focus,
+    html[data-theme="light"] select:focus,
+    html[data-theme="light"] textarea:focus{
+      background:#fff;
+      border-color: rgba(255,59,104,.6);
+      box-shadow: 0 0 0 3px rgba(255,59,104,.12);
+    }
+    html[data-theme="light"] input[type="checkbox"],
+    html[data-theme="light"] input[type="radio"]{
+      background:transparent;
+    }
+    html[data-theme="light"] .img::after{
+      background: linear-gradient(180deg, rgba(15,42,64,.04), rgba(15,42,64,.18));
+    }
+    html[data-theme="light"] footer{
+      color:rgba(35,64,89,.86);
+      border-top-color: rgba(16,48,74,.14);
+    }
+    html[data-theme="light"] .fab{
+      background: rgba(255,255,255,.94);
+      border-color: rgba(16,48,74,.2);
+    }
+    html[data-theme="light"] .fab.whatsapp path{stroke:#163955}
+    html[data-theme="light"] .fab.up path{fill:#163955}
+
+    /* Color polish */
+    .why-icon{
+      width:72px;
+      height:72px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, var(--tone-cyan), var(--tone-pink));
+      align-items:center;
+    }
+    #why-us .card:nth-child(4n+1),
+    #programs .card:nth-child(4n+1){
+      background: linear-gradient(145deg, var(--tone-cyan), rgba(6,19,35,.66));
+      border-color: rgba(0,209,255,.34);
+    }
+    #why-us .card:nth-child(4n+2),
+    #programs .card:nth-child(4n+2){
+      background: linear-gradient(145deg, var(--tone-pink), rgba(8,18,36,.66));
+      border-color: rgba(255,61,129,.34);
+    }
+    #why-us .card:nth-child(4n+3),
+    #programs .card:nth-child(4n+3){
+      background: linear-gradient(145deg, var(--tone-mint), rgba(8,20,34,.66));
+      border-color: rgba(42,210,159,.33);
+    }
+    #why-us .card:nth-child(4n),
+    #programs .card:nth-child(4n){
+      background: linear-gradient(145deg, var(--tone-gold), rgba(17,22,40,.68));
+      border-color: rgba(255,209,102,.34);
+    }
+    #pricing .price-card{
+      background: linear-gradient(135deg, var(--tone-cyan), var(--tone-pink));
+      border-color: rgba(0,209,255,.4);
+    }
+    #calculator .calc-final{
+      background: linear-gradient(135deg, var(--tone-gold), var(--tone-cyan));
+      border-color: rgba(255,209,102,.42);
+    }
+    .stat .num{color:var(--accent3);}
+    .stat:nth-child(2) .num{color:var(--gold);}
+    .stat:nth-child(3) .num{color:#ffa3c7;}
+    .stat:nth-child(4) .num{color:#84efcc;}
+    #achievements .achievement-card:nth-child(odd),
+    #news .news-card:nth-child(odd),
+    #reviews .review-card:nth-child(odd){
+      background: linear-gradient(145deg, var(--tone-cyan), rgba(7,18,35,.64));
+      border-color: rgba(0,209,255,.3);
+    }
+    #achievements .achievement-card:nth-child(even),
+    #news .news-card:nth-child(even),
+    #reviews .review-card:nth-child(even){
+      background: linear-gradient(145deg, var(--tone-pink), rgba(9,19,37,.64));
+      border-color: rgba(255,61,129,.3);
+    }
+    html[data-theme="light"] .why-icon{
+      border-color: rgba(16,48,74,.18);
+      background: linear-gradient(135deg, rgba(74,223,255,.3), rgba(255,59,104,.2));
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+1),
+    html[data-theme="light"] #programs .card:nth-child(4n+1){
+      background: linear-gradient(145deg, rgba(74,223,255,.22), rgba(255,255,255,.95));
+      border-color: rgba(0,156,191,.35);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+2),
+    html[data-theme="light"] #programs .card:nth-child(4n+2){
+      background: linear-gradient(145deg, rgba(255,59,104,.16), rgba(255,255,255,.95));
+      border-color: rgba(255,59,104,.34);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+3),
+    html[data-theme="light"] #programs .card:nth-child(4n+3){
+      background: linear-gradient(145deg, rgba(34,184,143,.14), rgba(255,255,255,.95));
+      border-color: rgba(34,184,143,.3);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n),
+    html[data-theme="light"] #programs .card:nth-child(4n){
+      background: linear-gradient(145deg, rgba(201,138,31,.14), rgba(255,255,255,.95));
+      border-color: rgba(201,138,31,.34);
+    }
+    html[data-theme="light"] #pricing .price-card{
+      background: linear-gradient(135deg, rgba(74,223,255,.24), rgba(255,59,104,.14));
+      border-color: rgba(0,156,191,.35);
+    }
+    html[data-theme="light"] #calculator .calc-final{
+      background: linear-gradient(135deg, rgba(255,220,130,.4), rgba(74,223,255,.2));
+      border-color: rgba(201,138,31,.36);
+      color:#8a5a00;
+    }
+    html[data-theme="light"] .stat .num{color:#0080a1;}
+    html[data-theme="light"] .stat:nth-child(2) .num{color:#b77711;}
+    html[data-theme="light"] .stat:nth-child(3) .num{color:#d93f72;}
+    html[data-theme="light"] .stat:nth-child(4) .num{color:#0f9d79;}
+    html[data-theme="light"] #achievements .achievement-card:nth-child(odd),
+    html[data-theme="light"] #news .news-card:nth-child(odd),
+    html[data-theme="light"] #reviews .review-card:nth-child(odd){
+      background: linear-gradient(145deg, rgba(74,223,255,.2), rgba(255,255,255,.95));
+      border-color: rgba(0,156,191,.3);
+    }
+    html[data-theme="light"] #achievements .achievement-card:nth-child(even),
+    html[data-theme="light"] #news .news-card:nth-child(even),
+    html[data-theme="light"] #reviews .review-card:nth-child(even){
+      background: linear-gradient(145deg, rgba(255,59,104,.15), rgba(255,255,255,.95));
+      border-color: rgba(255,59,104,.29);
+    }
+
+    /* Color polish - secondary components */
+    .sec-title{
+      position:relative;
+      display:inline-block;
+    }
+    .sec-title::after{
+      content:"";
+      position:absolute;
+      inset-inline-start:0;
+      bottom:-8px;
+      width:58%;
+      height:3px;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      opacity:.8;
+    }
+    #faq .faq-item{
+      background: linear-gradient(145deg, rgba(0,209,255,.08), rgba(255,61,129,.06));
+      border-color: rgba(0,209,255,.24);
+    }
+    #faq .faq-item.active{
+      background: linear-gradient(145deg, rgba(255,61,129,.16), rgba(0,209,255,.1));
+      border-color: rgba(255,61,129,.42);
+    }
+    #faq .faq-toggle{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(0,0,0,.2);
+      color:var(--accent3);
+      font-size:11px;
+    }
+    #schedule .schedule-table th{
+      background: linear-gradient(120deg, rgba(255,61,129,.22), rgba(0,209,255,.16));
+      color: rgba(255,255,255,.95);
+    }
+    #schedule .schedule-table tbody tr:nth-child(odd){
+      background: rgba(0,209,255,.05);
+    }
+    #schedule .schedule-table tbody tr:nth-child(even){
+      background: rgba(255,61,129,.04);
+    }
+    #schedule .time{
+      color:var(--gold);
+    }
+    #schedule .level{
+      background: rgba(42,210,159,.2);
+      border-color: rgba(42,210,159,.42);
+      color:#b9ffe8;
+    }
+    .calc-chip{
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    }
+    .calc-chip:has(input:checked){
+      border-color: rgba(0,209,255,.5);
+      background: linear-gradient(135deg, rgba(0,209,255,.22), rgba(255,61,129,.18));
+      color: rgba(255,255,255,.96);
+    }
+    #calcDelivery:checked + span{
+      color:#c8f8ff;
+    }
+    .medal:nth-child(1){
+      background:rgba(255,209,102,.16);
+      border-color:rgba(255,209,102,.46);
+      color:#ffe8b3;
+    }
+    .medal:nth-child(2){
+      background:rgba(196,215,233,.16);
+      border-color:rgba(196,215,233,.44);
+      color:#dbeeff;
+    }
+    .medal:nth-child(3){
+      background:rgba(205,127,50,.18);
+      border-color:rgba(205,127,50,.45);
+      color:#ffd7b0;
+    }
+    .news-chip{
+      background: linear-gradient(135deg, rgba(255,61,129,.2), rgba(0,209,255,.18));
+      border-color: rgba(255,61,129,.36);
+      color: rgba(255,255,255,.95);
+    }
+    .ok{
+      color:#9ff4d4;
+    }
+    .err{
+      color:#ffc2c2;
+    }
+    .review-form-status.success,
+    .payment-copy-status,
+    .turnstile-status:not(.error){
+      color:#b4ffe6;
+    }
+    .review-form-status.error,
+    .payment-copy-status.error,
+    .turnstile-status.error{
+      color:#ffc3c3;
+    }
+    .payment-option{
+      background: rgba(255,255,255,.03);
+    }
+    .payment-option:nth-child(2){
+      background: linear-gradient(135deg, var(--tone-cyan), rgba(0,0,0,.12));
+      border-color: rgba(0,209,255,.3);
+    }
+    .payment-option:nth-child(3){
+      background: linear-gradient(135deg, var(--tone-mint), rgba(0,0,0,.12));
+      border-color: rgba(42,210,159,.3);
+    }
+    .payment-option:nth-child(4){
+      background: linear-gradient(135deg, var(--tone-gold), rgba(0,0,0,.12));
+      border-color: rgba(255,209,102,.34);
+    }
+    .turnstile-wrap{
+      background: linear-gradient(135deg, rgba(0,209,255,.1), rgba(255,61,129,.08));
+      border-color: rgba(0,209,255,.32);
+    }
+    html[data-theme="light"] .sec-title::after{
+      background: linear-gradient(90deg, #ff3b68, #00aecd);
+    }
+    html[data-theme="light"] #faq .faq-item{
+      background: linear-gradient(145deg, rgba(74,223,255,.2), rgba(255,255,255,.95));
+      border-color: rgba(0,156,191,.26);
+    }
+    html[data-theme="light"] #faq .faq-item.active{
+      background: linear-gradient(145deg, rgba(255,59,104,.16), rgba(74,223,255,.16));
+      border-color: rgba(255,59,104,.34);
+    }
+    html[data-theme="light"] #faq .faq-toggle{
+      border-color: rgba(16,48,74,.22);
+      background: rgba(255,255,255,.72);
+      color:#0084a2;
+    }
+    html[data-theme="light"] #schedule .schedule-table th{
+      background: linear-gradient(120deg, rgba(255,59,104,.19), rgba(74,223,255,.24));
+      color:#153754;
+    }
+    html[data-theme="light"] #schedule .schedule-table tbody tr:nth-child(odd){
+      background: rgba(74,223,255,.12);
+    }
+    html[data-theme="light"] #schedule .schedule-table tbody tr:nth-child(even){
+      background: rgba(255,59,104,.08);
+    }
+    html[data-theme="light"] #schedule .time{
+      color:#9d680f;
+    }
+    html[data-theme="light"] #schedule .level{
+      background: rgba(34,184,143,.16);
+      border-color: rgba(34,184,143,.32);
+      color:#0a7a5d;
+    }
+    html[data-theme="light"] .calc-chip:has(input:checked){
+      border-color: rgba(0,156,191,.45);
+      background: linear-gradient(135deg, rgba(74,223,255,.26), rgba(255,59,104,.16));
+      color:#143b57;
+    }
+    html[data-theme="light"] #calcDelivery:checked + span{
+      color:#0f5a72;
+    }
+    html[data-theme="light"] .medal:nth-child(1){
+      background: rgba(255,220,130,.45);
+      border-color: rgba(201,138,31,.34);
+      color:#6c4700;
+    }
+    html[data-theme="light"] .medal:nth-child(2){
+      background: rgba(213,226,240,.75);
+      border-color: rgba(116,145,170,.35);
+      color:#23455f;
+    }
+    html[data-theme="light"] .medal:nth-child(3){
+      background: rgba(219,167,120,.32);
+      border-color: rgba(163,93,42,.32);
+      color:#6b3c12;
+    }
+    html[data-theme="light"] .news-chip{
+      background: linear-gradient(135deg, rgba(255,59,104,.18), rgba(74,223,255,.28));
+      border-color: rgba(255,59,104,.25);
+      color:#1b3a53;
+    }
+    html[data-theme="light"] .ok{
+      color:#0d7b5d;
+    }
+    html[data-theme="light"] .err{
+      color:#b32929;
+    }
+    html[data-theme="light"] .review-form-status.success,
+    html[data-theme="light"] .payment-copy-status,
+    html[data-theme="light"] .turnstile-status:not(.error){
+      color:#0f775b;
+    }
+    html[data-theme="light"] .review-form-status.error,
+    html[data-theme="light"] .payment-copy-status.error,
+    html[data-theme="light"] .turnstile-status.error{
+      color:#ad2929;
+    }
+    html[data-theme="light"] .payment-option{
+      background: rgba(16,48,74,.03);
+    }
+    html[data-theme="light"] .payment-option:nth-child(2){
+      background: linear-gradient(135deg, rgba(74,223,255,.2), rgba(255,255,255,.96));
+      border-color: rgba(0,156,191,.28);
+    }
+    html[data-theme="light"] .payment-option:nth-child(3){
+      background: linear-gradient(135deg, rgba(34,184,143,.14), rgba(255,255,255,.96));
+      border-color: rgba(34,184,143,.26);
+    }
+    html[data-theme="light"] .payment-option:nth-child(4){
+      background: linear-gradient(135deg, rgba(255,220,130,.24), rgba(255,255,255,.96));
+      border-color: rgba(201,138,31,.28);
+    }
+    html[data-theme="light"] .turnstile-wrap{
+      background: linear-gradient(135deg, rgba(74,223,255,.19), rgba(255,59,104,.11));
+      border-color: rgba(0,156,191,.26);
+    }
+
+    /* Mobile visual upgrade */
+    @media (max-width: 700px){
+      body{
+        padding-bottom: 104px;
+      }
+      .container{
+        width:min(100%, 95vw);
+      }
+      .nav-inner{
+        padding:10px 0;
+        gap:8px;
+      }
+      .brand .t1{font-size:13px}
+      .brand .t2{font-size:11px}
+      .theme-toggle,
+      .lang-toggle{
+        min-width:40px;
+        height:40px;
+        padding-inline:0;
+        border-radius:12px;
+      }
+
+      header.hero{
+        min-height:auto;
+        padding:16px 0 8px;
+      }
+      .hero-grid{
+        gap:12px;
+        padding:10px 0 0;
+      }
+      .hero-left,
+      .hero-right{
+        padding:14px;
+      }
+      .tag{
+        padding:6px 10px;
+        font-size:12px;
+      }
+      h1{
+        margin:8px 0 10px;
+        font-size:clamp(26px, 8.2vw, 34px);
+        line-height:1.22;
+      }
+      .sub{
+        margin:0 0 12px;
+        font-size:14px;
+        line-height:1.75;
+      }
+      .hero-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+      }
+      .hero-actions .btn{
+        width:100%;
+        min-height:44px;
+        justify-content:center;
+      }
+      .spotlight{
+        padding:10px;
+        gap:8px;
+      }
+      .spotlight-text{
+        font-size:13px;
+        line-height:1.7;
+      }
+      .spotlight-points{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:6px;
+      }
+      .spotlight-point{
+        justify-content:center;
+      }
+      .pills{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+      }
+      .pill{
+        justify-content:center;
+      }
+      .stats{
+        margin-top:12px;
+        gap:8px;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .stat{
+        padding:10px 8px;
+        text-align:center;
+      }
+      .stat .num{font-size:22px}
+      .stat .lbl{font-size:12px}
+
+      .mini-card{margin-bottom:10px}
+      .mini-body{padding:12px}
+      .mini-title{font-size:15px}
+      .mini-text{
+        font-size:13px;
+        line-height:1.7;
+      }
+      .coach{
+        gap:10px;
+        padding:12px;
+      }
+      .avatar{
+        width:56px;
+        height:56px;
+        border-radius:14px;
+      }
+      .coach .n1{font-size:14px}
+      .coach .n2{
+        font-size:12px;
+        line-height:1.6;
+      }
+      .badge{
+        font-size:11px;
+        padding:6px 9px;
+      }
+      .hero-right > div:last-child{
+        width:100%;
+      }
+      .hero-right > div:last-child .btn{
+        flex:1 1 0;
+        justify-content:center;
+      }
+
+      section{
+        padding:28px 0;
+      }
+      .sec-head{
+        margin-bottom:14px;
+        padding-bottom:8px;
+      }
+      .sec-title{
+        font-size:21px;
+        line-height:1.25;
+      }
+      .sec-desc{
+        font-size:13px;
+        line-height:1.7;
+      }
+
+      .grid{
+        gap:12px;
+        grid-template-columns:1fr;
+      }
+      .card{
+        padding:14px;
+        border-radius:14px;
+      }
+      .card h3{
+        font-size:16px;
+        line-height:1.5;
+      }
+      .card p{
+        font-size:14px;
+        line-height:1.75;
+      }
+      .why-icon{
+        width:58px;
+        height:58px;
+        font-size:36px;
+        border-radius:16px;
+      }
+
+      .pricing{gap:10px}
+      .price-card{
+        padding:14px;
+        gap:8px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .price-number{font-size:28px}
+
+      .calculator-grid,
+      .tracker-layout,
+      .journey,
+      .booking{
+        gap:12px;
+      }
+      .row{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+      input,
+      select,
+      textarea,
+      .btn{
+        min-height:44px;
+      }
+      textarea{
+        min-height:96px;
+      }
+      .calc-row{font-size:14px}
+      .calc-final{
+        font-size:18px;
+        padding:12px;
+      }
+      .calc-summary .btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .review-form-card,
+      .review-card,
+      .achievement-card,
+      .news-card{
+        padding:14px;
+        border-radius:14px;
+      }
+      .reviews-toolbar{
+        gap:10px;
+        margin-bottom:12px;
+      }
+      .review-filter{
+        min-width:100%;
+      }
+
+      .faq-question{
+        padding:14px;
+      }
+      .faq-answer{
+        padding:0 14px 14px;
+        font-size:14px;
+      }
+
+      .schedule-table tbody{
+        gap:8px;
+      }
+      .schedule-table tr{
+        padding:10px 12px;
+        border-radius:14px;
+      }
+      .schedule-table td{
+        padding:8px 0;
+        font-size:13px;
+      }
+      .schedule-table td::before{
+        font-size:12px;
+      }
+
+      .payment-details,
+      .turnstile-wrap{
+        padding:10px;
+      }
+      .payment-option{
+        padding:9px;
+        border-radius:10px;
+      }
+      .payment-line{
+        font-size:12px;
+      }
+      .payment-value{
+        font-size:11px;
+      }
+
+      footer{
+        padding:24px 0 18px;
+      }
+      .foot{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+      }
+      .foot > div:last-child{
+        width:100%;
+      }
+      .foot > div:last-child .btn{
+        flex:1;
+        justify-content:center;
+      }
+
+      .float{
+        left:10px;
+        bottom:calc(88px + env(safe-area-inset-bottom));
+      }
+      .fab{
+        width:48px;
+        height:48px;
+        border-radius:14px;
+      }
+      .wa-sticky-cta{
+        padding:12px 14px;
+        border-radius:12px;
+        font-size:14px;
       }
     }
-  } catch (_) {
-    // Fail open if cache lookup fails.
-    return { allowed: true, retryAfter: 0, limit: maxRequests, remaining: maxRequests };
-  }
 
-  if (state.resetAt <= now) {
-    state = { count: 0, resetAt: now + windowSeconds };
-  }
+    @media (max-width: 480px){
+      .container{
+        width:min(100%, 94vw);
+      }
+      h1{
+        font-size:clamp(24px, 9vw, 30px);
+      }
+      .sub{
+        font-size:13px;
+      }
+      .hero-left,
+      .hero-right,
+      .card,
+      .details{
+        padding:12px;
+      }
+      .stats{
+        grid-template-columns:1fr 1fr;
+      }
+      .stat .num{font-size:20px}
+      .stat .lbl{font-size:11px}
+      .btn{
+        font-size:13px;
+        padding:10px 12px;
+      }
+      .calc-final{font-size:17px}
+      .wa-sticky-cta{
+        left:10px;
+        right:10px;
+      }
+    }
 
-  state.count += 1;
-  const retryAfter = Math.max(1, state.resetAt - now);
-  const allowed = state.count <= maxRequests;
-  const remaining = Math.max(0, maxRequests - state.count);
+    /* Mobile premium refresh */
+    @media (max-width: 700px){
+      body{
+        background:
+          radial-gradient(120% 72% at 100% -8%, rgba(255,61,129,.2), transparent 60%),
+          radial-gradient(120% 70% at -10% 0%, rgba(0,209,255,.18), transparent 58%),
+          linear-gradient(160deg, #071021 0%, #0c1d3b 52%, #15345f 100%);
+      }
+      body::after{
+        opacity:.1;
+        background-size: 26px 26px, 26px 26px, 18px 18px, 24px 24px;
+      }
 
-  try {
-    await cache.put(
-      cacheKey,
-      new Response(JSON.stringify(state), {
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Cache-Control": `max-age=${retryAfter}`
+      .nav{
+        background: rgba(6,14,30,.95);
+        border-bottom-color: rgba(0,209,255,.3);
+        box-shadow: 0 10px 26px rgba(0,0,0,.36);
+      }
+      .nav-inner{
+        padding:10px 0;
+      }
+      .brand{
+        gap:8px;
+      }
+      .logo{
+        width:36px;
+        height:36px;
+        border-radius:12px;
+      }
+      .brand .t1{
+        font-size:12px;
+      }
+      .brand .t2{
+        font-size:10px;
+      }
+      .nav-cta{
+        gap:6px;
+      }
+      .theme-toggle,
+      .lang-toggle{
+        min-width:38px;
+        width:38px;
+        height:38px;
+        border-radius:11px;
+      }
+
+      header.hero{
+        padding:12px 0 8px;
+      }
+      .hero-grid{
+        gap:10px;
+        padding:4px 0 0;
+      }
+      .panel{
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.16);
+        background: linear-gradient(160deg, rgba(9,22,45,.9), rgba(9,20,39,.76));
+      }
+      .hero-left{
+        position:relative;
+      }
+      .hero-left::after{
+        content:"";
+        position:absolute;
+        inset:auto -34% -46% -34%;
+        height:180px;
+        background: radial-gradient(ellipse at center, rgba(255,61,129,.24), transparent 62%);
+        pointer-events:none;
+      }
+      h1{
+        margin:6px 0 9px;
+        font-size:clamp(24px, 8vw, 33px);
+        line-height:1.24;
+      }
+      .sub{
+        margin:0 0 12px;
+        font-size:14px;
+        line-height:1.78;
+        color:rgba(236,245,255,.86);
+      }
+      .hero-actions{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .hero-actions .btn:first-child{
+        grid-column:1 / -1;
+      }
+      .hero-actions .btn{
+        min-height:46px;
+        border-radius:13px;
+      }
+      .spotlight{
+        border-color: rgba(0,209,255,.44);
+        padding:11px;
+      }
+      .spotlight-kicker{
+        font-size:11px;
+      }
+      .spotlight-text{
+        font-size:13px;
+      }
+      .spotlight-point{
+        font-size:11px;
+        padding:6px 9px;
+      }
+      .pills{
+        gap:7px;
+      }
+      .pill{
+        justify-content:flex-start;
+        font-size:12px;
+        padding:10px 12px;
+      }
+      .stats{
+        gap:8px;
+      }
+      .stat{
+        border-radius:14px;
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(150deg, rgba(0,209,255,.17), rgba(255,61,129,.14));
+      }
+      .stat .num{
+        font-size:24px;
+        line-height:1;
+      }
+      .stat .lbl{
+        font-size:11px;
+        margin-top:4px;
+      }
+
+      .hero-right{
+        display:grid;
+        gap:8px;
+      }
+      .mini-card{
+        border-radius:14px;
+      }
+      .mini-body{
+        padding:12px;
+      }
+      .mini-title{
+        font-size:15px;
+      }
+      .mini-text{
+        font-size:13px;
+      }
+      .coach{
+        padding:11px;
+      }
+      .coach .n1{
+        font-size:14px;
+      }
+      .coach .n2{
+        font-size:12px;
+        line-height:1.58;
+      }
+      .hero-right > div:last-child{
+        display:grid !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px !important;
+        width:100%;
+      }
+
+      section{
+        padding:26px 0;
+      }
+      .sec-head{
+        margin-bottom:12px;
+        border-bottom:none;
+        padding-bottom:0;
+      }
+      .sec-title{
+        font-size:22px;
+      }
+      .sec-title::after{
+        bottom:-6px;
+        height:2px;
+      }
+      .sec-desc{
+        font-size:13px;
+      }
+
+      .card,
+      .details,
+      .review-card,
+      .achievement-card,
+      .news-card,
+      .review-form-card{
+        border-radius:14px;
+        border-color: rgba(255,255,255,.16);
+        background: linear-gradient(165deg, rgba(10,24,47,.86), rgba(8,18,35,.8));
+      }
+      .card{
+        padding:14px;
+      }
+      .card h3{
+        font-size:16px;
+      }
+      .card p{
+        font-size:13px;
+        line-height:1.75;
+      }
+      .why-icon{
+        width:56px;
+        height:56px;
+        font-size:34px;
+      }
+
+      .price-card{
+        border-color: rgba(0,209,255,.4);
+        background: linear-gradient(140deg, rgba(0,209,255,.2), rgba(255,61,129,.18));
+      }
+      .price-title{
+        font-size:17px;
+      }
+      .price-note{
+        font-size:13px;
+        line-height:1.8;
+      }
+      .price-number{
+        font-size:30px;
+      }
+
+      .calc-row{
+        font-size:13px;
+      }
+      .calc-final{
+        font-size:19px;
+      }
+
+      .review-meta,
+      .news-meta,
+      .achievement-date{
+        font-size:12px;
+      }
+      .review-text{
+        font-size:13px;
+      }
+
+      .faq-item{
+        border-radius:14px;
+      }
+      .faq-question{
+        padding:13px 14px;
+        font-size:14px;
+      }
+      .faq-answer{
+        font-size:13px;
+        line-height:1.75;
+      }
+
+      .schedule-table tr{
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(160deg, rgba(0,209,255,.12), rgba(255,61,129,.1));
+      }
+      .schedule-table td{
+        font-size:12px;
+      }
+      .schedule-table td::before{
+        font-size:11px;
+      }
+
+      input,
+      select,
+      textarea{
+        font-size:16px;
+      }
+      .btn{
+        font-size:14px;
+      }
+      .payment-details,
+      .turnstile-wrap{
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(165deg, rgba(0,209,255,.14), rgba(255,61,129,.08));
+      }
+      .booking > .card:last-child{
+        background: linear-gradient(160deg, rgba(255,61,129,.16), rgba(0,209,255,.12));
+      }
+
+      .wa-sticky-cta{
+        box-shadow:
+          0 14px 30px rgba(0,0,0,.36),
+          inset 0 0 0 1px rgba(255,255,255,.16);
+        animation: mobileCtaPulse 2.6s ease-in-out infinite;
+      }
+      @keyframes mobileCtaPulse{
+        0%, 100%{ transform: translateY(0); }
+        50%{ transform: translateY(-2px); }
+      }
+      .float{
+        bottom:calc(92px + env(safe-area-inset-bottom));
+      }
+
+      html[data-theme="light"] body{
+        background:
+          radial-gradient(120% 70% at 100% -6%, rgba(255,59,104,.18), transparent 60%),
+          radial-gradient(120% 70% at -10% 0%, rgba(74,223,255,.2), transparent 58%),
+          linear-gradient(160deg, #fffaf5 0%, #f2fbff 52%, #ffeef5 100%);
+      }
+      html[data-theme="light"] .nav{
+        background: rgba(255,252,255,.95);
+        border-bottom-color: rgba(0,156,191,.24);
+        box-shadow: 0 8px 20px rgba(17,42,68,.12);
+      }
+      html[data-theme="light"] .panel,
+      html[data-theme="light"] .card,
+      html[data-theme="light"] .details,
+      html[data-theme="light"] .review-card,
+      html[data-theme="light"] .achievement-card,
+      html[data-theme="light"] .news-card,
+      html[data-theme="light"] .review-form-card{
+        border-color: rgba(16,48,74,.16);
+        background: linear-gradient(165deg, rgba(255,255,255,.97), rgba(244,251,255,.92));
+      }
+      html[data-theme="light"] .stat{
+        border-color: rgba(16,48,74,.18);
+        background: linear-gradient(145deg, rgba(74,223,255,.26), rgba(255,59,104,.16));
+      }
+      html[data-theme="light"] .price-card{
+        background: linear-gradient(140deg, rgba(74,223,255,.3), rgba(255,59,104,.18));
+      }
+      html[data-theme="light"] .schedule-table tr{
+        border-color: rgba(16,48,74,.2);
+      }
+    }
+
+    /* Laptop + desktop visual polish */
+    @media (min-width: 981px){
+      body{
+        padding-bottom:0;
+      }
+      body::before{
+        display:block;
+        opacity:.65;
+        top:-42%;
+        right:-38%;
+      }
+      body::after{
+        opacity:.2;
+      }
+
+      .nav{
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: linear-gradient(180deg, rgba(5,13,29,.94), rgba(6,14,30,.86));
+        border-bottom-color: rgba(0,209,255,.34);
+        box-shadow: 0 10px 24px rgba(0,0,0,.24);
+      }
+      .nav::after{
+        display:block;
+        background: linear-gradient(90deg, rgba(0,209,255,0), rgba(255,61,129,.7), rgba(0,209,255,0));
+      }
+      .nav-inner{
+        padding:15px 0;
+      }
+      .nav-links{
+        gap:12px;
+      }
+      .nav-links a{
+        padding:9px 12px;
+      }
+      .nav-links a:hover{
+        background: linear-gradient(135deg, rgba(0,209,255,.15), rgba(255,61,129,.2));
+        color:var(--text);
+      }
+
+      .logo{
+        box-shadow: 0 14px 38px rgba(255,61,129,.28);
+      }
+      .btn{
+        backdrop-filter: blur(6px);
+      }
+      .btn:hover{
+        transform: translateY(-2px);
+      }
+      .btn.primary{
+        box-shadow: 0 15px 38px rgba(255,61,129,.26);
+      }
+      .btn.gold{
+        box-shadow: 0 18px 46px rgba(0,209,255,.24);
+      }
+
+      header.hero{
+        min-height: 78vh;
+        padding:34px 0 18px;
+      }
+      .hero-bg::before{
+        display:block;
+        opacity:.86;
+      }
+      .hero-grid{
+        grid-template-columns: 1.15fr .85fr;
+        gap:18px;
+      }
+      .hero-left{
+        padding:26px 24px;
+      }
+      .hero-right{
+        padding:18px;
+      }
+      h1{
+        font-size: clamp(38px, 4.2vw, 54px);
+        line-height:1.1;
+      }
+      .sub{
+        font-size:18px;
+        line-height:1.85;
+        max-width:62ch;
+      }
+      .hero-actions .btn{
+        min-height:46px;
+        padding:12px 18px;
+      }
+      .spotlight{
+        padding:14px;
+      }
+      .stats{
+        gap:14px;
+      }
+      .stat{
+        padding:16px 14px;
+      }
+      .stat .num{
+        font-size:30px;
+      }
+
+      section{
+        padding:54px 0;
+      }
+      .sec-head{
+        margin-bottom:24px;
+      }
+      .sec-desc{
+        max-width:75ch;
+      }
+      .grid{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .achievement-list,
+      .news-list,
+      .reviews-grid{
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .calculator-grid,
+      .tracker-layout,
+      .journey,
+      .booking{
+        gap:18px;
+      }
+      .booking{
+        grid-template-columns: 1.05fr .95fr;
+      }
+
+      .panel,
+      .card,
+      .price-card,
+      .details,
+      .mini-card,
+      .faq-item,
+      .schedule-table,
+      .review-card,
+      .achievement-card,
+      .news-card,
+      .review-form-card{
+        box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      }
+      .panel:hover{
+        transform: translateY(-4px);
+        box-shadow: 0 22px 50px rgba(255,61,129,.18);
+      }
+      .card:hover{
+        transform: translateY(-8px);
+      }
+      .price-card:hover{
+        transform: translateY(-6px);
+      }
+      .mini-card:hover{
+        transform: translateY(-6px);
+      }
+      .mini-card:hover .img{
+        transform: scale(1.05);
+      }
+      .details:hover{
+        transform: translateY(-4px);
+      }
+      .faq-item:hover{
+        border-color: rgba(255,61,129,.35);
+      }
+      .schedule-table tr:hover{
+        background: rgba(255,61,129,.08);
+      }
+
+      .booking > .card:last-child{
+        position:sticky;
+        top:102px;
+        align-self:start;
+      }
+
+      .float{
+        left:16px;
+        bottom:16px;
+      }
+      .fab{
+        width:52px;
+        height:52px;
+        border-radius:16px;
+      }
+      .wa-sticky-cta{
+        display:none !important;
+      }
+
+      html[data-theme="light"] .nav{
+        background: linear-gradient(180deg, rgba(255,252,255,.98), rgba(249,253,255,.94));
+        border-bottom-color: rgba(0,156,191,.26);
+        box-shadow: 0 10px 24px rgba(17,42,68,.1);
+      }
+      html[data-theme="light"] .nav-links a:hover{
+        background: linear-gradient(135deg, rgba(74,223,255,.23), rgba(255,59,104,.16));
+      }
+      html[data-theme="light"] .panel,
+      html[data-theme="light"] .card,
+      html[data-theme="light"] .price-card,
+      html[data-theme="light"] .details,
+      html[data-theme="light"] .mini-card,
+      html[data-theme="light"] .faq-item,
+      html[data-theme="light"] .schedule-table,
+      html[data-theme="light"] .review-card,
+      html[data-theme="light"] .achievement-card,
+      html[data-theme="light"] .news-card,
+      html[data-theme="light"] .review-form-card{
+        box-shadow: 0 14px 32px rgba(17,42,68,.14);
+      }
+      html[data-theme="light"] .panel:hover{
+        box-shadow: 0 20px 44px rgba(255,59,104,.16);
+      }
+      html[data-theme="light"] .faq-item:hover{
+        border-color: rgba(255,59,104,.35);
+      }
+    }
+
+    @media (min-width: 1200px){
+      .container{
+        width:min(1240px, 92vw);
+      }
+      .hero-grid{
+        grid-template-columns: 1.18fr .82fr;
+      }
+      .booking{
+        grid-template-columns: 1.06fr .94fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *, *::before, *::after{
+        animation:none !important;
+        transition:none !important;
+      }
+      .hero-slide{transition:none}
+      .reveal-item{
+        opacity:1 !important;
+        transform:none !important;
+      }
+      .tilt-card{
+        transform:none !important;
+      }
+    }
+  </style>
+
+  <script>
+    if(window.top !== window.self){
+      try {
+        window.top.location = window.self.location.href;
+      } catch(_){
+        window.self.location = window.self.location.href;
+      }
+    }
+
+    const WHATSAPP_NUMBER = "962779331277";
+    const MONTHLY_PRICE_JOD = 45;
+    const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
+    const LEAD_SUBMIT_ENDPOINT = "/api/lead";
+    const REVIEWS_SUBMIT_ENDPOINT = "/api/reviews";
+    const DEFAULT_IMAGE = "assets/coachimg.jpg";
+    const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
+    const JERASH_IMAGE = DEFAULT_IMAGE;
+    const COACH_IMAGE = DEFAULT_IMAGE;
+    const TURNSTILE_SITE_KEY = "1x00000000000000000000AA"; // Replace with your own Cloudflare Turnstile site key
+  </script>
+</head>
+
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <div class="logo">MT</div>
+        <div>
+          <div class="t1" id="brandName">مركز الماهر للتايكوندو</div>
+          <div class="t2" id="brandCity">جرش</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a id="navWhyUs" href="#why-us">لماذا اخترنا</a>
+        <a id="navPrograms" href="#programs">البرامج</a>
+        <a id="navPricing" href="#pricing">الأسعار</a>
+        <a id="navCalculator" href="#calculator">الحاسبة</a>
+        <a id="navTracker" href="#tracker">التتبع</a>
+        <a id="navReviews" href="#reviews">آراء الأهالي</a>
+        <a id="navAchievements" href="#achievements">النتائج</a>
+        <a id="navNews" href="#news">الأخبار</a>
+        <a id="navBook" href="#book">الاشتراك</a>
+      </div>
+
+      <div class="nav-cta">
+        <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="تفعيل الوضع الفاتح" title="تفعيل الوضع الفاتح">☀️</button>
+        <button class="btn lang-toggle" id="langToggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
+        <button class="btn install-btn" id="installAppBtn" type="button">📲 تثبيت التطبيق</button>
+        <a class="btn" id="btnWhatsNav" href="#">واتساب ↗</a>
+        <a class="btn primary pulse-cta" id="navJoinBtn" href="#book">احجز مقعدك الآن</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header id="top" class="hero">
+    <div class="hero-slide" id="slide1"></div>
+    <div class="hero-slide" id="slide2"></div>
+    <div class="hero-bg"></div>
+
+    <div class="container hero-grid">
+      <div class="panel hero-left">
+        <div class="tag" id="heroTag">🥋 ابدأ رحلتك الآن</div>
+        <h1 id="heroTitle">مركز الماهر للتايكوندو – <span style="color:var(--gold)">جرش</span></h1>
+        <p class="sub" id="heroSub">
+          إذا بدك نتيجة حقيقية تشوفها بعينك، مركز الماهر هو الخيار الصح. نأسس الطالب من الصفر حتى الحزام الأسود بخطة واضحة وإشراف مباشر من <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b> (خبرة 35 سنة) مع <b>مدرّبة إناث</b>. خلال فترة قصيرة رح تلاحظ فرق واضح في اللياقة والانضباط والثقة بالنفس داخل وخارج التدريب.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary pulse-cta" id="heroJoinBtn" href="#book">احجز مقعدك الآن</a>
+          <a class="btn" id="btnCallHero" href="tel:0779331277">اتصل الآن ☎️</a>
+          <a class="btn gold" id="heroPriceBtn" href="#pricing">سعر واضح</a>
+        </div>
+
+        <div class="spotlight">
+          <span class="spotlight-kicker" id="spotlightKicker">⚡ تنبيه سريع</span>
+          <p class="spotlight-text" id="spotlightText">احجز هذا الأسبوع لتثبيت المقعد والحصول على أفضل وقت تدريب.</p>
+          <div class="spotlight-points">
+            <span class="spotlight-point" id="spotlightPoint1">🎯 خطة تدريب شخصية</span>
+            <span class="spotlight-point" id="spotlightPoint2">🚐 أولوية بالتوصيل</span>
+            <span class="spotlight-point" id="spotlightPoint3">🥋 متابعة مستوى مستمرة</span>
+          </div>
+        </div>
+
+        <div class="pills">
+          <span class="pill" id="heroLocationPill">📍 الموقع: جرش</span>
+          <span class="pill price" id="heroPricePill">💰 45 دينار شهري (الكل مشمول)</span>
+          <a class="pill phone" href="tel:0779331277">📞 0779331277</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="num" data-count="300">0</div>
+            <div class="lbl" id="statLabelStudents">طالب نشط</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="40">0</div>
+            <div class="lbl" id="statLabelBlackBelts">حزام أسود</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="15">0</div>
+            <div class="lbl" id="statLabelAchievements">إنجاز</div>
+          </div>
+          <div class="stat">
+            <div class="num" data-count="35">0</div>
+            <div class="lbl" id="statLabelYears">سنة خبرة</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel hero-right">
+        <div class="mini-card">
+          <div class="img" id="jerashImg"></div>
+          <div class="mini-body">
+            <h3 class="mini-title" id="jerashTitle">جرش</h3>
+            <p class="mini-text" id="jerashDesc">مركز محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.</p>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="coach">
+            <div class="avatar" id="coachImg"></div>
+            <div>
+              <div class="n1" id="coachName">الكابتن والحكم الدولي الماستر رائد عضيبات</div>
+              <div class="n2" id="coachInfo">✓ حكم دولي
+✓ 35 سنة خبرة
+✓ إشراف مباشر على كل طالب
+✓ يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
+              <div class="badge" id="coachBadge">🏆 اعتماد • انضباط • نتائج</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="btn" href="#pricing" id="heroRightPricingBtn">الأسعار</a>
+          <a class="btn primary" href="#book" id="heroRightJoinBtn">احجز الآن</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="englishQuick" class="english-quick" data-lang-only="en" hidden>
+    <div class="container">
+      <div class="english-panel">
+        <h3>Quick English Version</h3>
+        <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.9;">
+          Al Maher Taekwondo Center in Jerash offers professional training for kids, teens, adults, and women.
+          Monthly plans start from 45 JD (training + uniform + delivery package available).
+        </p>
+        <ul class="english-list">
+          <li>Certified head coach with 35+ years of experience.</li>
+          <li>Women-only training with female coach supervision.</li>
+          <li>Clear belt journey and competition preparation.</li>
+          <li>Fast registration through WhatsApp: +962 77 933 1277.</li>
+        </ul>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <a class="btn primary" id="btnWhatsEnglish" href="https://wa.me/962779331277" target="_blank" rel="noopener">WhatsApp Registration</a>
+          <a class="btn" href="#calculator">Price Calculator</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why-us">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="whyUsTitle">لماذا اختر مركز الماهر؟</h2>
+          <p class="sec-desc" id="whyUsDesc">نتائج ملموسة يلاحظها الأهل من أول شهر تدريب.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card icon-card">
+          <div class="why-icon">🏆</div>
+          <h3 id="whyUsCard1Title">تدريب احترافي</h3>
+          <p id="whyUsCard1Desc">إشراف من حكم دولي وكابتن بخبرة 35 سنة. كل طالب يحصل على متابعة شخصية وخطة تدريب مخصصة.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">💪</div>
+          <h3 id="whyUsCard2Title">بناء الثقة بالنفس</h3>
+          <p id="whyUsCard2Desc">نركز على تطوير شخصية اللاعب وليس فقط المهارات. انضباط، احترام، وقيادة في كل درس.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🎯</div>
+          <h3 id="whyUsCard3Title">مسار واضح للنجاح</h3>
+          <p id="whyUsCard3Desc">نظام أحزمة منظم من الأبيض للأسود، كل مرحلة لها متطلبات واضحة وهدف محدد.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🏠</div>
+          <h3 id="whyUsCard4Title">توصيل آمن للمنزل</h3>
+          <p id="whyUsCard4Desc">توصيل سريع وآمن مشمول في السعر. البدلة والتدريب والتوصيل كل شيء ب 45 دينار فقط!</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">🏅</div>
+          <h3 id="whyUsCard5Title">بطولات ومنافسات</h3>
+          <p id="whyUsCard5Desc">نجهز اللاعبين للمشاركة في البطولات المحلية والدولية. نخرج محاربين حقيقيين.</p>
+        </div>
+        <div class="card icon-card">
+          <div class="why-icon">👨‍👩‍👧‍👦</div>
+          <h3 id="whyUsCard6Title">أكثر من 300 طالب</h3>
+          <p id="whyUsCard6Desc">مجتمع قوي من الطلاب والعائلات. تجربة جماعية رائعة وصداقات تدوم مدى الحياة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="programsTitle">البرامج</h2>
+          <p class="sec-desc" id="programsDesc">اختر البرنامج المناسب لك، والتواصل يأتيك مباشرة</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3 id="programCard1Title">🧒 أطفال (6-12)</h3>
+          <p id="programCard1Desc">تأسيس حركي، لياقة أساسية، نظام، احترام، بناء ثقة، توصيل آمن للبيت.</p>
+        </div>
+        <div class="card">
+          <h3 id="programCard2Title">👦 شباب وكبار (13+)</h3>
+          <p id="programCard2Desc">تكنيك متقدم، قوة، مرونة، تطوير مستوى القتال، إعداد للمنافسات، توصيل.</p>
+        </div>
+        <div class="card">
+          <h3 id="programCard3Title">👩 فئة الإناث</h3>
+          <p id="programCard3Desc">حصص الإناث في بيئة مريحة وآمنة، بإشراف مدرّبة إناث مع متابعة مستوى كل طالبة.</p>
+        </div>
+        <div class="card">
+          <h3 id="programCard4Title">🥇 برنامج منافسات</h3>
+          <p id="programCard4Desc">إعداد متخصص للبطولات: خطط لعب، سرعة، تحمل، معالجة الضغط النفسي.</p>
+        </div>
+
+        <!-- ✅ البرنامج الرمضاني (مضاف) -->
+        <div class="card">
+          <h3 id="programCard5Title">🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)</h3>
+          <p id="programCard5Desc">
+            برنامج خاص خلال رمضان لتحسين اللياقة وتخفيف الوزن بطريقة آمنة ومنظمة.
+            تحت إشراف <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b>.
+            تمارين لياقة + مقاومة + مرونة حسب المستوى، مع متابعة مباشرة.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="pricingTitle">الأسعار</h2>
+          <p class="sec-desc" id="pricingDesc">استثمار واضح بنتيجة حقيقية، بدون رسوم مخفية أو مفاجآت.</p>
+        </div>
+        <a class="btn primary" href="#book" id="pricingJoinBtn">احجز مقعدك</a>
+      </div>
+
+      <div class="pricing">
+        <div class="price-card">
+          <div class="price-left">
+            <h3 class="price-title" id="priceTitleMain">📦 الاشتراك الشهري الكامل</h3>
+            <p class="price-note" id="priceNoteMain">✓ تدريب منهجي ومتابعة فردية | ✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ إشراف مباشر من الكابتن والمدرّبة</p>
+          </div>
+          <div class="price-number">45 JD</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SMART PRICE CALCULATOR -->
+  <section id="calculator">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="calculatorTitle">حاسبة السعر الذكية</h2>
+          <p class="sec-desc" id="calculatorDesc">احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.</p>
+        </div>
+      </div>
+
+      <div class="calculator-grid">
+        <div class="card">
+          <form id="priceCalculatorForm">
+            <div>
+              <label for="calcPlanType" id="calcPlanLabel">نوع الاشتراك</label>
+              <select id="calcPlanType" name="planType">
+                <option value="single">طالب واحد</option>
+                <option value="siblings">إخوة</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="calcStudents" id="calcStudentsLabel">عدد الطلاب</label>
+              <input id="calcStudents" type="number" min="1" max="20" value="1" inputmode="numeric" />
+            </div>
+
+            <div class="calc-switches">
+              <label class="calc-chip" for="calcDelivery">
+                <input id="calcDelivery" type="checkbox" checked />
+                <span id="calcDeliveryLabel">إضافة التوصيل العائلي (+15 JD)</span>
+              </label>
+            </div>
+
+            <p class="calc-note" id="calcFormulaNote">
+              معادلة الحسبة: 30 دينار لكل طالب (تدريب + بدلة)، وخصم 3 دنانير لكل أخ بعد الطالب الأول، والتوصيل 15 دينار للعائلة.
+            </p>
+          </form>
+        </div>
+
+        <div class="card calc-summary">
+          <div class="calc-row">
+            <span id="calcBreakdownBaseLabel">المجموع الأساسي</span>
+            <b id="calcBreakdownBase">0 JD</b>
+          </div>
+          <div class="calc-row">
+            <span id="calcBreakdownDiscountLabel">خصم الإخوة</span>
+            <b id="calcBreakdownDiscount">0 JD</b>
+          </div>
+          <div class="calc-row">
+            <span id="calcBreakdownDeliveryLabel">التوصيل</span>
+            <b id="calcBreakdownDelivery">0 JD</b>
+          </div>
+
+          <div class="calc-final">
+            <span id="calcFinalLabel">السعر النهائي</span>
+            <span id="calcFinalTotal">0 JD</span>
+          </div>
+
+          <a class="btn primary" id="calcWhatsQuote" href="#">💬 إرسال التسعيرة على واتساب</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section id="journey">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="journeyTitle">رحلة الأحزمة</h2>
+          <p class="sec-desc" id="journeyDesc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
+        </div>
+        <a class="btn" href="#book" id="journeyBtn">ابدأ رحلتك اليوم</a>
+      </div>
+
+      <div class="journey">
+        <div class="belt-list" id="beltList"></div>
+        <div class="details" id="beltDetails" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="tracker">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="trackerTitle">تتبع تقدّم الأحزمة</h2>
+          <p class="sec-desc" id="trackerDesc">أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.</p>
+        </div>
+      </div>
+
+      <div class="tracker-layout">
+        <div class="card">
+          <label for="trackerInput" id="trackerInputLabel">رقم الهاتف أو الكود</label>
+          <div class="row">
+            <input id="trackerInput" type="text" placeholder="مثال: 0779000000 أو MT-1024" />
+            <button class="btn primary" id="trackerBtn" type="button">عرض التقدم</button>
+          </div>
+          <p class="calc-note" id="trackerHint">
+            يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة المركز ويتم تحديثها باستمرار.
+          </p>
+        </div>
+
+        <div class="card" id="trackerPanel" aria-live="polite">
+          <p class="tracker-empty" id="trackerEmpty">لم يتم إدخال أي كود بعد.</p>
+
+          <div id="trackerResult" style="display:none;">
+            <div class="tracker-top">
+              <span class="badge" id="trackerStudentCode">—</span>
+            </div>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel">الحزام الحالي:</span> <b id="trackerCurrentBelt">—</b></p>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerNextLabel">الحزام القادم:</span> <b id="trackerNextBelt">—</b></p>
+
+            <div class="tracker-progress">
+              <span id="trackerProgressBar"></span>
+            </div>
+            <p style="margin:0 0 8px; color:var(--muted); font-weight:900;" id="trackerProgressText">—</p>
+
+            <div style="font-weight:1000; margin-top:8px;" id="trackerGoalsLabel">المهارات المطلوبة للترقية:</div>
+            <ul class="tracker-goals" id="trackerGoals"></ul>
+
+            <p style="margin:8px 0 0; color:var(--muted); font-weight:900;" id="trackerExamDate">—</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARENT REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي</h2>
+          <p class="sec-desc" id="reviewsDesc">اكتب تعليقك عن تجربة التدريب، وسيظهر تلقائيًا على الموقع بعد الإرسال.</p>
+        </div>
+      </div>
+
+      <div class="review-form-card">
+        <h3 class="review-form-title" id="reviewFormTitle">أضف تعليقك الآن</h3>
+        <p class="review-form-note" id="reviewFormNote">أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.</p>
+        <form id="reviewForm" novalidate>
+          <div class="review-form-grid">
+            <div>
+              <label for="reviewStudentAge" id="reviewStudentAgeLabel">عمر الطالب</label>
+              <input id="reviewStudentAge" type="number" min="6" max="40" required />
+            </div>
+            <div>
+              <label for="reviewLevelInput" id="reviewFormLevelLabel">المستوى</label>
+              <select id="reviewLevelInput" required>
+                <option id="reviewFormLevelBeginnerOpt" value="beginner">مبتدئ</option>
+                <option id="reviewFormLevelIntermediateOpt" value="intermediate">متوسط</option>
+                <option id="reviewFormLevelAdvancedOpt" value="advanced">متقدم</option>
+              </select>
+            </div>
+            <div>
+              <label for="reviewProgramSelect" id="reviewProgramLabel">البرنامج</label>
+              <select id="reviewProgramSelect" required>
+                <option id="reviewProgramKidsOpt" value="kids" data-ar="أطفال" data-en="Kids">أطفال</option>
+                <option id="reviewProgramYouthOpt" value="youth" data-ar="شباب" data-en="Youth">شباب</option>
+                <option id="reviewProgramFemaleOpt" value="female" data-ar="إناث" data-en="Female">إناث</option>
+                <option id="reviewProgramCompetitionOpt" value="competition" data-ar="منافسات" data-en="Competition">منافسات</option>
+              </select>
+            </div>
+            <div class="review-field-full">
+              <label for="reviewComment" id="reviewCommentLabel">التعليق</label>
+              <textarea id="reviewComment" maxlength="450" required></textarea>
+            </div>
+          </div>
+          <button class="btn primary" id="reviewSubmitBtn" type="submit">إرسال التعليق</button>
+          <p class="review-form-status" id="reviewFormStatus" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="reviews-toolbar">
+        <div class="reviews-filters">
+          <div class="review-filter">
+            <label for="reviewAgeFilter" id="reviewAgeLabel">فلترة حسب العمر</label>
+            <select id="reviewAgeFilter">
+              <option id="reviewAgeAllOpt" value="all">كل الأعمار</option>
+              <option id="reviewAgeKidsOpt" value="6-9">6-9 سنوات</option>
+              <option id="reviewAgeTeensOpt" value="10-13">10-13 سنة</option>
+              <option id="reviewAgeYouthOpt" value="14+">14 سنة فأكثر</option>
+            </select>
+          </div>
+
+          <div class="review-filter">
+            <label for="reviewLevelFilter" id="reviewLevelLabel">فلترة حسب المستوى</label>
+            <select id="reviewLevelFilter">
+              <option id="reviewLevelAllOpt" value="all">كل المستويات</option>
+              <option id="reviewLevelBeginnerOpt" value="beginner">مبتدئ</option>
+              <option id="reviewLevelIntermediateOpt" value="intermediate">متوسط</option>
+              <option id="reviewLevelAdvancedOpt" value="advanced">متقدم</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews-grid" id="reviewsList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="faqTitle">أسئلة شائعة</h2>
+          <p class="sec-desc" id="faqDesc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
+        </div>
+      </div>
+
+      <div class="faq-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="scheduleTitle">جدول المواعيد</h2>
+          <p class="sec-desc" id="scheduleDesc">ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.</p>
+        </div>
+      </div>
+
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th id="scheduleHeadDays">📅 ايام التدريب</th>
+            <th id="scheduleHeadTime">⏰ الوقت</th>
+            <th id="scheduleHeadNote">📝 الملاحظة</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <tr>
+            <td data-label="📅 أيام التدريب" id="scheduleRow1Days">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow1Note">تأسيس حركي ولياقة أساسية</td>
+          </tr>
+          <tr>
+            <td data-label="📅 أيام التدريب" id="scheduleRow2Days">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">5:00 - 6:00 PM</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow2Note">تكنيك متقدم وتدريب مكثف</td>
+          </tr>
+          <tr>
+            <td data-label="📅 أيام التدريب" id="scheduleRow3Days">الأحد - الثلاثاء - الخميس</td>
+            <td class="time" data-label="⏰ الوقت">4:00 - 5:00 PM</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow3Note">تدريب إناث بإشراف مدرّبة إناث</td>
+          </tr>
+          <tr>
+            <td data-label="📅 أيام التدريب" id="scheduleRow4Days">السبت - الاثنين - الأربعاء</td>
+            <td class="time" data-label="⏰ الوقت">5:00 - 6:00 PM</td>
+            <td data-label="📝 الملاحظة" id="scheduleRow4Note">تدريب للمبتدئين</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="achievementsTitle">نتائج البطولات والإنجازات</h2>
+          <p class="sec-desc" id="achievementsDesc">تحديثات مستمرة لنتائج المركز في البطولات المحلية والخارجية.</p>
+        </div>
+      </div>
+
+      <div class="achievement-head">
+        <label for="achievementYear" id="achievementFilterLabel" style="margin:0;">تصفية حسب السنة</label>
+        <select id="achievementYear" style="max-width:200px;">
+          <option value="all">كل السنوات</option>
+        </select>
+      </div>
+
+      <div class="achievement-list" id="achievementsList"></div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="newsTitle">أخبار المركز والإنجازات الجديدة</h2>
+          <p class="sec-desc" id="newsDesc">آخر أخبار المركز والإنجازات الجديدة.</p>
+        </div>
+      </div>
+      <div class="news-list" id="newsList" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIBE -->
+  <section id="book">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="bookTitle">اشترك الآن</h2>
+          <p class="sec-desc" id="bookDesc">خلال دقيقة واحدة تقدر تثبت طلب الاشتراك، وفورًا يفتح واتساب برسالة جاهزة لتأكيد المقعد.</p>
+        </div>
+      </div>
+
+      <div class="booking">
+        <div class="card">
+          <div class="ok" id="okMsg">✅ تم تجهيز رسالة الاشتراك وفتح واتساب مباشرة. سيتواصل معك فريق التدريب قريباً!</div>
+          <div class="err" id="errMsg">❌ الاسم ورقم الهاتف والبرنامج مطلوبين.</div>
+
+          <form id="bookingForm">
+            <div class="row">
+              <div>
+                <label for="name" id="nameLabel">الاسم الكامل</label>
+                <input id="name" name="name" placeholder="حمود أحمد أو نور" maxlength="80" required />
+              </div>
+              <div>
+                <label for="phone" id="phoneLabel">رقم الهاتف</label>
+                <input id="phone" name="phone" placeholder="07xxxxxxxx" inputmode="tel" maxlength="16" required />
+              </div>
+            </div>
+
+            <div class="bot-trap" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="age" id="ageLabel">العمر (اختياري)</label>
+                <input id="age" name="age" placeholder="مثلاً: 10 سنوات" maxlength="20" />
+              </div>
+              <div>
+                <label for="program" id="programLabel">اختر البرنامج</label>
+                <select id="program" name="program" required>
+                  <option value="" id="programOptPlaceholder">-- اختر البرنامج --</option>
+                  <option value="kids" id="programOptKids">أطفال</option>
+                  <option value="teens" id="programOptTeens">شباب</option>
+                  <option value="adults" id="programOptAdults">كبار</option>
+                  <option value="women" id="programOptWomen">إناث</option>
+                  <option value="competition" id="programOptCompetition">برنامج منافسات</option>
+                  <option value="ramadan" id="programOptRamadan">برنامج رمضاني (تحسين لياقة + تخفيف وزن)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="time" id="timeLabel">أفضل وقت للتواصل</label>
+              <select id="time" name="time">
+                <option value="morning" id="timeOptMorning">صباحاً</option>
+                <option value="evening" id="timeOptEvening">مساءً</option>
+                <option value="any" id="timeOptAny">أي وقت</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="paymentMethod" id="paymentMethodLabel">طريقة الدفع المفضلة</label>
+              <select id="paymentMethod" name="paymentMethod">
+                <option value="cash" id="paymentMethodCashOpt">نقداً في المركز</option>
+                <option value="cliq" id="paymentMethodCliqOpt">كليك (CliQ)</option>
+                <option value="bank" id="paymentMethodBankOpt">تحويل بنكي</option>
+                <option value="wallet" id="paymentMethodWalletOpt">محفظة إلكترونية</option>
+                <option value="crypto" id="paymentMethodCryptoOpt">دفع مشفّر (USDT)</option>
+              </select>
+              <p class="calc-note" id="paymentMethodHint">يمكنك تعديل طريقة الدفع لاحقاً عند الحضور.</p>
+              <div class="payment-details" id="paymentDetailsWrap" hidden>
+                <p class="calc-note" id="paymentDetailsTitle">تفاصيل الدفع حسب الطريقة المختارة:</p>
+
+                <div class="payment-option" id="bankDetailsBlock" hidden>
+                  <b id="bankDetailsTitle">الدفع عبر التحويل البنكي</b>
+                  <div class="payment-line"><span id="bankNameLabel">اسم البنك:</span> <span class="payment-value" id="bankNameValue">البنك العربي</span></div>
+                  <div class="payment-line"><span id="bankAccountLabel">اسم الحساب:</span> <span class="payment-value" id="bankAccountValue">مركز الماهر للتايكوندو</span></div>
+                  <div class="payment-line"><span id="bankIbanLabel">رقم الآيبان:</span> <span class="payment-value" id="bankIbanValue">JO00 0000 0000 0000 0000 0000 000</span></div>
+                  <button class="btn" id="copyBankIbanBtn" type="button">نسخ الآيبان</button>
+                </div>
+
+                <div class="payment-option" id="walletDetailsBlock" hidden>
+                  <b id="walletDetailsTitle">الدفع عبر المحفظة الإلكترونية</b>
+                  <div class="payment-line"><span id="walletProviderLabel">مزود المحفظة:</span> <span class="payment-value" id="walletProviderValue">JoMoPay / Zain Cash / Orange Money</span></div>
+                  <div class="payment-line"><span id="walletNumberLabel">رقم المحفظة:</span> <span class="payment-value" id="walletNumberValue">0779331277</span></div>
+                  <button class="btn" id="copyWalletNumberBtn" type="button">نسخ رقم المحفظة</button>
+                </div>
+
+                <div class="payment-option" id="cryptoDetailsBlock" hidden>
+                  <b id="cryptoDetailsTitle">الدفع المشفّر (USDT)</b>
+                  <div class="payment-line"><span id="cryptoNetworkLabel">الشبكة:</span> <span class="payment-value" id="cryptoNetworkValue">TRC20</span></div>
+                  <div class="payment-line"><span id="cryptoAddressLabel">عنوان المحفظة:</span> <span class="payment-value" id="cryptoAddressValue">TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></div>
+                  <button class="btn" id="copyCryptoAddressBtn" type="button">نسخ عنوان المحفظة</button>
+                </div>
+
+                <p class="payment-copy-status" id="paymentCopyStatus" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="turnstile-wrap">
+              <label id="turnstileLabel">تحقق الأمان (Cloudflare)</label>
+              <div class="turnstile-widget" id="turnstileWidget" aria-live="polite"></div>
+              <p class="calc-note" id="turnstileHint">للحماية من السبام، يرجى إكمال التحقق الأمني قبل إرسال الطلب.</p>
+              <p class="turnstile-status" id="turnstileStatus" aria-live="polite"></p>
+            </div>
+
+            <div>
+              <label for="msg" id="msgLabel">ملاحظة أو سؤال (اختياري)</label>
+              <textarea id="msg" name="msg" maxlength="500" placeholder="مثلاً: أبني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"></textarea>
+            </div>
+
+            <button class="btn primary" id="submitBookingBtn" type="submit" style="padding:14px 18px; font-size:16px">✓ احجز اشتراكك الآن عبر واتساب</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 12px; font-weight:1000; color:var(--accent2)" id="contactTitle">💬 معلومات التواصل</h3>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b id="contactWhatsappLabel">رقم الواتساب:</b> 0779331277
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b id="contactPriceLabel">السعر الشهري:</b> <span id="contactPriceValue">45 دينار (بدلة + توصيل + تدريب كل شيء مشمول)</span>
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b id="paymentMethodsTitle">طرق الدفع:</b>
+            <span id="paymentMethodsList">نقداً في المركز، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية، ودفع مشفّر (USDT).</span>
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+            <b id="contactLocationLabel">الموقع:</b> <span id="contactLocationValue">جرش</span>
+          </p>
+          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px" id="contactHighlights">
+            ✓ خطة تدريب واضحة من المبتدئ حتى المنافسات<br />
+            ✓ متابعة مستمرة لكل طالب وقياس تقدّم فعلي<br />
+            ✓ بيئة آمنة ومنضبطة تبني الثقة والشخصية
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="aboutTitle">عن المركز</h2>
+          <p class="sec-desc" id="aboutDesc">بيئة احترافية آمنة موثوقة منذ سنوات</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3 id="aboutCard1Title">🎯 رسالتنا</h3>
+          <p id="aboutCard1Desc">بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.</p>
+        </div>
+        <div class="card">
+          <h3 id="aboutCard2Title">🏆 رؤيتنا</h3>
+          <p id="aboutCard2Desc">أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.</p>
+        </div>
+        <div class="card">
+          <h3 id="aboutCard3Title">⭐ القيم الأساسية</h3>
+          <p id="aboutCard3Desc">الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <div id="footerCopy">© <span id="year"></span> مركز الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">
+        <a class="btn" href="#top" id="btnTop">↑ العودة للأعلى</a>
+        <a class="btn" href="#" id="btnWhatsFoot">💬 واتساب</a>
+        <a class="btn" href="tel:0779331277" id="btnCallFooter">☎️ اتصل</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="float" aria-label="Floating buttons">
+    <div class="fab whatsapp" id="fabWhats" title="واتساب">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="fab up" id="fabUp" title="أعلى">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 5l7 7-2 2-5-5-5 5-2-2 7-7Z" fill="white"/>
+      </svg>
+    </div>
+  </div>
+
+  <a class="wa-sticky-cta" id="waStickyCta" href="https://wa.me/962779331277" target="_blank" rel="noopener">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span id="waStickyText">احجز حصتك عبر واتساب الآن</span>
+  </a>
+
+  <script>
+    const THEME_KEY = "maher_theme";
+    const LANG_KEY = "maher_lang";
+    const themeToggle = document.getElementById("themeToggle");
+    const langToggle = document.getElementById("langToggle");
+    const installAppBtn = document.getElementById("installAppBtn");
+    const paymentMethodSelect = document.getElementById("paymentMethod");
+    const paymentDetailsWrap = document.getElementById("paymentDetailsWrap");
+    const bankDetailsBlock = document.getElementById("bankDetailsBlock");
+    const walletDetailsBlock = document.getElementById("walletDetailsBlock");
+    const cryptoDetailsBlock = document.getElementById("cryptoDetailsBlock");
+    const paymentCopyStatus = document.getElementById("paymentCopyStatus");
+    const bankIbanValueEl = document.getElementById("bankIbanValue");
+    const walletNumberValueEl = document.getElementById("walletNumberValue");
+    const cryptoAddressValueEl = document.getElementById("cryptoAddressValue");
+    const copyBankIbanBtn = document.getElementById("copyBankIbanBtn");
+    const copyWalletNumberBtn = document.getElementById("copyWalletNumberBtn");
+    const copyCryptoAddressBtn = document.getElementById("copyCryptoAddressBtn");
+    const turnstileWidgetEl = document.getElementById("turnstileWidget");
+    const turnstileStatusEl = document.getElementById("turnstileStatus");
+    const rootEl = document.documentElement;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
+    const DESIGN_REVEAL_SELECTOR = [
+      ".panel",
+      ".card",
+      ".price-card",
+      ".mini-card",
+      ".details",
+      ".faq-item",
+      ".belt",
+      ".review-card",
+      ".achievement-card",
+      ".news-card",
+      ".english-panel",
+      ".schedule-table tbody tr"
+    ].join(", ");
+    const DESIGN_TILT_SELECTOR = [
+      ".panel",
+      ".mini-card",
+      ".price-card",
+      ".details"
+    ].join(", ");
+    let revealObserver = null;
+
+    function initRevealAnimations(){
+      const targets = Array.from(document.querySelectorAll(DESIGN_REVEAL_SELECTOR));
+      if(!targets.length) return;
+
+      if(prefersReducedMotion || !("IntersectionObserver" in window)){
+        targets.forEach((el)=>{
+          el.classList.add("reveal-item", "reveal-visible");
+        });
+        return;
+      }
+
+      if(!revealObserver){
+        revealObserver = new IntersectionObserver((entries)=>{
+          entries.forEach((entry)=>{
+            if(!entry.isIntersecting) return;
+            entry.target.classList.add("reveal-visible");
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
+      }
+
+      targets.forEach((el, index)=>{
+        if(el.dataset.revealBound === "1") return;
+        el.dataset.revealBound = "1";
+        el.classList.add("reveal-item");
+        el.style.setProperty("--reveal-delay", `${(index % 8) * 45}ms`);
+        revealObserver.observe(el);
+      });
+    }
+
+    function initTiltCards(){
+      if(prefersReducedMotion || !supportsFinePointer) return;
+
+      const cards = Array.from(document.querySelectorAll(DESIGN_TILT_SELECTOR));
+      cards.forEach((card)=>{
+        if(card.dataset.tiltBound === "1") return;
+        card.dataset.tiltBound = "1";
+        card.classList.add("tilt-card");
+
+        let rafId = 0;
+        let pointerX = 0;
+        let pointerY = 0;
+
+        const applyTilt = ()=>{
+          rafId = 0;
+          const rotateX = pointerY * -6;
+          const rotateY = pointerX * 8;
+          card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        };
+
+        const updateTilt = (event)=>{
+          const rect = card.getBoundingClientRect();
+          if(!rect.width || !rect.height) return;
+          const relativeX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          const relativeY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+          pointerX = Math.max(-1, Math.min(1, relativeX));
+          pointerY = Math.max(-1, Math.min(1, relativeY));
+          card.classList.add("is-tilting");
+          if(!rafId){
+            rafId = requestAnimationFrame(applyTilt);
+          }
+        };
+
+        const resetTilt = ()=>{
+          pointerX = 0;
+          pointerY = 0;
+          card.classList.remove("is-tilting");
+          card.style.transform = "";
+        };
+
+        card.addEventListener("pointermove", updateTilt);
+        card.addEventListener("pointerleave", resetTilt);
+        card.addEventListener("pointercancel", resetTilt);
+      });
+    }
+
+    function refreshDesignEnhancements(){
+      initRevealAnimations();
+      initTiltCards();
+    }
+
+    const i18n = {
+      ar: {
+        htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
+        text: {
+          brandName: "مركز الماهر للتايكوندو",
+          brandCity: "جرش",
+          navWhyUs: "لماذا اخترنا",
+          navPrograms: "البرامج",
+          navPricing: "الأسعار",
+          navCalculator: "الحاسبة",
+          navJourney: "الأحزمة",
+          navTracker: "التتبع",
+          navReviews: "آراء الأهالي",
+          navAchievements: "النتائج",
+          navNews: "الأخبار",
+          navFaq: "الأسئلة",
+          navBook: "الاشتراك",
+          btnWhatsNav: "واتساب ↗",
+          btnWhatsFoot: "💬 واتساب",
+          navJoinBtn: "ابدأ الاشتراك الآن",
+          installAppBtn: "📲 تثبيت التطبيق",
+          heroTag: "🔥 نتائج تلاحظها بسرعة",
+          heroTitle: "مركز الماهر للتايكوندو – <span style=\"color:var(--gold)\">جرش</span>",
+          heroSub: "إذا بدك فرق حقيقي في سلوك ولياقة وثقة ابنك، مركز الماهر هو القرار الصح. بنمشي الطالب بخطة واضحة من أول حصة حتى الحزام الأسود، تحت إشراف مباشر من <b>الكابتن والحكم الدولي الماستر رائد عضيبات</b> (35 سنة خبرة) مع <b>مدرّبة إناث</b>. من أول أسابيع رح تلاحظ انضباط أقوى، تركيز أعلى، وشخصية أوثق داخل البيت وخارج التدريب.",
+          spotlightKicker: "⚡ تنبيه سريع",
+          spotlightText: "احجز هذا الأسبوع لتضمن أفضل توقيت تدريب وأولوية بالتوصيل.",
+          spotlightPoint1: "🎯 خطة شخصية لكل طالب",
+          spotlightPoint2: "🚐 توصيل آمن ومنظم",
+          spotlightPoint3: "🥋 تقييم وتطوير مستمر",
+          heroJoinBtn: "احجز مقعدك قبل الاكتمال",
+          btnCallHero: "اتصل الآن ☎️",
+          heroPriceBtn: "شاهد الباقة الكاملة",
+          heroRightPricingBtn: "تفاصيل الباقة",
+          heroRightJoinBtn: "ثبّت مقعدك",
+          jerashTitle: "جرش",
+          jerashDesc: "مركز محلي بروح احترافية عالمية. هدفنا بناء لاعب قوي منضبط ومؤدب.",
+          coachName: "الكابتن والحكم الدولي الماستر رائد عضيبات",
+          coachInfo: "✓ حكم دولي<br />✓ 35 سنة خبرة<br />✓ إشراف مباشر على كل طالب<br />✓ يتوفر تدريب إناث بإشراف مدرّبة إناث",
+          coachBadge: "🏆 اعتماد • انضباط • نتائج",
+          heroLocationPill: "📍 الموقع: جرش",
+          heroPricePill: "💰 45 دينار شهري (شامل التدريب + البدلة + التوصيل)",
+          statLabelStudents: "طالب نشط",
+          statLabelBlackBelts: "حزام أسود",
+          statLabelAchievements: "إنجاز",
+          statLabelYears: "سنة خبرة",
+          calculatorTitle: "حاسبة السعر الذكية",
+          calculatorDesc: "احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.",
+          whyUsTitle: "لماذا اختر مركز الماهر؟",
+          whyUsDesc: "لأن الأهل بدهم نتيجة حقيقية مو كلام... وهون بتشوفها.",
+          whyUsCard1Title: "تدريب احترافي",
+          whyUsCard1Desc: "خبرة 35 سنة مع متابعة فردية لكل طالب، عشان التقدّم يكون أسرع وأوضح.",
+          whyUsCard2Title: "بناء الثقة بالنفس",
+          whyUsCard2Desc: "ما بنعلّم ركلات بس؛ بنبني شخصية منضبطة ومحترمة وواثقة بنفسها.",
+          whyUsCard3Title: "مسار واضح للنجاح",
+          whyUsCard3Desc: "مسار أحزمة واضح خطوة بخطوة، مع تقييم فعلي في كل مرحلة.",
+          whyUsCard4Title: "توصيل آمن للمنزل",
+          whyUsCard4Desc: "راحة كاملة للأهل: تدريب + بدلة + توصيل آمن ضمن باقة واحدة.",
+          whyUsCard5Title: "بطولات ومنافسات",
+          whyUsCard5Desc: "تجهيز بطولات باحتراف: تكنيك، لياقة، تركيز ذهني، وثبات تحت الضغط.",
+          whyUsCard6Title: "أكثر من 300 طالب",
+          whyUsCard6Desc: "مجتمع قوي من +300 طالب يعطي دافع يومي وروح فريق ترفع المستوى.",
+          programsTitle: "البرامج",
+          programsDesc: "اختَر البرنامج المناسب، وفريقنا يتواصل معك فورًا لتثبيت المقعد.",
+          programCard1Title: "🧒 أطفال (6-12)",
+          programCard1Desc: "برنامج تأسيس يحوّل طاقة الطفل إلى انضباط وثقة ولياقة، مع متابعة وتوصيل آمن.",
+          programCard2Title: "👦 شباب وكبار (13+)",
+          programCard2Desc: "برنامج قوي للشباب والكبار: تكنيك متقدم، قوة، مرونة، وجاهزية حقيقية للمنافسات.",
+          programCard3Title: "👩 فئة الإناث",
+          programCard3Desc: "حصص إناث بخصوصية وراحة كاملة، بإشراف مدرّبة إناث ومتابعة دقيقة لكل طالبة.",
+          programCard4Title: "🥇 برنامج منافسات",
+          programCard4Desc: "مسار منافسات احترافي: خطط لعب، تحمل عالي، سرعة قرار، وثقة وقت النزال.",
+          programCard5Title: "🌙 برنامج رمضاني (تحسين لياقة + تخفيف وزن)",
+          programCard5Desc: "برنامج رمضاني ذكي لتحسين اللياقة وتخفيف الوزن بأمان، مع متابعة مباشرة من الكابتن.",
+          pricingTitle: "الأسعار",
+          pricingDesc: "سعر واضح، قيمة عالية، ونتيجة تلمسها على أرض الواقع.",
+          pricingJoinBtn: "ثبّت مقعدك الآن",
+          priceTitleMain: "📦 الاشتراك الشهري الكامل",
+          priceNoteMain: "✓ تدريب احترافي ومتابعة فردية | ✓ بدلة جديدة | ✓ توصيل آمن | ✓ إشراف مباشر من الكابتن والمدرّبة",
+          calcPlanLabel: "نوع الاشتراك",
+          calcStudentsLabel: "عدد الطلاب",
+          calcDeliveryLabel: "إضافة التوصيل العائلي (+15 JD)",
+          calcFormulaNote: "الحسبة واضحة: 30 دينار لكل طالب (تدريب + بدلة)، خصم 3 دنانير لكل أخ بعد الأول، والتوصيل 15 دينار للعائلة.",
+          calcBreakdownBaseLabel: "المجموع الأساسي",
+          calcBreakdownDiscountLabel: "خصم الإخوة",
+          calcBreakdownDeliveryLabel: "التوصيل",
+          calcFinalLabel: "السعر النهائي",
+          calcWhatsQuote: "💬 إرسال التسعيرة على واتساب",
+          paymentMethodLabel: "طريقة الدفع المفضلة",
+          paymentMethodHint: "يمكنك تعديل طريقة الدفع لاحقاً عند الحضور.",
+          paymentMethodCashOpt: "نقداً في المركز",
+          paymentMethodCliqOpt: "كليك (CliQ)",
+          paymentMethodBankOpt: "تحويل بنكي",
+          paymentMethodWalletOpt: "محفظة إلكترونية",
+          paymentMethodCryptoOpt: "دفع مشفّر (USDT)",
+          paymentDetailsTitle: "تفاصيل الدفع حسب الطريقة المختارة:",
+          bankDetailsTitle: "الدفع عبر التحويل البنكي",
+          bankNameLabel: "اسم البنك:",
+          bankNameValue: "البنك العربي",
+          bankAccountLabel: "اسم الحساب:",
+          bankAccountValue: "مركز الماهر للتايكوندو",
+          bankIbanLabel: "رقم الآيبان:",
+          bankIbanValue: "JO00 0000 0000 0000 0000 0000 000",
+          copyBankIbanBtn: "نسخ الآيبان",
+          walletDetailsTitle: "الدفع عبر المحفظة الإلكترونية",
+          walletProviderLabel: "مزود المحفظة:",
+          walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
+          walletNumberLabel: "رقم المحفظة:",
+          walletNumberValue: "0779331277",
+          copyWalletNumberBtn: "نسخ رقم المحفظة",
+          cryptoDetailsTitle: "الدفع المشفّر (USDT)",
+          cryptoNetworkLabel: "الشبكة:",
+          cryptoNetworkValue: "TRC20",
+          cryptoAddressLabel: "عنوان المحفظة:",
+          cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          copyCryptoAddressBtn: "نسخ عنوان المحفظة",
+          paymentCopySuccess: "تم نسخ بيانات الدفع.",
+          paymentCopyError: "تعذر النسخ تلقائيًا، انسخها يدويًا.",
+          turnstileLabel: "تحقق الأمان (Cloudflare)",
+          turnstileHint: "للحماية من السبام، يرجى إكمال التحقق الأمني قبل إرسال الطلب.",
+          turnstileVerified: "تم التحقق الأمني بنجاح.",
+          turnstileRequiredError: "أكمل تحقق Cloudflare الأمني قبل الإرسال.",
+          turnstileLoadError: "تعذر تحميل تحقق Cloudflare. حدّث الصفحة وحاول مرة أخرى.",
+          turnstileExpired: "انتهت صلاحية التحقق الأمني. أعد التحقق ثم أرسل الطلب.",
+          bookingTooFastError: "تم رفض الطلب لأسباب أمنية. يرجى تعبئة النموذج ببطء ثم المحاولة مرة أخرى.",
+          bookingSecurityError: "تم رفض الطلب لأسباب أمنية. يرجى إعادة المحاولة.",
+          paymentMethodsTitle: "طرق الدفع:",
+          paymentMethodsList: "نقداً في المركز، كليك (CliQ)، تحويل بنكي، محفظة إلكترونية، ودفع مشفّر (USDT).",
+          journeyTitle: "رحلة الأحزمة",
+          journeyDesc: "اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى",
+          journeyBtn: "ابدأ رحلتك اليوم",
+          trackerTitle: "تتبع تقدّم الأحزمة",
+          trackerDesc: "أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.",
+          trackerInputLabel: "رقم الهاتف أو الكود",
+          trackerBtn: "عرض التقدم",
+          trackerHint: "يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة المركز ويتم تحديثها باستمرار.",
+          trackerEmpty: "لم يتم إدخال أي كود بعد.",
+          trackerCurrentLabel: "الحزام الحالي:",
+          trackerNextLabel: "الحزام القادم:",
+          trackerGoalsLabel: "المهارات المطلوبة للترقية:",
+          reviewsTitle: "آراء الأهالي",
+          reviewsDesc: "تجارب حقيقية من الأهالي، والتعليق الجديد يتم نشره تلقائيًا على الموقع.",
+          reviewFormTitle: "أضف تعليقك الآن",
+          reviewFormNote: "أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.",
+          reviewStudentAgeLabel: "عمر الطالب",
+          reviewFormLevelLabel: "المستوى",
+          reviewFormLevelBeginnerOpt: "مبتدئ",
+          reviewFormLevelIntermediateOpt: "متوسط",
+          reviewFormLevelAdvancedOpt: "متقدم",
+          reviewProgramLabel: "البرنامج",
+          reviewProgramKidsOpt: "أطفال",
+          reviewProgramYouthOpt: "شباب",
+          reviewProgramFemaleOpt: "إناث",
+          reviewProgramCompetitionOpt: "منافسات",
+          reviewCommentLabel: "التعليق",
+          reviewSubmitBtn: "إرسال التعليق",
+          reviewSubmitSuccess: "تم حفظ تعليقك بنجاح.",
+          reviewSubmitError: "العمر والتعليق مطلوبان.",
+          reviewSubmitNetworkError: "تعذر إرسال التعليق الآن. تأكد من الاتصال وحاول مرة أخرى.",
+          reviewSubmitConfigError: "خدمة التعليقات غير مفعلة على السيرفر. تأكد من ربط REVIEWS_KV وتفعيل /api/reviews.",
+          reviewSubmitApiMissingError: "رابط خدمة التعليقات غير موجود على هذا الدومين. فعّل route لـ /api/reviews.",
+          reviewAgeInvalid: "العمر يجب أن يكون بين 6 و40.",
+          reviewAgeLabel: "فلترة حسب العمر",
+          reviewLevelLabel: "فلترة حسب المستوى",
+          reviewAgeAllOpt: "كل الأعمار",
+          reviewAgeKidsOpt: "6-9 سنوات",
+          reviewAgeTeensOpt: "10-13 سنة",
+          reviewAgeYouthOpt: "14 سنة فأكثر",
+          reviewLevelAllOpt: "كل المستويات",
+          reviewLevelBeginnerOpt: "مبتدئ",
+          reviewLevelIntermediateOpt: "متوسط",
+          reviewLevelAdvancedOpt: "متقدم",
+          achievementsTitle: "نتائج البطولات والإنجازات",
+          achievementsDesc: "إنجازات محدثة أولاً بأول تثبت قوة المركز في البطولات.",
+          achievementFilterLabel: "تصفية حسب السنة",
+          newsTitle: "أخبار المركز والإنجازات الجديدة",
+          newsDesc: "آخر أخبار المركز ونتائج الإنجازات الجديدة لحظة بلحظة.",
+          newsEmpty: "لا توجد أخبار بعد.",
+          newsChip: "خبر إنجاز",
+          faqTitle: "أسئلة شائعة",
+          faqDesc: "كل إجابة تحتاجها قبل الاشتراك، بشكل واضح وسريع.",
+          scheduleTitle: "جدول المواعيد",
+          scheduleDesc: "ابحث عن الوقت المناسب لك. المواعيد الإضافية حسب الطلب.",
+          scheduleHeadDays: "📅 ايام التدريب",
+          scheduleHeadTime: "⏰ الوقت",
+          scheduleHeadNote: "📝 الملاحظة",
+          scheduleRow1Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow1Note: "تأسيس حركي ولياقة أساسية",
+          scheduleRow2Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow2Note: "تكنيك متقدم وتدريب مكثف",
+          scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
+          scheduleRow3Note: "تدريب إناث بإشراف مدرّبة إناث",
+          scheduleRow4Days: "السبت - الاثنين - الأربعاء",
+          scheduleRow4Note: "تدريب للمبتدئين",
+          bookTitle: "اشترك الآن",
+          bookDesc: "خلال دقيقة واحدة عبّي الطلب، وثبّت اشتراكك فورًا عبر واتساب برسالة جاهزة.",
+          nameLabel: "الاسم الكامل",
+          phoneLabel: "رقم الهاتف",
+          ageLabel: "العمر (اختياري)",
+          programLabel: "اختر البرنامج",
+          programOptPlaceholder: "-- اختر البرنامج --",
+          programOptKids: "أطفال",
+          programOptTeens: "شباب",
+          programOptAdults: "كبار",
+          programOptWomen: "إناث",
+          programOptCompetition: "برنامج منافسات",
+          programOptRamadan: "برنامج رمضاني (تحسين لياقة + تخفيف وزن)",
+          timeLabel: "أفضل وقت للتواصل",
+          timeOptMorning: "صباحاً",
+          timeOptEvening: "مساءً",
+          timeOptAny: "أي وقت",
+          msgLabel: "ملاحظة أو سؤال (اختياري)",
+          submitBookingBtn: "✓ ثبّت اشتراكك الآن عبر واتساب",
+          contactTitle: "💬 معلومات التواصل",
+          contactWhatsappLabel: "رقم الواتساب:",
+          contactPriceLabel: "السعر الشهري:",
+          contactPriceValue: "45 دينار (بدلة + توصيل + تدريب كل شيء مشمول)",
+          contactLocationLabel: "الموقع:",
+          contactLocationValue: "جرش",
+          contactHighlights: "✓ برنامج واضح من البداية حتى المنافسات<br />✓ متابعة دقيقة وقياس تقدّم حقيقي<br />✓ بيئة آمنة تبني الثقة والانضباط",
+          aboutTitle: "عن المركز",
+          aboutDesc: "بيئة احترافية تصنع نتائج يلاحظها الأهل من أول شهر.",
+          aboutCard1Title: "🎯 رسالتنا",
+          aboutCard1Desc: "بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.",
+          aboutCard2Title: "🏆 رؤيتنا",
+          aboutCard2Desc: "أن نصبح الخيار الأول للعائلات الأردنية. إرسال محاربين حقيقيين للمنافسات المحلية والدولية.",
+          aboutCard3Title: "⭐ القيم الأساسية",
+          aboutCard3Desc: "الانضباط أولاً، ثم الاحترام، ثم المهارة. نؤمن بأن الشخصية أهم من الفوز.",
+          btnTop: "↑ العودة للأعلى",
+          btnCallFooter: "☎️ اتصل",
+          footerCopy: "© <span id=\"year\"></span> مركز الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج",
+          okMsg: "✅ ممتاز! جهزنا طلبك وفتحنا واتساب مباشرة. فريق المركز رح يتواصل معك قريبًا لتأكيد المقعد.",
+          errMsg: "❌ الرجاء إدخال الاسم ورقم الهاتف والبرنامج بشكل صحيح.",
+          waStickyText: "احجز مقعدك عبر واتساب الآن"
+        },
+        trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
+        calcPlanSingle: "طالب واحد",
+        calcPlanSiblings: "إخوة",
+        yearAll: "كل السنوات",
+        namePlaceholder: "حمود أحمد أو نور",
+        phonePlaceholder: "07xxxxxxxx",
+        agePlaceholder: "مثلاً: 10 سنوات",
+        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟",
+        reviewCommentPlaceholder: "اكتب تجربتك مع المركز هنا..."
+      },
+      en: {
+        htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
+        text: {
+          brandName: "Al Maher Taekwondo",
+          brandCity: "Jerash",
+          navWhyUs: "Why Us",
+          navPrograms: "Programs",
+          navPricing: "Pricing",
+          navCalculator: "Calculator",
+          navJourney: "Belts",
+          navTracker: "Tracker",
+          navReviews: "Parents Reviews",
+          navAchievements: "Results",
+          navNews: "News",
+          navFaq: "FAQ",
+          navBook: "Join",
+          btnWhatsNav: "WhatsApp ↗",
+          btnWhatsFoot: "💬 WhatsApp",
+          navJoinBtn: "Join Now",
+          installAppBtn: "📲 Install App",
+          heroTag: "🥋 Start Your Journey",
+          heroTitle: "Al Maher Taekwondo - <span style=\"color:var(--gold)\">Jerash</span>",
+          heroSub: "Professional taekwondo training for kids, adults, and women, from beginner to black belt. Led by <b>Master Raed Odaybat</b> (35 years of experience) with dedicated female coaching support.",
+          spotlightKicker: "⚡ Quick Alert",
+          spotlightText: "Reserve this week to get priority in class scheduling.",
+          spotlightPoint1: "🎯 Personalized training plan",
+          spotlightPoint2: "🚐 Priority transport",
+          spotlightPoint3: "🥋 Continuous progress follow-up",
+          heroJoinBtn: "Join Now",
+          btnCallHero: "Call Now ☎️",
+          heroPriceBtn: "Clear Pricing",
+          heroRightPricingBtn: "Pricing",
+          heroRightJoinBtn: "Join",
+          jerashTitle: "Jerash",
+          jerashDesc: "A local club with a professional global mindset. We build strong, disciplined, and respectful students.",
+          coachName: "Master Raed Odaybat - International Referee & Head Coach",
+          coachInfo: "✓ International referee<br />✓ 35 years of experience<br />✓ Direct supervision for every student<br />✓ Women training with female coach support",
+          coachBadge: "🏆 Certified • Disciplined • Result-driven",
+          heroLocationPill: "📍 Location: Jerash",
+          heroPricePill: "💰 45 JOD / month (all inclusive)",
+          statLabelStudents: "Active Students",
+          statLabelBlackBelts: "Black Belts",
+          statLabelAchievements: "Achievements",
+          statLabelYears: "Years Experience",
+          calculatorTitle: "Smart Price Calculator",
+          calculatorDesc: "Calculate your final fee instantly for single student, siblings, and delivery options.",
+          whyUsTitle: "Why Choose Al Maher Center?",
+          whyUsDesc: "5 reasons why families choose us first.",
+          whyUsCard1Title: "Professional Coaching",
+          whyUsCard1Desc: "Led by an international referee and head coach with 35 years of experience. Every student gets personalized follow-up.",
+          whyUsCard2Title: "Confidence Building",
+          whyUsCard2Desc: "We build character, not only techniques. Discipline, respect, and leadership are part of every class.",
+          whyUsCard3Title: "Clear Growth Path",
+          whyUsCard3Desc: "A structured belt path from white to black with clear goals and skills for each stage.",
+          whyUsCard4Title: "Safe Home Transport",
+          whyUsCard4Desc: "Fast and safe transport is included. Uniform + training + transport all in one package.",
+          whyUsCard5Title: "Tournaments & Competition",
+          whyUsCard5Desc: "We prepare students for local and national championships with real competitive readiness.",
+          whyUsCard6Title: "300+ Active Students",
+          whyUsCard6Desc: "A strong community of students and families, with long-term growth and teamwork.",
+          programsTitle: "Programs",
+          programsDesc: "Choose the right program and contact us directly.",
+          programCard1Title: "🧒 Kids (6-12)",
+          programCard1Desc: "Movement foundations, fitness basics, discipline, respect, confidence, and safe transport.",
+          programCard2Title: "👦 Teens & Adults (13+)",
+          programCard2Desc: "Advanced techniques, strength, flexibility, sparring progress, and competition preparation.",
+          programCard3Title: "👩 Women Program",
+          programCard3Desc: "Women-only classes in a safe environment with dedicated female coaching support.",
+          programCard4Title: "🥇 Competition Track",
+          programCard4Desc: "Specialized tournament preparation: tactics, speed, endurance, and pressure handling.",
+          programCard5Title: "🌙 Ramadan Program (Fitness + Fat Loss)",
+          programCard5Desc: "A safe Ramadan program to improve fitness and reduce weight, supervised directly by Master Raed Odaybat.",
+          pricingTitle: "Pricing",
+          pricingDesc: "Clear and transparent pricing with no hidden fees.",
+          pricingJoinBtn: "Join Now",
+          priceTitleMain: "📦 Full Monthly Package",
+          priceNoteMain: "✓ New Taekwondo uniform | ✓ Safe home transport | ✓ Full month training | ✓ Direct coach supervision",
+          calcPlanLabel: "Plan Type",
+          calcStudentsLabel: "Number of Students",
+          calcDeliveryLabel: "Add family delivery (+15 JOD)",
+          calcFormulaNote: "Formula: 30 JOD per student (training + uniform), 3 JOD discount for each sibling after the first, and 15 JOD family delivery fee.",
+          calcBreakdownBaseLabel: "Base Total",
+          calcBreakdownDiscountLabel: "Sibling Discount",
+          calcBreakdownDeliveryLabel: "Delivery",
+          calcFinalLabel: "Final Price",
+          calcWhatsQuote: "💬 Send Quote on WhatsApp",
+          paymentMethodLabel: "Preferred Payment Method",
+          paymentMethodHint: "You can change your payment method later during registration.",
+          paymentMethodCashOpt: "Cash at the center",
+          paymentMethodCliqOpt: "CliQ transfer",
+          paymentMethodBankOpt: "Bank transfer",
+          paymentMethodWalletOpt: "E-wallet",
+          paymentMethodCryptoOpt: "Crypto payment (USDT)",
+          paymentDetailsTitle: "Payment details for the selected method:",
+          bankDetailsTitle: "Bank Transfer Payment",
+          bankNameLabel: "Bank name:",
+          bankNameValue: "Arab Bank",
+          bankAccountLabel: "Account name:",
+          bankAccountValue: "Al Maher Taekwondo Center",
+          bankIbanLabel: "IBAN:",
+          bankIbanValue: "JO00 0000 0000 0000 0000 0000 000",
+          copyBankIbanBtn: "Copy IBAN",
+          walletDetailsTitle: "E-wallet Payment",
+          walletProviderLabel: "Wallet provider:",
+          walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
+          walletNumberLabel: "Wallet number:",
+          walletNumberValue: "0779331277",
+          copyWalletNumberBtn: "Copy Wallet Number",
+          cryptoDetailsTitle: "Crypto Payment (USDT)",
+          cryptoNetworkLabel: "Network:",
+          cryptoNetworkValue: "TRC20",
+          cryptoAddressLabel: "Wallet address:",
+          cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          copyCryptoAddressBtn: "Copy Wallet Address",
+          paymentCopySuccess: "Payment details copied.",
+          paymentCopyError: "Could not copy automatically. Please copy manually.",
+          turnstileLabel: "Security Check (Cloudflare)",
+          turnstileHint: "To protect against spam, complete the security check before submitting.",
+          turnstileVerified: "Security verification completed successfully.",
+          turnstileRequiredError: "Please complete Cloudflare security verification before submitting.",
+          turnstileLoadError: "Cloudflare verification failed to load. Refresh the page and try again.",
+          turnstileExpired: "Security verification expired. Please verify again before submitting.",
+          bookingTooFastError: "Submission was blocked for security reasons. Please fill the form naturally and try again.",
+          bookingSecurityError: "Submission was blocked for security reasons. Please try again.",
+          paymentMethodsTitle: "Payment Methods:",
+          paymentMethodsList: "Cash at the center, CliQ transfer, bank transfer, e-wallet, and crypto payment (USDT).",
+          journeyTitle: "Belt Journey",
+          journeyDesc: "Click any belt to view the required skills and promotion goals.",
+          journeyBtn: "Start Now",
+          trackerTitle: "Belt Progress Tracker",
+          trackerDesc: "Enter a student's phone number or private code to check current and next belt progress.",
+          trackerInputLabel: "Phone or Code",
+          trackerBtn: "Check Progress",
+          trackerHint: "Use either phone number or student code. Data is managed and updated from the center dashboard.",
+          trackerEmpty: "No code entered yet.",
+          trackerCurrentLabel: "Current belt:",
+          trackerNextLabel: "Next belt:",
+          trackerGoalsLabel: "Required skills for promotion:",
+          reviewsTitle: "Parent Reviews",
+          reviewsDesc: "Share your experience. New comments are published automatically on the website.",
+          reviewFormTitle: "Add Your Comment",
+          reviewFormNote: "Every new comment is published automatically and can be filtered by age and level.",
+          reviewStudentAgeLabel: "Student Age",
+          reviewFormLevelLabel: "Level",
+          reviewFormLevelBeginnerOpt: "Beginner",
+          reviewFormLevelIntermediateOpt: "Intermediate",
+          reviewFormLevelAdvancedOpt: "Advanced",
+          reviewProgramLabel: "Program",
+          reviewProgramKidsOpt: "Kids",
+          reviewProgramYouthOpt: "Youth",
+          reviewProgramFemaleOpt: "Female",
+          reviewProgramCompetitionOpt: "Competition",
+          reviewCommentLabel: "Comment",
+          reviewSubmitBtn: "Submit Comment",
+          reviewSubmitSuccess: "Your comment was saved successfully.",
+          reviewSubmitError: "Age and comment are required.",
+          reviewSubmitNetworkError: "Could not submit your comment right now. Please try again.",
+          reviewSubmitConfigError: "Reviews service is not configured on the server. Bind REVIEWS_KV and enable /api/reviews.",
+          reviewSubmitApiMissingError: "Reviews API route is missing on this domain. Enable route for /api/reviews.",
+          reviewAgeInvalid: "Age must be between 6 and 40.",
+          reviewAgeLabel: "Filter by age",
+          reviewLevelLabel: "Filter by level",
+          reviewAgeAllOpt: "All ages",
+          reviewAgeKidsOpt: "Ages 6-9",
+          reviewAgeTeensOpt: "Ages 10-13",
+          reviewAgeYouthOpt: "Ages 14+",
+          reviewLevelAllOpt: "All levels",
+          reviewLevelBeginnerOpt: "Beginner",
+          reviewLevelIntermediateOpt: "Intermediate",
+          reviewLevelAdvancedOpt: "Advanced",
+          achievementsTitle: "Tournament Results & Achievements",
+          achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
+          achievementFilterLabel: "Filter by year",
+          newsTitle: "Center News & Latest Achievements",
+          newsDesc: "Latest club news and achievements.",
+          newsEmpty: "No news items yet.",
+          newsChip: "Achievement News",
+          faqTitle: "Frequently Asked Questions",
+          faqDesc: "Quick answers to the most common parent questions.",
+          scheduleTitle: "Class Schedule",
+          scheduleDesc: "Find the time that fits you best. Extra timings are available on demand.",
+          scheduleHeadDays: "📅 Training Days",
+          scheduleHeadTime: "⏰ Time",
+          scheduleHeadNote: "📝 Notes",
+          scheduleRow1Days: "Sunday - Tuesday - Thursday",
+          scheduleRow1Note: "Foundational movement and basic fitness",
+          scheduleRow2Days: "Sunday - Tuesday - Thursday",
+          scheduleRow2Note: "Advanced technique and intensive training",
+          scheduleRow3Days: "Sunday - Tuesday - Thursday",
+          scheduleRow3Note: "Women classes supervised by a female coach",
+          scheduleRow4Days: "Saturday - Monday - Wednesday",
+          scheduleRow4Note: "Beginner training",
+          bookTitle: "Join Now",
+          bookDesc: "Fast and simple form. WhatsApp opens with a ready message to submit instantly.",
+          nameLabel: "Full Name",
+          phoneLabel: "Phone Number",
+          ageLabel: "Age (Optional)",
+          programLabel: "Choose Program",
+          programOptPlaceholder: "-- Choose a Program --",
+          programOptKids: "Kids",
+          programOptTeens: "Teens",
+          programOptAdults: "Adults",
+          programOptWomen: "Women",
+          programOptCompetition: "Competition Program",
+          programOptRamadan: "Ramadan Program (Fitness + Fat Loss)",
+          timeLabel: "Best Contact Time",
+          timeOptMorning: "Morning",
+          timeOptEvening: "Evening",
+          timeOptAny: "Any Time",
+          msgLabel: "Note or Question (Optional)",
+          submitBookingBtn: "✓ Send Registration Request via WhatsApp",
+          contactTitle: "💬 Contact Info",
+          contactWhatsappLabel: "WhatsApp Number:",
+          contactPriceLabel: "Monthly Price:",
+          contactPriceValue: "45 JOD (uniform + transport + training included)",
+          contactLocationLabel: "Location:",
+          contactLocationValue: "Jerash",
+          contactHighlights: "✓ Safe and fast transport included<br />✓ Direct supervision by the coach and female trainer<br />✓ Clear success path",
+          aboutTitle: "About The Center",
+          aboutDesc: "A safe, professional, and trusted training environment.",
+          aboutCard1Title: "🎯 Our Mission",
+          aboutCard1Desc: "Build disciplined, confident, and respectful taekwondo students with strong character.",
+          aboutCard2Title: "🏆 Our Vision",
+          aboutCard2Desc: "Become the first choice for families and prepare true fighters for competitions.",
+          aboutCard3Title: "⭐ Core Values",
+          aboutCard3Desc: "Discipline first, then respect, then skill. Character always matters most.",
+          btnTop: "↑ Back to Top",
+          btnCallFooter: "☎️ Call",
+          footerCopy: "© <span id=\"year\"></span> Al Maher Taekwondo Center - Jerash | Professional Training • Discipline • Results",
+          okMsg: "✅ Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
+          errMsg: "❌ Name, phone number, and program are required.",
+          waStickyText: "Reserve your slot on WhatsApp now"
+        },
+        trackerPlaceholder: "Example: 0779000000 or MT-1024",
+        calcPlanSingle: "Single Student",
+        calcPlanSiblings: "Siblings",
+        yearAll: "All Years",
+        namePlaceholder: "Hammoud Ahmad or Noor",
+        phonePlaceholder: "07xxxxxxxx",
+        agePlaceholder: "Example: 10 years",
+        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?",
+        reviewCommentPlaceholder: "Write your experience with the center here..."
+      }
+    };
+
+    let currentLang = "ar";
+    let uiReady = false;
+
+    function setText(id, value, asHtml = false){
+      const el = document.getElementById(id);
+      if(!el || typeof value !== "string") return;
+      if(asHtml) el.innerHTML = value;
+      else el.textContent = value;
+    }
+
+    const HTML_ESCAPE_MAP = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    function escapeHtml(value){
+      return String(value == null ? "" : value).replace(/[&<>"']/g, (char)=> HTML_ESCAPE_MAP[char] || char);
+    }
+
+    function cleanInputText(value, maxLength = 200){
+      return String(value == null ? "" : value)
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, maxLength);
+    }
+
+    const EXTERNAL_URL_ALLOWLIST = new Set(["wa.me", "www.wa.me", "api.whatsapp.com"]);
+    function isAllowedExternalUrl(url){
+      try {
+        const parsed = new URL(String(url || ""), window.location.origin);
+        if(parsed.protocol !== "https:") return false;
+        return EXTERNAL_URL_ALLOWLIST.has(parsed.hostname.toLowerCase());
+      } catch(_){
+        return false;
+      }
+    }
+
+    function openExternal(url){
+      if(!isAllowedExternalUrl(url)) return;
+      const win = window.open(String(url || ""), "_blank", "noopener,noreferrer");
+      if(win) win.opener = null;
+    }
+
+    async function copyTextToClipboard(value){
+      const text = cleanInputText(value, 160);
+      if(!text) return false;
+
+      try {
+        if(navigator.clipboard && window.isSecureContext){
+          await navigator.clipboard.writeText(text);
+          return true;
         }
-      })
-    );
-  } catch (_) {
-    // Ignore cache write errors.
-  }
-
-  return { allowed, retryAfter, limit: maxRequests, remaining };
-}
-
-async function parseJsonBody(request, maxBodyBytes) {
-  const contentType = cleanText(request.headers.get("Content-Type"), 120).toLowerCase();
-  if (!contentType.includes("application/json")) {
-    return { ok: false, status: 415, error: "unsupported_media_type" };
-  }
-
-  const contentLength = getPositiveInt(request.headers.get("Content-Length"), 0);
-  if (contentLength > maxBodyBytes) {
-    return { ok: false, status: 413, error: "payload_too_large" };
-  }
-
-  try {
-    const raw = await request.text();
-    if (raw.length > maxBodyBytes) {
-      return { ok: false, status: 413, error: "payload_too_large" };
-    }
-    const body = JSON.parse(raw);
-    return { ok: true, body };
-  } catch (_) {
-    return { ok: false, status: 400, error: "invalid_json" };
-  }
-}
-
-async function verifyTurnstile(turnstileToken, request, env) {
-  const secret = cleanText(env.TURNSTILE_SECRET, 200);
-  if (!secret) return false;
-
-  const ip = getClientIp(request);
-  const formData = new URLSearchParams();
-  formData.set("secret", secret);
-  formData.set("response", turnstileToken);
-  if (ip) formData.set("remoteip", ip);
-
-  const verification = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: formData.toString()
-  });
-
-  if (!verification.ok) return false;
-  const result = await verification.json();
-  return Boolean(result && result.success);
-}
-
-async function sendToTelegram(payload, env) {
-  const botToken = cleanText(env.TELEGRAM_BOT_TOKEN, 300);
-  const chatId = cleanText(env.TELEGRAM_CHAT_ID, 100);
-  if (!botToken || !chatId) return false;
-
-  const message = `
-<b>New Join Request (Secure Worker)</b>
-
-<b>Name:</b> ${escapeHtml(payload.name)}
-<b>Phone:</b> ${escapeHtml(payload.phone)}
-<b>Age:</b> ${escapeHtml(payload.age || "-")}
-<b>Program:</b> ${escapeHtml(payload.program)}
-<b>Preferred Time:</b> ${escapeHtml(payload.preferredTime || "-")}
-<b>Payment Method:</b> ${escapeHtml(payload.paymentMethod || "-")}
-<b>Note:</b> ${escapeHtml(payload.message || "-")}
-<b>Language:</b> ${escapeHtml(payload.lang || "ar")}
-<b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
-  `.trim();
-
-  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-  const telegramRes = await fetch(telegramUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: message,
-      parse_mode: "HTML",
-      disable_web_page_preview: true
-    })
-  });
-
-  return telegramRes.ok;
-}
-
-function validatePayload(raw) {
-  const name = cleanText(raw.name, MAX_LEN.name);
-  const phone = cleanText(raw.phone, MAX_LEN.phone).replace(/[^\d+]/g, "").slice(0, MAX_LEN.phone);
-  const age = cleanText(raw.age, MAX_LEN.age);
-  const program = cleanText(raw.program, MAX_LEN.program);
-  const preferredTime = cleanText(raw.preferredTime, MAX_LEN.preferredTime);
-  const paymentMethod = cleanText(raw.paymentMethod, MAX_LEN.paymentMethod);
-  const message = cleanText(raw.message, MAX_LEN.message);
-  const lang = cleanText(raw.lang, MAX_LEN.lang).toLowerCase();
-  const userAgent = cleanText(raw.userAgent, MAX_LEN.userAgent);
-  const turnstileToken = cleanText(raw.turnstileToken, MAX_LEN.turnstileToken);
-
-  const isValidPhone = /^\+?\d{8,15}$/.test(phone);
-  if (!name || !phone || !program || !isValidPhone || !turnstileToken) {
-    return null;
-  }
-
-  return {
-    name,
-    phone,
-    age,
-    program,
-    preferredTime,
-    paymentMethod,
-    message,
-    lang: lang === "en" ? "en" : "ar",
-    userAgent,
-    turnstileToken
-  };
-}
-
-function normalizeReviewEntry(raw) {
-  if (!raw || typeof raw !== "object") return null;
-
-  const age = Math.round(Number(raw.age));
-  const level = cleanText(raw.level, MAX_LEN.reviewLevel).toLowerCase();
-  const programAr = cleanText(raw.programAr, MAX_LEN.reviewProgram);
-  const programEn = cleanText(raw.programEn, MAX_LEN.reviewProgram);
-  const commentAr = cleanText(raw.commentAr, MAX_LEN.reviewComment);
-  const commentEn = cleanText(raw.commentEn, MAX_LEN.reviewComment);
-  const createdAtRaw = cleanText(raw.createdAt, 40);
-  const createdAt = Number.isNaN(Date.parse(createdAtRaw)) ? "" : new Date(createdAtRaw).toISOString();
-
-  if (!Number.isFinite(age) || age < 6 || age > 40) return null;
-  if (!REVIEW_ALLOWED_LEVELS.has(level)) return null;
-  if (!programAr || !programEn) return null;
-  if (!commentAr && !commentEn) return null;
-
-  return {
-    id: cleanText(raw.id, 80) || crypto.randomUUID(),
-    age,
-    level,
-    programAr,
-    programEn,
-    commentAr: commentAr || commentEn,
-    commentEn: commentEn || commentAr,
-    createdAt: createdAt || new Date().toISOString()
-  };
-}
-
-function validateReviewPayload(raw) {
-  const age = Math.round(Number(raw && raw.age));
-  const level = cleanText(raw && raw.level, MAX_LEN.reviewLevel).toLowerCase();
-  const programAr = cleanText(raw && raw.programAr, MAX_LEN.reviewProgram);
-  const programEn = cleanText(raw && raw.programEn, MAX_LEN.reviewProgram);
-  const commentRaw = cleanText(raw && raw.comment, MAX_LEN.reviewComment);
-  const commentAr = cleanText(raw && raw.commentAr, MAX_LEN.reviewComment) || commentRaw;
-  const commentEn = cleanText(raw && raw.commentEn, MAX_LEN.reviewComment) || commentRaw || commentAr;
-
-  if (!Number.isFinite(age) || age < 6 || age > 40) return null;
-  if (!REVIEW_ALLOWED_LEVELS.has(level)) return null;
-  if (!programAr || !programEn) return null;
-  if (!commentAr && !commentEn) return null;
-
-  return {
-    id: crypto.randomUUID(),
-    age,
-    level,
-    programAr,
-    programEn,
-    commentAr: commentAr || commentEn,
-    commentEn: commentEn || commentAr,
-    createdAt: new Date().toISOString()
-  };
-}
-
-function getReviewsLimit(env) {
-  const maxItems = getPositiveInt(env.REVIEWS_MAX_ITEMS, DEFAULT_REVIEWS_MAX_ITEMS);
-  return Math.max(20, Math.min(1000, maxItems));
-}
-
-async function readReviewsFromKv(env) {
-  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.get !== "function") return null;
-
-  try {
-    const raw = await env.REVIEWS_KV.get(REVIEWS_KV_KEY, "json");
-    if (!Array.isArray(raw)) return [];
-    return raw.map(normalizeReviewEntry).filter(Boolean);
-  } catch (_) {
-    return [];
-  }
-}
-
-async function writeReviewsToKv(env, reviews) {
-  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.put !== "function") return false;
-  try {
-    await env.REVIEWS_KV.put(REVIEWS_KV_KEY, JSON.stringify(reviews));
-    return true;
-  } catch (_) {
-    return false;
-  }
-}
-
-async function handleLeadRequest(request, env) {
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: JSON_HEADERS });
-  }
-
-  if (request.method !== "POST") {
-    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
-  }
-
-  if (!isAllowedOrigin(request, env)) {
-    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
-  }
-
-  const rate = await applyIpRateLimit(request, env, "lead");
-  if (!rate.allowed) {
-    return jsonResponse(
-      429,
-      { ok: false, error: "rate_limited" },
-      {
-        "Retry-After": String(rate.retryAfter),
-        "X-RateLimit-Limit": String(rate.limit),
-        "X-RateLimit-Remaining": String(rate.remaining)
+      } catch(_){
+        // Fall through to legacy copy approach.
       }
-    );
-  }
 
-  const maxBodyBytes = getPositiveInt(env.MAX_BODY_BYTES, DEFAULT_MAX_BODY_BYTES);
-  const parsed = await parseJsonBody(request, maxBodyBytes);
-  if (!parsed.ok) {
-    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
-  }
-
-  const payload = validatePayload(parsed.body || {});
-  if (!payload) {
-    return jsonResponse(400, { ok: false, error: "invalid_payload" });
-  }
-
-  const turnstileOk = await verifyTurnstile(payload.turnstileToken, request, env);
-  if (!turnstileOk) {
-    return jsonResponse(403, { ok: false, error: "turnstile_failed" });
-  }
-
-  const telegramOk = await sendToTelegram(payload, env);
-  if (!telegramOk) {
-    return jsonResponse(502, { ok: false, error: "telegram_failed" });
-  }
-
-  return jsonResponse(200, { ok: true });
-}
-
-async function handleReviewsRequest(request, env) {
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: JSON_HEADERS });
-  }
-
-  if (request.method === "GET") {
-    const reviews = await readReviewsFromKv(env);
-    if (reviews === null) {
-      return jsonResponse(200, { ok: true, reviews: [], configured: false });
-    }
-
-    reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    return jsonResponse(200, { ok: true, reviews: reviews.slice(0, getReviewsLimit(env)), configured: true });
-  }
-
-  if (request.method !== "POST") {
-    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "GET, POST, OPTIONS" });
-  }
-
-  if (!isAllowedOrigin(request, env)) {
-    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
-  }
-
-  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.get !== "function") {
-    return jsonResponse(503, { ok: false, error: "reviews_store_not_configured" });
-  }
-
-  const rate = await applyIpRateLimit(request, env, "reviews");
-  if (!rate.allowed) {
-    return jsonResponse(
-      429,
-      { ok: false, error: "rate_limited" },
-      {
-        "Retry-After": String(rate.retryAfter),
-        "X-RateLimit-Limit": String(rate.limit),
-        "X-RateLimit-Remaining": String(rate.remaining)
+      try {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = text;
+        tempInput.setAttribute("readonly", "");
+        tempInput.style.position = "fixed";
+        tempInput.style.left = "-9999px";
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        const copied = document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        return copied;
+      } catch(_){
+        return false;
       }
-    );
-  }
-
-  const maxBodyBytes = getPositiveInt(env.REVIEWS_MAX_BODY_BYTES, DEFAULT_REVIEWS_MAX_BODY_BYTES);
-  const parsed = await parseJsonBody(request, maxBodyBytes);
-  if (!parsed.ok) {
-    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
-  }
-
-  const payload = validateReviewPayload(parsed.body || {});
-  if (!payload) {
-    return jsonResponse(400, { ok: false, error: "invalid_payload" });
-  }
-
-  const existingReviews = await readReviewsFromKv(env);
-  const merged = [payload, ...(Array.isArray(existingReviews) ? existingReviews : [])]
-    .map(normalizeReviewEntry)
-    .filter(Boolean)
-    .slice(0, getReviewsLimit(env));
-
-  const saved = await writeReviewsToKv(env, merged);
-  if (!saved) {
-    return jsonResponse(502, { ok: false, error: "reviews_store_write_failed" });
-  }
-
-  return jsonResponse(201, { ok: true, review: payload });
-}
-
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-
-    if (url.pathname === "/api/lead") {
-      return handleLeadRequest(request, env);
     }
 
-    if (url.pathname === "/api/reviews") {
-      return handleReviewsRequest(request, env);
+    let paymentStatusTimer = null;
+    function showPaymentCopyStatus(messageKey, isError = false){
+      if(!paymentCopyStatus) return;
+      const message = i18n[currentLang] && i18n[currentLang].text
+        ? i18n[currentLang].text[messageKey]
+        : "";
+      if(!message) return;
+
+      paymentCopyStatus.textContent = message;
+      paymentCopyStatus.classList.toggle("error", Boolean(isError));
+      paymentCopyStatus.style.display = "block";
+
+      if(paymentStatusTimer){
+        clearTimeout(paymentStatusTimer);
+      }
+      paymentStatusTimer = setTimeout(()=>{
+        paymentCopyStatus.style.display = "none";
+        paymentCopyStatus.classList.remove("error");
+      }, 2600);
     }
 
-    return jsonResponse(404, { ok: false, error: "not_found" });
-  }
-};
+    let turnstileToken = "";
+    let turnstileWidgetId = null;
+    let turnstileInitAttempts = 0;
+    const BOOKING_MIN_FILL_MS = 2500;
+    const bookingFormOpenedAt = Date.now();
+
+    function showTurnstileStatus(messageKey, isError = false){
+      if(!turnstileStatusEl) return;
+      const message = i18n[currentLang] && i18n[currentLang].text
+        ? i18n[currentLang].text[messageKey]
+        : "";
+      if(!message){
+        turnstileStatusEl.style.display = "none";
+        turnstileStatusEl.classList.remove("error");
+        return;
+      }
+      turnstileStatusEl.textContent = message;
+      turnstileStatusEl.style.display = "block";
+      turnstileStatusEl.classList.toggle("error", Boolean(isError));
+    }
+
+    function mountTurnstile(){
+      if(!turnstileWidgetEl) return;
+      if(turnstileWidgetId !== null) return;
+
+      if(typeof window.turnstile !== "object" || typeof window.turnstile.render !== "function"){
+        turnstileInitAttempts += 1;
+        if(turnstileInitAttempts <= 30){
+          setTimeout(mountTurnstile, 250);
+        } else {
+          showTurnstileStatus("turnstileLoadError", true);
+        }
+        return;
+      }
+
+      turnstileWidgetId = window.turnstile.render(turnstileWidgetEl, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "auto",
+        language: "auto",
+        action: "booking_submit",
+        callback(token){
+          turnstileToken = cleanInputText(token, 2048);
+          showTurnstileStatus("turnstileVerified");
+        },
+        "expired-callback"(){
+          turnstileToken = "";
+          showTurnstileStatus("turnstileExpired", true);
+        },
+        "error-callback"(){
+          turnstileToken = "";
+          showTurnstileStatus("turnstileLoadError", true);
+        }
+      });
+    }
+
+    function resetTurnstile(){
+      turnstileToken = "";
+      if(typeof window.turnstile === "object" && turnstileWidgetId !== null){
+        try {
+          window.turnstile.reset(turnstileWidgetId);
+        } catch(_){
+          // Ignore widget reset errors.
+        }
+      }
+      showTurnstileStatus("", false);
+    }
+
+    function updatePaymentMethodDetails(){
+      if(!paymentMethodSelect || !paymentDetailsWrap) return;
+      const method = paymentMethodSelect.value;
+      const showBank = method === "bank";
+      const showWallet = method === "wallet";
+      const showCrypto = method === "crypto";
+
+      paymentDetailsWrap.hidden = !(showBank || showWallet || showCrypto);
+      if(bankDetailsBlock) bankDetailsBlock.hidden = !showBank;
+      if(walletDetailsBlock) walletDetailsBlock.hidden = !showWallet;
+      if(cryptoDetailsBlock) cryptoDetailsBlock.hidden = !showCrypto;
+
+      if(paymentCopyStatus){
+        paymentCopyStatus.style.display = "none";
+        paymentCopyStatus.classList.remove("error");
+      }
+    }
+
+    function setThemeToggleLabel(theme){
+      if(!themeToggle) return;
+      const enableText = currentLang === "en"
+        ? (theme === "light" ? "Enable dark mode" : "Enable light mode")
+        : (theme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح");
+      themeToggle.textContent = theme === "light" ? "🌙" : "☀️";
+      themeToggle.setAttribute("title", enableText);
+      themeToggle.setAttribute("aria-label", enableText);
+    }
+
+    function applyTheme(theme){
+      const nextTheme = theme === "light" ? "light" : "dark";
+      rootEl.setAttribute("data-theme", nextTheme);
+      rootEl.style.colorScheme = nextTheme;
+
+      try {
+        localStorage.setItem(THEME_KEY, nextTheme);
+      } catch(_){
+        // Ignore storage restrictions in private mode.
+      }
+
+      setThemeToggleLabel(nextTheme);
+    }
+
+    function applyLanguage(lang){
+      currentLang = lang === "en" ? "en" : "ar";
+      const dict = i18n[currentLang];
+      const htmlKeys = new Set(dict.htmlKeys || []);
+
+      rootEl.setAttribute("data-lang", currentLang);
+      rootEl.setAttribute("lang", currentLang);
+      rootEl.setAttribute("dir", currentLang === "en" ? "ltr" : "rtl");
+
+      Object.entries(dict.text).forEach(([id, value])=>{
+        setText(id, value, htmlKeys.has(id));
+      });
+      const yearEl = document.getElementById("year");
+      if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+      const calcPlanType = document.getElementById("calcPlanType");
+      if(calcPlanType){
+        if(calcPlanType.options[0]) calcPlanType.options[0].textContent = dict.calcPlanSingle;
+        if(calcPlanType.options[1]) calcPlanType.options[1].textContent = dict.calcPlanSiblings;
+      }
+
+      const trackerInput = document.getElementById("trackerInput");
+      if(trackerInput) trackerInput.placeholder = dict.trackerPlaceholder;
+
+      const nameInput = document.getElementById("name");
+      if(nameInput) nameInput.placeholder = dict.namePlaceholder;
+      const phoneInput = document.getElementById("phone");
+      if(phoneInput) phoneInput.placeholder = dict.phonePlaceholder;
+      const ageInput = document.getElementById("age");
+      if(ageInput) ageInput.placeholder = dict.agePlaceholder;
+      const msgInput = document.getElementById("msg");
+      if(msgInput) msgInput.placeholder = dict.msgPlaceholder;
+      const reviewCommentInput = document.getElementById("reviewComment");
+      if(reviewCommentInput) reviewCommentInput.placeholder = dict.reviewCommentPlaceholder;
+
+      const yearAllOption = document.querySelector("#achievementYear option[value='all']");
+      if(yearAllOption) yearAllOption.textContent = dict.yearAll;
+
+      const dayLabel = dict.text.scheduleHeadDays || "📅 أيام التدريب";
+      const noteLabel = dict.text.scheduleHeadNote || "📝 الملاحظة";
+      const timeLabel = dict.text.scheduleHeadTime || "⏰ الوقت";
+      document.querySelectorAll("#scheduleBody td[id$='Days']").forEach((cell)=>{
+        cell.setAttribute("data-label", dayLabel);
+      });
+      document.querySelectorAll("#scheduleBody td[id$='Note']").forEach((cell)=>{
+        cell.setAttribute("data-label", noteLabel);
+      });
+      document.querySelectorAll("#scheduleBody td.time").forEach((cell)=>{
+        cell.setAttribute("data-label", timeLabel);
+      });
+
+      document.querySelectorAll("[data-lang-only]").forEach((node)=>{
+        node.hidden = node.getAttribute("data-lang-only") !== currentLang;
+      });
+
+      if(langToggle){
+        const nextLabel = currentLang === "en" ? "AR" : "EN";
+        const nextTitle = currentLang === "en" ? "التبديل إلى العربية" : "Switch to English";
+        langToggle.textContent = nextLabel;
+        langToggle.setAttribute("title", nextTitle);
+        langToggle.setAttribute("aria-label", nextTitle);
+      }
+
+      updatePaymentMethodDetails();
+      mountTurnstile();
+      if(turnstileToken){
+        showTurnstileStatus("turnstileVerified");
+      }
+
+      setThemeToggleLabel(rootEl.getAttribute("data-theme") || "dark");
+
+      document.title = currentLang === "en"
+        ? "Al Maher Taekwondo Center - Jerash | Join Now"
+        : "مركز الماهر للتايكوندو - جرش | اشترك الآن وابدأ رحلتك";
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if(metaDescription){
+        metaDescription.setAttribute(
+          "content",
+          currentLang === "en"
+            ? "Al Maher Taekwondo Center in Jerash. Professional training for kids, adults, and women. Join now."
+            : "مركز الماهر للتايكوندو - جرش. تدريب احترافي للأطفال والكبار وفئة الإناث. اشترك الآن وانضم لأكثر من 300 طالب."
+        );
+      }
+
+      if(uiReady){
+        renderBeltsList();
+        updatePriceCalculator();
+        updateTrackerContent();
+        renderFaq();
+        renderParentReviews();
+        populateAchievementYears();
+        renderAchievements();
+        renderNews();
+        refreshDesignEnhancements();
+      }
+
+      try {
+        localStorage.setItem(LANG_KEY, currentLang);
+      } catch(_){
+        // Ignore storage restrictions in private mode.
+      }
+    }
+
+    function getDefaultWaMessage(){
+      if(currentLang === "en"){
+        return "Hi, I would like to ask about joining Al Maher Taekwondo Center in Jerash. The monthly package starts from 45 JOD.";
+      }
+      return "السلام عليكم، بدي استفسر عن الاشتراك في مركز الماهر للتايكوندو - جرش. الاشتراك الشهري 45 دينار (كل شيء مشمول: بدلة + توصيل + تدريب).";
+    }
+
+    let savedTheme = null;
+    let savedLang = null;
+    try {
+      savedTheme = localStorage.getItem(THEME_KEY);
+      savedLang = localStorage.getItem(LANG_KEY);
+    } catch(_){
+      savedTheme = null;
+      savedLang = null;
+    }
+
+    const browserPrefersEnglish = String(navigator.language || "").toLowerCase().startsWith("en");
+    if(savedLang === "en" || savedLang === "ar"){
+      currentLang = savedLang;
+    } else {
+      currentLang = browserPrefersEnglish ? "en" : "ar";
+    }
+    applyTheme(savedTheme === "light" ? "light" : "dark");
+    applyLanguage(currentLang);
+
+    if(themeToggle){
+      themeToggle.addEventListener("click", ()=>{
+        const isLight = rootEl.getAttribute("data-theme") === "light";
+        applyTheme(isLight ? "dark" : "light");
+      });
+    }
+    if(langToggle){
+      langToggle.addEventListener("click", ()=>{
+        applyLanguage(currentLang === "en" ? "ar" : "en");
+      });
+    }
+
+    function waLink(message){
+      const text = encodeURIComponent(message);
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    }
+
+    const ANALYTICS_KEY = "maher_tkd_analytics_events_v1";
+    function trackInteraction(eventName, detail = {}){
+      const payload = {
+        event: eventName,
+        detail,
+        lang: currentLang,
+        path: location.pathname,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem(ANALYTICS_KEY) || "[]");
+        if(Array.isArray(existing)){
+          existing.push(payload);
+          const trimmed = existing.slice(-300);
+          localStorage.setItem(ANALYTICS_KEY, JSON.stringify(trimmed));
+        } else {
+          localStorage.setItem(ANALYTICS_KEY, JSON.stringify([payload]));
+        }
+      } catch(_){
+        // Ignore storage restrictions.
+      }
+
+      if(typeof window.gtag === "function"){
+        window.gtag("event", eventName, detail);
+      } else if(Array.isArray(window.dataLayer)){
+        window.dataLayer.push({ event: eventName, ...detail });
+      }
+    }
+
+    function getElementSource(el, fallback){
+      if(!el) return fallback;
+      if(el.id) return el.id;
+      const href = el.getAttribute("href");
+      if(href) return href;
+      return fallback;
+    }
+
+    // WhatsApp buttons
+    const btnWhatsNav = document.getElementById("btnWhatsNav");
+    const btnWhatsFoot = document.getElementById("btnWhatsFoot");
+    const waStickyCta = document.getElementById("waStickyCta");
+    const fabWhats = document.getElementById("fabWhats");
+    const btnWhatsEnglish = document.getElementById("btnWhatsEnglish");
+
+    [btnWhatsNav, btnWhatsFoot, waStickyCta, btnWhatsEnglish].forEach((btn) => {
+      if(!btn) return;
+      btn.addEventListener("click", (e)=>{
+        e.preventDefault();
+        trackInteraction("whatsapp_click", { source: getElementSource(btn, "whatsapp_button") });
+        openExternal(waLink(getDefaultWaMessage()));
+      });
+    });
+    if(fabWhats){
+      fabWhats.addEventListener("click", ()=>{
+        trackInteraction("whatsapp_click", { source: "fab_whatsapp" });
+        openExternal(waLink(getDefaultWaMessage()));
+      });
+    }
+
+    document.querySelectorAll('a[href^="tel:"]').forEach((link)=>{
+      link.addEventListener("click", ()=>{
+        trackInteraction("call_click", {
+          source: getElementSource(link, "call_link"),
+          phone: String(link.getAttribute("href") || "").replace("tel:", "")
+        });
+      });
+    });
+
+    // PWA install prompt
+    let deferredInstallPrompt = null;
+    window.addEventListener("beforeinstallprompt", (event)=>{
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      if(installAppBtn) installAppBtn.style.display = "inline-flex";
+    });
+
+    if(installAppBtn){
+      installAppBtn.addEventListener("click", async ()=>{
+        if(!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        try {
+          await deferredInstallPrompt.userChoice;
+        } catch(_){
+          // Ignore prompt errors.
+        }
+        deferredInstallPrompt = null;
+        installAppBtn.style.display = "none";
+      });
+    }
+
+    window.addEventListener("appinstalled", ()=>{
+      if(installAppBtn) installAppBtn.style.display = "none";
+    });
+
+    const canRegisterServiceWorker =
+      window.location.protocol === "https:" ||
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    if("serviceWorker" in navigator && canRegisterServiceWorker){
+      window.addEventListener("load", ()=>{
+        navigator.serviceWorker.register("./service-worker.js").catch((err)=>{
+          console.error("Service worker registration failed:", err);
+        });
+      });
+    }
+
+    // Set Jerash + coach images
+    const jerashImg = document.getElementById("jerashImg");
+    const coachImg = document.getElementById("coachImg");
+    function setCardImage(el, url, fallback){
+      if(!el) return;
+      if(!url){
+        el.style.backgroundImage = fallback;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => { el.style.backgroundImage = `url("${url}")`; };
+      img.onerror = () => { el.style.backgroundImage = fallback; };
+      img.decoding = "async";
+      img.src = url;
+    }
+
+    setCardImage(jerashImg, JERASH_IMAGE, "linear-gradient(135deg, rgba(255,61,129,.25), rgba(0,209,255,.2))");
+    setCardImage(coachImg, COACH_IMAGE, "linear-gradient(135deg, rgba(58,160,255,.35), rgba(255,255,255,.12))");
+
+    // HERO slideshow
+    const slide1 = document.getElementById("slide1");
+    const slide2 = document.getElementById("slide2");
+
+    function setSlide(el, url){
+      if(!el || !url) return;
+      const img = new Image();
+      img.onload = () => { el.classList.remove("fallback"); el.style.backgroundImage = `url("${url}")`; };
+      img.onerror = () => { el.classList.add("fallback"); };
+      img.decoding = "async";
+      img.src = url;
+    }
+    setSlide(slide1, HERO_IMAGES[0]);
+    setSlide(slide2, HERO_IMAGES[1]);
+
+    const slides = [slide1, slide2].filter(Boolean);
+    let active = 0;
+    let slideIntervalId = null;
+
+    function rotateSlides(){
+      if(slides.length < 2) return;
+      slides[active].classList.remove("active");
+      active = (active + 1) % slides.length;
+      slides[active].classList.add("active");
+    }
+
+    function stopSlides(){
+      if(slideIntervalId){
+        clearInterval(slideIntervalId);
+        slideIntervalId = null;
+      }
+    }
+
+    function startSlides(){
+      if(prefersReducedMotion || document.hidden || slides.length < 2) return;
+      stopSlides();
+      slideIntervalId = setInterval(rotateSlides, 6500);
+    }
+
+    if(slides[0]) slides[0].classList.add("active");
+    startSlides();
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.hidden) stopSlides();
+      else startSlides();
+    });
+
+    // Stats counter
+    function animateCount(el, to){
+      if(prefersReducedMotion){
+        el.textContent = to;
+        return;
+      }
+
+      const dur = 700, start = performance.now();
+      function tick(now){
+        const t = Math.min(1, (now - start) / dur);
+        const val = Math.floor(to * (t*t*(3-2*t)));
+        el.textContent = val;
+        if(t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const statEls = Array.from(document.querySelectorAll("[data-count]"));
+    function startStats(){
+      statEls.forEach((el)=> animateCount(el, Number(el.dataset.count || 0)));
+    }
+
+    const statsWrap = document.querySelector(".stats");
+    if(!statsWrap || !("IntersectionObserver" in window)){
+      startStats();
+    } else {
+      const io = new IntersectionObserver((entries)=>{
+        if(entries.some((entry)=> entry.isIntersecting)){
+          startStats();
+          io.disconnect();
+        }
+      }, { threshold: 0.35 });
+      io.observe(statsWrap);
+    }
+
+    // Belts
+    const belts = [
+      {
+        key:"white",
+        name:"الحزام الأبيض",
+        nameEn:"White Belt",
+        color:"#f5f5f5",
+        fee:0,
+        duration:"2–4 أسابيع",
+        durationEn:"2-4 weeks",
+        req:["أساسيات الوقفة والحركة","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"],
+        reqEn:["Basic stance and movement","Safety and discipline rules","Introduction to core kicking techniques"]
+      },
+      {
+        key:"yellow",
+        name:"الحزام الأصفر",
+        nameEn:"Yellow Belt",
+        color:"#ffd54a",
+        fee:10,
+        duration:"4–6 أسابيع",
+        durationEn:"4-6 weeks",
+        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تطوير دقة الركلات"],
+        reqEn:["Improve balance and strength","Raise physical fitness","Improve kick accuracy"]
+      },
+      {
+        key:"green",
+        name:"الحزام الأخضر",
+        nameEn:"Green Belt",
+        color:"#26d07c",
+        fee:15,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
+        duration:"6–8 أسابيع",
+        durationEn:"6-8 weeks",
+        req:["سلاسل ركلات متقدمة","ردود فعل أسرع","تمارين مرونة عالية المستوى"],
+        reqEn:["Advanced kick combinations","Faster reactions","High-level flexibility training"]
+      },
+      {
+        key:"blue",
+        name:"الحزام الأزرق",
+        nameEn:"Blue Belt",
+        color:"#3aa0ff",
+        fee:35,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
+        duration:"8–10 أسابيع",
+        durationEn:"8-10 weeks",
+        req:["تكنيك متقدم جداً","تحكم كامل في المسافة والوقت","تحضير أولي للمنازلات"],
+        reqEn:["Highly advanced techniques","Full control of distance and timing","Initial sparring preparation"]
+      },
+      {
+        key:"brown",
+        name:"الحزام البني",
+        nameEn:"Brown Belt",
+        color:"#8b5a2b",
+        fee:40,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
+        duration:"12–16 أسبوع",
+        durationEn:"12-16 weeks",
+        req:["تكتيك قتالي متقدم تحت الضغط","ثبات ذهني وانضباط أعلى","جاهزية شاملة لاختبار الحزام الأسود"],
+        reqEn:["Advanced combat tactics under pressure","Stronger mental stability and discipline","Complete readiness for black belt testing"]
+      },
+      {
+        key:"red",
+        name:"الحزام الأحمر",
+        nameEn:"Red Belt",
+        color:"#ff3b3b",
+        fee:50,
+        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesEn:["Grade 1", "Grade 2"],
+        duration:"10–14 أسبوع",
+        durationEn:"10-14 weeks",
+        req:["خطط لعب متخصصة","قوة تحمل عالية جداً","مستوى منافسات عالي"],
+        reqEn:["Specialized match strategies","Very high endurance","Advanced competition-level performance"]
+      },
+      {
+        key:"black",
+        name:"الحزام الأسود",
+        nameEn:"Black Belt",
+        color:"#111111",
+        fee:180,
+        issuerAr:"من الاتحاد الأردني للتايكواندو",
+        issuerEn:"Issued by the Jordan Taekwondo Federation",
+        duration:"حسب الالتزام والتفرغ",
+        durationEn:"Depends on commitment and consistency",
+        req:["اختبار شامل: تكنيك + قتال + لياقة","انضباط ومسؤولية عالية جداً","استمرارية وتطوير مستمر مدى الحياة"],
+        reqEn:["Comprehensive exam: technique + sparring + fitness","Very high discipline and responsibility","Lifelong consistency and development"]
+      }
+    ];
+
+    const beltList = document.getElementById("beltList");
+    const beltDetails = document.getElementById("beltDetails");
+    let activeBeltKey = "white";
+
+    function getBeltName(item){
+      return currentLang === "en" ? (item.nameEn || item.name) : item.name;
+    }
+
+    function getBeltDuration(item){
+      return currentLang === "en" ? (item.durationEn || item.duration) : item.duration;
+    }
+
+    function getBeltRequirements(item){
+      return currentLang === "en" ? (item.reqEn || item.req) : item.req;
+    }
+
+    function getBeltFeeLabel(item){
+      const fee = Number(item && item.fee);
+      if(!Number.isFinite(fee) || fee <= 0){
+        return currentLang === "en" ? "No fee" : "بدون رسوم";
+      }
+      return currentLang === "en" ? `${fee} JOD` : `${fee} دينار`;
+    }
+
+    function getBeltSubGrades(item){
+      if(!item) return [];
+      const list = currentLang === "en"
+        ? item.subGradesEn
+        : item.subGradesAr;
+      return Array.isArray(list) ? list : [];
+    }
+
+    function getBeltIssuer(item){
+      if(!item) return "";
+      return currentLang === "en"
+        ? (item.issuerEn || "")
+        : (item.issuerAr || "");
+    }
+
+    function renderDetails(b){
+      if(!beltDetails) return;
+      const durationLabel = currentLang === "en" ? "Duration" : "المدة";
+      const feeLabel = currentLang === "en" ? "Belt fee" : "رسوم الحزام";
+      const issuerLabel = currentLang === "en" ? "Certification" : "الاعتماد";
+      const gradesLabel = currentLang === "en" ? "Sub-grades" : "درجات الحزام";
+      const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
+      const requirements = getBeltRequirements(b);
+      const subGrades = getBeltSubGrades(b);
+      const issuer = getBeltIssuer(b);
+      beltDetails.innerHTML = `
+        <div class="details-top">
+          <h3 class="details-title">${getBeltName(b)}</h3>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="badge">${durationLabel}: ${getBeltDuration(b)}</span>
+            <span class="badge">${feeLabel}: ${getBeltFeeLabel(b)}</span>
+          </div>
+        </div>
+        <div class="details-body">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <span class="swatch" style="background:${b.color}"></span>
+            <b>${requirementsLabel}:</b>
+          </div>
+          ${subGrades.length ? `
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+              <b>${gradesLabel}:</b>
+              ${subGrades.map((grade)=>`<span class="badge" style="margin-top:0;">${grade}</span>`).join("")}
+            </div>
+          ` : ""}
+          <ul>${requirements.map((x)=>`<li>${x}</li>`).join("")}</ul>
+          ${issuer ? `<p style="margin:10px 0 0; color:var(--muted); font-weight:900;">${issuerLabel}: ${issuer}</p>` : ""}
+        </div>
+      `;
+    }
+
+    function setActive(key){
+      activeBeltKey = key;
+      document.querySelectorAll(".belt").forEach(x=>x.classList.remove("active"));
+      const btn = document.querySelector(`.belt[data-key="${key}"]`);
+      if(btn) btn.classList.add("active");
+      renderDetails(belts.find(x=>x.key===key) || belts[0]);
+    }
+
+    function renderBeltsList(){
+      if(!beltList){
+        renderDetails(belts.find((item)=> item.key === activeBeltKey) || belts[0]);
+        return;
+      }
+
+      beltList.innerHTML = "";
+      const beltFragment = document.createDocumentFragment();
+      belts.forEach((b)=>{
+        const subGrades = getBeltSubGrades(b);
+        const subGradesSummary = subGrades.length ? ` • ${subGrades.join(" / ")}` : "";
+        const el = document.createElement("div");
+        el.className = "belt";
+        el.setAttribute("data-key", b.key);
+        el.innerHTML = `
+          <div class="left">
+            <span class="swatch" style="background:${b.color}"></span>
+            <span>${getBeltName(b)}</span>
+          </div>
+          <small>${getBeltDuration(b)} • ${getBeltFeeLabel(b)}${subGradesSummary}</small>
+        `;
+        el.addEventListener("click", ()=> setActive(b.key));
+        beltFragment.appendChild(el);
+      });
+      beltList.appendChild(beltFragment);
+      setActive(activeBeltKey);
+      refreshDesignEnhancements();
+    }
+    renderBeltsList();
+
+    // Smart price calculator
+    const CALC_BASE_PER_STUDENT = 30;
+    const CALC_DELIVERY_FEE = 15;
+    const CALC_SIBLING_DISCOUNT = 3;
+    const CALC_MIN_SIBLINGS = 2;
+    const CALC_MAX_STUDENTS = 20;
+    const calcPlanType = document.getElementById("calcPlanType");
+    const calcStudents = document.getElementById("calcStudents");
+    const calcDelivery = document.getElementById("calcDelivery");
+    const calcBreakdownBase = document.getElementById("calcBreakdownBase");
+    const calcBreakdownDiscount = document.getElementById("calcBreakdownDiscount");
+    const calcBreakdownDelivery = document.getElementById("calcBreakdownDelivery");
+    const calcFinalTotal = document.getElementById("calcFinalTotal");
+    const calcWhatsQuote = document.getElementById("calcWhatsQuote");
+    let latestQuote = { students: 1, total: 0, base: 0, discount: 0, delivery: 0, planType: "single" };
+
+    function updatePriceCalculator(){
+      if(!calcPlanType || !calcStudents || !calcDelivery) return;
+
+      let students = Math.max(1, Number(calcStudents.value || 1));
+      const planType = calcPlanType.value === "siblings" ? "siblings" : "single";
+      const hasDelivery = calcDelivery.checked;
+
+      if(planType === "single"){
+        students = 1;
+        calcStudents.value = "1";
+        calcStudents.min = "1";
+        calcStudents.max = "1";
+        calcStudents.disabled = true;
+      } else {
+        calcStudents.min = String(CALC_MIN_SIBLINGS);
+        calcStudents.max = String(CALC_MAX_STUDENTS);
+        students = Math.max(CALC_MIN_SIBLINGS, Math.min(CALC_MAX_STUDENTS, students));
+        calcStudents.value = String(students);
+        calcStudents.disabled = false;
+      }
+
+      const base = students * CALC_BASE_PER_STUDENT;
+      const discount = planType === "siblings" ? (students - 1) * CALC_SIBLING_DISCOUNT : 0;
+      const delivery = hasDelivery ? CALC_DELIVERY_FEE : 0;
+      const total = base - discount + delivery;
+
+      latestQuote = { students, total, base, discount, delivery, planType };
+
+      if(calcBreakdownBase) calcBreakdownBase.textContent = `${base} JD`;
+      if(calcBreakdownDiscount) calcBreakdownDiscount.textContent = `-${discount} JD`;
+      if(calcBreakdownDelivery) calcBreakdownDelivery.textContent = `${delivery} JD`;
+      if(calcFinalTotal) calcFinalTotal.textContent = `${total} JD`;
+    }
+
+    [calcPlanType, calcStudents, calcDelivery].forEach((el)=>{
+      if(!el) return;
+      el.addEventListener("input", updatePriceCalculator);
+      el.addEventListener("change", updatePriceCalculator);
+    });
+    updatePriceCalculator();
+
+    if(calcWhatsQuote){
+      calcWhatsQuote.addEventListener("click", (event)=>{
+        event.preventDefault();
+        trackInteraction("whatsapp_quote_click", {
+          source: "calcWhatsQuote",
+          planType: latestQuote.planType,
+          students: latestQuote.students
+        });
+        const quoteType = latestQuote.planType === "siblings"
+          ? (currentLang === "en" ? "siblings" : "إخوة")
+          : (currentLang === "en" ? "single student" : "طالب واحد");
+        const quoteMessage = currentLang === "en"
+          ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
+          : `السلام عليكم، بدي تسعيرة اشتراك.\nنوع الاشتراك: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالمجموع الأساسي: ${latestQuote.base} دينار\nخصم الإخوة: ${latestQuote.discount} دينار\nالتوصيل: ${latestQuote.delivery} دينار\nالسعر النهائي: ${latestQuote.total} دينار.`;
+        openExternal(waLink(quoteMessage));
+      });
+    }
+
+    // Belt progress tracker
+    const beltNamesEn = {
+      white: "White Belt",
+      yellow: "Yellow Belt",
+      green: "Green Belt",
+      blue: "Blue Belt",
+      red: "Red Belt",
+      brown: "Brown Belt",
+      black: "Black Belt"
+    };
+    const studentProgressData = [
+      {
+        code: "MT-1024",
+        phone: "0779000000",
+        belt: "yellow",
+        progress: 64,
+        goalsAr: ["تثبيت الركلات الأساسية بدقة", "تحسين اللياقة والتحمل", "تحكم أفضل في التوازن"],
+        goalsEn: ["Stabilize core kick techniques", "Improve stamina and fitness", "Build stronger balance control"],
+        nextExamDate: "2026-03-20"
+      },
+      {
+        code: "MT-1091",
+        phone: "0779554433",
+        belt: "green",
+        progress: 82,
+        goalsAr: ["رفع سرعة رد الفعل", "إتقان سلاسل الركلات", "جاهزية نفسية للاختبار"],
+        goalsEn: ["Increase reaction speed", "Master kick combinations", "Build mental readiness for exam"],
+        nextExamDate: "2026-04-03"
+      },
+      {
+        code: "MT-1107",
+        phone: "0780011223",
+        belt: "blue",
+        progress: 51,
+        goalsAr: ["تحكم المسافة والوقت", "تحسين قرارات القتال", "تطوير القوة الانفجارية"],
+        goalsEn: ["Control distance and timing", "Improve sparring decisions", "Develop explosive power"],
+        nextExamDate: "2026-04-25"
+      }
+    ];
+
+    const trackerInput = document.getElementById("trackerInput");
+    const trackerBtn = document.getElementById("trackerBtn");
+    const trackerEmpty = document.getElementById("trackerEmpty");
+    const trackerResult = document.getElementById("trackerResult");
+    const trackerStudentCode = document.getElementById("trackerStudentCode");
+    const trackerCurrentBelt = document.getElementById("trackerCurrentBelt");
+    const trackerNextBelt = document.getElementById("trackerNextBelt");
+    const trackerProgressBar = document.getElementById("trackerProgressBar");
+    const trackerProgressText = document.getElementById("trackerProgressText");
+    const trackerGoals = document.getElementById("trackerGoals");
+    const trackerExamDate = document.getElementById("trackerExamDate");
+    let activeTrackedStudent = null;
+
+    function normalizeDigits(value){
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function findStudentProgress(query){
+      const term = String(query || "").trim();
+      if(!term) return null;
+
+      const normalizedPhone = normalizeDigits(term);
+      const normalizedCode = term.toUpperCase();
+
+      return studentProgressData.find((record)=>{
+        const phone = normalizeDigits(record.phone);
+        const code = record.code.toUpperCase();
+        const phoneMatch = normalizedPhone && (phone === normalizedPhone || phone.endsWith(normalizedPhone));
+        return code === normalizedCode || phoneMatch;
+      }) || null;
+    }
+
+    function getNextBeltKey(currentKey){
+      const currentIndex = belts.findIndex((item)=> item.key === currentKey);
+      if(currentIndex < 0 || currentIndex >= belts.length - 1) return null;
+      return belts[currentIndex + 1].key;
+    }
+
+    function getBeltLabel(key){
+      if(currentLang === "en") return beltNamesEn[key] || key;
+      const belt = belts.find((item)=> item.key === key);
+      return belt ? belt.name : key;
+    }
+
+    function formatExamDate(isoDate){
+      if(!isoDate) return "—";
+      const parsed = new Date(isoDate);
+      if(Number.isNaN(parsed.getTime())) return isoDate;
+      return parsed.toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+    }
+
+    function updateTrackerContent(){
+      if(!trackerEmpty || !trackerResult) return;
+
+      if(!activeTrackedStudent){
+        trackerResult.style.display = "none";
+        trackerEmpty.style.display = "block";
+        trackerEmpty.textContent = i18n[currentLang].text.trackerEmpty;
+        return;
+      }
+
+      const nextBeltKey = getNextBeltKey(activeTrackedStudent.belt);
+      const goals = currentLang === "en" ? activeTrackedStudent.goalsEn : activeTrackedStudent.goalsAr;
+
+      trackerResult.style.display = "block";
+      trackerEmpty.style.display = "none";
+      trackerStudentCode.textContent = activeTrackedStudent.code;
+      trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
+      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم الوصول للحزام الأسود");
+      trackerProgressBar.style.width = `${Math.max(0, Math.min(100, activeTrackedStudent.progress))}%`;
+      trackerProgressText.textContent = currentLang === "en"
+        ? `${activeTrackedStudent.progress}% completed before the next belt test.`
+        : `${activeTrackedStudent.progress}% مكتمل قبل اختبار الحزام القادم.`;
+      trackerGoals.innerHTML = "";
+      goals.forEach((goal)=>{
+        const item = document.createElement("li");
+        item.textContent = cleanInputText(goal, 140);
+        trackerGoals.appendChild(item);
+      });
+      trackerExamDate.textContent = currentLang === "en"
+        ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
+        : `موعد الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
+    }
+
+    function searchTracker(){
+      if(!trackerInput) return;
+      const found = findStudentProgress(trackerInput.value);
+      if(!found){
+        activeTrackedStudent = null;
+        if(trackerEmpty){
+          trackerEmpty.style.display = "block";
+          trackerEmpty.textContent = currentLang === "en"
+            ? "No student found with this phone/code. Please check and try again."
+            : "لم يتم العثور على طالب بهذا الرقم/الكود. تأكد من البيانات وحاول مرة أخرى.";
+        }
+        if(trackerResult) trackerResult.style.display = "none";
+        return;
+      }
+
+      activeTrackedStudent = found;
+      updateTrackerContent();
+    }
+
+    if(trackerBtn){
+      trackerBtn.addEventListener("click", searchTracker);
+    }
+    if(trackerInput){
+      trackerInput.addEventListener("keydown", (event)=>{
+        if(event.key === "Enter"){
+          event.preventDefault();
+          searchTracker();
+        }
+      });
+    }
+
+    // Parent reviews with filters + auto publish
+    const FALLBACK_PARENT_REVIEWS_DATA = [
+      {
+        age: 8,
+        level: "beginner",
+        programAr: "أطفال",
+        programEn: "Kids",
+        commentAr: "ابني صار أكثر انضباطًا وثقة من أول شهر. المتابعة ممتازة والتوصيل مريح جدًا.",
+        commentEn: "My son became more disciplined and confident from the first month. Great follow-up and very convenient delivery."
+      },
+      {
+        age: 11,
+        level: "intermediate",
+        programAr: "شباب",
+        programEn: "Youth",
+        commentAr: "التمارين قوية ومنظمة. واضح جدًا الفرق في اللياقة والتركيز الدراسي.",
+        commentEn: "Training is strong and well structured. We clearly noticed better fitness and focus at school."
+      },
+      {
+        age: 14,
+        level: "advanced",
+        programAr: "إناث",
+        programEn: "Female",
+        commentAr: "بيئة البنات محترمة وآمنة، والمدربة متابعة لكل التفاصيل.",
+        commentEn: "The girls-only environment is respectful and safe, and the coach follows every detail."
+      },
+      {
+        age: 9,
+        level: "beginner",
+        programAr: "أطفال",
+        programEn: "Kids",
+        commentAr: "كنا متخوفين بالبداية، لكن طريقة التعامل مع الأطفال ممتازة جدًا.",
+        commentEn: "We were worried at first, but the way they handle children is excellent."
+      },
+      {
+        age: 12,
+        level: "intermediate",
+        programAr: "منافسات",
+        programEn: "Competition",
+        commentAr: "الخطة واضحة خطوة بخطوة، وابني أصبح جاهزًا للمشاركة بالبطولات.",
+        commentEn: "The plan is clear step by step, and my son is now ready for competitions."
+      },
+      {
+        age: 15,
+        level: "advanced",
+        programAr: "شباب",
+        programEn: "Youth",
+        commentAr: "نتائج قوية جدًا خلال فترة قصيرة، وأكثر شيء عجبني الانضباط العالي.",
+        commentEn: "Very strong results in a short period. What impressed me most is the high discipline."
+      }
+    ];
+    let parentReviewsData = [...FALLBACK_PARENT_REVIEWS_DATA];
+    const REVIEW_REFRESH_INTERVAL_MS = 45000;
+    let reviewsRefreshTimer = null;
+
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewStudentAgeInput = document.getElementById("reviewStudentAge");
+    const reviewLevelInput = document.getElementById("reviewLevelInput");
+    const reviewProgramSelect = document.getElementById("reviewProgramSelect");
+    const reviewCommentInput = document.getElementById("reviewComment");
+    const reviewSubmitBtn = document.getElementById("reviewSubmitBtn");
+    const reviewFormStatus = document.getElementById("reviewFormStatus");
+    const reviewAgeFilter = document.getElementById("reviewAgeFilter");
+    const reviewLevelFilter = document.getElementById("reviewLevelFilter");
+    const reviewsList = document.getElementById("reviewsList");
+    const REVIEW_LEVELS = new Set(["beginner", "intermediate", "advanced"]);
+
+    function setReviewFormStatus(messageKey, type){
+      if(!reviewFormStatus) return;
+      const message = i18n[currentLang] && i18n[currentLang].text
+        ? i18n[currentLang].text[messageKey]
+        : "";
+      if(!message){
+        reviewFormStatus.classList.remove("show", "success", "error");
+        reviewFormStatus.textContent = "";
+        return;
+      }
+
+      reviewFormStatus.textContent = message;
+      reviewFormStatus.classList.add("show");
+      reviewFormStatus.classList.toggle("success", type === "success");
+      reviewFormStatus.classList.toggle("error", type === "error");
+    }
+
+    function normalizeReviewEntry(item){
+      if(!item || typeof item !== "object") return null;
+      const age = Math.round(Number(item.age));
+      const level = cleanInputText(item.level, 24).toLowerCase();
+      const programAr = cleanInputText(item.programAr, 60);
+      const programEn = cleanInputText(item.programEn, 60);
+      const commentAr = cleanInputText(item.commentAr || item.comment, 450);
+      const commentEn = cleanInputText(item.commentEn || item.comment || commentAr, 450);
+      const createdAtRaw = cleanInputText(item.createdAt, 40);
+      const createdAt = Number.isNaN(Date.parse(createdAtRaw))
+        ? ""
+        : new Date(createdAtRaw).toISOString();
+
+      if(!Number.isFinite(age) || age < 6 || age > 40) return null;
+      if(!REVIEW_LEVELS.has(level)) return null;
+      if(!programAr || !programEn) return null;
+      if(!commentAr && !commentEn) return null;
+
+      return {
+        age,
+        level,
+        programAr,
+        programEn,
+        commentAr: commentAr || commentEn,
+        commentEn: commentEn || commentAr,
+        createdAt
+      };
+    }
+
+    function getReviewFingerprint(item){
+      return [
+        Number(item.age || 0),
+        cleanInputText(item.level, 24).toLowerCase(),
+        cleanInputText(item.programAr, 60),
+        cleanInputText(item.programEn, 60),
+        cleanInputText(item.commentAr, 450),
+        cleanInputText(item.commentEn, 450)
+      ].join("|");
+    }
+
+    function mergeReviews(primary, secondary){
+      const merged = [];
+      const seen = new Set();
+      [primary, secondary].forEach((collection)=>{
+        if(!Array.isArray(collection)) return;
+        collection.forEach((entry)=>{
+          const normalized = normalizeReviewEntry(entry);
+          if(!normalized) return;
+          const fingerprint = getReviewFingerprint(normalized);
+          if(seen.has(fingerprint)) return;
+          seen.add(fingerprint);
+          merged.push(normalized);
+        });
+      });
+      merged.sort((a, b)=> new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      return merged.slice(0, 300);
+    }
+
+    function getLevelLabel(level){
+      if(currentLang === "en"){
+        if(level === "beginner") return "Beginner";
+        if(level === "intermediate") return "Intermediate";
+        if(level === "advanced") return "Advanced";
+        return "Unknown";
+      }
+      if(level === "beginner") return "مبتدئ";
+      if(level === "intermediate") return "متوسط";
+      if(level === "advanced") return "متقدم";
+      return "غير محدد";
+    }
+
+    function getAgeGroup(age){
+      const n = Number(age || 0);
+      if(n >= 14) return "14+";
+      if(n >= 10) return "10-13";
+      return "6-9";
+    }
+
+    function renderParentReviews(){
+      if(!reviewsList) return;
+      const selectedAge = reviewAgeFilter ? reviewAgeFilter.value : "all";
+      const selectedLevel = reviewLevelFilter ? reviewLevelFilter.value : "all";
+
+      const filtered = parentReviewsData.filter((item)=>{
+        const ageMatch = selectedAge === "all" || getAgeGroup(item.age) === selectedAge;
+        const levelMatch = selectedLevel === "all" || item.level === selectedLevel;
+        return ageMatch && levelMatch;
+      });
+
+      if(!filtered.length){
+        reviewsList.innerHTML = `
+          <div class="review-empty">
+            ${currentLang === "en" ? "No reviews match this filter yet." : "لا توجد آراء مطابقة للفلاتر الحالية."}
+          </div>
+        `;
+        refreshDesignEnhancements();
+        return;
+      }
+
+      const ageLabel = escapeHtml(currentLang === "en" ? "Age" : "العمر");
+      const levelLabel = escapeHtml(currentLang === "en" ? "Level" : "المستوى");
+      const programLabel = escapeHtml(currentLang === "en" ? "Program" : "البرنامج");
+
+      reviewsList.innerHTML = filtered.map((item)=>{
+        const safeAge = Number(item.age || 0);
+        const program = escapeHtml(currentLang === "en" ? item.programEn : item.programAr);
+        const level = escapeHtml(getLevelLabel(item.level));
+        const comment = escapeHtml(currentLang === "en"
+          ? (item.commentEn || item.commentAr)
+          : (item.commentAr || item.commentEn));
+        return `
+          <article class="review-card">
+            <div class="review-meta">${ageLabel}: ${safeAge} | ${levelLabel}: ${level} | ${programLabel}: ${program}</div>
+            <p class="review-text">${comment}</p>
+          </article>
+        `;
+      }).join("");
+      refreshDesignEnhancements();
+    }
+
+    async function submitReviewToEndpoint(payload){
+      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
+        return { ok: false, error: "invalid_endpoint" };
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(()=> controller.abort(), 8000);
+      try {
+        const response = await fetch(REVIEWS_SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer",
+          signal: controller.signal
+        });
+        const result = await response.json().catch(()=> null);
+        if(!response.ok){
+          const apiError = cleanInputText(result && result.error ? result.error : "", 80);
+          return { ok: false, error: apiError || `http_${response.status}` };
+        }
+
+        return {
+          ok: true,
+          review: normalizeReviewEntry(result && result.review ? result.review : payload)
+        };
+      } catch(_){
+        return { ok: false, error: "network_error" };
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    async function loadPublishedReviews(){
+      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
+        return false;
+      }
+
+      try {
+        const response = await fetch(`${REVIEWS_SUBMIT_ENDPOINT}?v=${Date.now()}`, {
+          method: "GET",
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer"
+        });
+        if(!response.ok) return false;
+
+        const payload = await response.json();
+        const serverReviews = Array.isArray(payload && payload.reviews)
+          ? payload.reviews.map(normalizeReviewEntry).filter(Boolean)
+          : [];
+
+        parentReviewsData = mergeReviews(serverReviews, FALLBACK_PARENT_REVIEWS_DATA);
+        renderParentReviews();
+        return true;
+      } catch(_){
+        return false;
+      }
+    }
+
+    function startReviewsSync(){
+      if(reviewsRefreshTimer){
+        clearInterval(reviewsRefreshTimer);
+      }
+      reviewsRefreshTimer = setInterval(()=>{
+        if(document.hidden) return;
+        loadPublishedReviews();
+      }, REVIEW_REFRESH_INTERVAL_MS);
+    }
+
+    if(reviewForm){
+      reviewForm.addEventListener("submit", async (event)=>{
+        event.preventDefault();
+        setReviewFormStatus("", "");
+
+        const age = Math.round(Number(reviewStudentAgeInput ? reviewStudentAgeInput.value : NaN));
+        const level = cleanInputText(reviewLevelInput ? reviewLevelInput.value : "", 24).toLowerCase();
+        const option = reviewProgramSelect && reviewProgramSelect.selectedIndex >= 0
+          ? reviewProgramSelect.options[reviewProgramSelect.selectedIndex]
+          : null;
+        const programAr = cleanInputText(option ? (option.getAttribute("data-ar") || option.textContent) : "", 60);
+        const programEn = cleanInputText(option ? (option.getAttribute("data-en") || option.textContent) : "", 60);
+        const comment = cleanInputText(reviewCommentInput ? reviewCommentInput.value : "", 450);
+
+        if(!Number.isFinite(age) || age < 6 || age > 40){
+          setReviewFormStatus("reviewAgeInvalid", "error");
+          return;
+        }
+
+        if(!REVIEW_LEVELS.has(level) || !programAr || !programEn || !comment){
+          setReviewFormStatus("reviewSubmitError", "error");
+          return;
+        }
+
+        const payload = {
+          age,
+          level,
+          programAr,
+          programEn,
+          commentAr: comment,
+          commentEn: comment
+        };
+
+        if(reviewSubmitBtn) reviewSubmitBtn.disabled = true;
+        const submitResult = await submitReviewToEndpoint(payload);
+        if(reviewSubmitBtn) reviewSubmitBtn.disabled = false;
+
+        if(!submitResult || !submitResult.ok || !submitResult.review){
+          const errorCode = submitResult && submitResult.error ? submitResult.error : "";
+          if(errorCode === "reviews_store_not_configured"){
+            setReviewFormStatus("reviewSubmitConfigError", "error");
+          } else if(errorCode === "not_found" || errorCode === "http_404"){
+            setReviewFormStatus("reviewSubmitApiMissingError", "error");
+          } else {
+            setReviewFormStatus("reviewSubmitNetworkError", "error");
+          }
+          return;
+        }
+
+        const savedReview = submitResult.review;
+        parentReviewsData = mergeReviews([savedReview], parentReviewsData);
+        renderParentReviews();
+        setReviewFormStatus("reviewSubmitSuccess", "success");
+        reviewForm.reset();
+      });
+    }
+
+    [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
+      if(!el) return;
+      el.addEventListener("change", renderParentReviews);
+    });
+    renderParentReviews();
+    loadPublishedReviews();
+    startReviewsSync();
+    document.addEventListener("visibilitychange", ()=>{
+      if(!document.hidden){
+        loadPublishedReviews();
+      }
+    });
+
+    // Achievements timeline + auto news feed
+    const FALLBACK_ACHIEVEMENTS_DATA = [
+      {
+        date: "2026-02-15",
+        titleAr: "بطولة البرق للمملكة",
+        titleEn: "Al Barq National Championship",
+        locationAr: "عمّان",
+        locationEn: "Amman",
+        gold: 7,
+        silver: 3,
+        bronze: 2,
+        noteAr: "حققت المركز الخامس على مستوى المملكة، وحقق المركز 7 ميداليات ذهبية و3 فضية و2 برونزية.",
+        noteEn: "I achieved 5th place nationwide, and the center won 7 gold, 3 silver, and 2 bronze medals."
+      },
+      {
+        date: "2026-01-30",
+        titleAr: "بطولة جرش المفتوحة للتايكوندو",
+        titleEn: "Jerash Open Taekwondo Championship",
+        locationAr: "جرش",
+        locationEn: "Jerash",
+        gold: 4,
+        silver: 3,
+        bronze: 5,
+        noteAr: "تأهل 3 لاعبين لمنتخب المحافظة بعد أداء قوي.",
+        noteEn: "Three players qualified to the governorate team after strong performance."
+      },
+      {
+        date: "2025-11-14",
+        titleAr: "بطولة شمال المملكة",
+        titleEn: "North Region Championship",
+        locationAr: "إربد",
+        locationEn: "Irbid",
+        gold: 2,
+        silver: 4,
+        bronze: 3,
+        noteAr: "تحقيق أفضل فريق ناشئين في البطولة.",
+        noteEn: "Awarded best junior team in the tournament."
+      },
+      {
+        date: "2025-08-09",
+        titleAr: "بطولة الأندية الأردنية",
+        titleEn: "Jordan Clubs Championship",
+        locationAr: "عمّان",
+        locationEn: "Amman",
+        gold: 3,
+        silver: 1,
+        bronze: 4,
+        noteAr: "مشاركة قوية لفئة الإناث وتحقيق ميداليات متنوعة.",
+        noteEn: "Strong women-category participation with multiple medals."
+      }
+    ];
+    let achievementsData = [];
+
+    const achievementYear = document.getElementById("achievementYear");
+    const achievementsList = document.getElementById("achievementsList");
+    const newsList = document.getElementById("newsList");
+
+    function normalizeAchievementEntry(item){
+      if(!item || typeof item !== "object") return null;
+      const date = cleanInputText(item.date, 20);
+      const titleAr = cleanInputText(item.titleAr, 120);
+      const titleEn = cleanInputText(item.titleEn, 120);
+      const locationAr = cleanInputText(item.locationAr, 100);
+      const locationEn = cleanInputText(item.locationEn, 100);
+      const noteAr = cleanInputText(item.noteAr, 320);
+      const noteEn = cleanInputText(item.noteEn, 320);
+      if(!date || !titleAr || !titleEn) return null;
+
+      const parseMedal = (value)=>{
+        const n = Number(value);
+        return Number.isFinite(n) && n >= 0 ? Math.round(n) : 0;
+      };
+
+      return {
+        date,
+        titleAr,
+        titleEn,
+        locationAr,
+        locationEn,
+        gold: parseMedal(item.gold),
+        silver: parseMedal(item.silver),
+        bronze: parseMedal(item.bronze),
+        noteAr,
+        noteEn
+      };
+    }
+
+    function buildAchievementsDataset(items){
+      const normalized = Array.isArray(items)
+        ? items.map(normalizeAchievementEntry).filter(Boolean)
+        : [];
+
+      normalized.sort((a, b)=> new Date(b.date) - new Date(a.date));
+      return normalized;
+    }
+
+    async function loadAchievementsData(){
+      let loaded = [];
+      try {
+        const response = await fetch(`${ACHIEVEMENTS_FEED_URL}?v=${Date.now()}`, { cache: "no-store" });
+        if(response.ok){
+          const payload = await response.json();
+          loaded = buildAchievementsDataset(payload);
+        }
+      } catch(_){
+        // Fallback to local data if feed is unavailable.
+      }
+
+      if(!loaded.length){
+        loaded = buildAchievementsDataset(FALLBACK_ACHIEVEMENTS_DATA);
+      }
+
+      achievementsData = loaded;
+      populateAchievementYears();
+      renderAchievements();
+      renderNews();
+    }
+
+    function populateAchievementYears(){
+      if(!achievementYear) return;
+      const previousValue = achievementYear.value || "all";
+      achievementYear.innerHTML = "";
+
+      const allOption = document.createElement("option");
+      allOption.value = "all";
+      allOption.textContent = i18n[currentLang].yearAll;
+      achievementYear.appendChild(allOption);
+
+      const years = Array.from(new Set(achievementsData.map((item)=> new Date(item.date).getFullYear())))
+        .filter((year)=> Number.isFinite(year))
+        .sort((a, b)=> b - a);
+
+      years.forEach((year)=>{
+        const option = document.createElement("option");
+        option.value = String(year);
+        option.textContent = String(year);
+        achievementYear.appendChild(option);
+      });
+
+      const hasPrevious = Array.from(achievementYear.options).some((opt)=> opt.value === previousValue);
+      achievementYear.value = hasPrevious ? previousValue : "all";
+    }
+
+    function renderAchievements(){
+      if(!achievementsList || !achievementYear) return;
+      const selectedYear = achievementYear.value;
+      const filtered = achievementsData.filter((item)=>{
+        if(selectedYear === "all") return true;
+        return String(new Date(item.date).getFullYear()) === selectedYear;
+      });
+
+      if(!filtered.length){
+        achievementsList.innerHTML = `
+          <div class="achievement-card">
+            <b>${currentLang === "en" ? "No results for this year yet." : "لا توجد نتائج مسجلة لهذه السنة بعد."}</b>
+          </div>
+        `;
+        refreshDesignEnhancements();
+        return;
+      }
+
+      achievementsList.innerHTML = filtered.map((item)=>{
+        const dateLabel = escapeHtml(new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }));
+        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
+        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
+        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
+        const gold = escapeHtml(currentLang === "en" ? "Gold" : "ذهب");
+        const silver = escapeHtml(currentLang === "en" ? "Silver" : "فضة");
+        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "برونز");
+        const safeGoldCount = Number(item.gold || 0);
+        const safeSilverCount = Number(item.silver || 0);
+        const safeBronzeCount = Number(item.bronze || 0);
+        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+
+        return `
+          <article class="achievement-card">
+            <span class="achievement-date">${dateLabel}</span>
+            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
+            <p style="margin:0; color:var(--muted); font-weight:900;">${locationLabel}: ${location}</p>
+            <div class="medals">
+              <span class="medal">🥇 ${gold}: ${safeGoldCount}</span>
+              <span class="medal">🥈 ${silver}: ${safeSilverCount}</span>
+              <span class="medal">🥉 ${bronze}: ${safeBronzeCount}</span>
+            </div>
+            <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.8;">${note}</p>
+          </article>
+        `;
+      }).join("");
+      refreshDesignEnhancements();
+    }
+
+    function renderNews(){
+      if(!newsList) return;
+      if(!achievementsData.length){
+        newsList.innerHTML = `
+          <article class="news-card">
+            <b>${i18n[currentLang].text.newsEmpty}</b>
+          </article>
+        `;
+        refreshDesignEnhancements();
+        return;
+      }
+
+      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "إجمالي الميداليات");
+      const chipLabel = escapeHtml(i18n[currentLang].text.newsChip);
+      const latestNews = achievementsData.slice(0, 6);
+
+      newsList.innerHTML = latestNews.map((item)=>{
+        const dateLabel = escapeHtml(new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        }));
+        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
+        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
+        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
+        const totalMedals = Number(item.gold || 0) + Number(item.silver || 0) + Number(item.bronze || 0);
+
+        return `
+          <article class="news-card">
+            <span class="news-chip">📰 ${chipLabel}</span>
+            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
+            <div class="news-meta">${dateLabel}</div>
+            <div class="news-meta">${locationLabel}: ${location}</div>
+            <div class="news-meta">${medalsLabel}: ${totalMedals}</div>
+            <p style="margin:0; color:var(--muted); line-height:1.8; font-weight:800;">${note}</p>
+          </article>
+        `;
+      }).join("");
+      refreshDesignEnhancements();
+    }
+
+    if(achievementYear){
+      achievementYear.addEventListener("change", renderAchievements);
+    }
+    loadAchievementsData().finally(()=>{
+      uiReady = true;
+      applyLanguage(currentLang);
+    });
+
+    // FAQ
+    const faqData = [
+      {
+        qAr: "هل يجب أن يكون عند الطالب خبرة سابقة؟",
+        aAr: "لا! نبدأ من الصفر. مركزنا مشهور بتأسيس المبتدئين بشكل احترافي.",
+        qEn: "Does a student need prior experience?",
+        aEn: "No. We start from zero and build strong fundamentals in a structured way."
+      },
+      {
+        qAr: "كم عمر أصغر طالب يمكنه الالتحاق؟",
+        aAr: "من 6 سنوات وما فوق. الأطفال الأصغر يستفيدون اكثر من الانضباط واللياقة.",
+        qEn: "What is the minimum joining age?",
+        aEn: "From age 6 and above. Younger students benefit strongly from discipline and movement skills."
+      },
+      {
+        qAr: "هل يوجد تدريب مخصص للإناث؟",
+        aAr: "نعم، يوجد فئة إناث مستقلة مع مدرّبة إناث وبيئة تدريب مناسبة.",
+        qEn: "Do you offer women-only training?",
+        aEn: "Yes. We provide dedicated women classes supervised by a female coach."
+      },
+      {
+        qAr: "كم سعر التوصيل؟",
+        aAr: "التوصيل 15 دينار شهري فقط. والسعر الإجمالي 45 دينار: رسوم تدريب 15 + بدلة 15 + توصيل 15.",
+        qEn: "How much is transport?",
+        aEn: "Transport is 15 JOD/month. Total monthly package is 45 JOD: training + uniform + transport."
+      },
+      {
+        qAr: "كم مرة في الأسبوع يتدرب الطالب؟",
+        aAr: "حسب اختيار الطالب والعائلة. عادة 2-3 مرات مع إمكانية إضافة حصص.",
+        qEn: "How many sessions per week?",
+        aEn: "It depends on family preference. Usually 2 to 3 sessions, with optional extra classes."
+      },
+      {
+        qAr: "متى يمكن الانتقال لحزام أعلى؟",
+        aAr: "حسب التقدم والانضباط والمهارة. الكابتن يقيم كل طالب بشكل فردي.",
+        qEn: "When can a student move to the next belt?",
+        aEn: "Based on progress, discipline, and skill. Every student is evaluated individually."
+      },
+      {
+        qAr: "هل يمكن الانسحاب في أي وقت؟",
+        aAr: "نعم، بدون عقوبات أو رسوم. لكننا متأكدون ستستمتع المسيرة معنا!",
+        qEn: "Can we cancel at any time?",
+        aEn: "Yes, without penalties or extra fees."
+      }
+    ];
+
+    const faqList = document.getElementById("faqList");
+    function renderFaq(){
+      if(!faqList) return;
+      faqList.innerHTML = "";
+      faqData.forEach((item, idx)=>{
+        const question = escapeHtml(currentLang === "en" ? item.qEn : item.qAr);
+        const answer = escapeHtml(currentLang === "en" ? item.aEn : item.aAr);
+        const el = document.createElement("div");
+        el.className = "faq-item";
+        if(idx === 0) el.classList.add("active");
+        el.innerHTML = `
+          <div class="faq-question">
+            <span>${question}</span>
+            <div class="faq-toggle">▼</div>
+          </div>
+          <div class="faq-answer">${answer}</div>
+        `;
+        el.querySelector(".faq-question").addEventListener("click", ()=>{
+          el.classList.toggle("active");
+        });
+        faqList.appendChild(el);
+      });
+      refreshDesignEnhancements();
+    }
+    renderFaq();
+
+    // Subscribe form
+    const form = document.getElementById("bookingForm");
+    const okMsg = document.getElementById("okMsg");
+    const errMsg = document.getElementById("errMsg");
+    const FORM_SUBMIT_COOLDOWN_MS = 8000;
+    let lastBookingSubmitAt = 0;
+    const PAYMENT_METHOD_LABELS = {
+      cash: { ar: "نقداً في المركز", en: "Cash at the center" },
+      cliq: { ar: "كليك (CliQ)", en: "CliQ transfer" },
+      bank: { ar: "تحويل بنكي", en: "Bank transfer" },
+      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" },
+      crypto: { ar: "دفع مشفّر (USDT)", en: "Crypto payment (USDT)" }
+    };
+
+    function getPaymentMethodLabel(value, lang = "ar"){
+      const method = PAYMENT_METHOD_LABELS[value] || PAYMENT_METHOD_LABELS.cash;
+      return lang === "en" ? method.en : method.ar;
+    }
+
+    function showBookingErrorFromKey(messageKey){
+      if(!errMsg) return;
+      const fallback = i18n[currentLang] && i18n[currentLang].text ? i18n[currentLang].text.errMsg : "";
+      const message = i18n[currentLang] && i18n[currentLang].text ? i18n[currentLang].text[messageKey] : "";
+      errMsg.textContent = message || fallback || errMsg.textContent;
+      errMsg.style.display = "block";
+    }
+
+    async function postLeadToSecureEndpoint(payload){
+      if(typeof LEAD_SUBMIT_ENDPOINT !== "string" || !LEAD_SUBMIT_ENDPOINT.startsWith("/")){
+        return false;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(()=> controller.abort(), 8000);
+      try {
+        const response = await fetch(LEAD_SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer",
+          signal: controller.signal
+        });
+        return response.ok;
+      } catch(_){
+        return false;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    if(paymentMethodSelect){
+      paymentMethodSelect.addEventListener("change", updatePaymentMethodDetails);
+    }
+
+    if(copyBankIbanBtn){
+      copyBankIbanBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(bankIbanValueEl ? bankIbanValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    if(copyWalletNumberBtn){
+      copyWalletNumberBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(walletNumberValueEl ? walletNumberValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    if(copyCryptoAddressBtn){
+      copyCryptoAddressBtn.addEventListener("click", async ()=>{
+        const copied = await copyTextToClipboard(cryptoAddressValueEl ? cryptoAddressValueEl.textContent : "");
+        showPaymentCopyStatus(copied ? "paymentCopySuccess" : "paymentCopyError", !copied);
+      });
+    }
+
+    updatePaymentMethodDetails();
+
+    // Remove any legacy locally saved requests from older versions.
+    try {
+      localStorage.removeItem("maher_tkd_subscriptions");
+    } catch(_){
+      // Ignore storage restrictions in private mode.
+    }
+
+    if(form){
+      form.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      okMsg.style.display = "none";
+      errMsg.style.display = "none";
+      if(errMsg && i18n[currentLang] && i18n[currentLang].text){
+        errMsg.textContent = i18n[currentLang].text.errMsg;
+      }
+
+      const name = cleanInputText(document.getElementById("name").value, 80);
+      const rawPhone = cleanInputText(document.getElementById("phone").value, 30);
+      const phone = rawPhone.replace(/[^\d+]/g, "").slice(0, 16);
+      const age = cleanInputText(document.getElementById("age").value, 20);
+      const programSelect = document.getElementById("program");
+      const program = programSelect ? programSelect.value : "";
+      const programLabelText = programSelect && programSelect.selectedIndex >= 0
+        ? cleanInputText(programSelect.options[programSelect.selectedIndex].textContent, 80)
+        : "";
+      const timeSelect = document.getElementById("time");
+      const time = timeSelect ? timeSelect.value : "";
+      const timeLabelText = timeSelect && timeSelect.selectedIndex >= 0
+        ? cleanInputText(timeSelect.options[timeSelect.selectedIndex].textContent, 60)
+        : "";
+      const paymentMethodEl = document.getElementById("paymentMethod");
+      const paymentMethod = paymentMethodEl ? paymentMethodEl.value : "cash";
+      const msg = cleanInputText(document.getElementById("msg").value, 500);
+      const websiteTrap = cleanInputText(document.getElementById("website") ? document.getElementById("website").value : "", 120);
+      const paymentMethodLabel = getPaymentMethodLabel(paymentMethod, currentLang);
+      const paymentMethodAr = getPaymentMethodLabel(paymentMethod, "ar");
+      const isValidPhone = /^\+?\d{8,15}$/.test(phone);
+      const formFillDuration = Date.now() - bookingFormOpenedAt;
+
+      if(!name || !phone || !program || !isValidPhone){
+        trackInteraction("form_submit_invalid", {
+          source: "bookingForm",
+          hasName: Boolean(name),
+          hasPhone: Boolean(phone),
+          hasProgram: Boolean(program),
+          isValidPhone
+        });
+        showBookingErrorFromKey("errMsg");
+        return;
+      }
+
+      if(websiteTrap){
+        trackInteraction("bot_trap_triggered", { source: "bookingForm" });
+        showBookingErrorFromKey("bookingSecurityError");
+        return;
+      }
+
+      if(formFillDuration < BOOKING_MIN_FILL_MS){
+        trackInteraction("form_submit_too_fast", { source: "bookingForm", ms: formFillDuration });
+        showBookingErrorFromKey("bookingTooFastError");
+        return;
+      }
+
+      if(!turnstileToken){
+        trackInteraction("turnstile_missing", { source: "bookingForm" });
+        showBookingErrorFromKey("turnstileRequiredError");
+        return;
+      }
+
+      const now = Date.now();
+      if(now - lastBookingSubmitAt < FORM_SUBMIT_COOLDOWN_MS){
+        trackInteraction("form_submit_throttled", { source: "bookingForm" });
+        showBookingErrorFromKey("errMsg");
+        return;
+      }
+      lastBookingSubmitAt = now;
+
+      trackInteraction("form_submit", {
+        source: "bookingForm",
+        program: program,
+        time: time,
+        paymentMethod
+      });
+
+      const userAgent = cleanInputText(navigator.userAgent || "", 260);
+      const secureLeadPayload = {
+        name,
+        phone,
+        age: age || "",
+        program: programLabelText || program,
+        preferredTime: timeLabelText || time,
+        paymentMethod: paymentMethodAr,
+        message: msg || "",
+        lang: currentLang,
+        turnstileToken,
+        userAgent
+      };
+      const secureLeadOk = await postLeadToSecureEndpoint(secureLeadPayload);
+      if(!secureLeadOk){
+        trackInteraction("secure_endpoint_failed", { source: "bookingForm" });
+        showBookingErrorFromKey("bookingSecurityError");
+        resetTurnstile();
+        return;
+      }
+
+      const waMessage = currentLang === "en"
+        ? `Hi,
+I want to register at Al Maher Taekwondo Center - Jerash.
+
+Name: ${name}
+Phone: ${phone}
+Age: ${age || "—"}
+Program: ${programLabelText || program}
+Preferred contact time: ${timeLabelText || time}
+Payment method: ${paymentMethodLabel}
+Note: ${msg || "—"}
+
+Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
+        : `السلام عليكم،
+بدي اشتراك في مركز الماهر للتايكوندو - جرش.
+
+الاسم: ${name}
+الهاتف: ${phone}
+العمر: ${age || "—"}
+البرنامج: ${programLabelText || program}
+الوقت المفضل: ${timeLabelText || time}
+طريقة الدفع: ${paymentMethodAr}
+ملاحظة: ${msg || "—"}
+
+السعر الشهري: 45 دينار (الكل مشمول: بدلة + توصيل + تدريب)`;
+
+      trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
+      openExternal(waLink(waMessage));
+
+      okMsg.style.display = "block";
+      form.reset();
+      resetTurnstile();
+      });
+    }
+
+    // Floating up button
+    const fabUp = document.getElementById("fabUp");
+    if(fabUp){
+      let scrollTicking = false;
+      const updateFabUp = ()=>{
+        fabUp.style.display = (window.scrollY > 600) ? "grid" : "none";
+      };
+
+      window.addEventListener("scroll", ()=>{
+        if(scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(()=>{
+          updateFabUp();
+          scrollTicking = false;
+        });
+      }, { passive: true });
+
+      updateFabUp();
+      fabUp.addEventListener("click", ()=> window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      }));
+    }
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
+
+
