@@ -1,13 +1,14 @@
-const CACHE_VERSION = "maher-pwa-v5";
+const CACHE_VERSION = "maher-pwa-v6";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./data/achievements.json",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/icon-maskable.png",
+  "./icons/install-icon-180.png",
+  "./icons/install-icon-192.png",
+  "./icons/install-icon-512.png",
+  "./icons/install-icon-maskable.png",
   "./assets/coachimg.jpg"
 ];
 
