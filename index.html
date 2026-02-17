@@ -2257,6 +2257,331 @@
       }
     }
 
+    /* Mobile premium refresh */
+    @media (max-width: 700px){
+      body{
+        background:
+          radial-gradient(120% 72% at 100% -8%, rgba(255,61,129,.2), transparent 60%),
+          radial-gradient(120% 70% at -10% 0%, rgba(0,209,255,.18), transparent 58%),
+          linear-gradient(160deg, #071021 0%, #0c1d3b 52%, #15345f 100%);
+      }
+      body::after{
+        opacity:.1;
+        background-size: 26px 26px, 26px 26px, 18px 18px, 24px 24px;
+      }
+
+      .nav{
+        background: rgba(6,14,30,.95);
+        border-bottom-color: rgba(0,209,255,.3);
+        box-shadow: 0 10px 26px rgba(0,0,0,.36);
+      }
+      .nav-inner{
+        padding:10px 0;
+      }
+      .brand{
+        gap:8px;
+      }
+      .logo{
+        width:36px;
+        height:36px;
+        border-radius:12px;
+      }
+      .brand .t1{
+        font-size:12px;
+      }
+      .brand .t2{
+        font-size:10px;
+      }
+      .nav-cta{
+        gap:6px;
+      }
+      .theme-toggle,
+      .lang-toggle{
+        min-width:38px;
+        width:38px;
+        height:38px;
+        border-radius:11px;
+      }
+
+      header.hero{
+        padding:12px 0 8px;
+      }
+      .hero-grid{
+        gap:10px;
+        padding:4px 0 0;
+      }
+      .panel{
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,.16);
+        background: linear-gradient(160deg, rgba(9,22,45,.9), rgba(9,20,39,.76));
+      }
+      .hero-left{
+        position:relative;
+      }
+      .hero-left::after{
+        content:"";
+        position:absolute;
+        inset:auto -34% -46% -34%;
+        height:180px;
+        background: radial-gradient(ellipse at center, rgba(255,61,129,.24), transparent 62%);
+        pointer-events:none;
+      }
+      h1{
+        margin:6px 0 9px;
+        font-size:clamp(24px, 8vw, 33px);
+        line-height:1.24;
+      }
+      .sub{
+        margin:0 0 12px;
+        font-size:14px;
+        line-height:1.78;
+        color:rgba(236,245,255,.86);
+      }
+      .hero-actions{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .hero-actions .btn:first-child{
+        grid-column:1 / -1;
+      }
+      .hero-actions .btn{
+        min-height:46px;
+        border-radius:13px;
+      }
+      .spotlight{
+        border-color: rgba(0,209,255,.44);
+        padding:11px;
+      }
+      .spotlight-kicker{
+        font-size:11px;
+      }
+      .spotlight-text{
+        font-size:13px;
+      }
+      .spotlight-point{
+        font-size:11px;
+        padding:6px 9px;
+      }
+      .pills{
+        gap:7px;
+      }
+      .pill{
+        justify-content:flex-start;
+        font-size:12px;
+        padding:10px 12px;
+      }
+      .stats{
+        gap:8px;
+      }
+      .stat{
+        border-radius:14px;
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(150deg, rgba(0,209,255,.17), rgba(255,61,129,.14));
+      }
+      .stat .num{
+        font-size:24px;
+        line-height:1;
+      }
+      .stat .lbl{
+        font-size:11px;
+        margin-top:4px;
+      }
+
+      .hero-right{
+        display:grid;
+        gap:8px;
+      }
+      .mini-card{
+        border-radius:14px;
+      }
+      .mini-body{
+        padding:12px;
+      }
+      .mini-title{
+        font-size:15px;
+      }
+      .mini-text{
+        font-size:13px;
+      }
+      .coach{
+        padding:11px;
+      }
+      .coach .n1{
+        font-size:14px;
+      }
+      .coach .n2{
+        font-size:12px;
+        line-height:1.58;
+      }
+      .hero-right > div:last-child{
+        display:grid !important;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px !important;
+        width:100%;
+      }
+
+      section{
+        padding:26px 0;
+      }
+      .sec-head{
+        margin-bottom:12px;
+        border-bottom:none;
+        padding-bottom:0;
+      }
+      .sec-title{
+        font-size:22px;
+      }
+      .sec-title::after{
+        bottom:-6px;
+        height:2px;
+      }
+      .sec-desc{
+        font-size:13px;
+      }
+
+      .card,
+      .details,
+      .review-card,
+      .achievement-card,
+      .news-card,
+      .review-form-card{
+        border-radius:14px;
+        border-color: rgba(255,255,255,.16);
+        background: linear-gradient(165deg, rgba(10,24,47,.86), rgba(8,18,35,.8));
+      }
+      .card{
+        padding:14px;
+      }
+      .card h3{
+        font-size:16px;
+      }
+      .card p{
+        font-size:13px;
+        line-height:1.75;
+      }
+      .why-icon{
+        width:56px;
+        height:56px;
+        font-size:34px;
+      }
+
+      .price-card{
+        border-color: rgba(0,209,255,.4);
+        background: linear-gradient(140deg, rgba(0,209,255,.2), rgba(255,61,129,.18));
+      }
+      .price-title{
+        font-size:17px;
+      }
+      .price-note{
+        font-size:13px;
+        line-height:1.8;
+      }
+      .price-number{
+        font-size:30px;
+      }
+
+      .calc-row{
+        font-size:13px;
+      }
+      .calc-final{
+        font-size:19px;
+      }
+
+      .review-meta,
+      .news-meta,
+      .achievement-date{
+        font-size:12px;
+      }
+      .review-text{
+        font-size:13px;
+      }
+
+      .faq-item{
+        border-radius:14px;
+      }
+      .faq-question{
+        padding:13px 14px;
+        font-size:14px;
+      }
+      .faq-answer{
+        font-size:13px;
+        line-height:1.75;
+      }
+
+      .schedule-table tr{
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(160deg, rgba(0,209,255,.12), rgba(255,61,129,.1));
+      }
+      .schedule-table td{
+        font-size:12px;
+      }
+      .schedule-table td::before{
+        font-size:11px;
+      }
+
+      input,
+      select,
+      textarea{
+        font-size:16px;
+      }
+      .btn{
+        font-size:14px;
+      }
+      .payment-details,
+      .turnstile-wrap{
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(165deg, rgba(0,209,255,.14), rgba(255,61,129,.08));
+      }
+      .booking > .card:last-child{
+        background: linear-gradient(160deg, rgba(255,61,129,.16), rgba(0,209,255,.12));
+      }
+
+      .wa-sticky-cta{
+        box-shadow:
+          0 14px 30px rgba(0,0,0,.36),
+          inset 0 0 0 1px rgba(255,255,255,.16);
+        animation: mobileCtaPulse 2.6s ease-in-out infinite;
+      }
+      @keyframes mobileCtaPulse{
+        0%, 100%{ transform: translateY(0); }
+        50%{ transform: translateY(-2px); }
+      }
+      .float{
+        bottom:calc(92px + env(safe-area-inset-bottom));
+      }
+
+      html[data-theme="light"] body{
+        background:
+          radial-gradient(120% 70% at 100% -6%, rgba(255,59,104,.18), transparent 60%),
+          radial-gradient(120% 70% at -10% 0%, rgba(74,223,255,.2), transparent 58%),
+          linear-gradient(160deg, #fffaf5 0%, #f2fbff 52%, #ffeef5 100%);
+      }
+      html[data-theme="light"] .nav{
+        background: rgba(255,252,255,.95);
+        border-bottom-color: rgba(0,156,191,.24);
+        box-shadow: 0 8px 20px rgba(17,42,68,.12);
+      }
+      html[data-theme="light"] .panel,
+      html[data-theme="light"] .card,
+      html[data-theme="light"] .details,
+      html[data-theme="light"] .review-card,
+      html[data-theme="light"] .achievement-card,
+      html[data-theme="light"] .news-card,
+      html[data-theme="light"] .review-form-card{
+        border-color: rgba(16,48,74,.16);
+        background: linear-gradient(165deg, rgba(255,255,255,.97), rgba(244,251,255,.92));
+      }
+      html[data-theme="light"] .stat{
+        border-color: rgba(16,48,74,.18);
+        background: linear-gradient(145deg, rgba(74,223,255,.26), rgba(255,59,104,.16));
+      }
+      html[data-theme="light"] .price-card{
+        background: linear-gradient(140deg, rgba(74,223,255,.3), rgba(255,59,104,.18));
+      }
+      html[data-theme="light"] .schedule-table tr{
+        border-color: rgba(16,48,74,.2);
+      }
+    }
+
     /* Laptop + desktop visual polish */
     @media (min-width: 981px){
       body{
