@@ -2869,6 +2869,115 @@
       }
     }
 
+    /* Journey section polish */
+    #journey .journey{
+      grid-template-columns:minmax(260px, .92fr) minmax(0, 1.08fr);
+      align-items:start;
+      gap:18px;
+    }
+    #journey .belt-list{
+      position:sticky;
+      top:106px;
+      max-height:72vh;
+      overflow:auto;
+      padding-inline-end:4px;
+      scrollbar-width:thin;
+    }
+    #journey .belt{
+      min-height:64px;
+      padding:14px 12px;
+      gap:12px;
+    }
+    #journey .belt .left{
+      flex:1 1 auto;
+      min-width:0;
+    }
+    #journey .belt .left span:last-child{
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    #journey .belt small{
+      font-size:12px;
+      line-height:1.4;
+      max-width:42%;
+      text-align:end;
+    }
+    html[data-lang="en"] #journey .belt small{
+      text-align:left;
+    }
+    #journey .details{
+      min-height:340px;
+    }
+
+    @media (max-width: 980px){
+      #journey .journey{
+        grid-template-columns:1fr;
+      }
+      #journey .belt-list{
+        position:static;
+        max-height:none;
+      }
+    }
+
+    @media (max-width: 700px){
+      #journey .journey{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+      }
+      #journey .belt-list{
+        display:grid;
+        grid-auto-flow:column;
+        grid-auto-columns:minmax(185px, 72%);
+        gap:10px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        padding-bottom:6px;
+        scroll-snap-type:x mandatory;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+      }
+      #journey .belt-list::-webkit-scrollbar{
+        display:none;
+      }
+      #journey .belt{
+        scroll-snap-align:start;
+        min-height:auto;
+        padding:12px;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-start;
+        gap:8px;
+      }
+      #journey .belt small{
+        max-width:none;
+        font-size:11px;
+      }
+      html[dir="rtl"] #journey .belt small{
+        text-align:right;
+      }
+      html[dir="ltr"] #journey .belt small{
+        text-align:left;
+      }
+      #journey .details{
+        min-height:unset;
+        padding:14px;
+      }
+      #journey .details-top{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
+      }
+      #journey .details-top > div{
+        width:100%;
+      }
+      #journey .details-top .badge{
+        margin-top:0;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       *, *::before, *::after{
