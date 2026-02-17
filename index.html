@@ -750,106 +750,6 @@
       width:max-content;
     }
 
-    /* Parent Reviews */
-    .reviews-toolbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:16px;
-      flex-wrap:wrap;
-    }
-    .reviews-filters{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .review-filter{
-      min-width:180px;
-    }
-    .reviews-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .review-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .review-meta{
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-      line-height:1.8;
-    }
-    .review-text{
-      margin:0;
-      color:rgba(255,255,255,.88);
-      font-weight:800;
-      line-height:1.85;
-      font-size:14px;
-    }
-    .review-empty{
-      grid-column:1 / -1;
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.2);
-      padding:18px;
-      color:var(--muted);
-      font-weight:900;
-      text-align:center;
-    }
-    .review-form-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:16px;
-      margin-bottom:14px;
-    }
-    .review-form-title{
-      margin:0 0 8px;
-      font-size:20px;
-      font-weight:1000;
-    }
-    .review-form-note{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:13px;
-      line-height:1.7;
-    }
-    .review-form-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:10px;
-    }
-    .review-field-full{
-      grid-column:1 / -1;
-    }
-    .review-form-status{
-      display:none;
-      margin-top:10px;
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:900;
-      font-size:13px;
-    }
-    .review-form-status.show{
-      display:block;
-    }
-    .review-form-status.success{
-      background: rgba(42,210,159,.12);
-      border:1px solid rgba(42,210,159,.35);
-    }
-    .review-form-status.error{
-      background: rgba(255,42,42,.12);
-      border:1px solid rgba(255,42,42,.35);
-    }
-
     /* English quick panel */
     .english-quick[hidden]{display:none}
     .english-panel{
@@ -881,8 +781,7 @@
     html[data-lang="en"] .faq-question,
     html[data-lang="en"] .faq-answer,
     html[data-lang="en"] .mini-body,
-    html[data-lang="en"] .price-left,
-    html[data-lang="en"] .review-card{
+    html[data-lang="en"] .price-left{
       text-align:left;
     }
     html[data-lang="en"] .schedule-table th{
@@ -1231,16 +1130,6 @@
       .tracker-layout{grid-template-columns: 1fr}
       .achievement-list{grid-template-columns: 1fr}
       .news-list{grid-template-columns: 1fr}
-      .reviews-grid{grid-template-columns: 1fr}
-      .reviews-filters{
-        width:100%;
-      }
-      .review-filter{
-        flex:1 1 180px;
-      }
-      .review-form-grid{
-        grid-template-columns: 1fr;
-      }
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
       .sec-head{margin-bottom:20px}
@@ -1530,8 +1419,6 @@
     html[data-theme="light"] .belt,
     html[data-theme="light"] .achievement-card,
     html[data-theme="light"] .news-card,
-    html[data-theme="light"] .review-card,
-    html[data-theme="light"] .review-form-card,
     html[data-theme="light"] .english-panel,
     html[data-theme="light"] .turnstile-wrap{
       background: rgba(255,255,255,.88);
@@ -1571,7 +1458,6 @@
       color: rgba(58,33,12,.92);
     }
     html[data-theme="light"] .price-note,
-    html[data-theme="light"] .review-text,
     html[data-theme="light"] .details-body{
       color: rgba(24,50,74,.86);
     }
@@ -1662,14 +1548,12 @@
     .stat:nth-child(3) .num{color:#ffa3c7;}
     .stat:nth-child(4) .num{color:#84efcc;}
     #achievements .achievement-card:nth-child(odd),
-    #news .news-card:nth-child(odd),
-    #reviews .review-card:nth-child(odd){
+    #news .news-card:nth-child(odd){
       background: linear-gradient(145deg, var(--tone-cyan), rgba(7,18,35,.64));
       border-color: rgba(0,209,255,.3);
     }
     #achievements .achievement-card:nth-child(even),
-    #news .news-card:nth-child(even),
-    #reviews .review-card:nth-child(even){
+    #news .news-card:nth-child(even){
       background: linear-gradient(145deg, var(--tone-pink), rgba(9,19,37,.64));
       border-color: rgba(255,61,129,.3);
     }
@@ -1711,14 +1595,12 @@
     html[data-theme="light"] .stat:nth-child(3) .num{color:#d93f72;}
     html[data-theme="light"] .stat:nth-child(4) .num{color:#0f9d79;}
     html[data-theme="light"] #achievements .achievement-card:nth-child(odd),
-    html[data-theme="light"] #news .news-card:nth-child(odd),
-    html[data-theme="light"] #reviews .review-card:nth-child(odd){
+    html[data-theme="light"] #news .news-card:nth-child(odd){
       background: linear-gradient(145deg, rgba(74,223,255,.2), rgba(255,255,255,.95));
       border-color: rgba(0,156,191,.3);
     }
     html[data-theme="light"] #achievements .achievement-card:nth-child(even),
-    html[data-theme="light"] #news .news-card:nth-child(even),
-    html[data-theme="light"] #reviews .review-card:nth-child(even){
+    html[data-theme="light"] #news .news-card:nth-child(even){
       background: linear-gradient(145deg, rgba(255,59,104,.15), rgba(255,255,255,.95));
       border-color: rgba(255,59,104,.29);
     }
@@ -1809,12 +1691,10 @@
     .err{
       color:#ffc2c2;
     }
-    .review-form-status.success,
     .payment-copy-status,
     .turnstile-status:not(.error){
       color:#b4ffe6;
     }
-    .review-form-status.error,
     .payment-copy-status.error,
     .turnstile-status.error{
       color:#ffc3c3;
@@ -1906,12 +1786,10 @@
     html[data-theme="light"] .err{
       color:#b32929;
     }
-    html[data-theme="light"] .review-form-status.success,
     html[data-theme="light"] .payment-copy-status,
     html[data-theme="light"] .turnstile-status:not(.error){
       color:#0f775b;
     }
-    html[data-theme="light"] .review-form-status.error,
     html[data-theme="light"] .payment-copy-status.error,
     html[data-theme="light"] .turnstile-status.error{
       color:#ad2929;
@@ -2140,19 +2018,10 @@
         justify-content:center;
       }
 
-      .review-form-card,
-      .review-card,
       .achievement-card,
       .news-card{
         padding:14px;
         border-radius:14px;
-      }
-      .reviews-toolbar{
-        gap:10px;
-        margin-bottom:12px;
-      }
-      .review-filter{
-        min-width:100%;
       }
 
       .faq-question{
@@ -2440,10 +2309,8 @@
 
       .card,
       .details,
-      .review-card,
       .achievement-card,
-      .news-card,
-      .review-form-card{
+      .news-card{
         border-radius:14px;
         border-color: rgba(255,255,255,.16);
         background: linear-gradient(165deg, rgba(10,24,47,.86), rgba(8,18,35,.8));
@@ -2486,13 +2353,9 @@
         font-size:19px;
       }
 
-      .review-meta,
       .news-meta,
       .achievement-date{
         font-size:12px;
-      }
-      .review-text{
-        font-size:13px;
       }
 
       .faq-item{
@@ -2563,10 +2426,8 @@
       html[data-theme="light"] .panel,
       html[data-theme="light"] .card,
       html[data-theme="light"] .details,
-      html[data-theme="light"] .review-card,
       html[data-theme="light"] .achievement-card,
-      html[data-theme="light"] .news-card,
-      html[data-theme="light"] .review-form-card{
+      html[data-theme="light"] .news-card{
         border-color: rgba(16,48,74,.16);
         background: linear-gradient(165deg, rgba(255,255,255,.97), rgba(244,251,255,.92));
       }
@@ -2695,8 +2556,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .achievement-list,
-      .news-list,
-      .reviews-grid{
+      .news-list{
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .calculator-grid,
@@ -2716,10 +2576,8 @@
       .mini-card,
       .faq-item,
       .schedule-table,
-      .review-card,
       .achievement-card,
-      .news-card,
-      .review-form-card{
+      .news-card{
         box-shadow: 0 16px 40px rgba(0,0,0,.28);
       }
       .panel:hover{
@@ -2782,10 +2640,8 @@
       html[data-theme="light"] .mini-card,
       html[data-theme="light"] .faq-item,
       html[data-theme="light"] .schedule-table,
-      html[data-theme="light"] .review-card,
       html[data-theme="light"] .achievement-card,
-      html[data-theme="light"] .news-card,
-      html[data-theme="light"] .review-form-card{
+      html[data-theme="light"] .news-card{
         box-shadow: 0 14px 32px rgba(17,42,68,.14);
       }
       html[data-theme="light"] .panel:hover{
@@ -2838,7 +2694,6 @@
     const MONTHLY_PRICE_JOD = 45;
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
-    const REVIEWS_SUBMIT_ENDPOINT = "/api/reviews";
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -2865,7 +2720,6 @@
         <a id="navPricing" href="#pricing">الأسعار</a>
         <a id="navCalculator" href="#calculator">الحاسبة</a>
         <a id="navTracker" href="#tracker">التتبع</a>
-        <a id="navReviews" href="#reviews">آراء الأهالي</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
         <a id="navNews" href="#news">الأخبار</a>
         <a id="navBook" href="#book">الاشتراك</a>
@@ -2996,7 +2850,7 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="whyUsTitle">لماذا اختر مركز الماهر؟</h2>
-          <p class="sec-desc" id="whyUsDesc">نتائج ملموسة يلاحظها الأهل من أول شهر تدريب.</p>
+          <p class="sec-desc" id="whyUsDesc">نتائج ملموسة تلاحظها العائلات من أول شهر تدريب.</p>
         </div>
       </div>
 
@@ -3225,80 +3079,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- PARENT REVIEWS -->
-  <section id="reviews">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي</h2>
-          <p class="sec-desc" id="reviewsDesc">اكتب تعليقك عن تجربة التدريب، وسيظهر تلقائيًا على الموقع بعد الإرسال.</p>
-        </div>
-      </div>
-
-      <div class="review-form-card">
-        <h3 class="review-form-title" id="reviewFormTitle">أضف تعليقك الآن</h3>
-        <p class="review-form-note" id="reviewFormNote">أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.</p>
-        <form id="reviewForm" novalidate>
-          <div class="review-form-grid">
-            <div>
-              <label for="reviewStudentAge" id="reviewStudentAgeLabel">عمر الطالب</label>
-              <input id="reviewStudentAge" type="number" min="6" max="40" required />
-            </div>
-            <div>
-              <label for="reviewLevelInput" id="reviewFormLevelLabel">المستوى</label>
-              <select id="reviewLevelInput" required>
-                <option id="reviewFormLevelBeginnerOpt" value="beginner">مبتدئ</option>
-                <option id="reviewFormLevelIntermediateOpt" value="intermediate">متوسط</option>
-                <option id="reviewFormLevelAdvancedOpt" value="advanced">متقدم</option>
-              </select>
-            </div>
-            <div>
-              <label for="reviewProgramSelect" id="reviewProgramLabel">البرنامج</label>
-              <select id="reviewProgramSelect" required>
-                <option id="reviewProgramKidsOpt" value="kids" data-ar="أطفال" data-en="Kids">أطفال</option>
-                <option id="reviewProgramYouthOpt" value="youth" data-ar="شباب" data-en="Youth">شباب</option>
-                <option id="reviewProgramFemaleOpt" value="female" data-ar="إناث" data-en="Female">إناث</option>
-                <option id="reviewProgramCompetitionOpt" value="competition" data-ar="منافسات" data-en="Competition">منافسات</option>
-              </select>
-            </div>
-            <div class="review-field-full">
-              <label for="reviewComment" id="reviewCommentLabel">التعليق</label>
-              <textarea id="reviewComment" maxlength="450" required></textarea>
-            </div>
-          </div>
-          <button class="btn primary" id="reviewSubmitBtn" type="submit">إرسال التعليق</button>
-          <p class="review-form-status" id="reviewFormStatus" aria-live="polite"></p>
-        </form>
-      </div>
-
-      <div class="reviews-toolbar">
-        <div class="reviews-filters">
-          <div class="review-filter">
-            <label for="reviewAgeFilter" id="reviewAgeLabel">فلترة حسب العمر</label>
-            <select id="reviewAgeFilter">
-              <option id="reviewAgeAllOpt" value="all">كل الأعمار</option>
-              <option id="reviewAgeKidsOpt" value="6-9">6-9 سنوات</option>
-              <option id="reviewAgeTeensOpt" value="10-13">10-13 سنة</option>
-              <option id="reviewAgeYouthOpt" value="14+">14 سنة فأكثر</option>
-            </select>
-          </div>
-
-          <div class="review-filter">
-            <label for="reviewLevelFilter" id="reviewLevelLabel">فلترة حسب المستوى</label>
-            <select id="reviewLevelFilter">
-              <option id="reviewLevelAllOpt" value="all">كل المستويات</option>
-              <option id="reviewLevelBeginnerOpt" value="beginner">مبتدئ</option>
-              <option id="reviewLevelIntermediateOpt" value="intermediate">متوسط</option>
-              <option id="reviewLevelAdvancedOpt" value="advanced">متقدم</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="reviews-grid" id="reviewsList" aria-live="polite"></div>
     </div>
   </section>
 
@@ -3623,7 +3403,6 @@
       ".details",
       ".faq-item",
       ".belt",
-      ".review-card",
       ".achievement-card",
       ".news-card",
       ".english-panel",
@@ -3730,7 +3509,6 @@
           navCalculator: "الحاسبة",
           navJourney: "الأحزمة",
           navTracker: "التتبع",
-          navReviews: "آراء الأهالي",
           navAchievements: "النتائج",
           navNews: "الأخبار",
           navFaq: "الأسئلة",
@@ -3766,7 +3544,7 @@
           calculatorTitle: "حاسبة السعر الذكية",
           calculatorDesc: "احسب السعر النهائي مباشرة حسب: طالب واحد أو إخوة + خيار التوصيل.",
           whyUsTitle: "لماذا اختر مركز الماهر؟",
-          whyUsDesc: "لأن الأهل بدهم نتيجة حقيقية مو كلام... وهون بتشوفها.",
+          whyUsDesc: "لأن العائلات بدها نتيجة حقيقية مو كلام... وهون بتشوفها.",
           whyUsCard1Title: "تدريب احترافي",
           whyUsCard1Desc: "خبرة 35 سنة مع متابعة فردية لكل طالب، عشان التقدّم يكون أسرع وأوضح.",
           whyUsCard2Title: "بناء الثقة بالنفس",
@@ -3857,36 +3635,6 @@
           trackerCurrentLabel: "الحزام الحالي:",
           trackerNextLabel: "الحزام القادم:",
           trackerGoalsLabel: "المهارات المطلوبة للترقية:",
-          reviewsTitle: "آراء الأهالي",
-          reviewsDesc: "تجارب حقيقية من الأهالي، والتعليق الجديد يتم نشره تلقائيًا على الموقع.",
-          reviewFormTitle: "أضف تعليقك الآن",
-          reviewFormNote: "أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.",
-          reviewStudentAgeLabel: "عمر الطالب",
-          reviewFormLevelLabel: "المستوى",
-          reviewFormLevelBeginnerOpt: "مبتدئ",
-          reviewFormLevelIntermediateOpt: "متوسط",
-          reviewFormLevelAdvancedOpt: "متقدم",
-          reviewProgramLabel: "البرنامج",
-          reviewProgramKidsOpt: "أطفال",
-          reviewProgramYouthOpt: "شباب",
-          reviewProgramFemaleOpt: "إناث",
-          reviewProgramCompetitionOpt: "منافسات",
-          reviewCommentLabel: "التعليق",
-          reviewSubmitBtn: "إرسال التعليق",
-          reviewSubmitSuccess: "تم حفظ تعليقك بنجاح.",
-          reviewSubmitError: "العمر والتعليق مطلوبان.",
-          reviewSubmitNetworkError: "تعذر إرسال التعليق الآن. تأكد من الاتصال وحاول مرة أخرى.",
-          reviewAgeInvalid: "العمر يجب أن يكون بين 6 و40.",
-          reviewAgeLabel: "فلترة حسب العمر",
-          reviewLevelLabel: "فلترة حسب المستوى",
-          reviewAgeAllOpt: "كل الأعمار",
-          reviewAgeKidsOpt: "6-9 سنوات",
-          reviewAgeTeensOpt: "10-13 سنة",
-          reviewAgeYouthOpt: "14 سنة فأكثر",
-          reviewLevelAllOpt: "كل المستويات",
-          reviewLevelBeginnerOpt: "مبتدئ",
-          reviewLevelIntermediateOpt: "متوسط",
-          reviewLevelAdvancedOpt: "متقدم",
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "إنجازات محدثة أولاً بأول تثبت قوة المركز في البطولات.",
           achievementFilterLabel: "تصفية حسب السنة",
@@ -3936,7 +3684,7 @@
           contactLocationValue: "جرش",
           contactHighlights: "✓ برنامج واضح من البداية حتى المنافسات<br />✓ متابعة دقيقة وقياس تقدّم حقيقي<br />✓ بيئة آمنة تبني الثقة والانضباط",
           aboutTitle: "عن المركز",
-          aboutDesc: "بيئة احترافية تصنع نتائج يلاحظها الأهل من أول شهر.",
+          aboutDesc: "بيئة احترافية تصنع نتائج تلاحظها العائلات من أول شهر.",
           aboutCard1Title: "🎯 رسالتنا",
           aboutCard1Desc: "بناء لاعب تايكواندو قوي منضبط مؤدب. ليس فقط تعليم تقنيات، بل صناعة شخصية قيادية واثقة من نفسها.",
           aboutCard2Title: "🏆 رؤيتنا",
@@ -3957,8 +3705,7 @@
         namePlaceholder: "حمود أحمد أو نور",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "مثلاً: 10 سنوات",
-        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟",
-        reviewCommentPlaceholder: "اكتب تجربتك مع المركز هنا..."
+        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"
       },
       en: {
         htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
@@ -3971,7 +3718,6 @@
           navCalculator: "Calculator",
           navJourney: "Belts",
           navTracker: "Tracker",
-          navReviews: "Parents Reviews",
           navAchievements: "Results",
           navNews: "News",
           navFaq: "FAQ",
@@ -4098,36 +3844,6 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
-          reviewsTitle: "Parent Reviews",
-          reviewsDesc: "Share your experience. New comments are published automatically on the website.",
-          reviewFormTitle: "Add Your Comment",
-          reviewFormNote: "Every new comment is published automatically and can be filtered by age and level.",
-          reviewStudentAgeLabel: "Student Age",
-          reviewFormLevelLabel: "Level",
-          reviewFormLevelBeginnerOpt: "Beginner",
-          reviewFormLevelIntermediateOpt: "Intermediate",
-          reviewFormLevelAdvancedOpt: "Advanced",
-          reviewProgramLabel: "Program",
-          reviewProgramKidsOpt: "Kids",
-          reviewProgramYouthOpt: "Youth",
-          reviewProgramFemaleOpt: "Female",
-          reviewProgramCompetitionOpt: "Competition",
-          reviewCommentLabel: "Comment",
-          reviewSubmitBtn: "Submit Comment",
-          reviewSubmitSuccess: "Your comment was saved successfully.",
-          reviewSubmitError: "Age and comment are required.",
-          reviewSubmitNetworkError: "Could not submit your comment right now. Please try again.",
-          reviewAgeInvalid: "Age must be between 6 and 40.",
-          reviewAgeLabel: "Filter by age",
-          reviewLevelLabel: "Filter by level",
-          reviewAgeAllOpt: "All ages",
-          reviewAgeKidsOpt: "Ages 6-9",
-          reviewAgeTeensOpt: "Ages 10-13",
-          reviewAgeYouthOpt: "Ages 14+",
-          reviewLevelAllOpt: "All levels",
-          reviewLevelBeginnerOpt: "Beginner",
-          reviewLevelIntermediateOpt: "Intermediate",
-          reviewLevelAdvancedOpt: "Advanced",
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
@@ -4136,7 +3852,7 @@
           newsEmpty: "No news items yet.",
           newsChip: "Achievement News",
           faqTitle: "Frequently Asked Questions",
-          faqDesc: "Quick answers to the most common parent questions.",
+          faqDesc: "Quick answers to the most common questions before joining.",
           scheduleTitle: "Class Schedule",
           scheduleDesc: "Find the time that fits you best. Extra timings are available on demand.",
           scheduleHeadDays: "📅 Training Days",
@@ -4198,8 +3914,7 @@
         namePlaceholder: "Hammoud Ahmad or Noor",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "Example: 10 years",
-        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?",
-        reviewCommentPlaceholder: "Write your experience with the center here..."
+        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
       }
     };
 
@@ -4440,8 +4155,6 @@
       if(ageInput) ageInput.placeholder = dict.agePlaceholder;
       const msgInput = document.getElementById("msg");
       if(msgInput) msgInput.placeholder = dict.msgPlaceholder;
-      const reviewCommentInput = document.getElementById("reviewComment");
-      if(reviewCommentInput) reviewCommentInput.placeholder = dict.reviewCommentPlaceholder;
 
       const yearAllOption = document.querySelector("#achievementYear option[value='all']");
       if(yearAllOption) yearAllOption.textContent = dict.yearAll;
@@ -4497,7 +4210,6 @@
         updatePriceCalculator();
         updateTrackerContent();
         renderFaq();
-        renderParentReviews();
         populateAchievementYears();
         renderAchievements();
         renderNews();
@@ -5198,339 +4910,6 @@
         }
       });
     }
-
-    // Parent reviews with filters + auto publish
-    const FALLBACK_PARENT_REVIEWS_DATA = [
-      {
-        age: 8,
-        level: "beginner",
-        programAr: "أطفال",
-        programEn: "Kids",
-        commentAr: "ابني صار أكثر انضباطًا وثقة من أول شهر. المتابعة ممتازة والتوصيل مريح جدًا.",
-        commentEn: "My son became more disciplined and confident from the first month. Great follow-up and very convenient delivery."
-      },
-      {
-        age: 11,
-        level: "intermediate",
-        programAr: "شباب",
-        programEn: "Youth",
-        commentAr: "التمارين قوية ومنظمة. واضح جدًا الفرق في اللياقة والتركيز الدراسي.",
-        commentEn: "Training is strong and well structured. We clearly noticed better fitness and focus at school."
-      },
-      {
-        age: 14,
-        level: "advanced",
-        programAr: "إناث",
-        programEn: "Female",
-        commentAr: "بيئة البنات محترمة وآمنة، والمدربة متابعة لكل التفاصيل.",
-        commentEn: "The girls-only environment is respectful and safe, and the coach follows every detail."
-      },
-      {
-        age: 9,
-        level: "beginner",
-        programAr: "أطفال",
-        programEn: "Kids",
-        commentAr: "كنا متخوفين بالبداية، لكن طريقة التعامل مع الأطفال ممتازة جدًا.",
-        commentEn: "We were worried at first, but the way they handle children is excellent."
-      },
-      {
-        age: 12,
-        level: "intermediate",
-        programAr: "منافسات",
-        programEn: "Competition",
-        commentAr: "الخطة واضحة خطوة بخطوة، وابني أصبح جاهزًا للمشاركة بالبطولات.",
-        commentEn: "The plan is clear step by step, and my son is now ready for competitions."
-      },
-      {
-        age: 15,
-        level: "advanced",
-        programAr: "شباب",
-        programEn: "Youth",
-        commentAr: "نتائج قوية جدًا خلال فترة قصيرة، وأكثر شيء عجبني الانضباط العالي.",
-        commentEn: "Very strong results in a short period. What impressed me most is the high discipline."
-      }
-    ];
-    let parentReviewsData = [...FALLBACK_PARENT_REVIEWS_DATA];
-    const REVIEW_REFRESH_INTERVAL_MS = 45000;
-    let reviewsRefreshTimer = null;
-
-    const reviewForm = document.getElementById("reviewForm");
-    const reviewStudentAgeInput = document.getElementById("reviewStudentAge");
-    const reviewLevelInput = document.getElementById("reviewLevelInput");
-    const reviewProgramSelect = document.getElementById("reviewProgramSelect");
-    const reviewCommentInput = document.getElementById("reviewComment");
-    const reviewSubmitBtn = document.getElementById("reviewSubmitBtn");
-    const reviewFormStatus = document.getElementById("reviewFormStatus");
-    const reviewAgeFilter = document.getElementById("reviewAgeFilter");
-    const reviewLevelFilter = document.getElementById("reviewLevelFilter");
-    const reviewsList = document.getElementById("reviewsList");
-    const REVIEW_LEVELS = new Set(["beginner", "intermediate", "advanced"]);
-
-    function setReviewFormStatus(messageKey, type){
-      if(!reviewFormStatus) return;
-      const message = i18n[currentLang] && i18n[currentLang].text
-        ? i18n[currentLang].text[messageKey]
-        : "";
-      if(!message){
-        reviewFormStatus.classList.remove("show", "success", "error");
-        reviewFormStatus.textContent = "";
-        return;
-      }
-
-      reviewFormStatus.textContent = message;
-      reviewFormStatus.classList.add("show");
-      reviewFormStatus.classList.toggle("success", type === "success");
-      reviewFormStatus.classList.toggle("error", type === "error");
-    }
-
-    function normalizeReviewEntry(item){
-      if(!item || typeof item !== "object") return null;
-      const age = Math.round(Number(item.age));
-      const level = cleanInputText(item.level, 24).toLowerCase();
-      const programAr = cleanInputText(item.programAr, 60);
-      const programEn = cleanInputText(item.programEn, 60);
-      const commentAr = cleanInputText(item.commentAr || item.comment, 450);
-      const commentEn = cleanInputText(item.commentEn || item.comment || commentAr, 450);
-      const createdAtRaw = cleanInputText(item.createdAt, 40);
-      const createdAt = Number.isNaN(Date.parse(createdAtRaw))
-        ? ""
-        : new Date(createdAtRaw).toISOString();
-
-      if(!Number.isFinite(age) || age < 6 || age > 40) return null;
-      if(!REVIEW_LEVELS.has(level)) return null;
-      if(!programAr || !programEn) return null;
-      if(!commentAr && !commentEn) return null;
-
-      return {
-        age,
-        level,
-        programAr,
-        programEn,
-        commentAr: commentAr || commentEn,
-        commentEn: commentEn || commentAr,
-        createdAt
-      };
-    }
-
-    function getReviewFingerprint(item){
-      return [
-        Number(item.age || 0),
-        cleanInputText(item.level, 24).toLowerCase(),
-        cleanInputText(item.programAr, 60),
-        cleanInputText(item.programEn, 60),
-        cleanInputText(item.commentAr, 450),
-        cleanInputText(item.commentEn, 450)
-      ].join("|");
-    }
-
-    function mergeReviews(primary, secondary){
-      const merged = [];
-      const seen = new Set();
-      [primary, secondary].forEach((collection)=>{
-        if(!Array.isArray(collection)) return;
-        collection.forEach((entry)=>{
-          const normalized = normalizeReviewEntry(entry);
-          if(!normalized) return;
-          const fingerprint = getReviewFingerprint(normalized);
-          if(seen.has(fingerprint)) return;
-          seen.add(fingerprint);
-          merged.push(normalized);
-        });
-      });
-      merged.sort((a, b)=> new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      return merged.slice(0, 300);
-    }
-
-    function getLevelLabel(level){
-      if(currentLang === "en"){
-        if(level === "beginner") return "Beginner";
-        if(level === "intermediate") return "Intermediate";
-        if(level === "advanced") return "Advanced";
-        return "Unknown";
-      }
-      if(level === "beginner") return "مبتدئ";
-      if(level === "intermediate") return "متوسط";
-      if(level === "advanced") return "متقدم";
-      return "غير محدد";
-    }
-
-    function getAgeGroup(age){
-      const n = Number(age || 0);
-      if(n >= 14) return "14+";
-      if(n >= 10) return "10-13";
-      return "6-9";
-    }
-
-    function renderParentReviews(){
-      if(!reviewsList) return;
-      const selectedAge = reviewAgeFilter ? reviewAgeFilter.value : "all";
-      const selectedLevel = reviewLevelFilter ? reviewLevelFilter.value : "all";
-
-      const filtered = parentReviewsData.filter((item)=>{
-        const ageMatch = selectedAge === "all" || getAgeGroup(item.age) === selectedAge;
-        const levelMatch = selectedLevel === "all" || item.level === selectedLevel;
-        return ageMatch && levelMatch;
-      });
-
-      if(!filtered.length){
-        reviewsList.innerHTML = `
-          <div class="review-empty">
-            ${currentLang === "en" ? "No reviews match this filter yet." : "لا توجد آراء مطابقة للفلاتر الحالية."}
-          </div>
-        `;
-        refreshDesignEnhancements();
-        return;
-      }
-
-      const ageLabel = escapeHtml(currentLang === "en" ? "Age" : "العمر");
-      const levelLabel = escapeHtml(currentLang === "en" ? "Level" : "المستوى");
-      const programLabel = escapeHtml(currentLang === "en" ? "Program" : "البرنامج");
-
-      reviewsList.innerHTML = filtered.map((item)=>{
-        const safeAge = Number(item.age || 0);
-        const program = escapeHtml(currentLang === "en" ? item.programEn : item.programAr);
-        const level = escapeHtml(getLevelLabel(item.level));
-        const comment = escapeHtml(currentLang === "en"
-          ? (item.commentEn || item.commentAr)
-          : (item.commentAr || item.commentEn));
-        return `
-          <article class="review-card">
-            <div class="review-meta">${ageLabel}: ${safeAge} | ${levelLabel}: ${level} | ${programLabel}: ${program}</div>
-            <p class="review-text">${comment}</p>
-          </article>
-        `;
-      }).join("");
-      refreshDesignEnhancements();
-    }
-
-    async function submitReviewToEndpoint(payload){
-      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
-        return null;
-      }
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(()=> controller.abort(), 8000);
-      try {
-        const response = await fetch(REVIEWS_SUBMIT_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          cache: "no-store",
-          credentials: "omit",
-          redirect: "error",
-          referrerPolicy: "no-referrer",
-          signal: controller.signal
-        });
-        if(!response.ok) return null;
-
-        const result = await response.json().catch(()=> null);
-        return normalizeReviewEntry(result && result.review ? result.review : payload);
-      } catch(_){
-        return null;
-      } finally {
-        clearTimeout(timeoutId);
-      }
-    }
-
-    async function loadPublishedReviews(){
-      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
-        return false;
-      }
-
-      try {
-        const response = await fetch(`${REVIEWS_SUBMIT_ENDPOINT}?v=${Date.now()}`, {
-          method: "GET",
-          cache: "no-store",
-          credentials: "omit",
-          redirect: "error",
-          referrerPolicy: "no-referrer"
-        });
-        if(!response.ok) return false;
-
-        const payload = await response.json();
-        const serverReviews = Array.isArray(payload && payload.reviews)
-          ? payload.reviews.map(normalizeReviewEntry).filter(Boolean)
-          : [];
-
-        parentReviewsData = mergeReviews(serverReviews, FALLBACK_PARENT_REVIEWS_DATA);
-        renderParentReviews();
-        return true;
-      } catch(_){
-        return false;
-      }
-    }
-
-    function startReviewsSync(){
-      if(reviewsRefreshTimer){
-        clearInterval(reviewsRefreshTimer);
-      }
-      reviewsRefreshTimer = setInterval(()=>{
-        if(document.hidden) return;
-        loadPublishedReviews();
-      }, REVIEW_REFRESH_INTERVAL_MS);
-    }
-
-    if(reviewForm){
-      reviewForm.addEventListener("submit", async (event)=>{
-        event.preventDefault();
-        setReviewFormStatus("", "");
-
-        const age = Math.round(Number(reviewStudentAgeInput ? reviewStudentAgeInput.value : NaN));
-        const level = cleanInputText(reviewLevelInput ? reviewLevelInput.value : "", 24).toLowerCase();
-        const option = reviewProgramSelect && reviewProgramSelect.selectedIndex >= 0
-          ? reviewProgramSelect.options[reviewProgramSelect.selectedIndex]
-          : null;
-        const programAr = cleanInputText(option ? (option.getAttribute("data-ar") || option.textContent) : "", 60);
-        const programEn = cleanInputText(option ? (option.getAttribute("data-en") || option.textContent) : "", 60);
-        const comment = cleanInputText(reviewCommentInput ? reviewCommentInput.value : "", 450);
-
-        if(!Number.isFinite(age) || age < 6 || age > 40){
-          setReviewFormStatus("reviewAgeInvalid", "error");
-          return;
-        }
-
-        if(!REVIEW_LEVELS.has(level) || !programAr || !programEn || !comment){
-          setReviewFormStatus("reviewSubmitError", "error");
-          return;
-        }
-
-        const payload = {
-          age,
-          level,
-          programAr,
-          programEn,
-          commentAr: comment,
-          commentEn: comment
-        };
-
-        if(reviewSubmitBtn) reviewSubmitBtn.disabled = true;
-        const savedReview = await submitReviewToEndpoint(payload);
-        if(reviewSubmitBtn) reviewSubmitBtn.disabled = false;
-
-        if(!savedReview){
-          setReviewFormStatus("reviewSubmitNetworkError", "error");
-          return;
-        }
-
-        parentReviewsData = mergeReviews([savedReview], parentReviewsData);
-        renderParentReviews();
-        setReviewFormStatus("reviewSubmitSuccess", "success");
-        reviewForm.reset();
-      });
-    }
-
-    [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
-      if(!el) return;
-      el.addEventListener("change", renderParentReviews);
-    });
-    renderParentReviews();
-    loadPublishedReviews();
-    startReviewsSync();
-    document.addEventListener("visibilitychange", ()=>{
-      if(!document.hidden){
-        loadPublishedReviews();
-      }
-    });
 
     // Achievements timeline + auto news feed
     const FALLBACK_ACHIEVEMENTS_DATA = [
