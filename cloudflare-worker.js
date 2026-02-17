@@ -2865,7 +2865,6 @@
         <a id="navPricing" href="#pricing">الأسعار</a>
         <a id="navCalculator" href="#calculator">الحاسبة</a>
         <a id="navTracker" href="#tracker">التتبع</a>
-        <a id="navReviews" href="#reviews">آراء الأهالي</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
         <a id="navNews" href="#news">الأخبار</a>
         <a id="navBook" href="#book">الاشتراك</a>
@@ -3225,80 +3224,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- PARENT REVIEWS -->
-  <section id="reviews">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="reviewsTitle">آراء الأهالي</h2>
-          <p class="sec-desc" id="reviewsDesc">اكتب تعليقك عن تجربة التدريب، وسيظهر تلقائيًا على الموقع بعد الإرسال.</p>
-        </div>
-      </div>
-
-      <div class="review-form-card">
-        <h3 class="review-form-title" id="reviewFormTitle">أضف تعليقك الآن</h3>
-        <p class="review-form-note" id="reviewFormNote">أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.</p>
-        <form id="reviewForm" novalidate>
-          <div class="review-form-grid">
-            <div>
-              <label for="reviewStudentAge" id="reviewStudentAgeLabel">عمر الطالب</label>
-              <input id="reviewStudentAge" type="number" min="6" max="40" required />
-            </div>
-            <div>
-              <label for="reviewLevelInput" id="reviewFormLevelLabel">المستوى</label>
-              <select id="reviewLevelInput" required>
-                <option id="reviewFormLevelBeginnerOpt" value="beginner">مبتدئ</option>
-                <option id="reviewFormLevelIntermediateOpt" value="intermediate">متوسط</option>
-                <option id="reviewFormLevelAdvancedOpt" value="advanced">متقدم</option>
-              </select>
-            </div>
-            <div>
-              <label for="reviewProgramSelect" id="reviewProgramLabel">البرنامج</label>
-              <select id="reviewProgramSelect" required>
-                <option id="reviewProgramKidsOpt" value="kids" data-ar="أطفال" data-en="Kids">أطفال</option>
-                <option id="reviewProgramYouthOpt" value="youth" data-ar="شباب" data-en="Youth">شباب</option>
-                <option id="reviewProgramFemaleOpt" value="female" data-ar="إناث" data-en="Female">إناث</option>
-                <option id="reviewProgramCompetitionOpt" value="competition" data-ar="منافسات" data-en="Competition">منافسات</option>
-              </select>
-            </div>
-            <div class="review-field-full">
-              <label for="reviewComment" id="reviewCommentLabel">التعليق</label>
-              <textarea id="reviewComment" maxlength="450" required></textarea>
-            </div>
-          </div>
-          <button class="btn primary" id="reviewSubmitBtn" type="submit">إرسال التعليق</button>
-          <p class="review-form-status" id="reviewFormStatus" aria-live="polite"></p>
-        </form>
-      </div>
-
-      <div class="reviews-toolbar">
-        <div class="reviews-filters">
-          <div class="review-filter">
-            <label for="reviewAgeFilter" id="reviewAgeLabel">فلترة حسب العمر</label>
-            <select id="reviewAgeFilter">
-              <option id="reviewAgeAllOpt" value="all">كل الأعمار</option>
-              <option id="reviewAgeKidsOpt" value="6-9">6-9 سنوات</option>
-              <option id="reviewAgeTeensOpt" value="10-13">10-13 سنة</option>
-              <option id="reviewAgeYouthOpt" value="14+">14 سنة فأكثر</option>
-            </select>
-          </div>
-
-          <div class="review-filter">
-            <label for="reviewLevelFilter" id="reviewLevelLabel">فلترة حسب المستوى</label>
-            <select id="reviewLevelFilter">
-              <option id="reviewLevelAllOpt" value="all">كل المستويات</option>
-              <option id="reviewLevelBeginnerOpt" value="beginner">مبتدئ</option>
-              <option id="reviewLevelIntermediateOpt" value="intermediate">متوسط</option>
-              <option id="reviewLevelAdvancedOpt" value="advanced">متقدم</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="reviews-grid" id="reviewsList" aria-live="polite"></div>
     </div>
   </section>
 
@@ -5537,18 +5462,20 @@
       });
     }
 
-    [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
-      if(!el) return;
-      el.addEventListener("change", renderParentReviews);
-    });
-    renderParentReviews();
-    loadPublishedReviews();
-    startReviewsSync();
-    document.addEventListener("visibilitychange", ()=>{
-      if(!document.hidden){
-        loadPublishedReviews();
-      }
-    });
+    if(reviewsList){
+      [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
+        if(!el) return;
+        el.addEventListener("change", renderParentReviews);
+      });
+      renderParentReviews();
+      loadPublishedReviews();
+      startReviewsSync();
+      document.addEventListener("visibilitychange", ()=>{
+        if(!document.hidden){
+          loadPublishedReviews();
+        }
+      });
+    }
 
     // Achievements timeline + auto news feed
     const FALLBACK_ACHIEVEMENTS_DATA = [
