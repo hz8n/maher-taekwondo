@@ -2838,7 +2838,6 @@
     const MONTHLY_PRICE_JOD = 45;
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
-    const REVIEWS_SUBMIT_ENDPOINT = "/api/reviews";
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -3548,7 +3547,6 @@
       ".details",
       ".faq-item",
       ".belt",
-      ".review-card",
       ".achievement-card",
       ".news-card",
       ".english-panel",
@@ -3781,38 +3779,6 @@
           trackerCurrentLabel: "الحزام الحالي:",
           trackerNextLabel: "الحزام القادم:",
           trackerGoalsLabel: "المهارات المطلوبة للترقية:",
-          reviewsTitle: "آراء الأهالي",
-          reviewsDesc: "تجارب حقيقية من الأهالي، والتعليق الجديد يتم نشره تلقائيًا على الموقع.",
-          reviewFormTitle: "أضف تعليقك الآن",
-          reviewFormNote: "أي تعليق جديد يتم نشره تلقائيًا على الموقع ويمكن فلترته حسب العمر والمستوى.",
-          reviewStudentAgeLabel: "عمر الطالب",
-          reviewFormLevelLabel: "المستوى",
-          reviewFormLevelBeginnerOpt: "مبتدئ",
-          reviewFormLevelIntermediateOpt: "متوسط",
-          reviewFormLevelAdvancedOpt: "متقدم",
-          reviewProgramLabel: "البرنامج",
-          reviewProgramKidsOpt: "أطفال",
-          reviewProgramYouthOpt: "شباب",
-          reviewProgramFemaleOpt: "إناث",
-          reviewProgramCompetitionOpt: "منافسات",
-          reviewCommentLabel: "التعليق",
-          reviewSubmitBtn: "إرسال التعليق",
-          reviewSubmitSuccess: "تم حفظ تعليقك بنجاح.",
-          reviewSubmitError: "العمر والتعليق مطلوبان.",
-          reviewSubmitNetworkError: "تعذر إرسال التعليق الآن. تأكد من الاتصال وحاول مرة أخرى.",
-          reviewSubmitConfigError: "خدمة التعليقات غير مفعلة على السيرفر. تأكد من ربط REVIEWS_KV وتفعيل /api/reviews.",
-          reviewSubmitApiMissingError: "رابط خدمة التعليقات غير موجود على هذا الدومين. فعّل route لـ /api/reviews.",
-          reviewAgeInvalid: "العمر يجب أن يكون بين 6 و40.",
-          reviewAgeLabel: "فلترة حسب العمر",
-          reviewLevelLabel: "فلترة حسب المستوى",
-          reviewAgeAllOpt: "كل الأعمار",
-          reviewAgeKidsOpt: "6-9 سنوات",
-          reviewAgeTeensOpt: "10-13 سنة",
-          reviewAgeYouthOpt: "14 سنة فأكثر",
-          reviewLevelAllOpt: "كل المستويات",
-          reviewLevelBeginnerOpt: "مبتدئ",
-          reviewLevelIntermediateOpt: "متوسط",
-          reviewLevelAdvancedOpt: "متقدم",
           achievementsTitle: "نتائج البطولات والإنجازات",
           achievementsDesc: "إنجازات محدثة أولاً بأول تثبت قوة المركز في البطولات.",
           achievementFilterLabel: "تصفية حسب السنة",
@@ -3883,8 +3849,7 @@
         namePlaceholder: "حمود أحمد أو نور",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "مثلاً: 10 سنوات",
-        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟",
-        reviewCommentPlaceholder: "اكتب تجربتك مع المركز هنا..."
+        msgPlaceholder: "مثلاً: ابني يخاف قليلاً من البداية... أو هل في محاضرات أولية؟"
       },
       en: {
         htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
@@ -4023,38 +3988,6 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
-          reviewsTitle: "Parent Reviews",
-          reviewsDesc: "Share your experience. New comments are published automatically on the website.",
-          reviewFormTitle: "Add Your Comment",
-          reviewFormNote: "Every new comment is published automatically and can be filtered by age and level.",
-          reviewStudentAgeLabel: "Student Age",
-          reviewFormLevelLabel: "Level",
-          reviewFormLevelBeginnerOpt: "Beginner",
-          reviewFormLevelIntermediateOpt: "Intermediate",
-          reviewFormLevelAdvancedOpt: "Advanced",
-          reviewProgramLabel: "Program",
-          reviewProgramKidsOpt: "Kids",
-          reviewProgramYouthOpt: "Youth",
-          reviewProgramFemaleOpt: "Female",
-          reviewProgramCompetitionOpt: "Competition",
-          reviewCommentLabel: "Comment",
-          reviewSubmitBtn: "Submit Comment",
-          reviewSubmitSuccess: "Your comment was saved successfully.",
-          reviewSubmitError: "Age and comment are required.",
-          reviewSubmitNetworkError: "Could not submit your comment right now. Please try again.",
-          reviewSubmitConfigError: "Reviews service is not configured on the server. Bind REVIEWS_KV and enable /api/reviews.",
-          reviewSubmitApiMissingError: "Reviews API route is missing on this domain. Enable route for /api/reviews.",
-          reviewAgeInvalid: "Age must be between 6 and 40.",
-          reviewAgeLabel: "Filter by age",
-          reviewLevelLabel: "Filter by level",
-          reviewAgeAllOpt: "All ages",
-          reviewAgeKidsOpt: "Ages 6-9",
-          reviewAgeTeensOpt: "Ages 10-13",
-          reviewAgeYouthOpt: "Ages 14+",
-          reviewLevelAllOpt: "All levels",
-          reviewLevelBeginnerOpt: "Beginner",
-          reviewLevelIntermediateOpt: "Intermediate",
-          reviewLevelAdvancedOpt: "Advanced",
           achievementsTitle: "Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
@@ -4125,8 +4058,7 @@
         namePlaceholder: "Hammoud Ahmad or Noor",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: "Example: 10 years",
-        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?",
-        reviewCommentPlaceholder: "Write your experience with the center here..."
+        msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
       }
     };
 
@@ -4367,8 +4299,6 @@
       if(ageInput) ageInput.placeholder = dict.agePlaceholder;
       const msgInput = document.getElementById("msg");
       if(msgInput) msgInput.placeholder = dict.msgPlaceholder;
-      const reviewCommentInput = document.getElementById("reviewComment");
-      if(reviewCommentInput) reviewCommentInput.placeholder = dict.reviewCommentPlaceholder;
 
       const yearAllOption = document.querySelector("#achievementYear option[value='all']");
       if(yearAllOption) yearAllOption.textContent = dict.yearAll;
@@ -4424,7 +4354,6 @@
         updatePriceCalculator();
         updateTrackerContent();
         renderFaq();
-        renderParentReviews();
         populateAchievementYears();
         renderAchievements();
         renderNews();
@@ -5122,355 +5051,6 @@
         if(event.key === "Enter"){
           event.preventDefault();
           searchTracker();
-        }
-      });
-    }
-
-    // Parent reviews with filters + auto publish
-    const FALLBACK_PARENT_REVIEWS_DATA = [
-      {
-        age: 8,
-        level: "beginner",
-        programAr: "أطفال",
-        programEn: "Kids",
-        commentAr: "ابني صار أكثر انضباطًا وثقة من أول شهر. المتابعة ممتازة والتوصيل مريح جدًا.",
-        commentEn: "My son became more disciplined and confident from the first month. Great follow-up and very convenient delivery."
-      },
-      {
-        age: 11,
-        level: "intermediate",
-        programAr: "شباب",
-        programEn: "Youth",
-        commentAr: "التمارين قوية ومنظمة. واضح جدًا الفرق في اللياقة والتركيز الدراسي.",
-        commentEn: "Training is strong and well structured. We clearly noticed better fitness and focus at school."
-      },
-      {
-        age: 14,
-        level: "advanced",
-        programAr: "إناث",
-        programEn: "Female",
-        commentAr: "بيئة البنات محترمة وآمنة، والمدربة متابعة لكل التفاصيل.",
-        commentEn: "The girls-only environment is respectful and safe, and the coach follows every detail."
-      },
-      {
-        age: 9,
-        level: "beginner",
-        programAr: "أطفال",
-        programEn: "Kids",
-        commentAr: "كنا متخوفين بالبداية، لكن طريقة التعامل مع الأطفال ممتازة جدًا.",
-        commentEn: "We were worried at first, but the way they handle children is excellent."
-      },
-      {
-        age: 12,
-        level: "intermediate",
-        programAr: "منافسات",
-        programEn: "Competition",
-        commentAr: "الخطة واضحة خطوة بخطوة، وابني أصبح جاهزًا للمشاركة بالبطولات.",
-        commentEn: "The plan is clear step by step, and my son is now ready for competitions."
-      },
-      {
-        age: 15,
-        level: "advanced",
-        programAr: "شباب",
-        programEn: "Youth",
-        commentAr: "نتائج قوية جدًا خلال فترة قصيرة، وأكثر شيء عجبني الانضباط العالي.",
-        commentEn: "Very strong results in a short period. What impressed me most is the high discipline."
-      }
-    ];
-    let parentReviewsData = [...FALLBACK_PARENT_REVIEWS_DATA];
-    const REVIEW_REFRESH_INTERVAL_MS = 45000;
-    let reviewsRefreshTimer = null;
-
-    const reviewForm = document.getElementById("reviewForm");
-    const reviewStudentAgeInput = document.getElementById("reviewStudentAge");
-    const reviewLevelInput = document.getElementById("reviewLevelInput");
-    const reviewProgramSelect = document.getElementById("reviewProgramSelect");
-    const reviewCommentInput = document.getElementById("reviewComment");
-    const reviewSubmitBtn = document.getElementById("reviewSubmitBtn");
-    const reviewFormStatus = document.getElementById("reviewFormStatus");
-    const reviewAgeFilter = document.getElementById("reviewAgeFilter");
-    const reviewLevelFilter = document.getElementById("reviewLevelFilter");
-    const reviewsList = document.getElementById("reviewsList");
-    const REVIEW_LEVELS = new Set(["beginner", "intermediate", "advanced"]);
-
-    function setReviewFormStatus(messageKey, type){
-      if(!reviewFormStatus) return;
-      const message = i18n[currentLang] && i18n[currentLang].text
-        ? i18n[currentLang].text[messageKey]
-        : "";
-      if(!message){
-        reviewFormStatus.classList.remove("show", "success", "error");
-        reviewFormStatus.textContent = "";
-        return;
-      }
-
-      reviewFormStatus.textContent = message;
-      reviewFormStatus.classList.add("show");
-      reviewFormStatus.classList.toggle("success", type === "success");
-      reviewFormStatus.classList.toggle("error", type === "error");
-    }
-
-    function normalizeReviewEntry(item){
-      if(!item || typeof item !== "object") return null;
-      const age = Math.round(Number(item.age));
-      const level = cleanInputText(item.level, 24).toLowerCase();
-      const programAr = cleanInputText(item.programAr, 60);
-      const programEn = cleanInputText(item.programEn, 60);
-      const commentAr = cleanInputText(item.commentAr || item.comment, 450);
-      const commentEn = cleanInputText(item.commentEn || item.comment || commentAr, 450);
-      const createdAtRaw = cleanInputText(item.createdAt, 40);
-      const createdAt = Number.isNaN(Date.parse(createdAtRaw))
-        ? ""
-        : new Date(createdAtRaw).toISOString();
-
-      if(!Number.isFinite(age) || age < 6 || age > 40) return null;
-      if(!REVIEW_LEVELS.has(level)) return null;
-      if(!programAr || !programEn) return null;
-      if(!commentAr && !commentEn) return null;
-
-      return {
-        age,
-        level,
-        programAr,
-        programEn,
-        commentAr: commentAr || commentEn,
-        commentEn: commentEn || commentAr,
-        createdAt
-      };
-    }
-
-    function getReviewFingerprint(item){
-      return [
-        Number(item.age || 0),
-        cleanInputText(item.level, 24).toLowerCase(),
-        cleanInputText(item.programAr, 60),
-        cleanInputText(item.programEn, 60),
-        cleanInputText(item.commentAr, 450),
-        cleanInputText(item.commentEn, 450)
-      ].join("|");
-    }
-
-    function mergeReviews(primary, secondary){
-      const merged = [];
-      const seen = new Set();
-      [primary, secondary].forEach((collection)=>{
-        if(!Array.isArray(collection)) return;
-        collection.forEach((entry)=>{
-          const normalized = normalizeReviewEntry(entry);
-          if(!normalized) return;
-          const fingerprint = getReviewFingerprint(normalized);
-          if(seen.has(fingerprint)) return;
-          seen.add(fingerprint);
-          merged.push(normalized);
-        });
-      });
-      merged.sort((a, b)=> new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      return merged.slice(0, 300);
-    }
-
-    function getLevelLabel(level){
-      if(currentLang === "en"){
-        if(level === "beginner") return "Beginner";
-        if(level === "intermediate") return "Intermediate";
-        if(level === "advanced") return "Advanced";
-        return "Unknown";
-      }
-      if(level === "beginner") return "مبتدئ";
-      if(level === "intermediate") return "متوسط";
-      if(level === "advanced") return "متقدم";
-      return "غير محدد";
-    }
-
-    function getAgeGroup(age){
-      const n = Number(age || 0);
-      if(n >= 14) return "14+";
-      if(n >= 10) return "10-13";
-      return "6-9";
-    }
-
-    function renderParentReviews(){
-      if(!reviewsList) return;
-      const selectedAge = reviewAgeFilter ? reviewAgeFilter.value : "all";
-      const selectedLevel = reviewLevelFilter ? reviewLevelFilter.value : "all";
-
-      const filtered = parentReviewsData.filter((item)=>{
-        const ageMatch = selectedAge === "all" || getAgeGroup(item.age) === selectedAge;
-        const levelMatch = selectedLevel === "all" || item.level === selectedLevel;
-        return ageMatch && levelMatch;
-      });
-
-      if(!filtered.length){
-        reviewsList.innerHTML = `
-          <div class="review-empty">
-            ${currentLang === "en" ? "No reviews match this filter yet." : "لا توجد آراء مطابقة للفلاتر الحالية."}
-          </div>
-        `;
-        refreshDesignEnhancements();
-        return;
-      }
-
-      const ageLabel = escapeHtml(currentLang === "en" ? "Age" : "العمر");
-      const levelLabel = escapeHtml(currentLang === "en" ? "Level" : "المستوى");
-      const programLabel = escapeHtml(currentLang === "en" ? "Program" : "البرنامج");
-
-      reviewsList.innerHTML = filtered.map((item)=>{
-        const safeAge = Number(item.age || 0);
-        const program = escapeHtml(currentLang === "en" ? item.programEn : item.programAr);
-        const level = escapeHtml(getLevelLabel(item.level));
-        const comment = escapeHtml(currentLang === "en"
-          ? (item.commentEn || item.commentAr)
-          : (item.commentAr || item.commentEn));
-        return `
-          <article class="review-card">
-            <div class="review-meta">${ageLabel}: ${safeAge} | ${levelLabel}: ${level} | ${programLabel}: ${program}</div>
-            <p class="review-text">${comment}</p>
-          </article>
-        `;
-      }).join("");
-      refreshDesignEnhancements();
-    }
-
-    async function submitReviewToEndpoint(payload){
-      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
-        return { ok: false, error: "invalid_endpoint" };
-      }
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(()=> controller.abort(), 8000);
-      try {
-        const response = await fetch(REVIEWS_SUBMIT_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          cache: "no-store",
-          credentials: "omit",
-          redirect: "error",
-          referrerPolicy: "no-referrer",
-          signal: controller.signal
-        });
-        const result = await response.json().catch(()=> null);
-        if(!response.ok){
-          const apiError = cleanInputText(result && result.error ? result.error : "", 80);
-          return { ok: false, error: apiError || `http_${response.status}` };
-        }
-
-        return {
-          ok: true,
-          review: normalizeReviewEntry(result && result.review ? result.review : payload)
-        };
-      } catch(_){
-        return { ok: false, error: "network_error" };
-      } finally {
-        clearTimeout(timeoutId);
-      }
-    }
-
-    async function loadPublishedReviews(){
-      if(typeof REVIEWS_SUBMIT_ENDPOINT !== "string" || !REVIEWS_SUBMIT_ENDPOINT.startsWith("/")){
-        return false;
-      }
-
-      try {
-        const response = await fetch(`${REVIEWS_SUBMIT_ENDPOINT}?v=${Date.now()}`, {
-          method: "GET",
-          cache: "no-store",
-          credentials: "omit",
-          redirect: "error",
-          referrerPolicy: "no-referrer"
-        });
-        if(!response.ok) return false;
-
-        const payload = await response.json();
-        const serverReviews = Array.isArray(payload && payload.reviews)
-          ? payload.reviews.map(normalizeReviewEntry).filter(Boolean)
-          : [];
-
-        parentReviewsData = mergeReviews(serverReviews, FALLBACK_PARENT_REVIEWS_DATA);
-        renderParentReviews();
-        return true;
-      } catch(_){
-        return false;
-      }
-    }
-
-    function startReviewsSync(){
-      if(reviewsRefreshTimer){
-        clearInterval(reviewsRefreshTimer);
-      }
-      reviewsRefreshTimer = setInterval(()=>{
-        if(document.hidden) return;
-        loadPublishedReviews();
-      }, REVIEW_REFRESH_INTERVAL_MS);
-    }
-
-    if(reviewForm){
-      reviewForm.addEventListener("submit", async (event)=>{
-        event.preventDefault();
-        setReviewFormStatus("", "");
-
-        const age = Math.round(Number(reviewStudentAgeInput ? reviewStudentAgeInput.value : NaN));
-        const level = cleanInputText(reviewLevelInput ? reviewLevelInput.value : "", 24).toLowerCase();
-        const option = reviewProgramSelect && reviewProgramSelect.selectedIndex >= 0
-          ? reviewProgramSelect.options[reviewProgramSelect.selectedIndex]
-          : null;
-        const programAr = cleanInputText(option ? (option.getAttribute("data-ar") || option.textContent) : "", 60);
-        const programEn = cleanInputText(option ? (option.getAttribute("data-en") || option.textContent) : "", 60);
-        const comment = cleanInputText(reviewCommentInput ? reviewCommentInput.value : "", 450);
-
-        if(!Number.isFinite(age) || age < 6 || age > 40){
-          setReviewFormStatus("reviewAgeInvalid", "error");
-          return;
-        }
-
-        if(!REVIEW_LEVELS.has(level) || !programAr || !programEn || !comment){
-          setReviewFormStatus("reviewSubmitError", "error");
-          return;
-        }
-
-        const payload = {
-          age,
-          level,
-          programAr,
-          programEn,
-          commentAr: comment,
-          commentEn: comment
-        };
-
-        if(reviewSubmitBtn) reviewSubmitBtn.disabled = true;
-        const submitResult = await submitReviewToEndpoint(payload);
-        if(reviewSubmitBtn) reviewSubmitBtn.disabled = false;
-
-        if(!submitResult || !submitResult.ok || !submitResult.review){
-          const errorCode = submitResult && submitResult.error ? submitResult.error : "";
-          if(errorCode === "reviews_store_not_configured"){
-            setReviewFormStatus("reviewSubmitConfigError", "error");
-          } else if(errorCode === "not_found" || errorCode === "http_404"){
-            setReviewFormStatus("reviewSubmitApiMissingError", "error");
-          } else {
-            setReviewFormStatus("reviewSubmitNetworkError", "error");
-          }
-          return;
-        }
-
-        const savedReview = submitResult.review;
-        parentReviewsData = mergeReviews([savedReview], parentReviewsData);
-        renderParentReviews();
-        setReviewFormStatus("reviewSubmitSuccess", "success");
-        reviewForm.reset();
-      });
-    }
-
-    if(reviewsList){
-      [reviewAgeFilter, reviewLevelFilter].forEach((el)=>{
-        if(!el) return;
-        el.addEventListener("change", renderParentReviews);
-      });
-      renderParentReviews();
-      loadPublishedReviews();
-      startReviewsSync();
-      document.addEventListener("visibilitychange", ()=>{
-        if(!document.hidden){
-          loadPublishedReviews();
         }
       });
     }
