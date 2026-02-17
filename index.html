@@ -32,10 +32,14 @@
       --accent:#00d1ff;
       --accent2:#ff3d81;
       --accent3:#8ae8ff;
-      --gold:#00d1ff;
+      --gold:#ffd166;
       --ok:#2ad29f;
       --purple:#ff3d81;
       --blue:#00d1ff;
+      --tone-cyan:rgba(0,209,255,.14);
+      --tone-pink:rgba(255,61,129,.14);
+      --tone-mint:rgba(42,210,159,.14);
+      --tone-gold:rgba(255,209,102,.14);
       --surface:rgba(12,19,39,.68);
       --surface-soft:rgba(13,28,54,.56);
       --surface-line:rgba(0,209,255,.28);
@@ -1446,8 +1450,12 @@
       --accent:#ff3b68;
       --accent2:#00aecd;
       --accent3:#4adfff;
-      --gold:#4adfff;
+      --gold:#c98a1f;
       --ok:#22b88f;
+      --tone-cyan:rgba(0,174,205,.18);
+      --tone-pink:rgba(255,59,104,.15);
+      --tone-mint:rgba(34,184,143,.13);
+      --tone-gold:rgba(201,138,31,.14);
       --surface:rgba(255,255,255,.95);
       --surface-soft:rgba(255,255,255,.9);
       --surface-line:rgba(9,58,91,.17);
@@ -1611,6 +1619,109 @@
     }
     html[data-theme="light"] .fab.whatsapp path{stroke:#163955}
     html[data-theme="light"] .fab.up path{fill:#163955}
+
+    /* Color polish */
+    .why-icon{
+      width:72px;
+      height:72px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, var(--tone-cyan), var(--tone-pink));
+      align-items:center;
+    }
+    #why-us .card:nth-child(4n+1),
+    #programs .card:nth-child(4n+1){
+      background: linear-gradient(145deg, var(--tone-cyan), rgba(6,19,35,.66));
+      border-color: rgba(0,209,255,.34);
+    }
+    #why-us .card:nth-child(4n+2),
+    #programs .card:nth-child(4n+2){
+      background: linear-gradient(145deg, var(--tone-pink), rgba(8,18,36,.66));
+      border-color: rgba(255,61,129,.34);
+    }
+    #why-us .card:nth-child(4n+3),
+    #programs .card:nth-child(4n+3){
+      background: linear-gradient(145deg, var(--tone-mint), rgba(8,20,34,.66));
+      border-color: rgba(42,210,159,.33);
+    }
+    #why-us .card:nth-child(4n),
+    #programs .card:nth-child(4n){
+      background: linear-gradient(145deg, var(--tone-gold), rgba(17,22,40,.68));
+      border-color: rgba(255,209,102,.34);
+    }
+    #pricing .price-card{
+      background: linear-gradient(135deg, var(--tone-cyan), var(--tone-pink));
+      border-color: rgba(0,209,255,.4);
+    }
+    #calculator .calc-final{
+      background: linear-gradient(135deg, var(--tone-gold), var(--tone-cyan));
+      border-color: rgba(255,209,102,.42);
+    }
+    .stat .num{color:var(--accent3);}
+    .stat:nth-child(2) .num{color:var(--gold);}
+    .stat:nth-child(3) .num{color:#ffa3c7;}
+    .stat:nth-child(4) .num{color:#84efcc;}
+    #achievements .achievement-card:nth-child(odd),
+    #news .news-card:nth-child(odd),
+    #reviews .review-card:nth-child(odd){
+      background: linear-gradient(145deg, var(--tone-cyan), rgba(7,18,35,.64));
+      border-color: rgba(0,209,255,.3);
+    }
+    #achievements .achievement-card:nth-child(even),
+    #news .news-card:nth-child(even),
+    #reviews .review-card:nth-child(even){
+      background: linear-gradient(145deg, var(--tone-pink), rgba(9,19,37,.64));
+      border-color: rgba(255,61,129,.3);
+    }
+    html[data-theme="light"] .why-icon{
+      border-color: rgba(16,48,74,.18);
+      background: linear-gradient(135deg, rgba(74,223,255,.3), rgba(255,59,104,.2));
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+1),
+    html[data-theme="light"] #programs .card:nth-child(4n+1){
+      background: linear-gradient(145deg, rgba(74,223,255,.22), rgba(255,255,255,.95));
+      border-color: rgba(0,156,191,.35);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+2),
+    html[data-theme="light"] #programs .card:nth-child(4n+2){
+      background: linear-gradient(145deg, rgba(255,59,104,.16), rgba(255,255,255,.95));
+      border-color: rgba(255,59,104,.34);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n+3),
+    html[data-theme="light"] #programs .card:nth-child(4n+3){
+      background: linear-gradient(145deg, rgba(34,184,143,.14), rgba(255,255,255,.95));
+      border-color: rgba(34,184,143,.3);
+    }
+    html[data-theme="light"] #why-us .card:nth-child(4n),
+    html[data-theme="light"] #programs .card:nth-child(4n){
+      background: linear-gradient(145deg, rgba(201,138,31,.14), rgba(255,255,255,.95));
+      border-color: rgba(201,138,31,.34);
+    }
+    html[data-theme="light"] #pricing .price-card{
+      background: linear-gradient(135deg, rgba(74,223,255,.24), rgba(255,59,104,.14));
+      border-color: rgba(0,156,191,.35);
+    }
+    html[data-theme="light"] #calculator .calc-final{
+      background: linear-gradient(135deg, rgba(255,220,130,.4), rgba(74,223,255,.2));
+      border-color: rgba(201,138,31,.36);
+      color:#8a5a00;
+    }
+    html[data-theme="light"] .stat .num{color:#0080a1;}
+    html[data-theme="light"] .stat:nth-child(2) .num{color:#b77711;}
+    html[data-theme="light"] .stat:nth-child(3) .num{color:#d93f72;}
+    html[data-theme="light"] .stat:nth-child(4) .num{color:#0f9d79;}
+    html[data-theme="light"] #achievements .achievement-card:nth-child(odd),
+    html[data-theme="light"] #news .news-card:nth-child(odd),
+    html[data-theme="light"] #reviews .review-card:nth-child(odd){
+      background: linear-gradient(145deg, rgba(74,223,255,.2), rgba(255,255,255,.95));
+      border-color: rgba(0,156,191,.3);
+    }
+    html[data-theme="light"] #achievements .achievement-card:nth-child(even),
+    html[data-theme="light"] #news .news-card:nth-child(even),
+    html[data-theme="light"] #reviews .review-card:nth-child(even){
+      background: linear-gradient(145deg, rgba(255,59,104,.15), rgba(255,255,255,.95));
+      border-color: rgba(255,59,104,.29);
+    }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
