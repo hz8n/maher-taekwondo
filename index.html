@@ -2995,6 +2995,129 @@
       }
     }
 
+    /* Visual refresh */
+    #why-us .card,
+    #programs .card,
+    #achievements .achievement-card,
+    #news .news-card,
+    #journey .belt,
+    #journey .details,
+    #pricing .price-card,
+    .hero-right .mini-card{
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    #why-us .card::after,
+    #programs .card::after,
+    #achievements .achievement-card::after,
+    #news .news-card::after,
+    #journey .belt::after,
+    #journey .details::after,
+    #pricing .price-card::after,
+    .hero-right .mini-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -30% -55% -30%;
+      height:180px;
+      background:
+        radial-gradient(ellipse at center,
+          rgba(0,209,255,.25) 0%,
+          rgba(255,61,129,.18) 45%,
+          transparent 74%);
+      opacity:.5;
+      transform:translateY(6px);
+      transition:opacity .28s ease, transform .28s ease;
+      pointer-events:none;
+      z-index:0;
+    }
+    #why-us .card > *,
+    #programs .card > *,
+    #achievements .achievement-card > *,
+    #news .news-card > *,
+    #journey .belt > *,
+    #journey .details > *,
+    #pricing .price-card > *,
+    .hero-right .mini-card > *{
+      position:relative;
+      z-index:1;
+    }
+    #why-us .card:hover::after,
+    #programs .card:hover::after,
+    #achievements .achievement-card:hover::after,
+    #news .news-card:hover::after,
+    #journey .belt:hover::after,
+    #journey .details:hover::after,
+    #pricing .price-card:hover::after,
+    .hero-right .mini-card:hover::after{
+      opacity:.78;
+      transform:translateY(-3px);
+    }
+
+    .sec-title{
+      text-shadow: 0 0 20px rgba(0,209,255,.22);
+    }
+    .sec-title::before{
+      content:"";
+      position:absolute;
+      inset-inline-end:-14px;
+      top:.38em;
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--accent3), var(--accent2));
+      box-shadow: 0 0 14px rgba(0,209,255,.5);
+    }
+
+    #journey .swatch{
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.38),
+        0 0 10px rgba(0,209,255,.35);
+    }
+    #journey .belt.active{
+      background: linear-gradient(145deg, rgba(255,61,129,.22), rgba(0,209,255,.18));
+      border-color: rgba(255,61,129,.56);
+    }
+
+    #why-us .why-icon{
+      box-shadow: 0 12px 28px rgba(0,0,0,.2);
+      animation: iconFloat 4.2s ease-in-out infinite;
+    }
+    #why-us .card:nth-child(even) .why-icon{
+      animation-delay:-1.8s;
+    }
+    @keyframes iconFloat{
+      0%, 100%{ transform:translateY(0); }
+      50%{ transform:translateY(-5px); }
+    }
+
+    .hero-right .img,
+    .hero-right .avatar{
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,.24);
+    }
+
+    @media (max-width: 700px){
+      .sec-title::before{
+        display:none;
+      }
+      #why-us .why-icon{
+        animation-duration:4.8s;
+      }
+    }
+
+    html[data-theme="light"] .sec-title{
+      text-shadow: 0 0 16px rgba(255,59,104,.16);
+    }
+    html[data-theme="light"] .sec-title::before{
+      box-shadow: 0 0 10px rgba(255,59,104,.35);
+    }
+    html[data-theme="light"] #journey .swatch{
+      box-shadow:
+        0 0 0 1px rgba(16,48,74,.28),
+        0 0 8px rgba(0,156,191,.2);
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       *, *::before, *::after{
