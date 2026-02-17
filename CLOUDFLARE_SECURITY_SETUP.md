@@ -16,8 +16,7 @@ wrangler deploy
 In `wrangler.toml`, uncomment `routes` and set your real domain:
 ```toml
 routes = [
-  { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" },
-  { pattern = "your-domain.com/api/reviews", zone_name = "your-domain.com" }
+  { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" }
 ]
 ```
 Then deploy again:
@@ -25,15 +24,7 @@ Then deploy again:
 wrangler deploy
 ```
 
-## 3) Create KV for public reviews
-Create a KV namespace and bind it as `REVIEWS_KV` in `wrangler.toml`:
-```toml
-[[kv_namespaces]]
-binding = "REVIEWS_KV"
-id = "your_kv_namespace_id"
-```
-
-## 4) Enable Cloudflare anti-DDoS protections
+## 3) Enable Cloudflare anti-DDoS protections
 From Cloudflare Dashboard (domain zone):
 1. `Security -> WAF -> Managed rules`: enable all core managed rules.
 2. `Security -> Bots`: enable `Bot Fight Mode` (or Super Bot Fight if available).
@@ -42,18 +33,15 @@ From Cloudflare Dashboard (domain zone):
 5. `Security -> WAF -> Rate limiting rules`:
    - Rule A: protect `/api/lead` (for example 20 requests / 1 minute / IP).
    - Action: `Managed Challenge` or `Block`.
-   - Rule B: protect `/api/reviews` (for example 30 requests / 1 minute / IP).
-   - Rule C: stricter for suspicious countries/IPs if needed.
+   - Rule B: stricter for suspicious countries/IPs if needed.
 6. During active attack only, enable `Under Attack Mode`.
 
-## 5) Turnstile keys
+## 4) Turnstile keys
 1. Keep `TURNSTILE_SECRET` only in Worker secrets.
 2. Put your real site key in `index.html` (`TURNSTILE_SITE_KEY`).
 
-## 6) Validation checklist
+## 5) Validation checklist
 1. Submitting form without Turnstile should fail.
 2. Submitting too many requests quickly from same IP should return `429`.
 3. Large payloads should return `413`.
 4. Non-JSON submissions should return `415`.
-5. `GET /api/reviews` should return `{ ok: true, reviews: [...] }`.
-6. New comment submission should appear to all visitors after publish.
