@@ -750,106 +750,6 @@
       width:max-content;
     }
 
-    /* Parent Reviews */
-    .reviews-toolbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:16px;
-      flex-wrap:wrap;
-    }
-    .reviews-filters{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .review-filter{
-      min-width:180px;
-    }
-    .reviews-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .review-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-    .review-meta{
-      color:var(--muted);
-      font-weight:900;
-      font-size:13px;
-      line-height:1.8;
-    }
-    .review-text{
-      margin:0;
-      color:rgba(255,255,255,.88);
-      font-weight:800;
-      line-height:1.85;
-      font-size:14px;
-    }
-    .review-empty{
-      grid-column:1 / -1;
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.2);
-      padding:18px;
-      color:var(--muted);
-      font-weight:900;
-      text-align:center;
-    }
-    .review-form-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:16px;
-      margin-bottom:14px;
-    }
-    .review-form-title{
-      margin:0 0 8px;
-      font-size:20px;
-      font-weight:1000;
-    }
-    .review-form-note{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:13px;
-      line-height:1.7;
-    }
-    .review-form-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:10px;
-    }
-    .review-field-full{
-      grid-column:1 / -1;
-    }
-    .review-form-status{
-      display:none;
-      margin-top:10px;
-      border-radius:12px;
-      padding:10px 12px;
-      font-weight:900;
-      font-size:13px;
-    }
-    .review-form-status.show{
-      display:block;
-    }
-    .review-form-status.success{
-      background: rgba(42,210,159,.12);
-      border:1px solid rgba(42,210,159,.35);
-    }
-    .review-form-status.error{
-      background: rgba(255,42,42,.12);
-      border:1px solid rgba(255,42,42,.35);
-    }
-
     /* English quick panel */
     .english-quick[hidden]{display:none}
     .english-panel{
@@ -881,8 +781,7 @@
     html[data-lang="en"] .faq-question,
     html[data-lang="en"] .faq-answer,
     html[data-lang="en"] .mini-body,
-    html[data-lang="en"] .price-left,
-    html[data-lang="en"] .review-card{
+    html[data-lang="en"] .price-left{
       text-align:left;
     }
     html[data-lang="en"] .schedule-table th{
@@ -1231,16 +1130,6 @@
       .tracker-layout{grid-template-columns: 1fr}
       .achievement-list{grid-template-columns: 1fr}
       .news-list{grid-template-columns: 1fr}
-      .reviews-grid{grid-template-columns: 1fr}
-      .reviews-filters{
-        width:100%;
-      }
-      .review-filter{
-        flex:1 1 180px;
-      }
-      .review-form-grid{
-        grid-template-columns: 1fr;
-      }
       .booking{grid-template-columns: 1fr}
       section{padding:36px 0}
       .sec-head{margin-bottom:20px}
@@ -1530,8 +1419,6 @@
     html[data-theme="light"] .belt,
     html[data-theme="light"] .achievement-card,
     html[data-theme="light"] .news-card,
-    html[data-theme="light"] .review-card,
-    html[data-theme="light"] .review-form-card,
     html[data-theme="light"] .english-panel,
     html[data-theme="light"] .turnstile-wrap{
       background: rgba(255,255,255,.88);
@@ -1571,7 +1458,6 @@
       color: rgba(58,33,12,.92);
     }
     html[data-theme="light"] .price-note,
-    html[data-theme="light"] .review-text,
     html[data-theme="light"] .details-body{
       color: rgba(24,50,74,.86);
     }
@@ -1662,14 +1548,12 @@
     .stat:nth-child(3) .num{color:#ffa3c7;}
     .stat:nth-child(4) .num{color:#84efcc;}
     #achievements .achievement-card:nth-child(odd),
-    #news .news-card:nth-child(odd),
-    #reviews .review-card:nth-child(odd){
+    #news .news-card:nth-child(odd){
       background: linear-gradient(145deg, var(--tone-cyan), rgba(7,18,35,.64));
       border-color: rgba(0,209,255,.3);
     }
     #achievements .achievement-card:nth-child(even),
-    #news .news-card:nth-child(even),
-    #reviews .review-card:nth-child(even){
+    #news .news-card:nth-child(even){
       background: linear-gradient(145deg, var(--tone-pink), rgba(9,19,37,.64));
       border-color: rgba(255,61,129,.3);
     }
@@ -1711,14 +1595,12 @@
     html[data-theme="light"] .stat:nth-child(3) .num{color:#d93f72;}
     html[data-theme="light"] .stat:nth-child(4) .num{color:#0f9d79;}
     html[data-theme="light"] #achievements .achievement-card:nth-child(odd),
-    html[data-theme="light"] #news .news-card:nth-child(odd),
-    html[data-theme="light"] #reviews .review-card:nth-child(odd){
+    html[data-theme="light"] #news .news-card:nth-child(odd){
       background: linear-gradient(145deg, rgba(74,223,255,.2), rgba(255,255,255,.95));
       border-color: rgba(0,156,191,.3);
     }
     html[data-theme="light"] #achievements .achievement-card:nth-child(even),
-    html[data-theme="light"] #news .news-card:nth-child(even),
-    html[data-theme="light"] #reviews .review-card:nth-child(even){
+    html[data-theme="light"] #news .news-card:nth-child(even){
       background: linear-gradient(145deg, rgba(255,59,104,.15), rgba(255,255,255,.95));
       border-color: rgba(255,59,104,.29);
     }
@@ -1809,12 +1691,10 @@
     .err{
       color:#ffc2c2;
     }
-    .review-form-status.success,
     .payment-copy-status,
     .turnstile-status:not(.error){
       color:#b4ffe6;
     }
-    .review-form-status.error,
     .payment-copy-status.error,
     .turnstile-status.error{
       color:#ffc3c3;
@@ -1906,12 +1786,10 @@
     html[data-theme="light"] .err{
       color:#b32929;
     }
-    html[data-theme="light"] .review-form-status.success,
     html[data-theme="light"] .payment-copy-status,
     html[data-theme="light"] .turnstile-status:not(.error){
       color:#0f775b;
     }
-    html[data-theme="light"] .review-form-status.error,
     html[data-theme="light"] .payment-copy-status.error,
     html[data-theme="light"] .turnstile-status.error{
       color:#ad2929;
@@ -2140,19 +2018,10 @@
         justify-content:center;
       }
 
-      .review-form-card,
-      .review-card,
       .achievement-card,
       .news-card{
         padding:14px;
         border-radius:14px;
-      }
-      .reviews-toolbar{
-        gap:10px;
-        margin-bottom:12px;
-      }
-      .review-filter{
-        min-width:100%;
       }
 
       .faq-question{
@@ -2440,10 +2309,8 @@
 
       .card,
       .details,
-      .review-card,
       .achievement-card,
-      .news-card,
-      .review-form-card{
+      .news-card{
         border-radius:14px;
         border-color: rgba(255,255,255,.16);
         background: linear-gradient(165deg, rgba(10,24,47,.86), rgba(8,18,35,.8));
@@ -2486,13 +2353,9 @@
         font-size:19px;
       }
 
-      .review-meta,
       .news-meta,
       .achievement-date{
         font-size:12px;
-      }
-      .review-text{
-        font-size:13px;
       }
 
       .faq-item{
@@ -2563,10 +2426,8 @@
       html[data-theme="light"] .panel,
       html[data-theme="light"] .card,
       html[data-theme="light"] .details,
-      html[data-theme="light"] .review-card,
       html[data-theme="light"] .achievement-card,
-      html[data-theme="light"] .news-card,
-      html[data-theme="light"] .review-form-card{
+      html[data-theme="light"] .news-card{
         border-color: rgba(16,48,74,.16);
         background: linear-gradient(165deg, rgba(255,255,255,.97), rgba(244,251,255,.92));
       }
@@ -2695,8 +2556,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .achievement-list,
-      .news-list,
-      .reviews-grid{
+      .news-list{
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
       .calculator-grid,
@@ -2716,10 +2576,8 @@
       .mini-card,
       .faq-item,
       .schedule-table,
-      .review-card,
       .achievement-card,
-      .news-card,
-      .review-form-card{
+      .news-card{
         box-shadow: 0 16px 40px rgba(0,0,0,.28);
       }
       .panel:hover{
@@ -2782,10 +2640,8 @@
       html[data-theme="light"] .mini-card,
       html[data-theme="light"] .faq-item,
       html[data-theme="light"] .schedule-table,
-      html[data-theme="light"] .review-card,
       html[data-theme="light"] .achievement-card,
-      html[data-theme="light"] .news-card,
-      html[data-theme="light"] .review-form-card{
+      html[data-theme="light"] .news-card{
         box-shadow: 0 14px 32px rgba(17,42,68,.14);
       }
       html[data-theme="light"] .panel:hover{
