@@ -2916,8 +2916,26 @@
       line-height:1.4;
       max-width:42%;
       text-align:end;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:3px;
+    }
+    #journey .belt .belt-fee{
+      color:var(--gold);
+      font-weight:1100;
+      font-size:13px;
+      line-height:1.2;
+      white-space:nowrap;
+    }
+    #journey .belt .belt-meta{
+      color:var(--muted);
+      font-weight:900;
+      font-size:11px;
+      white-space:nowrap;
     }
     html[data-lang="en"] #journey .belt small{
+      align-items:flex-start;
       text-align:left;
     }
     #journey .details{
@@ -2945,37 +2963,38 @@
       }
       #journey .belt-list{
         display:flex;
-        flex-direction:row;
+        flex-direction:column;
         flex-wrap:nowrap;
-        gap:10px;
-        overflow-x:auto;
-        overflow-y:hidden;
-        padding:0 2px 8px;
-        scroll-snap-type:x mandatory;
-        scroll-padding-inline:2px;
-        overscroll-behavior-x:contain;
-        -webkit-overflow-scrolling:touch;
-        scrollbar-width:none;
-        -ms-overflow-style:none;
+        gap:8px;
+        overflow:visible;
+        padding:0;
+        scroll-snap-type:none;
       }
       #journey .belt-list::-webkit-scrollbar{
         display:none;
       }
       #journey .belt{
-        scroll-snap-align:start;
-        flex:0 0 clamp(220px, 82vw, 300px);
-        max-width:clamp(220px, 82vw, 300px);
+        scroll-snap-align:none;
+        flex:1 1 auto;
+        max-width:none;
+        width:100%;
         min-height:auto;
         padding:12px;
         display:flex;
-        flex-direction:column;
-        align-items:flex-start;
-        justify-content:flex-start;
-        gap:8px;
+        flex-direction:row;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
       }
       #journey .belt small{
-        max-width:none;
+        max-width:48%;
         font-size:11px;
+      }
+      #journey .belt .belt-fee{
+        font-size:12px;
+      }
+      #journey .belt .belt-meta{
+        font-size:10px;
       }
       html[dir="rtl"] #journey .belt small{
         text-align:right;
@@ -5119,6 +5138,8 @@
       belts.forEach((b)=>{
         const subGrades = getBeltSubGrades(b);
         const subGradesSummary = subGrades.length ? ` • ${subGrades.join(" / ")}` : "";
+        const beltFee = getBeltFeeLabel(b);
+        const beltMeta = `${getBeltDuration(b)}${subGradesSummary}`;
         const el = document.createElement("div");
         el.className = "belt";
         el.setAttribute("data-key", b.key);
@@ -5127,7 +5148,10 @@
             <span class="swatch" style="background:${b.color}"></span>
             <span>${getBeltName(b)}</span>
           </div>
-          <small>${getBeltDuration(b)} • ${getBeltFeeLabel(b)}${subGradesSummary}</small>
+          <small>
+            <span class="belt-fee">${beltFee}</span>
+            <span class="belt-meta">${beltMeta}</span>
+          </small>
         `;
         el.addEventListener("click", ()=> setActive(b.key));
         beltFragment.appendChild(el);
