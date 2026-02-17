@@ -10,14 +10,14 @@ RATE_LIMIT_WINDOW_SECONDS = "60"
 MAX_BODY_BYTES = "8192"
 
 # Optional: lock requests to one frontend origin (recommended in production)
-# ALLOWED_ORIGIN = "https://your-domain.com"
+# ALLOWED_ORIGIN = "https://maher-taekwondo.vercel.app/"
 # Optional: cap stored public reviews
 # REVIEWS_MAX_ITEMS = "300"
 
 # For same-origin APIs on your own domain, add routes:
 # routes = [
 #   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" },
-#   { pattern = "your-domain.com/api/reviews", zone_name = "your-domain.com" }
+#   { pattern = "https://maher-taekwondo.vercel.app/", zone_name = "your-domain.com" }
 # ]
 
 # Bind KV for public parent reviews storage:
