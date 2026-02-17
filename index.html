@@ -2664,6 +2664,211 @@
       }
     }
 
+    /* Mobile professional polish */
+    @media (max-width: 700px){
+      body{
+        background:
+          radial-gradient(120% 74% at 100% -10%, rgba(255,61,129,.16), transparent 60%),
+          radial-gradient(120% 72% at -12% 0%, rgba(0,209,255,.14), transparent 58%),
+          linear-gradient(165deg, #071022 0%, #0b1e3f 52%, #15375f 100%);
+      }
+
+      .container{
+        width:min(100%, 92vw);
+      }
+
+      .nav{
+        background: rgba(7,16,33,.95);
+        border-bottom-color: rgba(0,209,255,.34);
+        box-shadow: 0 8px 24px rgba(0,0,0,.34);
+      }
+
+      header.hero{
+        padding:14px 0 8px;
+      }
+      .hero-grid{
+        gap:12px;
+      }
+      .hero-left,
+      .hero-right{
+        padding:15px;
+      }
+      h1{
+        font-size: clamp(24px, 8.2vw, 33px);
+        line-height:1.24;
+      }
+      .sub{
+        font-size:14px;
+        line-height:1.78;
+        color:rgba(236,245,255,.88);
+      }
+      .hero-actions{
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap:8px;
+      }
+      .hero-actions .btn:first-child{
+        grid-column:1 / -1;
+      }
+      .hero-actions .btn{
+        min-height:46px;
+        justify-content:center;
+      }
+
+      .spotlight{
+        padding:10px;
+        gap:7px;
+        border-color: rgba(0,209,255,.45);
+      }
+      .spotlight-points{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:6px;
+      }
+      .pills{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:7px;
+      }
+      .pill{
+        justify-content:center;
+      }
+      .stats{
+        margin-top:12px;
+        gap:8px;
+      }
+      .stat{
+        padding:10px 8px;
+        border-radius:13px;
+        text-align:center;
+      }
+      .stat .num{
+        font-size:23px;
+      }
+      .stat .lbl{
+        font-size:11px;
+      }
+
+      section{
+        padding:24px 0;
+      }
+      .sec-head{
+        margin-bottom:12px;
+        padding-bottom:0;
+        border-bottom:none;
+      }
+      .sec-title{
+        font-size:22px;
+      }
+      .sec-desc{
+        font-size:13px;
+        line-height:1.75;
+      }
+
+      .panel,
+      .card,
+      .mini-card,
+      .price-card,
+      .details,
+      .achievement-card,
+      .news-card,
+      .faq-item{
+        border-radius:16px;
+        border-color: rgba(255,255,255,.17);
+        background: linear-gradient(165deg, rgba(10,23,46,.92), rgba(8,18,36,.82));
+      }
+      .card,
+      .details,
+      .mini-body{
+        padding:14px;
+      }
+      .card h3{
+        font-size:16px;
+      }
+      .card p{
+        font-size:13px;
+        line-height:1.75;
+      }
+      .why-icon{
+        width:56px;
+        height:56px;
+        font-size:34px;
+      }
+
+      .calculator-grid,
+      .booking,
+      .tracker-layout,
+      .journey{
+        gap:12px;
+      }
+      .booking > .card:last-child{
+        position:static;
+      }
+
+      input,
+      select,
+      textarea{
+        min-height:46px;
+        border-radius:12px;
+      }
+      textarea{
+        min-height:100px;
+      }
+      .btn{
+        min-height:44px;
+        border-radius:12px;
+      }
+
+      .schedule-table tbody{
+        gap:9px;
+      }
+      .schedule-table tr{
+        border-radius:14px;
+        border-color: rgba(255,255,255,.2);
+        background: linear-gradient(160deg, rgba(0,209,255,.12), rgba(255,61,129,.1));
+      }
+      .schedule-table td{
+        padding:9px 0;
+        font-size:12px;
+      }
+      .schedule-table td::before{
+        font-size:11px;
+      }
+
+      .wa-sticky-cta{
+        border-radius:13px;
+        box-shadow:
+          0 12px 26px rgba(0,0,0,.34),
+          inset 0 0 0 1px rgba(255,255,255,.15);
+      }
+
+      html[data-theme="light"] body{
+        background:
+          radial-gradient(120% 74% at 100% -10%, rgba(255,59,104,.16), transparent 60%),
+          radial-gradient(120% 72% at -12% 0%, rgba(74,223,255,.18), transparent 58%),
+          linear-gradient(165deg, #fff9f4 0%, #f2fbff 52%, #ffeef5 100%);
+      }
+      html[data-theme="light"] .nav{
+        background: rgba(255,252,255,.95);
+        border-bottom-color: rgba(0,156,191,.24);
+        box-shadow: 0 8px 20px rgba(17,42,68,.12);
+      }
+      html[data-theme="light"] .panel,
+      html[data-theme="light"] .card,
+      html[data-theme="light"] .mini-card,
+      html[data-theme="light"] .price-card,
+      html[data-theme="light"] .details,
+      html[data-theme="light"] .achievement-card,
+      html[data-theme="light"] .news-card,
+      html[data-theme="light"] .faq-item{
+        border-color: rgba(16,48,74,.16);
+        background: linear-gradient(165deg, rgba(255,255,255,.97), rgba(244,251,255,.92));
+      }
+      html[data-theme="light"] .schedule-table tr{
+        border-color: rgba(16,48,74,.2);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       *, *::before, *::after{
@@ -2805,10 +3010,10 @@
             <div class="avatar" id="coachImg"></div>
             <div>
               <div class="n1" id="coachName">الكابتن والحكم الدولي الماستر رائد عضيبات</div>
-              <div class="n2" id="coachInfo">? حكم دولي
-? 35 سنة خبرة
-? إشراف مباشر على كل طالب
-? يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
+              <div class="n2" id="coachInfo">✓ حكم دولي
+✓ 35 سنة خبرة
+✓ إشراف مباشر على كل طالب
+✓ يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
               <div class="badge" id="coachBadge">🏆 اعتماد • انضباط • نتائج</div>
             </div>
           </div>
@@ -2945,7 +3150,7 @@
         <div class="price-card">
           <div class="price-left">
             <h3 class="price-title" id="priceTitleMain">📦 الاشتراك الشهري الكامل</h3>
-            <p class="price-note" id="priceNoteMain">? تدريب منهجي ومتابعة فردية | ? بدلة تايكوندو جديدة | ? توصيل آمن للمنزل | ? إشراف مباشر من الكابتن والمدرّبة</p>
+            <p class="price-note" id="priceNoteMain">✓ تدريب منهجي ومتابعة فردية | ✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ إشراف مباشر من الكابتن والمدرّبة</p>
           </div>
           <div class="price-number">45 JD</div>
         </div>
