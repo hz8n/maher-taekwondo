@@ -3,7 +3,8 @@ const JSON_HEADERS = {
   "Cache-Control": "no-store",
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "no-referrer",
-  "Cross-Origin-Resource-Policy": "same-origin"
+  "Cross-Origin-Resource-Policy": "same-origin",
+  "X-Frame-Options": "DENY"
 };
 
 const MAX_LEN = {
@@ -16,8 +17,19 @@ const MAX_LEN = {
   message: 500,
   lang: 5,
   userAgent: 260,
-  turnstileToken: 2048
+  turnstileToken: 2048,
+  reviewLevel: 24,
+  reviewProgram: 60,
+  reviewComment: 450
 };
+
+const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 12;
+const DEFAULT_RATE_LIMIT_WINDOW_SECONDS = 60;
+const DEFAULT_MAX_BODY_BYTES = 8192;
+const DEFAULT_REVIEWS_MAX_BODY_BYTES = 4096;
+const DEFAULT_REVIEWS_MAX_ITEMS = 300;
+const REVIEWS_KV_KEY = "maher_reviews_v1";
+const REVIEW_ALLOWED_LEVELS = new Set(["beginner", "intermediate", "advanced"]);
 
 function cleanText(value, maxLength = 200) {
   return String(value == null ? "" : value).replace(/\s+/g, " ").trim().slice(0, maxLength);
@@ -39,6 +51,12 @@ function jsonResponse(status, payload, extraHeaders = {}) {
   });
 }
 
+function getPositiveInt(value, fallback) {
+  const num = Number.parseInt(String(value == null ? "" : value), 10);
+  if (!Number.isFinite(num) || num <= 0) return fallback;
+  return num;
+}
+
 function isAllowedOrigin(request, env) {
   const origin = request.headers.get("Origin");
   const allowedOrigin = cleanText(env.ALLOWED_ORIGIN || "", 200);
@@ -50,6 +68,85 @@ function getClientIp(request) {
   const cfIp = cleanText(request.headers.get("CF-Connecting-IP"), 64);
   if (cfIp) return cfIp;
   return cleanText(request.headers.get("X-Forwarded-For"), 128).split(",")[0].trim();
+}
+
+async function applyIpRateLimit(request, env, scope = "default") {
+  const ip = getClientIp(request) || "unknown";
+  const windowSeconds = getPositiveInt(env.RATE_LIMIT_WINDOW_SECONDS, DEFAULT_RATE_LIMIT_WINDOW_SECONDS);
+  const maxRequests = getPositiveInt(env.RATE_LIMIT_MAX_REQUESTS, DEFAULT_RATE_LIMIT_MAX_REQUESTS);
+  const now = Math.floor(Date.now() / 1000);
+
+  const cache = caches.default;
+  const cacheKey = new Request(
+    `https://rate-limit.local/${encodeURIComponent(scope)}/${encodeURIComponent(ip)}`
+  );
+  let state = {
+    count: 0,
+    resetAt: now + windowSeconds
+  };
+
+  try {
+    const cached = await cache.match(cacheKey);
+    if (cached) {
+      const parsed = await cached.json();
+      const cachedCount = Number(parsed && parsed.count);
+      const cachedResetAt = Number(parsed && parsed.resetAt);
+      if (Number.isFinite(cachedCount) && Number.isFinite(cachedResetAt)) {
+        state = { count: cachedCount, resetAt: cachedResetAt };
+      }
+    }
+  } catch (_) {
+    // Fail open if cache lookup fails.
+    return { allowed: true, retryAfter: 0, limit: maxRequests, remaining: maxRequests };
+  }
+
+  if (state.resetAt <= now) {
+    state = { count: 0, resetAt: now + windowSeconds };
+  }
+
+  state.count += 1;
+  const retryAfter = Math.max(1, state.resetAt - now);
+  const allowed = state.count <= maxRequests;
+  const remaining = Math.max(0, maxRequests - state.count);
+
+  try {
+    await cache.put(
+      cacheKey,
+      new Response(JSON.stringify(state), {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": `max-age=${retryAfter}`
+        }
+      })
+    );
+  } catch (_) {
+    // Ignore cache write errors.
+  }
+
+  return { allowed, retryAfter, limit: maxRequests, remaining };
+}
+
+async function parseJsonBody(request, maxBodyBytes) {
+  const contentType = cleanText(request.headers.get("Content-Type"), 120).toLowerCase();
+  if (!contentType.includes("application/json")) {
+    return { ok: false, status: 415, error: "unsupported_media_type" };
+  }
+
+  const contentLength = getPositiveInt(request.headers.get("Content-Length"), 0);
+  if (contentLength > maxBodyBytes) {
+    return { ok: false, status: 413, error: "payload_too_large" };
+  }
+
+  try {
+    const raw = await request.text();
+    if (raw.length > maxBodyBytes) {
+      return { ok: false, status: 413, error: "payload_too_large" };
+    }
+    const body = JSON.parse(raw);
+    return { ok: true, body };
+  } catch (_) {
+    return { ok: false, status: 400, error: "invalid_json" };
+  }
 }
 
 async function verifyTurnstile(turnstileToken, request, env) {
@@ -79,17 +176,17 @@ async function sendToTelegram(payload, env) {
   if (!botToken || !chatId) return false;
 
   const message = `
-<b>🔴 طلب اشتراك جديد (Secure Worker)</b>
+<b>New Join Request (Secure Worker)</b>
 
-<b>👤 الاسم:</b> ${escapeHtml(payload.name)}
-<b>📞 الهاتف:</b> ${escapeHtml(payload.phone)}
-<b>🎂 العمر:</b> ${escapeHtml(payload.age || "—")}
-<b>🏋️ البرنامج:</b> ${escapeHtml(payload.program)}
-<b>⏰ الوقت المفضل:</b> ${escapeHtml(payload.preferredTime || "—")}
-<b>💳 طريقة الدفع:</b> ${escapeHtml(payload.paymentMethod || "—")}
-<b>💬 الملاحظة:</b> ${escapeHtml(payload.message || "—")}
-<b>🌐 اللغة:</b> ${escapeHtml(payload.lang || "ar")}
-<b>🧭 User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
+<b>Name:</b> ${escapeHtml(payload.name)}
+<b>Phone:</b> ${escapeHtml(payload.phone)}
+<b>Age:</b> ${escapeHtml(payload.age || "-")}
+<b>Program:</b> ${escapeHtml(payload.program)}
+<b>Preferred Time:</b> ${escapeHtml(payload.preferredTime || "-")}
+<b>Payment Method:</b> ${escapeHtml(payload.paymentMethod || "-")}
+<b>Note:</b> ${escapeHtml(payload.message || "-")}
+<b>Language:</b> ${escapeHtml(payload.lang || "ar")}
+<b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
   `.trim();
 
   const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
@@ -138,48 +235,215 @@ function validatePayload(raw) {
   };
 }
 
+function normalizeReviewEntry(raw) {
+  if (!raw || typeof raw !== "object") return null;
+
+  const age = Math.round(Number(raw.age));
+  const level = cleanText(raw.level, MAX_LEN.reviewLevel).toLowerCase();
+  const programAr = cleanText(raw.programAr, MAX_LEN.reviewProgram);
+  const programEn = cleanText(raw.programEn, MAX_LEN.reviewProgram);
+  const commentAr = cleanText(raw.commentAr, MAX_LEN.reviewComment);
+  const commentEn = cleanText(raw.commentEn, MAX_LEN.reviewComment);
+  const createdAtRaw = cleanText(raw.createdAt, 40);
+  const createdAt = Number.isNaN(Date.parse(createdAtRaw)) ? "" : new Date(createdAtRaw).toISOString();
+
+  if (!Number.isFinite(age) || age < 6 || age > 40) return null;
+  if (!REVIEW_ALLOWED_LEVELS.has(level)) return null;
+  if (!programAr || !programEn) return null;
+  if (!commentAr && !commentEn) return null;
+
+  return {
+    id: cleanText(raw.id, 80) || crypto.randomUUID(),
+    age,
+    level,
+    programAr,
+    programEn,
+    commentAr: commentAr || commentEn,
+    commentEn: commentEn || commentAr,
+    createdAt: createdAt || new Date().toISOString()
+  };
+}
+
+function validateReviewPayload(raw) {
+  const age = Math.round(Number(raw && raw.age));
+  const level = cleanText(raw && raw.level, MAX_LEN.reviewLevel).toLowerCase();
+  const programAr = cleanText(raw && raw.programAr, MAX_LEN.reviewProgram);
+  const programEn = cleanText(raw && raw.programEn, MAX_LEN.reviewProgram);
+  const commentRaw = cleanText(raw && raw.comment, MAX_LEN.reviewComment);
+  const commentAr = cleanText(raw && raw.commentAr, MAX_LEN.reviewComment) || commentRaw;
+  const commentEn = cleanText(raw && raw.commentEn, MAX_LEN.reviewComment) || commentRaw || commentAr;
+
+  if (!Number.isFinite(age) || age < 6 || age > 40) return null;
+  if (!REVIEW_ALLOWED_LEVELS.has(level)) return null;
+  if (!programAr || !programEn) return null;
+  if (!commentAr && !commentEn) return null;
+
+  return {
+    id: crypto.randomUUID(),
+    age,
+    level,
+    programAr,
+    programEn,
+    commentAr: commentAr || commentEn,
+    commentEn: commentEn || commentAr,
+    createdAt: new Date().toISOString()
+  };
+}
+
+function getReviewsLimit(env) {
+  const maxItems = getPositiveInt(env.REVIEWS_MAX_ITEMS, DEFAULT_REVIEWS_MAX_ITEMS);
+  return Math.max(20, Math.min(1000, maxItems));
+}
+
+async function readReviewsFromKv(env) {
+  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.get !== "function") return null;
+
+  try {
+    const raw = await env.REVIEWS_KV.get(REVIEWS_KV_KEY, "json");
+    if (!Array.isArray(raw)) return [];
+    return raw.map(normalizeReviewEntry).filter(Boolean);
+  } catch (_) {
+    return [];
+  }
+}
+
+async function writeReviewsToKv(env, reviews) {
+  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.put !== "function") return false;
+  try {
+    await env.REVIEWS_KV.put(REVIEWS_KV_KEY, JSON.stringify(reviews));
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+async function handleLeadRequest(request, env) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: JSON_HEADERS });
+  }
+
+  if (request.method !== "POST") {
+    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
+  }
+
+  if (!isAllowedOrigin(request, env)) {
+    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
+  }
+
+  const rate = await applyIpRateLimit(request, env, "lead");
+  if (!rate.allowed) {
+    return jsonResponse(
+      429,
+      { ok: false, error: "rate_limited" },
+      {
+        "Retry-After": String(rate.retryAfter),
+        "X-RateLimit-Limit": String(rate.limit),
+        "X-RateLimit-Remaining": String(rate.remaining)
+      }
+    );
+  }
+
+  const maxBodyBytes = getPositiveInt(env.MAX_BODY_BYTES, DEFAULT_MAX_BODY_BYTES);
+  const parsed = await parseJsonBody(request, maxBodyBytes);
+  if (!parsed.ok) {
+    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
+  }
+
+  const payload = validatePayload(parsed.body || {});
+  if (!payload) {
+    return jsonResponse(400, { ok: false, error: "invalid_payload" });
+  }
+
+  const turnstileOk = await verifyTurnstile(payload.turnstileToken, request, env);
+  if (!turnstileOk) {
+    return jsonResponse(403, { ok: false, error: "turnstile_failed" });
+  }
+
+  const telegramOk = await sendToTelegram(payload, env);
+  if (!telegramOk) {
+    return jsonResponse(502, { ok: false, error: "telegram_failed" });
+  }
+
+  return jsonResponse(200, { ok: true });
+}
+
+async function handleReviewsRequest(request, env) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: JSON_HEADERS });
+  }
+
+  if (request.method === "GET") {
+    const reviews = await readReviewsFromKv(env);
+    if (reviews === null) {
+      return jsonResponse(200, { ok: true, reviews: [], configured: false });
+    }
+
+    reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return jsonResponse(200, { ok: true, reviews: reviews.slice(0, getReviewsLimit(env)), configured: true });
+  }
+
+  if (request.method !== "POST") {
+    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "GET, POST, OPTIONS" });
+  }
+
+  if (!isAllowedOrigin(request, env)) {
+    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
+  }
+
+  if (!env || !env.REVIEWS_KV || typeof env.REVIEWS_KV.get !== "function") {
+    return jsonResponse(503, { ok: false, error: "reviews_store_not_configured" });
+  }
+
+  const rate = await applyIpRateLimit(request, env, "reviews");
+  if (!rate.allowed) {
+    return jsonResponse(
+      429,
+      { ok: false, error: "rate_limited" },
+      {
+        "Retry-After": String(rate.retryAfter),
+        "X-RateLimit-Limit": String(rate.limit),
+        "X-RateLimit-Remaining": String(rate.remaining)
+      }
+    );
+  }
+
+  const maxBodyBytes = getPositiveInt(env.REVIEWS_MAX_BODY_BYTES, DEFAULT_REVIEWS_MAX_BODY_BYTES);
+  const parsed = await parseJsonBody(request, maxBodyBytes);
+  if (!parsed.ok) {
+    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
+  }
+
+  const payload = validateReviewPayload(parsed.body || {});
+  if (!payload) {
+    return jsonResponse(400, { ok: false, error: "invalid_payload" });
+  }
+
+  const existingReviews = await readReviewsFromKv(env);
+  const merged = [payload, ...(Array.isArray(existingReviews) ? existingReviews : [])]
+    .map(normalizeReviewEntry)
+    .filter(Boolean)
+    .slice(0, getReviewsLimit(env));
+
+  const saved = await writeReviewsToKv(env, merged);
+  if (!saved) {
+    return jsonResponse(502, { ok: false, error: "reviews_store_write_failed" });
+  }
+
+  return jsonResponse(201, { ok: true, review: payload });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname !== "/api/lead") {
-      return jsonResponse(404, { ok: false, error: "not_found" });
+    if (url.pathname === "/api/lead") {
+      return handleLeadRequest(request, env);
     }
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: JSON_HEADERS });
+    if (url.pathname === "/api/reviews") {
+      return handleReviewsRequest(request, env);
     }
 
-    if (request.method !== "POST") {
-      return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
-    }
-
-    if (!isAllowedOrigin(request, env)) {
-      return jsonResponse(403, { ok: false, error: "forbidden_origin" });
-    }
-
-    let body;
-    try {
-      body = await request.json();
-    } catch (_) {
-      return jsonResponse(400, { ok: false, error: "invalid_json" });
-    }
-
-    const payload = validatePayload(body || {});
-    if (!payload) {
-      return jsonResponse(400, { ok: false, error: "invalid_payload" });
-    }
-
-    const turnstileOk = await verifyTurnstile(payload.turnstileToken, request, env);
-    if (!turnstileOk) {
-      return jsonResponse(403, { ok: false, error: "turnstile_failed" });
-    }
-
-    const telegramOk = await sendToTelegram(payload, env);
-    if (!telegramOk) {
-      return jsonResponse(502, { ok: false, error: "telegram_failed" });
-    }
-
-    return jsonResponse(200, { ok: true });
+    return jsonResponse(404, { ok: false, error: "not_found" });
   }
 };
