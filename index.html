@@ -1936,6 +1936,327 @@
       border-color: rgba(0,156,191,.26);
     }
 
+    /* Mobile visual upgrade */
+    @media (max-width: 700px){
+      body{
+        padding-bottom: 104px;
+      }
+      .container{
+        width:min(100%, 95vw);
+      }
+      .nav-inner{
+        padding:10px 0;
+        gap:8px;
+      }
+      .brand .t1{font-size:13px}
+      .brand .t2{font-size:11px}
+      .theme-toggle,
+      .lang-toggle{
+        min-width:40px;
+        height:40px;
+        padding-inline:0;
+        border-radius:12px;
+      }
+
+      header.hero{
+        min-height:auto;
+        padding:16px 0 8px;
+      }
+      .hero-grid{
+        gap:12px;
+        padding:10px 0 0;
+      }
+      .hero-left,
+      .hero-right{
+        padding:14px;
+      }
+      .tag{
+        padding:6px 10px;
+        font-size:12px;
+      }
+      h1{
+        margin:8px 0 10px;
+        font-size:clamp(26px, 8.2vw, 34px);
+        line-height:1.22;
+      }
+      .sub{
+        margin:0 0 12px;
+        font-size:14px;
+        line-height:1.75;
+      }
+      .hero-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+      }
+      .hero-actions .btn{
+        width:100%;
+        min-height:44px;
+        justify-content:center;
+      }
+      .spotlight{
+        padding:10px;
+        gap:8px;
+      }
+      .spotlight-text{
+        font-size:13px;
+        line-height:1.7;
+      }
+      .spotlight-points{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:6px;
+      }
+      .spotlight-point{
+        justify-content:center;
+      }
+      .pills{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:8px;
+      }
+      .pill{
+        justify-content:center;
+      }
+      .stats{
+        margin-top:12px;
+        gap:8px;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .stat{
+        padding:10px 8px;
+        text-align:center;
+      }
+      .stat .num{font-size:22px}
+      .stat .lbl{font-size:12px}
+
+      .mini-card{margin-bottom:10px}
+      .mini-body{padding:12px}
+      .mini-title{font-size:15px}
+      .mini-text{
+        font-size:13px;
+        line-height:1.7;
+      }
+      .coach{
+        gap:10px;
+        padding:12px;
+      }
+      .avatar{
+        width:56px;
+        height:56px;
+        border-radius:14px;
+      }
+      .coach .n1{font-size:14px}
+      .coach .n2{
+        font-size:12px;
+        line-height:1.6;
+      }
+      .badge{
+        font-size:11px;
+        padding:6px 9px;
+      }
+      .hero-right > div:last-child{
+        width:100%;
+      }
+      .hero-right > div:last-child .btn{
+        flex:1 1 0;
+        justify-content:center;
+      }
+
+      section{
+        padding:28px 0;
+      }
+      .sec-head{
+        margin-bottom:14px;
+        padding-bottom:8px;
+      }
+      .sec-title{
+        font-size:21px;
+        line-height:1.25;
+      }
+      .sec-desc{
+        font-size:13px;
+        line-height:1.7;
+      }
+
+      .grid{
+        gap:12px;
+        grid-template-columns:1fr;
+      }
+      .card{
+        padding:14px;
+        border-radius:14px;
+      }
+      .card h3{
+        font-size:16px;
+        line-height:1.5;
+      }
+      .card p{
+        font-size:14px;
+        line-height:1.75;
+      }
+      .why-icon{
+        width:58px;
+        height:58px;
+        font-size:36px;
+        border-radius:16px;
+      }
+
+      .pricing{gap:10px}
+      .price-card{
+        padding:14px;
+        gap:8px;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .price-number{font-size:28px}
+
+      .calculator-grid,
+      .tracker-layout,
+      .journey,
+      .booking{
+        gap:12px;
+      }
+      .row{
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+      input,
+      select,
+      textarea,
+      .btn{
+        min-height:44px;
+      }
+      textarea{
+        min-height:96px;
+      }
+      .calc-row{font-size:14px}
+      .calc-final{
+        font-size:18px;
+        padding:12px;
+      }
+      .calc-summary .btn{
+        width:100%;
+        justify-content:center;
+      }
+
+      .review-form-card,
+      .review-card,
+      .achievement-card,
+      .news-card{
+        padding:14px;
+        border-radius:14px;
+      }
+      .reviews-toolbar{
+        gap:10px;
+        margin-bottom:12px;
+      }
+      .review-filter{
+        min-width:100%;
+      }
+
+      .faq-question{
+        padding:14px;
+      }
+      .faq-answer{
+        padding:0 14px 14px;
+        font-size:14px;
+      }
+
+      .schedule-table tbody{
+        gap:8px;
+      }
+      .schedule-table tr{
+        padding:10px 12px;
+        border-radius:14px;
+      }
+      .schedule-table td{
+        padding:8px 0;
+        font-size:13px;
+      }
+      .schedule-table td::before{
+        font-size:12px;
+      }
+
+      .payment-details,
+      .turnstile-wrap{
+        padding:10px;
+      }
+      .payment-option{
+        padding:9px;
+        border-radius:10px;
+      }
+      .payment-line{
+        font-size:12px;
+      }
+      .payment-value{
+        font-size:11px;
+      }
+
+      footer{
+        padding:24px 0 18px;
+      }
+      .foot{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+      }
+      .foot > div:last-child{
+        width:100%;
+      }
+      .foot > div:last-child .btn{
+        flex:1;
+        justify-content:center;
+      }
+
+      .float{
+        left:10px;
+        bottom:calc(88px + env(safe-area-inset-bottom));
+      }
+      .fab{
+        width:48px;
+        height:48px;
+        border-radius:14px;
+      }
+      .wa-sticky-cta{
+        padding:12px 14px;
+        border-radius:12px;
+        font-size:14px;
+      }
+    }
+
+    @media (max-width: 480px){
+      .container{
+        width:min(100%, 94vw);
+      }
+      h1{
+        font-size:clamp(24px, 9vw, 30px);
+      }
+      .sub{
+        font-size:13px;
+      }
+      .hero-left,
+      .hero-right,
+      .card,
+      .details{
+        padding:12px;
+      }
+      .stats{
+        grid-template-columns:1fr 1fr;
+      }
+      .stat .num{font-size:20px}
+      .stat .lbl{font-size:11px}
+      .btn{
+        font-size:13px;
+        padding:10px 12px;
+      }
+      .calc-final{font-size:17px}
+      .wa-sticky-cta{
+        left:10px;
+        right:10px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       *, *::before, *::after{
