@@ -11,9 +11,16 @@ MAX_BODY_BYTES = "8192"
 
 # Optional: lock requests to one frontend origin (recommended in production)
 # ALLOWED_ORIGIN = "https://your-domain.com"
+# Optional: cap stored public reviews
+# REVIEWS_MAX_ITEMS = "300"
 
-# For same-origin /api/lead on your own domain, add a route:
+# For same-origin APIs on your own domain, add routes:
 # routes = [
-#   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" }
+#   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" },
+#   { pattern = "your-domain.com/api/reviews", zone_name = "your-domain.com" }
 # ]
 
+# Bind KV for public parent reviews storage:
+# [[kv_namespaces]]
+# binding = "REVIEWS_KV"
+# id = "your_kv_namespace_id"
