@@ -6044,5 +6044,3 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
 </body>
 </html>
 
-
-
