@@ -3655,7 +3655,6 @@
           navCalculator: "الحاسبة",
           navJourney: "الأحزمة",
           navTracker: "التتبع",
-          navReviews: "آراء الأهالي",
           navAchievements: "النتائج",
           navNews: "الأخبار",
           navFaq: "الأسئلة",
@@ -3898,7 +3897,6 @@
           navCalculator: "Calculator",
           navJourney: "Belts",
           navTracker: "Tracker",
-          navReviews: "Parents Reviews",
           navAchievements: "Results",
           navNews: "News",
           navFaq: "FAQ",
@@ -6043,4 +6041,6 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
+
+
 
