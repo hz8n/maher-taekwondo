@@ -2719,9 +2719,9 @@
         <a id="navPrograms" href="#programs">البرامج</a>
         <a id="navPricing" href="#pricing">الأسعار</a>
         <a id="navCalculator" href="#calculator">الحاسبة</a>
-        <a id="navTracker" href="#tracker">التتبع</a>
+        <a id="navSchedule" href="#schedule">المواعيد</a>
         <a id="navAchievements" href="#achievements">النتائج</a>
-        <a id="navNews" href="#news">الأخبار</a>
+        <a id="navFaq" href="#faq">الأسئلة</a>
         <a id="navBook" href="#book">الاشتراك</a>
       </div>
 
@@ -2805,10 +2805,10 @@
             <div class="avatar" id="coachImg"></div>
             <div>
               <div class="n1" id="coachName">الكابتن والحكم الدولي الماستر رائد عضيبات</div>
-              <div class="n2" id="coachInfo">✓ حكم دولي
-✓ 35 سنة خبرة
-✓ إشراف مباشر على كل طالب
-✓ يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
+              <div class="n2" id="coachInfo">? حكم دولي
+? 35 سنة خبرة
+? إشراف مباشر على كل طالب
+? يتوفر تدريب إناث بإشراف مدرّبة إناث</div>
               <div class="badge" id="coachBadge">🏆 اعتماد • انضباط • نتائج</div>
             </div>
           </div>
@@ -2945,7 +2945,7 @@
         <div class="price-card">
           <div class="price-left">
             <h3 class="price-title" id="priceTitleMain">📦 الاشتراك الشهري الكامل</h3>
-            <p class="price-note" id="priceNoteMain">✓ تدريب منهجي ومتابعة فردية | ✓ بدلة تايكوندو جديدة | ✓ توصيل آمن للمنزل | ✓ إشراف مباشر من الكابتن والمدرّبة</p>
+            <p class="price-note" id="priceNoteMain">? تدريب منهجي ومتابعة فردية | ? بدلة تايكوندو جديدة | ? توصيل آمن للمنزل | ? إشراف مباشر من الكابتن والمدرّبة</p>
           </div>
           <div class="price-number">45 JD</div>
         </div>
@@ -3017,85 +3017,6 @@
     </div>
   </section>
 
-  <!-- JOURNEY -->
-  <section id="journey">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="journeyTitle">رحلة الأحزمة</h2>
-          <p class="sec-desc" id="journeyDesc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
-        </div>
-        <a class="btn" href="#book" id="journeyBtn">ابدأ رحلتك اليوم</a>
-      </div>
-
-      <div class="journey">
-        <div class="belt-list" id="beltList"></div>
-        <div class="details" id="beltDetails" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRACKER -->
-  <section id="tracker">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="trackerTitle">تتبع تقدّم الأحزمة</h2>
-          <p class="sec-desc" id="trackerDesc">أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.</p>
-        </div>
-      </div>
-
-      <div class="tracker-layout">
-        <div class="card">
-          <label for="trackerInput" id="trackerInputLabel">رقم الهاتف أو الكود</label>
-          <div class="row">
-            <input id="trackerInput" type="text" placeholder="مثال: 0779000000 أو MT-1024" />
-            <button class="btn primary" id="trackerBtn" type="button">عرض التقدم</button>
-          </div>
-          <p class="calc-note" id="trackerHint">
-            يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة المركز ويتم تحديثها باستمرار.
-          </p>
-        </div>
-
-        <div class="card" id="trackerPanel" aria-live="polite">
-          <p class="tracker-empty" id="trackerEmpty">لم يتم إدخال أي كود بعد.</p>
-
-          <div id="trackerResult" style="display:none;">
-            <div class="tracker-top">
-              <span class="badge" id="trackerStudentCode">—</span>
-            </div>
-            <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel">الحزام الحالي:</span> <b id="trackerCurrentBelt">—</b></p>
-            <p style="margin:6px 0; font-weight:900;"><span id="trackerNextLabel">الحزام القادم:</span> <b id="trackerNextBelt">—</b></p>
-
-            <div class="tracker-progress">
-              <span id="trackerProgressBar"></span>
-            </div>
-            <p style="margin:0 0 8px; color:var(--muted); font-weight:900;" id="trackerProgressText">—</p>
-
-            <div style="font-weight:1000; margin-top:8px;" id="trackerGoalsLabel">المهارات المطلوبة للترقية:</div>
-            <ul class="tracker-goals" id="trackerGoals"></ul>
-
-            <p style="margin:8px 0 0; color:var(--muted); font-weight:900;" id="trackerExamDate">—</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <div class="sec-head">
-        <div>
-          <h2 class="sec-title" id="faqTitle">أسئلة شائعة</h2>
-          <p class="sec-desc" id="faqDesc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
-        </div>
-      </div>
-
-      <div class="faq-list" id="faqList"></div>
-    </div>
-  </section>
-
   <!-- SCHEDULE -->
   <section id="schedule">
     <div class="container">
@@ -3161,16 +3082,17 @@
     </div>
   </section>
 
-  <!-- NEWS -->
-  <section id="news">
+  <!-- FAQ -->
+  <section id="faq">
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title" id="newsTitle">أخبار المركز والإنجازات الجديدة</h2>
-          <p class="sec-desc" id="newsDesc">آخر أخبار المركز والإنجازات الجديدة.</p>
+          <h2 class="sec-title" id="faqTitle">أسئلة شائعة</h2>
+          <p class="sec-desc" id="faqDesc">إجابات على أكثر الأسئلة اللي بسألنا إياها</p>
         </div>
       </div>
-      <div class="news-list" id="newsList" aria-live="polite"></div>
+
+      <div class="faq-list" id="faqList"></div>
     </div>
   </section>
 
@@ -3341,6 +3263,84 @@
     </div>
   </section>
 
+  <!-- JOURNEY -->
+  <section id="journey">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="journeyTitle">رحلة الأحزمة</h2>
+          <p class="sec-desc" id="journeyDesc">اضغط على أي حزام لعرض المتطلبات والمهارات لهذا المستوى</p>
+        </div>
+        <a class="btn" href="#book" id="journeyBtn">ابدأ رحلتك اليوم</a>
+      </div>
+
+      <div class="journey">
+        <div class="belt-list" id="beltList"></div>
+        <div class="details" id="beltDetails" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="tracker">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="trackerTitle">تتبع تقدّم الأحزمة</h2>
+          <p class="sec-desc" id="trackerDesc">أدخل رقم الهاتف أو الكود الخاص بالطالب لمتابعة الحزام الحالي وما القادم.</p>
+        </div>
+      </div>
+
+      <div class="tracker-layout">
+        <div class="card">
+          <label for="trackerInput" id="trackerInputLabel">رقم الهاتف أو الكود</label>
+          <div class="row">
+            <input id="trackerInput" type="text" placeholder="مثال: 0779000000 أو MT-1024" />
+            <button class="btn primary" id="trackerBtn" type="button">عرض التقدم</button>
+          </div>
+          <p class="calc-note" id="trackerHint">
+            يمكنك استخدام الهاتف أو كود الطالب. البيانات المعروضة من لوحة المركز ويتم تحديثها باستمرار.
+          </p>
+        </div>
+
+        <div class="card" id="trackerPanel" aria-live="polite">
+          <p class="tracker-empty" id="trackerEmpty">لم يتم إدخال أي كود بعد.</p>
+
+          <div id="trackerResult" style="display:none;">
+            <div class="tracker-top">
+              <span class="badge" id="trackerStudentCode">—</span>
+            </div>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel">الحزام الحالي:</span> <b id="trackerCurrentBelt">—</b></p>
+            <p style="margin:6px 0; font-weight:900;"><span id="trackerNextLabel">الحزام القادم:</span> <b id="trackerNextBelt">—</b></p>
+
+            <div class="tracker-progress">
+              <span id="trackerProgressBar"></span>
+            </div>
+            <p style="margin:0 0 8px; color:var(--muted); font-weight:900;" id="trackerProgressText">—</p>
+
+            <div style="font-weight:1000; margin-top:8px;" id="trackerGoalsLabel">المهارات المطلوبة للترقية:</div>
+            <ul class="tracker-goals" id="trackerGoals"></ul>
+
+            <p style="margin:8px 0 0; color:var(--muted); font-weight:900;" id="trackerExamDate">—</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2 class="sec-title" id="newsTitle">أخبار المركز والإنجازات الجديدة</h2>
+          <p class="sec-desc" id="newsDesc">آخر أخبار المركز والإنجازات الجديدة.</p>
+        </div>
+      </div>
+      <div class="news-list" id="newsList" aria-live="polite"></div>
+    </div>
+  </section>
+
   <footer>
     <div class="container foot">
       <div id="footerCopy">© <span id="year"></span> مركز الماهر للتايكوندو – جرش | تدريب احترافي • انضباط • نتائج</div>
@@ -3507,6 +3507,7 @@
           navPrograms: "البرامج",
           navPricing: "الأسعار",
           navCalculator: "الحاسبة",
+          navSchedule: "المواعيد",
           navJourney: "الأحزمة",
           navTracker: "التتبع",
           navAchievements: "النتائج",
@@ -3716,6 +3717,7 @@
           navPrograms: "Programs",
           navPricing: "Pricing",
           navCalculator: "Calculator",
+          navSchedule: "Schedule",
           navJourney: "Belts",
           navTracker: "Tracker",
           navAchievements: "Results",
@@ -5215,7 +5217,7 @@
         el.innerHTML = `
           <div class="faq-question">
             <span>${question}</span>
-            <div class="faq-toggle">▼</div>
+            <div class="faq-toggle">?</div>
           </div>
           <div class="faq-answer">${answer}</div>
         `;
@@ -5477,6 +5479,5 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
-
 
 
