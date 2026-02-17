@@ -1,9 +1,10 @@
-﻿const CACHE_VERSION = "maher-pwa-v1";
+const CACHE_VERSION = "maher-pwa-v5";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
+  "./data/achievements.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable.png",
@@ -47,6 +48,12 @@ self.addEventListener("fetch", (event) => {
   }
 
   if(url.origin !== self.location.origin) return;
+  if(url.pathname.startsWith("/api/")){
+    event.respondWith(
+      fetch(event.request).catch(() => new Response("", { status: 503, statusText: "Service Unavailable" }))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
