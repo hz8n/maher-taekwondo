@@ -948,3 +948,145 @@ html[data-theme="light"] textarea:focus {
     background-position: -200% 0;
   }
 }
+
+/* Mobile performance mode */
+@media (max-width: 980px), (pointer: coarse) {
+  html.lite-mobile body {
+    background: linear-gradient(160deg, #071224 0%, #0d2545 100%) !important;
+    background-attachment: scroll !important;
+  }
+
+  html.lite-mobile[data-theme="light"] body {
+    background: linear-gradient(160deg, #f5f9ff 0%, #eaf3ff 100%) !important;
+  }
+
+  html.lite-mobile body::before,
+  html.lite-mobile body::after,
+  html.lite-mobile .hero-bg::before,
+  html.lite-mobile .panel::before,
+  html.lite-mobile .card::after,
+  html.lite-mobile .mini-card::before,
+  html.lite-mobile .price-card::after,
+  html.lite-mobile #why-us .card::after,
+  html.lite-mobile #programs .card::after,
+  html.lite-mobile #achievements .achievement-card::after,
+  html.lite-mobile #news .news-card::after,
+  html.lite-mobile #journey .belt::after,
+  html.lite-mobile #journey .details::after,
+  html.lite-mobile .hero-left::before,
+  html.lite-mobile .sec-title::before,
+  html.lite-mobile .sec-title::after,
+  html.lite-mobile .nav::after,
+  html.lite-mobile .btn::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  html.lite-mobile .nav,
+  html.lite-mobile .fab,
+  html.lite-mobile .btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  html.lite-mobile .panel,
+  html.lite-mobile .card,
+  html.lite-mobile .mini-card,
+  html.lite-mobile .price-card,
+  html.lite-mobile .details,
+  html.lite-mobile .faq-item,
+  html.lite-mobile .achievement-card,
+  html.lite-mobile .news-card,
+  html.lite-mobile .english-panel,
+  html.lite-mobile .turnstile-wrap,
+  html.lite-mobile .schedule-table,
+  html.lite-mobile .schedule-table tr,
+  html.lite-mobile .belt,
+  html.lite-mobile .stat {
+    background: rgba(9, 20, 38, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  html.lite-mobile[data-theme="light"] .panel,
+  html.lite-mobile[data-theme="light"] .card,
+  html.lite-mobile[data-theme="light"] .mini-card,
+  html.lite-mobile[data-theme="light"] .price-card,
+  html.lite-mobile[data-theme="light"] .details,
+  html.lite-mobile[data-theme="light"] .faq-item,
+  html.lite-mobile[data-theme="light"] .achievement-card,
+  html.lite-mobile[data-theme="light"] .news-card,
+  html.lite-mobile[data-theme="light"] .english-panel,
+  html.lite-mobile[data-theme="light"] .turnstile-wrap,
+  html.lite-mobile[data-theme="light"] .schedule-table,
+  html.lite-mobile[data-theme="light"] .schedule-table tr,
+  html.lite-mobile[data-theme="light"] .belt,
+  html.lite-mobile[data-theme="light"] .stat {
+    background: rgba(255, 255, 255, 0.96) !important;
+    border-color: rgba(16, 48, 74, 0.18) !important;
+  }
+
+  html.lite-mobile .btn,
+  html.lite-mobile .card,
+  html.lite-mobile .panel,
+  html.lite-mobile .mini-card,
+  html.lite-mobile .price-card,
+  html.lite-mobile .details,
+  html.lite-mobile .faq-item,
+  html.lite-mobile .belt,
+  html.lite-mobile .fab,
+  html.lite-mobile .mini-card .img {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  html.lite-mobile .btn:hover,
+  html.lite-mobile .card:hover,
+  html.lite-mobile .panel:hover,
+  html.lite-mobile .mini-card:hover,
+  html.lite-mobile .price-card:hover,
+  html.lite-mobile .details:hover,
+  html.lite-mobile .faq-item:hover,
+  html.lite-mobile .belt:hover,
+  html.lite-mobile .fab:hover,
+  html.lite-mobile .mini-card:hover .img {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  html.lite-mobile .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html.lite-mobile .tilt-card {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html.lite-mobile .hero-slide {
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  html.lite-mobile #slide2 {
+    display: none !important;
+  }
+
+  html.lite-mobile .wa-sticky-cta,
+  html.lite-mobile #why-us .why-icon {
+    animation: none !important;
+  }
+
+  html.lite-mobile *,
+  html.lite-mobile *::before,
+  html.lite-mobile *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
