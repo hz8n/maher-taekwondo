@@ -340,6 +340,24 @@ body::after {
   border-color: rgba(145, 255, 207, 0.4);
 }
 
+/* Why Us emoji icons */
+#why-us .why-icon {
+  display: grid;
+  place-items: center;
+}
+
+#why-us .why-icon::before {
+  font-size: 32px;
+  line-height: 1;
+}
+
+#why-us .card:nth-child(1) .why-icon::before { content: "🏅"; }
+#why-us .card:nth-child(2) .why-icon::before { content: "💪"; }
+#why-us .card:nth-child(3) .why-icon::before { content: "📈"; }
+#why-us .card:nth-child(4) .why-icon::before { content: "🚌"; }
+#why-us .card:nth-child(5) .why-icon::before { content: "🥇"; }
+#why-us .card:nth-child(6) .why-icon::before { content: "👥"; }
+
 .price-number {
   font-size: 28px;
   text-shadow: 0 0 22px rgba(255, 220, 139, 0.24);
