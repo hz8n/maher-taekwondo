@@ -129,6 +129,18 @@ body::after {
   opacity: 1;
 }
 
+.nav-links a.is-active {
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(0, 214, 255, 0.18), rgba(255, 74, 146, 0.2));
+  border: 1px solid rgba(145, 242, 255, 0.3);
+  box-shadow: 0 8px 18px rgba(2, 9, 21, 0.32);
+}
+
+.nav-links a.is-active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
 .btn {
   padding: 9px 12px;
   border-radius: 12px;
@@ -758,6 +770,11 @@ html[data-theme="light"] .nav {
   box-shadow: 0 10px 28px rgba(25, 54, 95, 0.16);
 }
 
+html[data-theme="light"] .nav-links a.is-active {
+  background: linear-gradient(135deg, rgba(74, 223, 255, 0.34), rgba(255, 112, 166, 0.24));
+  border-color: rgba(24, 126, 174, 0.34);
+}
+
 html[data-theme="light"] .btn {
   background: linear-gradient(140deg, rgba(255, 255, 255, 0.82), rgba(236, 246, 255, 0.62));
   border-color: rgba(28, 126, 174, 0.24);
@@ -793,7 +810,12 @@ html[data-theme="light"] textarea:focus {
 
 @media (max-width: 980px) {
   html {
-    scroll-padding-top: 70px;
+    scroll-padding-top: 116px;
+  }
+
+  section[id],
+  header[id] {
+    scroll-margin-top: 130px;
   }
 
   .container {
@@ -805,8 +827,44 @@ html[data-theme="light"] textarea:focus {
   }
 
   .nav-inner {
+    flex-wrap: wrap;
+    align-items: center;
     padding-top: 8px;
     padding-bottom: 8px;
+  }
+
+  .nav-links {
+    display: flex;
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    padding: 4px 0 2px;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(7, 20, 40, 0.62);
+    padding: 7px 12px;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .nav-links a:hover {
+    transform: none;
+  }
+
+  .nav-links a::after {
+    right: 10px;
+    left: 10px;
+    bottom: 4px;
   }
 
   .btn {
@@ -853,6 +911,15 @@ html[data-theme="light"] textarea:focus {
     animation: none;
   }
 
+  html {
+    scroll-padding-top: 108px;
+  }
+
+  section[id],
+  header[id] {
+    scroll-margin-top: 122px;
+  }
+
   .container {
     width: min(100%, 95vw);
   }
@@ -888,6 +955,11 @@ html[data-theme="light"] textarea:focus {
   .faq-answer {
     padding: 0 12px 11px;
     font-size: 13px;
+  }
+
+  .nav-links a {
+    padding: 6px 10px;
+    font-size: 11px;
   }
 
   .stats {
