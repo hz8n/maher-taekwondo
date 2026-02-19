@@ -6048,18 +6048,18 @@ Payment method: ${paymentMethodLabel}
 Note: ${msg || "-"}
 
 Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
-        : ` 
-      - .
+        : `مرحبًا،
+أرغب بالتسجيل في مركز الماهر للتايكواندو - جرش.
 
-: ${name}
-: ${phone}
-: ${age || ""}
-: ${programLabelText || program}
- : ${timeLabelText || time}
- : ${paymentMethodAr}
-: ${msg || ""}
+الاسم: ${name}
+الهاتف: ${phone}
+العمر: ${age || "غير محدد"}
+البرنامج: ${programLabelText || program}
+وقت التواصل المناسب: ${timeLabelText || time}
+طريقة الدفع: ${paymentMethodAr}
+ملاحظة: ${msg || "-"}
 
- : 45  ( :  +  + )`;
+الباقة الشهرية: 45 دينار (شاملة: التدريب + الزي + المواصلات).`;
 
       trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
       openExternal(waLink(waMessage));
