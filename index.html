@@ -6330,12 +6330,122 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
       }));
     }
 
+    // Smart section navigation (desktop + mobile)
+    function initSmartSectionNavigation(){
+      const navSectionLinks = Array.from(document.querySelectorAll(".nav-links a[href^='#']"));
+      if(!navSectionLinks.length) return;
+
+      const sectionPairs = navSectionLinks.map((link)=>{
+        const href = link.getAttribute("href");
+        if(!href || href === "#") return null;
+        const section = document.querySelector(href);
+        if(!section) return null;
+        return { link, section };
+      }).filter(Boolean);
+
+      if(!sectionPairs.length) return;
+
+      let activeSectionId = "";
+
+      function setActiveSection(sectionId){
+        if(!sectionId || sectionId === activeSectionId) return;
+        activeSectionId = sectionId;
+
+        sectionPairs.forEach(({ link, section })=>{
+          const isActive = section.id === sectionId;
+          link.classList.toggle("is-active", isActive);
+          if(isActive){
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+
+        if(window.innerWidth <= 980){
+          const activeLink = sectionPairs.find(({ section })=> section.id === sectionId)?.link;
+          if(activeLink && typeof activeLink.scrollIntoView === "function"){
+            activeLink.scrollIntoView({ block: "nearest", inline: "center", behavior: "auto" });
+          }
+        }
+      }
+
+      function findNearestSectionId(){
+        const marker = window.scrollY + Math.min(window.innerHeight * 0.34, 280);
+        let nearestId = sectionPairs[0].section.id;
+        sectionPairs.forEach(({ section })=>{
+          if(section.offsetTop <= marker){
+            nearestId = section.id;
+          }
+        });
+        return nearestId;
+      }
+
+      sectionPairs.forEach(({ link, section })=>{
+        link.addEventListener("click", ()=>{
+          setActiveSection(section.id);
+        });
+      });
+
+      if("IntersectionObserver" in window){
+        const visibleRatios = new Map();
+        const observer = new IntersectionObserver((entries)=>{
+          entries.forEach((entry)=>{
+            visibleRatios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+          });
+
+          let bestId = "";
+          let bestRatio = 0;
+          visibleRatios.forEach((ratio, id)=>{
+            if(ratio > bestRatio){
+              bestRatio = ratio;
+              bestId = id;
+            }
+          });
+
+          if(bestId){
+            setActiveSection(bestId);
+          } else {
+            setActiveSection(findNearestSectionId());
+          }
+        }, {
+          rootMargin: "-28% 0px -52% 0px",
+          threshold: [0.05, 0.2, 0.35, 0.5, 0.7]
+        });
+
+        sectionPairs.forEach(({ section })=> observer.observe(section));
+      } else {
+        let navTicking = false;
+        window.addEventListener("scroll", ()=>{
+          if(navTicking) return;
+          navTicking = true;
+          requestAnimationFrame(()=>{
+            setActiveSection(findNearestSectionId());
+            navTicking = false;
+          });
+        }, { passive: true });
+      }
+
+      const initialHash = cleanInputText(window.location.hash || "", 64).replace(/^#/, "");
+      if(initialHash){
+        setActiveSection(initialHash);
+      } else {
+        setActiveSection(findNearestSectionId());
+      }
+
+      window.addEventListener("hashchange", ()=>{
+        const hashId = cleanInputText(window.location.hash || "", 64).replace(/^#/, "");
+        if(hashId){
+          setActiveSection(hashId);
+        }
+      });
+    }
+    initSmartSectionNavigation();
+
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
 
 
 
