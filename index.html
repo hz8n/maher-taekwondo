@@ -4488,6 +4488,25 @@
       return false;
     }
 
+    function pickLocalizedText(arValue, enValue){
+      const useArabic = currentLang !== "en";
+      const preferred = useArabic ? arValue : enValue;
+      const fallback = useArabic ? enValue : arValue;
+      if(typeof preferred === "string" && !hasBrokenText(preferred)) return preferred;
+      if(typeof fallback === "string" && !hasBrokenText(fallback)) return fallback;
+      return typeof preferred === "string" ? preferred : String(preferred == null ? "" : preferred);
+    }
+
+    function pickLocalizedList(arList, enList){
+      const useArabic = currentLang !== "en";
+      const preferred = useArabic ? arList : enList;
+      const fallback = useArabic ? enList : arList;
+      const hasReadable = (list)=> Array.isArray(list) && list.some((item)=> typeof item === "string" && !hasBrokenText(item));
+      if(hasReadable(preferred)) return preferred;
+      if(Array.isArray(fallback)) return fallback;
+      return [];
+    }
+
     function sanitizeArabicTranslations(){
       if(!i18n || !i18n.ar || !i18n.en) return false;
       let replacedCount = 0;
@@ -4521,7 +4540,129 @@
       return replacedCount > 0;
     }
 
-    const arabicFallbackMode = sanitizeArabicTranslations();
+    sanitizeArabicTranslations();
+
+    const AR_TEXT_OVERRIDES = {
+      brandName: "مركز الماهر للتايكواندو",
+      brandCity: "جرش",
+      navWhyUs: "لماذا نحن",
+      navPrograms: "البرامج",
+      navPricing: "الأسعار",
+      navCalculator: "الحاسبة",
+      navSchedule: "المواعيد",
+      navJourney: "الأحزمة",
+      navTracker: "المتابعة",
+      navAchievements: "الإنجازات",
+      navNews: "الأخبار",
+      navFaq: "الأسئلة الشائعة",
+      navBook: "التسجيل",
+      btnWhatsNav: "واتساب",
+      btnWhatsFoot: "واتساب",
+      navJoinBtn: "سجّل الآن",
+      installAppBtn: "تثبيت التطبيق",
+      heroTag: "ابدأ رحلتك",
+      heroTitle: "مركز الماهر للتايكواندو - <span style=\"color:var(--gold)\">جرش</span>",
+      heroSub: "تدريب احترافي للتايكواندو للأطفال والكبار والسيدات، من المبتدئ حتى الحزام الأسود، بإشراف <b>الكابتن رائد عضيبات</b>.",
+      spotlightKicker: "تنبيه سريع",
+      spotlightText: "احجز هذا الأسبوع لتحصل على أولوية في مواعيد الحصص.",
+      spotlightPoint1: "خطة تدريب شخصية",
+      spotlightPoint2: "أولوية في المواصلات",
+      spotlightPoint3: "متابعة مستمرة للتطور",
+      heroJoinBtn: "سجّل الآن",
+      btnCallHero: "اتصل الآن",
+      heroPriceBtn: "الأسعار بوضوح",
+      heroRightPricingBtn: "الأسعار",
+      heroRightJoinBtn: "التسجيل",
+      jerashTitle: "جرش",
+      jerashDesc: "نادي محلي بعقلية احترافية. نبني طالبًا قويًا ومنضبطًا ومحترمًا.",
+      coachName: "الكابتن رائد عضيبات - حكم دولي ومدرب رئيسي",
+      coachInfo: "حكم دولي<br />35 سنة خبرة<br />إشراف مباشر لكل طالب<br />حصص سيدات بإشراف مدربة",
+      coachBadge: "اعتماد | انضباط | نتائج",
+      heroLocationPill: "الموقع: جرش",
+      heroPricePill: "45 دينار / شهريًا (شامل)",
+      statLabelStudents: "طلاب نشطون",
+      statLabelBlackBelts: "أحزمة سوداء",
+      statLabelAchievements: "إنجازات",
+      statLabelYears: "سنوات خبرة",
+      calculatorTitle: "حاسبة السعر الذكية",
+      calculatorDesc: "احسب الرسوم النهائية فورًا لطالب واحد أو إخوة مع خيار المواصلات.",
+      whyUsTitle: "لماذا تختار مركز الماهر؟",
+      whyUsDesc: "أسباب واضحة تجعل العائلات تختارنا.",
+      programsTitle: "البرامج",
+      programsDesc: "اختر البرنامج المناسب وتواصل معنا مباشرة.",
+      pricingTitle: "الأسعار",
+      pricingDesc: "أسعار واضحة وشفافة بدون رسوم مخفية.",
+      pricingJoinBtn: "سجّل الآن",
+      journeyTitle: "رحلة الأحزمة",
+      journeyDesc: "اضغط على أي حزام لمعرفة متطلبات الترقية.",
+      journeyBtn: "ابدأ الآن",
+      trackerTitle: "متابعة تقدم الحزام",
+      trackerDesc: "أدخل رقم الهاتف أو كود الطالب لمعرفة مستوى التقدم.",
+      trackerInputLabel: "الهاتف أو الكود",
+      trackerBtn: "عرض التقدم",
+      trackerHint: "يمكنك استخدام رقم الهاتف أو كود الطالب.",
+      trackerEmpty: "لم يتم إدخال كود بعد.",
+      trackerCurrentLabel: "الحزام الحالي:",
+      trackerNextLabel: "الحزام التالي:",
+      trackerGoalsLabel: "المهارات المطلوبة للترقية:",
+      achievementsTitle: "النتائج والإنجازات",
+      achievementsDesc: "تحديث مستمر لإنجازات النادي في البطولات.",
+      achievementFilterLabel: "فلترة حسب السنة",
+      newsTitle: "آخر الأخبار والإنجازات",
+      newsDesc: "أحدث أخبار وإنجازات المركز.",
+      newsEmpty: "لا توجد أخبار حاليًا.",
+      newsChip: "خبر إنجاز",
+      faqTitle: "الأسئلة الشائعة",
+      faqDesc: "إجابات سريعة قبل التسجيل.",
+      scheduleTitle: "مواعيد الحصص",
+      scheduleDesc: "اختر الوقت المناسب لك.",
+      scheduleHeadDays: "أيام التدريب",
+      scheduleHeadTime: "الوقت",
+      scheduleHeadNote: "ملاحظات",
+      bookTitle: "سجّل الآن",
+      bookDesc: "نموذج سريع وبسيط للتسجيل عبر واتساب.",
+      nameLabel: "الاسم الكامل",
+      phoneLabel: "رقم الهاتف",
+      ageLabel: "العمر (اختياري)",
+      programLabel: "اختر البرنامج",
+      timeLabel: "وقت التواصل المناسب",
+      msgLabel: "ملاحظة أو سؤال (اختياري)",
+      submitBookingBtn: "إرسال طلب التسجيل عبر واتساب",
+      contactTitle: "معلومات التواصل",
+      contactWhatsappLabel: "رقم الواتساب:",
+      contactPriceLabel: "السعر الشهري:",
+      contactPriceValue: "45 دينار (شامل الزي + المواصلات + التدريب)",
+      contactLocationLabel: "الموقع:",
+      contactLocationValue: "جرش",
+      contactHighlights: "مواصلات آمنة وسريعة<br />إشراف مباشر من المدرب والمدربة<br />خطة تقدم واضحة",
+      aboutTitle: "عن المركز",
+      aboutDesc: "بيئة تدريب آمنة واحترافية وموثوقة.",
+      aboutCard1Title: "رسالتنا",
+      aboutCard1Desc: "بناء طالب تايكواندو منضبط وواثق ومحترم.",
+      aboutCard2Title: "رؤيتنا",
+      aboutCard2Desc: "أن نكون الخيار الأول للعائلات وإعداد أبطال منافسة.",
+      aboutCard3Title: "قيمنا",
+      aboutCard3Desc: "الانضباط أولًا، ثم الاحترام، ثم المهارة.",
+      btnTop: "العودة للأعلى",
+      btnCallFooter: "اتصال",
+      footerCopy: "&copy; <span id=\"year\"></span> مركز الماهر للتايكواندو - جرش | تدريب احترافي | انضباط | نتائج",
+      okMsg: "تم تجهيز رسالة التسجيل وفتح واتساب بنجاح.",
+      errMsg: "الاسم ورقم الهاتف والبرنامج حقول مطلوبة."
+    };
+
+    Object.assign(i18n.ar.text, AR_TEXT_OVERRIDES);
+    Object.assign(i18n.ar, {
+      trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
+      calcPlanSingle: "طالب واحد",
+      calcPlanSiblings: "إخوة",
+      yearAll: "كل السنوات",
+      namePlaceholder: "الاسم الكامل",
+      phonePlaceholder: "07xxxxxxxx",
+      agePlaceholder: "مثال: 10 سنوات",
+      msgPlaceholder: "اكتب أي ملاحظة تريد إضافتها..."
+    });
+
+    const arabicFallbackMode = false;
 
     let currentLang = "en";
     let uiReady = false;
@@ -5187,47 +5328,42 @@
     let activeBeltKey = "white";
 
     function getBeltName(item){
-      return currentLang === "en" ? (item.nameEn || item.name) : item.name;
+      return pickLocalizedText(item && item.name, item && item.nameEn);
     }
 
     function getBeltDuration(item){
-      return currentLang === "en" ? (item.durationEn || item.duration) : item.duration;
+      return pickLocalizedText(item && item.duration, item && item.durationEn);
     }
 
     function getBeltRequirements(item){
-      return currentLang === "en" ? (item.reqEn || item.req) : item.req;
+      return pickLocalizedList(item && item.req, item && item.reqEn);
     }
 
     function getBeltFeeLabel(item){
       const fee = Number(item && item.fee);
       if(!Number.isFinite(fee) || fee <= 0){
-        return currentLang === "en" ? "No fee" : " ";
+        return currentLang === "en" ? "No fee" : "بدون رسوم";
       }
-      return currentLang === "en" ? `${fee} JOD` : `${fee} `;
+      return currentLang === "en" ? `${fee} JOD` : `${fee} دينار`;
     }
 
     function getBeltSubGrades(item){
       if(!item) return [];
-      const list = currentLang === "en"
-        ? item.subGradesEn
-        : item.subGradesAr;
-      return Array.isArray(list) ? list : [];
+      return pickLocalizedList(item.subGradesAr, item.subGradesEn);
     }
 
     function getBeltIssuer(item){
       if(!item) return "";
-      return currentLang === "en"
-        ? (item.issuerEn || "")
-        : (item.issuerAr || "");
+      return pickLocalizedText(item.issuerAr, item.issuerEn);
     }
 
     function renderDetails(b){
       if(!beltDetails) return;
-      const durationLabel = currentLang === "en" ? "Duration" : "";
-      const feeLabel = currentLang === "en" ? "Belt fee" : " ";
-      const issuerLabel = currentLang === "en" ? "Certification" : "";
-      const gradesLabel = currentLang === "en" ? "Sub-grades" : " ";
-      const requirementsLabel = currentLang === "en" ? "Requirements" : "";
+      const durationLabel = currentLang === "en" ? "Duration" : "المدة";
+      const feeLabel = currentLang === "en" ? "Belt fee" : "رسوم الحزام";
+      const issuerLabel = currentLang === "en" ? "Certification" : "الجهة المانحة";
+      const gradesLabel = currentLang === "en" ? "Sub-grades" : "الدرجات الفرعية";
+      const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
       const requirements = getBeltRequirements(b);
       const subGrades = getBeltSubGrades(b);
       const issuer = getBeltIssuer(b);
@@ -5365,11 +5501,11 @@
           students: latestQuote.students
         });
         const quoteType = latestQuote.planType === "siblings"
-          ? (currentLang === "en" ? "siblings" : "")
-          : (currentLang === "en" ? "single student" : " ");
+          ? (currentLang === "en" ? "siblings" : "إخوة")
+          : (currentLang === "en" ? "single student" : "طالب واحد");
         const quoteMessage = currentLang === "en"
           ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
-          : `    .\n : ${quoteType}\n : ${latestQuote.students}\n : ${latestQuote.base} \n : ${latestQuote.discount} \n: ${latestQuote.delivery} \n : ${latestQuote.total} .`;
+          : `مرحبًا، أحتاج تفاصيل الأسعار.\nنوع الخطة: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالإجمالي الأساسي: ${latestQuote.base} دينار\nخصم الإخوة: ${latestQuote.discount} دينار\nالمواصلات: ${latestQuote.delivery} دينار\nالإجمالي النهائي: ${latestQuote.total} دينار.`;
         openExternal(waLink(quoteMessage));
       });
     }
@@ -5455,7 +5591,8 @@
     function getBeltLabel(key){
       if(currentLang === "en") return beltNamesEn[key] || key;
       const belt = belts.find((item)=> item.key === key);
-      return belt ? belt.name : key;
+      if(!belt) return key;
+      return pickLocalizedText(belt.name, belt.nameEn);
     }
 
     function formatExamDate(isoDate){
@@ -5480,17 +5617,17 @@
       }
 
       const nextBeltKey = getNextBeltKey(activeTrackedStudent.belt);
-      const goals = currentLang === "en" ? activeTrackedStudent.goalsEn : activeTrackedStudent.goalsAr;
+      const goals = pickLocalizedList(activeTrackedStudent.goalsAr, activeTrackedStudent.goalsEn);
 
       trackerResult.style.display = "block";
       trackerEmpty.style.display = "none";
       trackerStudentCode.textContent = activeTrackedStudent.code;
       trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
-      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "   ");
+      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم إكمال مرحلة الحزام الأسود");
       trackerProgressBar.style.width = `${Math.max(0, Math.min(100, activeTrackedStudent.progress))}%`;
       trackerProgressText.textContent = currentLang === "en"
         ? `${activeTrackedStudent.progress}% completed before the next belt test.`
-        : `${activeTrackedStudent.progress}%     .`;
+        : `${activeTrackedStudent.progress}% تم إنجازه قبل اختبار الحزام التالي.`;
       trackerGoals.innerHTML = "";
       goals.forEach((goal)=>{
         const item = document.createElement("li");
@@ -5499,7 +5636,7 @@
       });
       trackerExamDate.textContent = currentLang === "en"
         ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
-        : `  : ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
+        : `موعد الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
     }
 
     function searchTracker(){
@@ -5511,7 +5648,7 @@
           trackerEmpty.style.display = "block";
           trackerEmpty.textContent = currentLang === "en"
             ? "No student found with this phone/code. Please check and try again."
-            : "      /.      .";
+            : "لم يتم العثور على طالب بهذا الهاتف/الكود. يرجى التحقق والمحاولة مرة أخرى.";
         }
         if(trackerResult) trackerResult.style.display = "none";
         return;
@@ -5687,7 +5824,7 @@
       if(!filtered.length){
         achievementsList.innerHTML = `
           <div class="achievement-card">
-            <b>${currentLang === "en" ? "No results for this year yet." : "      ."}</b>
+            <b>${currentLang === "en" ? "No results for this year yet." : "لا توجد نتائج لهذه السنة حتى الآن."}</b>
           </div>
         `;
         refreshDesignEnhancements();
@@ -5700,16 +5837,16 @@
           month: "long",
           day: "numeric"
         }));
-        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
-        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
-        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
-        const gold = escapeHtml(currentLang === "en" ? "Gold" : "");
-        const silver = escapeHtml(currentLang === "en" ? "Silver" : "");
-        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "");
+        const title = escapeHtml(pickLocalizedText(item.titleAr, item.titleEn));
+        const location = escapeHtml(pickLocalizedText(item.locationAr, item.locationEn));
+        const note = escapeHtml(pickLocalizedText(item.noteAr, item.noteEn));
+        const gold = escapeHtml(currentLang === "en" ? "Gold" : "ذهبية");
+        const silver = escapeHtml(currentLang === "en" ? "Silver" : "فضية");
+        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "برونزية");
         const safeGoldCount = Number(item.gold || 0);
         const safeSilverCount = Number(item.silver || 0);
         const safeBronzeCount = Number(item.bronze || 0);
-        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "");
+        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
 
         return `
           <article class="achievement-card">
@@ -5740,8 +5877,8 @@
         return;
       }
 
-      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "");
-      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : " ");
+      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "إجمالي الميداليات");
       const chipLabel = escapeHtml(i18n[currentLang].text.newsChip);
       const latestNews = achievementsData.slice(0, 6);
 
@@ -5751,9 +5888,9 @@
           month: "long",
           day: "numeric"
         }));
-        const title = escapeHtml(currentLang === "en" ? item.titleEn : item.titleAr);
-        const location = escapeHtml(currentLang === "en" ? item.locationEn : item.locationAr);
-        const note = escapeHtml(currentLang === "en" ? item.noteEn : item.noteAr);
+        const title = escapeHtml(pickLocalizedText(item.titleAr, item.titleEn));
+        const location = escapeHtml(pickLocalizedText(item.locationAr, item.locationEn));
+        const note = escapeHtml(pickLocalizedText(item.noteAr, item.noteEn));
         const totalMedals = Number(item.gold || 0) + Number(item.silver || 0) + Number(item.bronze || 0);
 
         return `
@@ -5829,8 +5966,8 @@
       if(!faqList) return;
       faqList.innerHTML = "";
       faqData.forEach((item, idx)=>{
-        const question = escapeHtml(currentLang === "en" ? item.qEn : item.qAr);
-        const answer = escapeHtml(currentLang === "en" ? item.aEn : item.aAr);
+        const question = escapeHtml(pickLocalizedText(item.qAr, item.qEn));
+        const answer = escapeHtml(pickLocalizedText(item.aAr, item.aEn));
         const el = document.createElement("div");
         el.className = "faq-item";
         if(idx === 0) el.classList.add("active");
@@ -5857,16 +5994,18 @@
     const FORM_SUBMIT_COOLDOWN_MS = 8000;
     let lastBookingSubmitAt = 0;
     const PAYMENT_METHOD_LABELS = {
-      cash: { ar: "  ", en: "Cash at the center" },
-      cliq: { ar: " (CliQ)", en: "CliQ transfer" },
-      bank: { ar: " ", en: "Bank transfer" },
-      wallet: { ar: " ", en: "E-wallet" },
-      crypto: { ar: "  (USDT)", en: "Crypto payment (USDT)" }
+      cash: { ar: "نقدًا في المركز", en: "Cash at the center" },
+      cliq: { ar: "تحويل CliQ", en: "CliQ transfer" },
+      bank: { ar: "تحويل بنكي", en: "Bank transfer" },
+      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" },
+      crypto: { ar: "دفع رقمي (USDT)", en: "Crypto payment (USDT)" }
     };
 
     function getPaymentMethodLabel(value, lang = "ar"){
       const method = PAYMENT_METHOD_LABELS[value] || PAYMENT_METHOD_LABELS.cash;
-      return lang === "en" ? method.en : method.ar;
+      return lang === "en"
+        ? (method.en || method.ar || "")
+        : (method.ar || method.en || "");
     }
 
     function showBookingErrorFromKey(messageKey){
