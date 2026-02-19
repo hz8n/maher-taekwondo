@@ -103,6 +103,7 @@ body::after {
   position: relative;
   padding: 7px 8px;
   font-size: 13px;
+  border: 1px solid transparent;
   transition: color 220ms ease, transform 220ms ease, background 220ms ease;
 }
 
