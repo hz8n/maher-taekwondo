@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com; upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=()" />
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self), payment=(), usb=(), accelerometer=(), gyroscope=()" />
   <meta name="theme-color" content="#081226" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -3251,6 +3251,8 @@
     const MONTHLY_PRICE_JOD = 45;
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
+    const LOCATION_SUBMIT_ENDPOINT = "/api/location";
+    const LOCATION_TEST_MODE = true; // للاختبار فقط: يرسل موقعًا تجريبيًا بدون إذن GPS
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -3286,6 +3288,7 @@
         <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="  " title="  "></button>
         <button class="btn lang-toggle" id="langToggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="btn install-btn" id="installAppBtn" type="button">  </button>
+        <button class="btn" id="shareLocationBtn" type="button" title="مشاركة موقعي بموافقتي">📍</button>
         <a class="btn" id="btnWhatsNav" href="#">💬</a>
         <a class="btn primary pulse-cta" id="navJoinBtn" href="#book">  </a>
       </div>
@@ -6139,6 +6142,108 @@
       }
     }
 
+    async function postLocationToSecureEndpoint(payload){
+      if(typeof LOCATION_SUBMIT_ENDPOINT !== "string" || !LOCATION_SUBMIT_ENDPOINT.startsWith("/")){
+        return false;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(()=> controller.abort(), 8000);
+      try {
+        const response = await fetch(LOCATION_SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer",
+          signal: controller.signal
+        });
+        return response.ok;
+      } catch(_){
+        return false;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    const shareLocationBtn = document.getElementById("shareLocationBtn");
+    if(shareLocationBtn){
+      shareLocationBtn.addEventListener("click", async ()=>{
+        if(LOCATION_TEST_MODE){
+          shareLocationBtn.disabled = true;
+          const originalLabel = shareLocationBtn.textContent;
+          shareLocationBtn.textContent = "...";
+          const ok = await postLocationToSecureEndpoint({
+            latitude: 31.9552291,
+            longitude: 35.9451775,
+            accuracy: 15,
+            lang: currentLang,
+            userAgent: cleanInputText(navigator.userAgent || "", 260)
+          });
+          alert(ok
+            ? (currentLang === "en" ? "Test location sent successfully." : "تم إرسال موقع تجريبي بنجاح.")
+            : (currentLang === "en" ? "Failed to send test location." : "فشل إرسال الموقع التجريبي.")
+          );
+          shareLocationBtn.disabled = false;
+          shareLocationBtn.textContent = originalLabel;
+          return;
+        }
+
+        if(!("geolocation" in navigator)){
+          alert(currentLang === "en" ? "Geolocation is not supported on this device." : "خدمة الموقع غير مدعومة على هذا الجهاز.");
+          return;
+        }
+
+        shareLocationBtn.disabled = true;
+        const originalLabel = shareLocationBtn.textContent;
+        shareLocationBtn.textContent = currentLang === "en" ? "..." : "...";
+
+        navigator.geolocation.getCurrentPosition(
+          async (position)=>{
+            const coords = position && position.coords ? position.coords : null;
+            const lat = coords && Number.isFinite(coords.latitude) ? Number(coords.latitude.toFixed(7)) : null;
+            const lng = coords && Number.isFinite(coords.longitude) ? Number(coords.longitude.toFixed(7)) : null;
+            const accuracy = coords && Number.isFinite(coords.accuracy) ? Math.round(coords.accuracy) : null;
+            const userAgent = cleanInputText(navigator.userAgent || "", 260);
+
+            if(!Number.isFinite(lat) || !Number.isFinite(lng)){
+              alert(currentLang === "en" ? "Unable to read your location." : "تعذر قراءة موقعك.");
+              shareLocationBtn.disabled = false;
+              shareLocationBtn.textContent = originalLabel;
+              return;
+            }
+
+            const ok = await postLocationToSecureEndpoint({
+              latitude: lat,
+              longitude: lng,
+              accuracy: accuracy || 0,
+              lang: currentLang,
+              userAgent
+            });
+
+            alert(ok
+              ? (currentLang === "en" ? "Location sent successfully." : "تم إرسال الموقع بنجاح.")
+              : (currentLang === "en" ? "Failed to send location." : "فشل إرسال الموقع.")
+            );
+            shareLocationBtn.disabled = false;
+            shareLocationBtn.textContent = originalLabel;
+          },
+          ()=>{
+            alert(currentLang === "en" ? "Location permission was denied or unavailable." : "تم رفض إذن الموقع أو الموقع غير متاح.");
+            shareLocationBtn.disabled = false;
+            shareLocationBtn.textContent = originalLabel;
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+          }
+        );
+      });
+    }
+
     if(paymentMethodSelect){
       paymentMethodSelect.addEventListener("change", updatePaymentMethodDetails);
     }
@@ -6335,7 +6440,5 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
-
-
 
 
