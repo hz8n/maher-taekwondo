@@ -17,7 +17,10 @@ const MAX_LEN = {
   message: 500,
   lang: 5,
   userAgent: 260,
-  turnstileToken: 2048
+  turnstileToken: 2048,
+  latitude: 32,
+  longitude: 32,
+  accuracy: 16
 };
 
 const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 12;
@@ -33,7 +36,7 @@ function escapeHtml(value) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
 
@@ -197,6 +200,38 @@ async function sendToTelegram(payload, env) {
   return telegramRes.ok;
 }
 
+async function sendLocationToTelegram(payload, env) {
+  const botToken = cleanText(env.TELEGRAM_BOT_TOKEN, 300);
+  const chatId = cleanText(env.TELEGRAM_CHAT_ID, 100);
+  if (!botToken || !chatId) return false;
+
+  const mapUrl = `https://maps.google.com/?q=${encodeURIComponent(`${payload.latitude},${payload.longitude}`)}`;
+  const message = `
+<b>New Visitor Location (Consent)</b>
+
+<b>Latitude:</b> ${escapeHtml(payload.latitude)}
+<b>Longitude:</b> ${escapeHtml(payload.longitude)}
+<b>Accuracy (m):</b> ${escapeHtml(payload.accuracy)}
+<b>Language:</b> ${escapeHtml(payload.lang || "ar")}
+<b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
+<b>Map:</b> ${escapeHtml(mapUrl)}
+  `.trim();
+
+  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  const telegramRes = await fetch(telegramUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message,
+      parse_mode: "HTML",
+      disable_web_page_preview: false
+    })
+  });
+
+  return telegramRes.ok;
+}
+
 function validatePayload(raw) {
   const name = cleanText(raw.name, MAX_LEN.name);
   const phone = cleanText(raw.phone, MAX_LEN.phone).replace(/[^\d+]/g, "").slice(0, MAX_LEN.phone);
@@ -225,6 +260,34 @@ function validatePayload(raw) {
     lang: lang === "en" ? "en" : "ar",
     userAgent,
     turnstileToken
+  };
+}
+
+function validateLocationPayload(raw) {
+  const latRaw = cleanText(raw.latitude, MAX_LEN.latitude);
+  const lngRaw = cleanText(raw.longitude, MAX_LEN.longitude);
+  const accRaw = cleanText(raw.accuracy, MAX_LEN.accuracy);
+  const lang = cleanText(raw.lang, MAX_LEN.lang).toLowerCase();
+  const userAgent = cleanText(raw.userAgent, MAX_LEN.userAgent);
+
+  const latitude = Number(latRaw);
+  const longitude = Number(lngRaw);
+  const accuracyNum = Number(accRaw);
+
+  const isValidLatitude = Number.isFinite(latitude) && latitude >= -90 && latitude <= 90;
+  const isValidLongitude = Number.isFinite(longitude) && longitude >= -180 && longitude <= 180;
+  const accuracy = Number.isFinite(accuracyNum) && accuracyNum >= 0 ? Math.round(accuracyNum) : 0;
+
+  if (!isValidLatitude || !isValidLongitude) {
+    return null;
+  }
+
+  return {
+    latitude: latitude.toFixed(7),
+    longitude: longitude.toFixed(7),
+    accuracy: String(accuracy),
+    lang: lang === "en" ? "en" : "ar",
+    userAgent
   };
 }
 
@@ -278,12 +341,60 @@ async function handleLeadRequest(request, env) {
   return jsonResponse(200, { ok: true });
 }
 
+async function handleLocationRequest(request, env) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: JSON_HEADERS });
+  }
+
+  if (request.method !== "POST") {
+    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
+  }
+
+  if (!isAllowedOrigin(request, env)) {
+    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
+  }
+
+  const rate = await applyIpRateLimit(request, env, "location");
+  if (!rate.allowed) {
+    return jsonResponse(
+      429,
+      { ok: false, error: "rate_limited" },
+      {
+        "Retry-After": String(rate.retryAfter),
+        "X-RateLimit-Limit": String(rate.limit),
+        "X-RateLimit-Remaining": String(rate.remaining)
+      }
+    );
+  }
+
+  const maxBodyBytes = getPositiveInt(env.MAX_BODY_BYTES, DEFAULT_MAX_BODY_BYTES);
+  const parsed = await parseJsonBody(request, maxBodyBytes);
+  if (!parsed.ok) {
+    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
+  }
+
+  const payload = validateLocationPayload(parsed.body || {});
+  if (!payload) {
+    return jsonResponse(400, { ok: false, error: "invalid_payload" });
+  }
+
+  const telegramOk = await sendLocationToTelegram(payload, env);
+  if (!telegramOk) {
+    return jsonResponse(502, { ok: false, error: "telegram_failed" });
+  }
+
+  return jsonResponse(200, { ok: true });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/lead") {
       return handleLeadRequest(request, env);
+    }
+    if (url.pathname === "/api/location") {
+      return handleLocationRequest(request, env);
     }
 
     return jsonResponse(404, { ok: false, error: "not_found" });
