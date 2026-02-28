@@ -2488,6 +2488,9 @@
 
     /* Laptop + desktop visual polish */
     @media (min-width: 981px){
+      #langToggle{
+        display:none !important;
+      }
       body{
         padding-bottom:0;
       }
@@ -4924,7 +4927,11 @@
     }
 
     function applyLanguage(lang){
-      const requestedLang = (lang === "en" || lang === "ar") ? lang : OFFICIAL_LANG;
+      const isDesktopView = window.matchMedia("(min-width: 981px)").matches;
+      let requestedLang = (lang === "en" || lang === "ar") ? lang : OFFICIAL_LANG;
+      if(isDesktopView){
+        requestedLang = "ar";
+      }
       const effectiveLang = (requestedLang === "ar" && arabicFallbackMode) ? "en" : requestedLang;
       currentLang = effectiveLang;
       const dict = i18n[effectiveLang];
@@ -4980,7 +4987,7 @@
       });
 
       if(langToggle){
-        langToggle.hidden = false;
+        langToggle.hidden = isDesktopView;
         const nextLabel = effectiveLang === "en" ? "AR" : "EN";
         const nextTitle = effectiveLang === "en" ? "Switch to Arabic" : "Switch to English";
         langToggle.textContent = nextLabel;
@@ -5059,6 +5066,11 @@
         applyLanguage(currentLang === "en" ? "ar" : "en");
       });
     }
+    window.addEventListener("resize", ()=>{
+      if(window.matchMedia("(min-width: 981px)").matches && currentLang !== "ar"){
+        applyLanguage("ar");
+      }
+    });
 
     // Final safety pass: replace broken/garbled UI text with English fallback.
     function cleanBrokenUiText(){
@@ -5067,11 +5079,13 @@
         return /ï؟½|�|[\u00C0-\u00FF]{4,}|[?]{2,}/.test(value);
       };
 
-      const enText = (i18n && i18n.en && i18n.en.text) ? i18n.en.text : {};
+      const fallbackText = currentLang === "ar"
+        ? ((i18n && i18n.ar && i18n.ar.text) ? i18n.ar.text : {})
+        : ((i18n && i18n.en && i18n.en.text) ? i18n.en.text : {});
       document.querySelectorAll("[id]").forEach((el)=>{
         const raw = (el.textContent || "").trim();
         if(!raw || !looksBroken(raw)) return;
-        const fallback = enText[el.id];
+        const fallback = fallbackText[el.id];
         if(typeof fallback === "string" && fallback.trim()){
           if(el.id === "heroTitle") el.innerHTML = fallback;
           else el.textContent = fallback;
@@ -6405,7 +6419,6 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
-
 
 
 
