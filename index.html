@@ -4591,62 +4591,89 @@
     sanitizeArabicTranslations();
 
     const AR_TEXT_OVERRIDES = {
-      brandName: "Al Maher Taekwondo Center",
-      brandCity: "Jerash",
-      navWhyUs: "Why Us",
-      navPrograms: "Programs",
-      navPricing: "Pricing",
-      navCalculator: "Calculator",
-      navSchedule: "Schedule",
-      navJourney: "Belts",
-      navTracker: "Tracker",
-      navAchievements: "Achievements",
-      navNews: "News",
-      navFaq: "FAQ",
-      navBook: "Register",
-      btnWhatsNav: "WhatsApp",
-      btnWhatsFoot: "WhatsApp",
-      navJoinBtn: "Join Now",
-      installAppBtn: "Install App",
-      heroTag: "Start Your Journey",
-      heroTitle: "Al Maher Taekwondo Center - <span class=\"text-gold\">Jerash</span>",
-      heroSub: "Professional Taekwondo training for kids, adults, and women.",
-      calculatorTitle: "Smart Price Calculator",
-      calculatorDesc: "Calculate the final fee instantly for one student or siblings.",
-      programsTitle: "Programs",
-      pricingTitle: "Pricing",
-      calcWhatsQuote: "Send Quote on WhatsApp",
-      journeyTitle: "Belt Journey",
-      trackerTitle: "Belt Progress Tracker",
-      trackerBtn: "Show Progress",
-      achievementsTitle: "Results & Achievements",
-      newsTitle: "Latest News",
-      scheduleTitle: "Class Schedule",
-      bookTitle: "Register Now",
-      submitBookingBtn: "Send Registration via WhatsApp",
-      contactTitle: "Contact Info",
-      aboutTitle: "About The Center",
-      btnTop: "Back to Top",
-      btnCallFooter: "Call",
-      errMsg: "Name, phone, and program are required.",
-      waStickyText: "Book your spot on WhatsApp"
+      brandName: "مركز الماهر التايكواندو",
+      brandCity: "جرش",
+      navWhyUs: "لماذا نحن",
+      navPrograms: "🥋 البرامج",
+      navPricing: "💰 الأسعار",
+      navCalculator: "🧮 الحاسبة",
+      navSchedule: "📅 المواعيد",
+      navJourney: "🎖️ الأحزمة",
+      navTracker: "📈 المتابعة",
+      navAchievements: "🏆 الإنجازات",
+      navNews: "📰 الأخبار",
+      navFaq: "❓ الأسئلة",
+      navBook: "📝 التسجيل",
+      btnWhatsNav: "واتساب 💬",
+      btnWhatsFoot: "واتساب 💬",
+      navJoinBtn: "🔥 سجّل الآن",
+      installAppBtn: "تثبيت التطبيق",
+      heroTag: "ابدأ رحلتك",
+      heroTitle: "مركز الماهر للتايكواندو - <span class=\"text-gold\">جرش</span>",
+      heroSub: "تدريب تايكواندو احترافي للأطفال والبالغين والسيدات.",
+      calculatorTitle: "حاسبة السعر الذكية",
+      calculatorDesc: "احسب التكلفة النهائية فورًا لطالب واحد أو للأشقاء.",
+      programsTitle: "البرامج",
+      pricingTitle: "الأسعار",
+      calcWhatsQuote: "💬 إرسال التسعيرة على واتساب",
+      journeyTitle: "رحلة الأحزمة",
+      trackerTitle: "متابعة تقدم الحزام",
+      trackerBtn: "📊 عرض التقدم",
+      achievementsTitle: "النتائج والإنجازات",
+      newsTitle: "آخر الأخبار",
+      scheduleTitle: "جدول الحصص",
+      bookTitle: "سجّل الآن",
+      submitBookingBtn: "📩 إرسال طلب التسجيل عبر واتساب",
+      contactTitle: "معلومات التواصل",
+      aboutTitle: "عن المركز",
+      btnTop: "⬆️ العودة للأعلى",
+      btnCallFooter: "📞 اتصال",
+      errMsg: "الاسم ورقم الهاتف والبرنامج حقول مطلوبة.",
+      waStickyText: "🚀 احجز مقعدك الآن عبر واتساب"
     };
 
     Object.assign(i18n.ar.text, AR_TEXT_OVERRIDES);
     Object.assign(i18n.ar, {
-      trackerPlaceholder: "Example: 0779000000 or MT-1024",
-      calcPlanSingle: "Single Student",
-      calcPlanSiblings: "Siblings",
-      yearAll: "All Years",
-      namePlaceholder: "Full Name",
+      trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
+      calcPlanSingle: "طالب واحد",
+      calcPlanSiblings: "أشقاء",
+      yearAll: "كل السنوات",
+      namePlaceholder: "الاسم الكامل",
       phonePlaceholder: "07xxxxxxxx",
-      agePlaceholder: "Example: 10 years",
-      msgPlaceholder: "Write your note..."
+      agePlaceholder: "مثال: 10 سنوات",
+      msgPlaceholder: "اكتب ملاحظتك..."
     });
 
-    const arabicFallbackMode = true;
+    const EN_TEXT_OVERRIDES = {
+      navPrograms: "🥋 Programs",
+      navPricing: "💰 Pricing",
+      navCalculator: "🧮 Calculator",
+      navSchedule: "📅 Schedule",
+      navJourney: "🎖️ Belts",
+      navTracker: "📈 Tracker",
+      navAchievements: "🏆 Results",
+      navNews: "📰 News",
+      navFaq: "❓ FAQ",
+      navBook: "📝 Join",
+      btnWhatsNav: "WhatsApp 💬",
+      btnWhatsFoot: "WhatsApp 💬",
+      navJoinBtn: "🔥 Join Now",
+      heroJoinBtn: "🚀 Join Now",
+      btnCallHero: "📞 Call Now",
+      heroPriceBtn: "💎 Clear Pricing",
+      pricingJoinBtn: "📝 Join Now",
+      calcWhatsQuote: "💬 Send Quote on WhatsApp",
+      trackerBtn: "📊 Check Progress",
+      submitBookingBtn: "📩 Send Registration Request via WhatsApp",
+      btnTop: "⬆️ Back to Top",
+      btnCallFooter: "📞 Call",
+      waStickyText: "🚀 Reserve your slot on WhatsApp now"
+    };
+    Object.assign(i18n.en.text, EN_TEXT_OVERRIDES);
 
-    let currentLang = "en";
+    const arabicFallbackMode = false;
+
+    let currentLang = "ar";
     let uiReady = false;
 
     function setText(id, value, asHtml = false){
