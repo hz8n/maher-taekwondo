@@ -1292,3 +1292,157 @@ body::after {
     transform: none !important;
   }
 }
+
+/* Legendary punch pass: high-impact visuals */
+:root {
+  --impact-blue: #00d9ff;
+  --impact-pink: #ff4fa2;
+  --impact-gold: #ffcf6a;
+}
+
+.nav {
+  background:
+    linear-gradient(180deg, rgba(5, 16, 33, 0.9), rgba(5, 16, 33, 0.62)),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.1), rgba(255, 79, 162, 0.1));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-left {
+  background:
+    radial-gradient(360px 180px at 12% 10%, rgba(0, 217, 255, 0.2), transparent 70%),
+    radial-gradient(320px 180px at 88% 90%, rgba(255, 79, 162, 0.2), transparent 70%),
+    linear-gradient(155deg, rgba(8, 23, 46, 0.92), rgba(10, 30, 56, 0.74));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+#heroTitle {
+  font-size: clamp(32px, 4.4vw, 48px);
+  line-height: 1.12;
+  letter-spacing: 0.3px;
+  text-shadow: 0 20px 36px rgba(4, 15, 30, 0.6);
+}
+
+.sub {
+  font-size: 16px;
+  color: rgba(240, 249, 255, 0.92);
+}
+
+.btn {
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--impact-pink), #ff84bf);
+  box-shadow: 0 14px 30px rgba(255, 79, 162, 0.34);
+}
+
+.btn.gold {
+  background: linear-gradient(135deg, var(--impact-gold), #ffe7a8);
+  color: #1e2c42;
+  box-shadow: 0 14px 30px rgba(255, 207, 106, 0.28);
+}
+
+.sec-title {
+  font-size: clamp(26px, 3.2vw, 34px);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.sec-title::after {
+  height: 4px;
+  width: 78%;
+  background: linear-gradient(90deg, var(--impact-blue), var(--impact-pink), var(--impact-gold));
+}
+
+section:nth-of-type(even) .card,
+section:nth-of-type(even) .price-card,
+section:nth-of-type(even) .details {
+  border-color: rgba(0, 217, 255, 0.36);
+}
+
+section:nth-of-type(odd) .card,
+section:nth-of-type(odd) .price-card,
+section:nth-of-type(odd) .details {
+  border-color: rgba(255, 79, 162, 0.34);
+}
+
+.card h3,
+.price-title,
+.details-title {
+  color: #f5fcff;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 980px), (pointer: coarse) {
+  body {
+    background: linear-gradient(120deg, #071325, #0f2d4f, #1c3e63, #31275d) !important;
+    background-size: 240% 240% !important;
+    animation: mobileAurora 16s ease infinite !important;
+  }
+
+  #heroTitle {
+    font-size: clamp(28px, 8.1vw, 36px) !important;
+    text-shadow: none !important;
+    color: #ffffff !important;
+  }
+
+  .hero-left,
+  .hero-right,
+  .panel,
+  .card,
+  .mini-card,
+  .price-card,
+  .details,
+  .faq-item,
+  .achievement-card,
+  .news-card,
+  .english-panel {
+    background: linear-gradient(150deg, rgba(11, 26, 48, 0.94), rgba(19, 42, 70, 0.9)) !important;
+    border: 1px solid rgba(145, 220, 255, 0.26) !important;
+  }
+
+  .sub {
+    font-size: 14px !important;
+    color: rgba(236, 247, 255, 0.9) !important;
+  }
+
+  .btn.primary,
+  .btn.gold {
+    background: linear-gradient(120deg, #00d6ff, #00b8d4, #ff5ca8, #ffc96a) !important;
+    background-size: 220% 220% !important;
+    animation: mobileAurora 10s ease infinite !important;
+    color: #071a2c !important;
+    box-shadow: none !important;
+  }
+
+  .sec-title {
+    text-transform: none !important;
+    letter-spacing: 0.2px !important;
+    color: #f4fbff !important;
+  }
+
+  .sec-title::after {
+    background: linear-gradient(90deg, #00d6ff, #ff5ca8, #ffd36f) !important;
+  }
+}
+
+@keyframes mobileAurora {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 980px) and (prefers-reduced-motion: reduce), (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  body,
+  .btn.primary,
+  .btn.gold {
+    animation: none !important;
+  }
+}
