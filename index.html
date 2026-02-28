@@ -5468,38 +5468,18 @@
     function updatePriceCalculator(){
       if(!calcPlanType || !calcStudents || !calcDelivery) return;
 
-      let students = Math.max(1, Number(calcStudents.value || 1));
+      let students = Math.max(1, Math.floor(Number(calcStudents.value || 1)));
       const isMobileCalcMode = window.matchMedia(`(max-width: ${MOBILE_CALC_BREAKPOINT}px)`).matches;
-      let planType = calcPlanType.value === "siblings" ? "siblings" : "single";
       const hasDelivery = calcDelivery.checked;
+      const planType = students >= CALC_MIN_SIBLINGS ? "siblings" : "single";
 
-      if(isMobileCalcMode){
-        students = Math.max(1, students);
-        planType = students >= CALC_MIN_SIBLINGS ? "siblings" : "single";
-        calcPlanType.value = planType;
-        calcStudents.min = "1";
-        calcStudents.value = String(students);
-        calcStudents.disabled = false;
-        if(calcPlanWrap) calcPlanWrap.style.display = "none";
-        if(calcStudentsLabelEl){
-          calcStudentsLabelEl.textContent = currentLang === "en" ? "Number of siblings" : "عدد الإخوة";
-        }
-      } else {
-        if(calcPlanWrap) calcPlanWrap.style.display = "";
-        if(calcStudentsLabelEl && i18n[currentLang] && i18n[currentLang].text){
-          calcStudentsLabelEl.textContent = i18n[currentLang].text.calcStudentsLabel || calcStudentsLabelEl.textContent;
-        }
-        if(planType === "single"){
-          students = 1;
-          calcStudents.value = "1";
-          calcStudents.min = "1";
-          calcStudents.disabled = true;
-        } else {
-          calcStudents.min = String(CALC_MIN_SIBLINGS);
-          students = Math.max(CALC_MIN_SIBLINGS, students);
-          calcStudents.value = String(students);
-          calcStudents.disabled = false;
-        }
+      calcStudents.min = "1";
+      calcStudents.value = String(students);
+      calcStudents.disabled = false;
+      calcPlanType.value = planType;
+      if(calcPlanWrap) calcPlanWrap.style.display = isMobileCalcMode ? "none" : "";
+      if(calcStudentsLabelEl && i18n[currentLang] && i18n[currentLang].text){
+        calcStudentsLabelEl.textContent = i18n[currentLang].text.calcStudentsLabel || calcStudentsLabelEl.textContent;
       }
 
       const base = students * CALC_BASE_PER_STUDENT;
