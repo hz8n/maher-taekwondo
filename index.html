@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مركز الماهر للتايكواندو - جرش | انضم الآن</title>
-  <meta name="description" content="مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والكبار والإناث. انضم الآن." />
+  <title>Al Maher Taekwondo Center - Jerash | Join Now</title>
+  <meta name="description" content="Professional Taekwondo training in Jerash for kids, adults, and women. Join now." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com; upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#081226" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="الماهر تايكواندو" />
+  <meta name="apple-mobile-web-app-title" content="Al Maher Taekwondo" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff3d81'/%3E%3Cstop offset='100%25' stop-color='%2300d1ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='50%25' y='57%25' text-anchor='middle' font-size='29' font-family='Arial,sans-serif' font-weight='700' fill='%231a0f08'%3EMT%3C/text%3E%3C/svg%3E">
   <link rel="manifest" href="manifest.webmanifest?v=2" />
   <link rel="apple-touch-icon" sizes="180x180" href="icons/install-icon-180.png" />
@@ -96,6 +96,7 @@
     /* NAV */
     .nav{
       position:sticky; top:0; z-index:50;
+      -webkit-backdrop-filter: blur(15px);
       backdrop-filter: blur(15px);
       background: var(--nav-bg);
       border-bottom: 1px solid var(--surface-line);
@@ -152,6 +153,7 @@
       cursor:pointer;
       transition:.18s transform, .18s background, .18s border, .18s box-shadow;
       display:inline-flex; align-items:center; gap:8px;
+      -webkit-user-select:none;
       user-select:none;
       position:relative;
       overflow:hidden;
@@ -388,6 +390,36 @@
       border-color: rgba(42,210,159,.35);
       background: rgba(42,210,159,.1);
     }
+    .text-gold{color:var(--gold)}
+    .inline-row-wrap{display:flex; gap:12px; flex-wrap:wrap}
+    .inline-row-wrap-sm{display:flex; gap:10px; flex-wrap:wrap}
+    .inline-row-wrap-sm.mt-14{margin-top:14px}
+    .m0-muted-strong{margin:0; color:var(--muted); font-weight:800; line-height:1.9}
+    .m10-muted-strong{margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px}
+    .contact-title{margin:0 0 12px; font-weight:1000; color:var(--accent2)}
+    .submit-btn-lg{padding:14px 18px; font-size:16px}
+    .tracker-line{margin:6px 0; font-weight:900}
+    .tracker-progress-copy{margin:0 0 8px; color:var(--muted); font-weight:900}
+    .tracker-goals-title{font-weight:1000; margin-top:8px}
+    .tracker-exam{margin:8px 0 0; color:var(--muted); font-weight:900}
+    .footer-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .m0{margin:0}
+    .achievement-filter{max-width:200px}
+    .is-hidden{display:none}
+    .flex-gap-8-wrap{display:flex; gap:8px; flex-wrap:wrap}
+    .flex-center-gap10-mb10{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+    .flex-center-gap8-wrap-mb10{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px}
+    .badge-no-margin{margin-top:0}
+    .issuer-note{margin:10px 0 0; color:var(--muted); font-weight:900}
+    .card-title-18{margin:0; font-size:18px; font-weight:1000}
+    .card-meta-strong{margin:0; color:var(--muted); font-weight:900}
+    .card-note{margin:0; color:var(--muted); line-height:1.8; font-weight:800}
+    .swatch-white{background:#f6f6f6}
+    .swatch-yellow{background:#ffd54a}
+    .swatch-green{background:#26d07c}
+    .swatch-blue{background:#3aa0ff}
+    .swatch-brown{background:#8b5a2b}
+    .swatch-black{background:#1a1a1a}
 
     .stats{
       margin-top:18px;
@@ -807,6 +839,7 @@
       display:flex; align-items:center; justify-content:space-between;
       cursor:pointer;
       transition:.18s transform, .18s background, .18s border, .18s box-shadow;
+      -webkit-user-select:none;
       user-select:none;
       font-weight:1000;
       position:relative;
@@ -873,6 +906,7 @@
       display:flex; align-items:center; justify-content:space-between;
       font-weight:1000;
       transition: all 300ms ease;
+      -webkit-user-select:none;
       user-select:none;
     }
     .faq-item:hover .faq-question{ color:var(--accent); }
@@ -1081,10 +1115,12 @@
       display:grid; place-items:center;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.25);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow);
       cursor:pointer;
       transition: .18s transform, .18s background, .18s box-shadow;
+      -webkit-user-select:none;
       user-select:none;
       position:relative;
       overflow:hidden;
@@ -1168,8 +1204,8 @@
     }
     body::before{display:none}
     .nav{
-      backdrop-filter:none;
       -webkit-backdrop-filter:none;
+      backdrop-filter:none;
       background: var(--nav-bg);
       border-bottom:1px solid var(--surface-line);
       box-shadow:none;
@@ -1255,8 +1291,8 @@
     }
     .float{left:12px; bottom:12px}
     .fab{
-      backdrop-filter:none;
       -webkit-backdrop-filter:none;
+      backdrop-filter:none;
       background: rgba(0,0,0,.62);
       transition: background-color .18s ease;
     }
@@ -2463,8 +2499,8 @@
       }
 
       .nav{
-        backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
         background: linear-gradient(180deg, rgba(5,13,29,.94), rgba(6,14,30,.86));
         border-bottom-color: rgba(0,209,255,.34);
         box-shadow: 0 10px 24px rgba(0,0,0,.24);
@@ -2491,6 +2527,7 @@
         box-shadow: 0 14px 38px rgba(255,61,129,.28);
       }
       .btn{
+        -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
       }
       .btn:hover{
@@ -3236,7 +3273,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="style.css?v=legendary-2" />
+  <link rel="stylesheet" href="style.css?v=legendary-3" />
 
   <script>
     if(window.top !== window.self){
@@ -3252,7 +3289,7 @@
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
     const LOCATION_SUBMIT_ENDPOINT = "/api/location";
-    const LOCATION_TEST_MODE = true; // للاختبار فقط: يرسل موقعًا تجريبيًا بدون إذن GPS
+    const LOCATION_TEST_MODE = true; // �������� ���: ���� ������ �������� ���� ��� GPS
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -3274,23 +3311,23 @@
       </a>
 
       <div class="nav-links">
-        <a id="navWhyUs" href="#why-us"> </a>
-        <a id="navPrograms" href="#programs"></a>
-        <a id="navPricing" href="#pricing"></a>
-        <a id="navCalculator" href="#calculator"></a>
-        <a id="navSchedule" href="#schedule"></a>
-        <a id="navAchievements" href="#achievements"></a>
-        <a id="navFaq" href="#faq"></a>
-        <a id="navBook" href="#book"></a>
+        <a id="navWhyUs" href="#why-us" aria-label="Why us section" title="Why us section"> </a>
+        <a id="navPrograms" href="#programs" aria-label="Programs section" title="Programs section"></a>
+        <a id="navPricing" href="#pricing" aria-label="Pricing section" title="Pricing section"></a>
+        <a id="navCalculator" href="#calculator" aria-label="Calculator section" title="Calculator section"></a>
+        <a id="navSchedule" href="#schedule" aria-label="Schedule section" title="Schedule section"></a>
+        <a id="navAchievements" href="#achievements" aria-label="Achievements section" title="Achievements section"></a>
+        <a id="navFaq" href="#faq" aria-label="FAQ section" title="FAQ section"></a>
+        <a id="navBook" href="#book" aria-label="Booking section" title="Booking section"></a>
       </div>
 
       <div class="nav-cta">
-        <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="  " title="  "></button>
+        <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
         <button class="btn lang-toggle" id="langToggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
-        <button class="btn install-btn" id="installAppBtn" type="button">  </button>
-        <button class="btn" id="shareLocationBtn" type="button" title="مشاركة موقعي بموافقتي">📍</button>
-        <a class="btn" id="btnWhatsNav" href="#">💬</a>
-        <a class="btn primary pulse-cta" id="navJoinBtn" href="#book">  </a>
+        <button class="btn install-btn" id="installAppBtn" type="button" aria-label="Install app">  </button>
+        <button class="btn" id="shareLocationBtn" type="button" aria-label="Share location" title="������ ����� ��������">??</button>
+        <a class="btn" id="btnWhatsNav" href="#" aria-label="Open WhatsApp chat" title="Open WhatsApp chat">??</a>
+        <a class="btn primary pulse-cta" id="navJoinBtn" href="#book" aria-label="Go to booking form" title="Go to booking form">  </a>
       </div>
     </div>
   </div>
@@ -3304,19 +3341,19 @@
     <div class="container hero-grid">
       <div class="panel hero-left">
         <div class="tag" id="heroTag">   </div>
-        <h1 id="heroTitle">    <span style="color:var(--gold)"></span></h1>
+        <h1 id="heroTitle">    <span class="text-gold"></span></h1>
         <p class="sub" id="heroSub">
-               ߡ     .             <b>     </b> ( 35 )  <b> </b>.               .
+               ?     .             <b>     </b> ( 35 )  <b> </b>.               .
         </p>
 
         <div class="hero-actions">
-          <a class="btn primary pulse-cta" id="heroJoinBtn" href="#book">  </a>
-          <a class="btn" id="btnCallHero" href="tel:0779331277">  </a>
-          <a class="btn gold" id="heroPriceBtn" href="#pricing"> </a>
+          <a class="btn primary pulse-cta" id="heroJoinBtn" href="#book" aria-label="Join now" title="Join now">  </a>
+          <a class="btn" id="btnCallHero" href="tel:0779331277" aria-label="Call center" title="Call center">  </a>
+          <a class="btn gold" id="heroPriceBtn" href="#pricing" aria-label="View pricing" title="View pricing"> </a>
         </div>
 
         <div class="spotlight">
-          <span class="spotlight-kicker" id="spotlightKicker">🚨</span>
+          <span class="spotlight-kicker" id="spotlightKicker">??</span>
           <p class="spotlight-text" id="spotlightText">         .</p>
           <div class="spotlight-points">
             <span class="spotlight-point" id="spotlightPoint1">   </span>
@@ -3365,18 +3402,18 @@
             <div class="avatar" id="coachImg"></div>
             <div>
               <div class="n1" id="coachName">     </div>
-              <div class="n2" id="coachInfo">🏅  
-📅 35  
-👨‍🏫     
-👩‍🏫      </div>
+              <div class="n2" id="coachInfo">??  
+?? 35  
+??�??     
+??�??      </div>
               <div class="badge" id="coachBadge">     </div>
             </div>
           </div>
         </div>
 
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a class="btn" href="#pricing" id="heroRightPricingBtn"></a>
-          <a class="btn primary" href="#book" id="heroRightJoinBtn"> </a>
+        <div class="inline-row-wrap">
+          <a class="btn" href="#pricing" id="heroRightPricingBtn" aria-label="View pricing" title="View pricing"></a>
+          <a class="btn primary" href="#book" id="heroRightJoinBtn" aria-label="Join now" title="Join now"> </a>
         </div>
       </div>
     </div>
@@ -3386,7 +3423,7 @@
     <div class="container">
       <div class="english-panel">
         <h3>Quick English Version</h3>
-        <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.9;">
+        <p class="m0-muted-strong">
           Al Maher Taekwondo Center in Jerash offers professional training for kids, teens, adults, and women.
           Monthly plans start from 45 JD (training + uniform + delivery package available).
         </p>
@@ -3396,7 +3433,7 @@
           <li>Clear belt journey and competition preparation.</li>
           <li>Fast registration through WhatsApp: +962 77 933 1277.</li>
         </ul>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+        <div class="inline-row-wrap-sm mt-14">
           <a class="btn primary" id="btnWhatsEnglish" href="https://wa.me/962779331277" target="_blank" rel="noopener">WhatsApp Registration</a>
           <a class="btn" href="#calculator">Price Calculator</a>
         </div>
@@ -3409,7 +3446,7 @@
     <div class="container">
       <div class="sec-head">
         <div>
-          <h2 class="sec-title" id="whyUsTitle">   ѿ</h2>
+          <h2 class="sec-title" id="whyUsTitle">   ?</h2>
           <p class="sec-desc" id="whyUsDesc">       .</p>
         </div>
       </div>
@@ -3423,12 +3460,12 @@
         <div class="card icon-card">
           <div class="why-icon"></div>
           <h3 id="whyUsCard2Title">  </h3>
-          <p id="whyUsCard2Desc">       . ء     .</p>
+          <p id="whyUsCard2Desc">       . �     .</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon"></div>
           <h3 id="whyUsCard3Title">  </h3>
-          <p id="whyUsCard3Desc">     ϡ       .</p>
+          <p id="whyUsCard3Desc">     ?       .</p>
         </div>
         <div class="card icon-card">
           <div class="why-icon"></div>
@@ -3455,26 +3492,26 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="programsTitle"></h2>
-          <p class="sec-desc" id="programsDesc">   ߡ   </p>
+          <p class="sec-desc" id="programsDesc">   ?   </p>
         </div>
       </div>
 
       <div class="grid">
         <div class="card">
           <h3 id="programCard1Title">  (6-12)</h3>
-          <p id="programCard1Desc">   ɡ    ɡ   .</p>
+          <p id="programCard1Desc">   ?    ?   .</p>
         </div>
         <div class="card">
           <h3 id="programCard2Title">   (13+)</h3>
-          <p id="programCard2Desc">  ɡ ɡ     ʡ .</p>
+          <p id="programCard2Desc">  ? ?     ? .</p>
         </div>
         <div class="card">
           <h3 id="programCard3Title">  </h3>
-          <p id="programCard3Desc">     ɡ        .</p>
+          <p id="programCard3Desc">     ?        .</p>
         </div>
         <div class="card">
           <h3 id="programCard4Title">  </h3>
-          <p id="programCard4Desc">  :  ȡ ɡ    .</p>
+          <p id="programCard4Desc">  :  ? ?    .</p>
         </div>
 
         <!-- ?   () -->
@@ -3496,16 +3533,16 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="pricingTitle"></h2>
-          <p class="sec-desc" id="pricingDesc">   ɡ     .</p>
+          <p class="sec-desc" id="pricingDesc">   ?     .</p>
         </div>
-        <a class="btn primary" href="#book" id="pricingJoinBtn"> </a>
+        <a class="btn primary" href="#book" id="pricingJoinBtn" aria-label="Book now" title="Book now"> </a>
       </div>
 
       <div class="pricing">
         <div class="price-card">
           <div class="price-left">
             <h3 class="price-title" id="priceTitleMain">   </h3>
-            <p class="price-note" id="priceNoteMain">✅     | ✅    | ✅    | ✅     </p>
+            <p class="price-note" id="priceNoteMain">?     | ?    | ?    | ?     </p>
           </div>
           <div class="price-number">45 JD</div>
         </div>
@@ -3536,7 +3573,7 @@
 
             <div>
               <label for="calcStudents" id="calcStudentsLabel"> </label>
-              <input id="calcStudents" type="number" min="1" max="20" value="1" inputmode="numeric" />
+              <input id="calcStudents" type="number" min="1" value="1" inputmode="numeric" />
             </div>
 
             <div class="calc-switches">
@@ -3571,7 +3608,7 @@
             <span id="calcFinalTotal">0 JD</span>
           </div>
 
-          <a class="btn primary" id="calcWhatsQuote" href="#">    </a>
+          <a class="btn primary" id="calcWhatsQuote" href="#" aria-label="Send quote on WhatsApp" title="Send quote on WhatsApp">    </a>
         </div>
       </div>
     </div>
@@ -3591,29 +3628,29 @@
         <thead>
           <tr>
             <th id="scheduleHeadDays">  </th>
-            <th id="scheduleHeadTime">⏰ </th>
+            <th id="scheduleHeadTime">? </th>
             <th id="scheduleHeadNote"> </th>
           </tr>
         </thead>
         <tbody id="scheduleBody">
           <tr>
             <td data-label="  " id="scheduleRow1Days"> -  - </td>
-            <td class="time" data-label="⏰ ">4:00 - 5:00 PM</td>
+            <td class="time" data-label="? ">4:00 - 5:00 PM</td>
             <td data-label=" " id="scheduleRow1Note">   </td>
           </tr>
           <tr>
             <td data-label="  " id="scheduleRow2Days"> -  - </td>
-            <td class="time" data-label="⏰ ">8:30 - 9:30 PM</td>
+            <td class="time" data-label="? ">8:30 - 9:30 PM</td>
             <td data-label=" " id="scheduleRow2Note">   </td>
           </tr>
           <tr>
             <td data-label="  " id="scheduleRow3Days"> -  - </td>
-            <td class="time" data-label="⏰ ">4:00 - 5:00 PM</td>
+            <td class="time" data-label="? ">4:00 - 5:00 PM</td>
             <td data-label=" " id="scheduleRow3Note">    </td>
           </tr>
           <tr>
             <td data-label="  " id="scheduleRow4Days"> -  - </td>
-            <td class="time" data-label="⏰ ">8:30 - 9:30 PM</td>
+            <td class="time" data-label="? ">8:30 - 9:30 PM</td>
             <td data-label=" " id="scheduleRow4Note"> </td>
           </tr>
         </tbody>
@@ -3629,7 +3666,7 @@
           <h2 class="sec-title" id="journeyTitle"> </h2>
           <p class="sec-desc" id="journeyDesc">        </p>
         </div>
-        <a class="btn" href="#book" id="journeyBtn">  </a>
+        <a class="btn" href="#book" id="journeyBtn" aria-label="Go to booking form" title="Go to booking form">  </a>
       </div>
 
       <div class="journey">
@@ -3650,8 +3687,8 @@
       </div>
 
       <div class="achievement-head">
-        <label for="achievementYear" id="achievementFilterLabel" style="margin:0;">  </label>
-        <select id="achievementYear" style="max-width:200px;">
+        <label for="achievementYear" id="achievementFilterLabel" class="m0">  </label>
+        <select id="achievementYear" aria-label="Achievement year filter" class="achievement-filter">
           <option value="all"> </option>
         </select>
       </div>
@@ -3680,14 +3717,14 @@
       <div class="sec-head">
         <div>
           <h2 class="sec-title" id="bookTitle"> </h2>
-          <p class="sec-desc" id="bookDesc">      ߡ       .</p>
+          <p class="sec-desc" id="bookDesc">      ?       .</p>
         </div>
       </div>
 
       <div class="booking">
         <div class="card">
-          <div class="ok" id="okMsg">✅       .     !</div>
-          <div class="err" id="errMsg">⚠️     .</div>
+          <div class="ok" id="okMsg">?       .     !</div>
+          <div class="err" id="errMsg">??     .</div>
 
           <form id="bookingForm">
             <div class="row">
@@ -3752,21 +3789,21 @@
                   <div class="payment-line"><span id="bankNameLabel"> :</span> <span class="payment-value" id="bankNameValue"> </span></div>
                   <div class="payment-line"><span id="bankAccountLabel"> :</span> <span class="payment-value" id="bankAccountValue">  </span></div>
                   <div class="payment-line"><span id="bankIbanLabel"> :</span> <span class="payment-value" id="bankIbanValue">JO00 0000 0000 0000 0000 0000 000</span></div>
-                  <button class="btn" id="copyBankIbanBtn" type="button"> </button>
+                  <button class="btn" id="copyBankIbanBtn" type="button" aria-label="Copy bank IBAN"> </button>
                 </div>
 
                 <div class="payment-option" id="walletDetailsBlock" hidden>
                   <b id="walletDetailsTitle">   </b>
                   <div class="payment-line"><span id="walletProviderLabel"> :</span> <span class="payment-value" id="walletProviderValue">JoMoPay / Zain Cash / Orange Money</span></div>
                   <div class="payment-line"><span id="walletNumberLabel"> :</span> <span class="payment-value" id="walletNumberValue">0779331277</span></div>
-                  <button class="btn" id="copyWalletNumberBtn" type="button">  </button>
+                  <button class="btn" id="copyWalletNumberBtn" type="button" aria-label="Copy wallet number">  </button>
                 </div>
 
                 <div class="payment-option" id="cryptoDetailsBlock" hidden>
                   <b id="cryptoDetailsTitle">  (USDT)</b>
                   <div class="payment-line"><span id="cryptoNetworkLabel">:</span> <span class="payment-value" id="cryptoNetworkValue">TRC20</span></div>
                   <div class="payment-line"><span id="cryptoAddressLabel"> :</span> <span class="payment-value" id="cryptoAddressValue">TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span></div>
-                  <button class="btn" id="copyCryptoAddressBtn" type="button">  </button>
+                  <button class="btn" id="copyCryptoAddressBtn" type="button" aria-label="Copy crypto address">  </button>
                 </div>
 
                 <p class="payment-copy-status" id="paymentCopyStatus" aria-live="polite"></p>
@@ -3782,32 +3819,32 @@
 
             <div>
               <label for="msg" id="msgLabel">   ()</label>
-              <textarea id="msg" name="msg" maxlength="500" placeholder="اكتب أي ملاحظة أو سؤال..."></textarea>
+              <textarea id="msg" name="msg" maxlength="500" placeholder="���� �� ������ �� ����..."></textarea>
             </div>
 
-            <button class="btn primary" id="submitBookingBtn" type="submit" style="padding:14px 18px; font-size:16px">📲     </button>
+            <button class="btn primary submit-btn-lg" id="submitBookingBtn" type="submit">??     </button>
           </form>
         </div>
 
         <div class="card">
-          <h3 style="margin:0 0 12px; font-weight:1000; color:var(--accent2)" id="contactTitle">  </h3>
-          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+          <h3 class="contact-title" id="contactTitle">  </h3>
+          <p class="m10-muted-strong">
             <b id="contactWhatsappLabel"> :</b> 0779331277
           </p>
-          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+          <p class="m10-muted-strong">
             <b id="contactPriceLabel"> :</b> <span id="contactPriceValue">45  ( +  +    )</span>
           </p>
-          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+          <p class="m10-muted-strong">
             <b id="paymentMethodsTitle"> :</b>
-            <span id="paymentMethodsList">  ҡ  (CliQ)    ɡ   (USDT).</span>
+            <span id="paymentMethodsList">  ?  (CliQ)    ?   (USDT).</span>
           </p>
-          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px">
+          <p class="m10-muted-strong">
             <b id="contactLocationLabel">:</b> <span id="contactLocationValue"></span>
           </p>
-          <p style="margin:10px 0; color:var(--muted); font-weight:900; line-height:1.95; font-size:15px" id="contactHighlights">
-            ✅       <br />
-            ✅       <br />
-            ✅      
+          <p class="m10-muted-strong" id="contactHighlights">
+            ?       <br />
+            ?       <br />
+            ?      
           </p>
         </div>
       </div>
@@ -3827,14 +3864,14 @@
       <div class="grid">
         <div class="card">
           <h3 id="aboutCard1Title"> </h3>
-          <p id="aboutCard1Desc">     .    ʡ       .</p>
+          <p id="aboutCard1Desc">     .    ?       .</p>
         </div>
         <div class="card">
           <h3 id="aboutCard2Title"> </h3>
           <p id="aboutCard2Desc">     .      .</p>
         </div>
         <div class="card">
-          <h3 id="aboutCard3Title">⭐  </h3>
+          <h3 id="aboutCard3Title">?  </h3>
           <p id="aboutCard3Desc">     .      .</p>
         </div>
       </div>
@@ -3856,7 +3893,7 @@
           <label for="trackerInput" id="trackerInputLabel">   </label>
           <div class="row">
             <input id="trackerInput" type="text" placeholder=": 0779000000  MT-1024" />
-            <button class="btn primary" id="trackerBtn" type="button"> </button>
+            <button class="btn primary" id="trackerBtn" type="button" aria-label="Track student progress"> </button>
           </div>
           <p class="calc-note" id="trackerHint">
                  .        .
@@ -3866,22 +3903,22 @@
         <div class="card" id="trackerPanel" aria-live="polite">
           <p class="tracker-empty" id="trackerEmpty">     .</p>
 
-          <div id="trackerResult" style="display:none;">
+          <div id="trackerResult" class="is-hidden">
             <div class="tracker-top">
               <span class="badge" id="trackerStudentCode"></span>
             </div>
-            <p style="margin:6px 0; font-weight:900;"><span id="trackerCurrentLabel"> :</span> <b id="trackerCurrentBelt"></b></p>
-            <p style="margin:6px 0; font-weight:900;"><span id="trackerNextLabel"> :</span> <b id="trackerNextBelt"></b></p>
+            <p class="tracker-line"><span id="trackerCurrentLabel"> :</span> <b id="trackerCurrentBelt"></b></p>
+            <p class="tracker-line"><span id="trackerNextLabel"> :</span> <b id="trackerNextBelt"></b></p>
 
             <div class="tracker-progress">
               <span id="trackerProgressBar"></span>
             </div>
-            <p style="margin:0 0 8px; color:var(--muted); font-weight:900;" id="trackerProgressText"></p>
+            <p class="tracker-progress-copy" id="trackerProgressText"></p>
 
-            <div style="font-weight:1000; margin-top:8px;" id="trackerGoalsLabel">  :</div>
+            <div class="tracker-goals-title" id="trackerGoalsLabel">  :</div>
             <ul class="tracker-goals" id="trackerGoals"></ul>
 
-            <p style="margin:8px 0 0; color:var(--muted); font-weight:900;" id="trackerExamDate"></p>
+            <p class="tracker-exam" id="trackerExamDate"></p>
           </div>
         </div>
       </div>
@@ -3904,21 +3941,21 @@
   <footer>
     <div class="container foot">
       <div id="footerCopy"> <span id="year"></span>      |      </div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="#top" id="btnTop">⬆️  </a>
-        <a class="btn" href="#" id="btnWhatsFoot"> </a>
-        <a class="btn" href="tel:0779331277" id="btnCallFooter"> </a>
+      <div class="footer-actions">
+        <a class="btn" href="#top" id="btnTop">??  </a>
+        <a class="btn" href="#" id="btnWhatsFoot" aria-label="Open WhatsApp chat" title="Open WhatsApp chat"> </a>
+        <a class="btn" href="tel:0779331277" id="btnCallFooter" aria-label="Call center" title="Call center"> </a>
       </div>
     </div>
   </footer>
 
   <div class="float" aria-label="Floating buttons">
-    <div class="fab whatsapp" id="fabWhats" title="">
+    <div class="fab whatsapp" id="fabWhats" title="WhatsApp">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M20 12.1a8 8 0 0 1-11.9 7l-4.1 1 1.1-4A8 8 0 1 1 20 12.1Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
       </svg>
     </div>
-    <div class="fab up" id="fabUp" title="">
+    <div class="fab up" id="fabUp" title="Back to top">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M12 5l7 7-2 2-5-5-5 5-2-2 7-7Z" fill="white"/>
       </svg>
@@ -4087,8 +4124,8 @@
           navJoinBtn: "  ",
           installAppBtn: "  ",
           heroTag: "   ",
-          heroTitle: "    <span style=\"color:var(--gold)\"></span>",
-          heroSub: "        ߡ     .          ϡ     <b>     </b> (35  )  <b> </b>.               .",
+          heroTitle: "    <span class=\"text-gold\"></span>",
+          heroSub: "        ?     .          ?     <b>     </b> (35  )  <b> </b>.               .",
           spotlightKicker: "?  ",
           spotlightText: "        .",
           spotlightPoint1: "    ",
@@ -4112,34 +4149,34 @@
           statLabelYears: " ",
           calculatorTitle: "  ",
           calculatorDesc: "    :     +  .",
-          whyUsTitle: "   ѿ",
+          whyUsTitle: "   ?",
           whyUsDesc: "      ...  .",
           whyUsCard1Title: " ",
-          whyUsCard1Desc: " 35      ȡ     .",
+          whyUsCard1Desc: " 35      ?     .",
           whyUsCard2Title: "  ",
-          whyUsCard2Desc: "   Ӻ      .",
+          whyUsCard2Desc: "   ?      .",
           whyUsCard3Title: "  ",
-          whyUsCard3Desc: "    ɡ      .",
+          whyUsCard3Desc: "    ?      .",
           whyUsCard4Title: "  ",
           whyUsCard4Desc: "  :  +  +     .",
           whyUsCard5Title: " ",
-          whyUsCard5Desc: "  : ߡ ɡ     .",
+          whyUsCard5Desc: "  : ? ?     .",
           whyUsCard6Title: "  300 ",
           whyUsCard6Desc: "   +300        .",
           programsTitle: "",
-          programsDesc: "  ȡ      .",
+          programsDesc: "  ?      .",
           programCard1Title: "  (6-12)",
-          programCard1Desc: "        ɡ    .",
+          programCard1Desc: "        ?    .",
           programCard2Title: "   (13+)",
-          programCard2Desc: "   :   ɡ ɡ   .",
+          programCard2Desc: "   :   ? ?   .",
           programCard3Title: "  ",
-          programCard3Desc: "    ɡ       .",
+          programCard3Desc: "    ?       .",
           programCard4Title: "  ",
-          programCard4Desc: "  :  ȡ    ѡ   .",
+          programCard4Desc: "  :  ?    ?   .",
           programCard5Title: "   (  +  )",
           programCard5Desc: "            .",
           pricingTitle: "",
-          pricingDesc: " ͡  ɡ     .",
+          pricingDesc: " ?  ?     .",
           pricingJoinBtn: "  ",
           priceTitleMain: "   ",
           priceNoteMain: "?     | ?   | ?   | ?     ",
@@ -4181,7 +4218,7 @@
           cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
           copyCryptoAddressBtn: "  ",
           paymentCopySuccess: "   .",
-          paymentCopyError: "  ǡ  .",
+          paymentCopyError: "  ?  .",
           turnstileLabel: "  (Cloudflare)",
           turnstileHint: "         .",
           turnstileVerified: "   .",
@@ -4191,7 +4228,7 @@
           bookingTooFastError: "    .        .",
           bookingSecurityError: "    .   .",
           paymentMethodsTitle: " :",
-          paymentMethodsList: "  ҡ  (CliQ)    ɡ   (USDT).",
+          paymentMethodsList: "  ?  (CliQ)    ?   (USDT).",
           journeyTitle: " ",
           journeyDesc: "        ",
           journeyBtn: "  ",
@@ -4212,7 +4249,7 @@
           newsEmpty: "   .",
           newsChip: " ",
           faqTitle: " ",
-          faqDesc: "    ߡ   .",
+          faqDesc: "    ?   .",
           scheduleTitle: " ",
           scheduleDesc: "    .    .",
           scheduleHeadDays: "  ",
@@ -4227,7 +4264,7 @@
           scheduleRow4Days: " -  - ",
           scheduleRow4Note: " ",
           bookTitle: " ",
-          bookDesc: "    ȡ       .",
+          bookDesc: "    ?       .",
           nameLabel: " ",
           phoneLabel: " ",
           ageLabel: " ()",
@@ -4255,7 +4292,7 @@
           aboutTitle: " ",
           aboutDesc: "        .",
           aboutCard1Title: " ",
-          aboutCard1Desc: "     .    ʡ       .",
+          aboutCard1Desc: "     .    ?       .",
           aboutCard2Title: " ",
           aboutCard2Desc: "     .      .",
           aboutCard3Title: "?  ",
@@ -4274,45 +4311,45 @@
         namePlaceholder: "   ",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: ": 10 ",
-        msgPlaceholder: "اكتب أي ملاحظة أو سؤال..."
+        msgPlaceholder: "���� �� ������ �� ����..."
       },
       en: {
         htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
         text: {
           brandName: "Al Maher Taekwondo",
           brandCity: "Jerash",
-          navWhyUs: "⭐ Why Us",
-          navPrograms: "🥋 Programs",
-          navPricing: "💰 Pricing",
-          navCalculator: "🧮 Calculator",
-          navSchedule: "📅 Schedule",
-          navJourney: "🎖️ Belts",
-          navTracker: "📊 Tracker",
-          navAchievements: "🏆 Results",
-          navNews: "📰 News",
-          navFaq: "❓ FAQ",
-          navBook: "📝 Join",
-          btnWhatsNav: "WhatsApp 💬",
-          btnWhatsFoot: "WhatsApp 💬",
-          navJoinBtn: "📝 Join Now",
+          navWhyUs: "? Why Us",
+          navPrograms: "?? Programs",
+          navPricing: "?? Pricing",
+          navCalculator: "?? Calculator",
+          navSchedule: "?? Schedule",
+          navJourney: "??? Belts",
+          navTracker: "?? Tracker",
+          navAchievements: "?? Results",
+          navNews: "?? News",
+          navFaq: "? FAQ",
+          navBook: "?? Join",
+          btnWhatsNav: "WhatsApp ??",
+          btnWhatsFoot: "WhatsApp ??",
+          navJoinBtn: "?? Join Now",
           installAppBtn: " Install App",
           heroTag: " Start Your Journey",
-          heroTitle: "Al Maher Taekwondo - <span style=\"color:var(--gold)\">Jerash</span>",
+          heroTitle: "Al Maher Taekwondo - <span class=\"text-gold\">Jerash</span>",
           heroSub: "Professional taekwondo training for kids, adults, and women, from beginner to black belt. Led by <b>Master Raed Odaybat</b> (35 years of experience) with dedicated female coaching support.",
-          spotlightKicker: "🚨 Quick Alert",
+          spotlightKicker: "?? Quick Alert",
           spotlightText: "Reserve this week to get priority in class scheduling.",
           spotlightPoint1: " Personalized training plan",
           spotlightPoint2: " Priority transport",
           spotlightPoint3: " Continuous progress follow-up",
-          heroJoinBtn: "📝 Join Now",
+          heroJoinBtn: "?? Join Now",
           btnCallHero: "Call Now ",
-          heroPriceBtn: "💰 Clear Pricing",
-          heroRightPricingBtn: "💰 Pricing",
-          heroRightJoinBtn: "📝 Join",
+          heroPriceBtn: "?? Clear Pricing",
+          heroRightPricingBtn: "?? Pricing",
+          heroRightJoinBtn: "?? Join",
           jerashTitle: "Jerash",
           jerashDesc: "A local club with a professional global mindset. We build strong, disciplined, and respectful students.",
           coachName: "Master Raed Odaybat - International Referee & Head Coach",
-          coachInfo: "🏅 International referee<br />📅 35 years of experience<br />👨‍🏫 Direct supervision for every student<br />👩‍🏫 Women training with female coach support",
+          coachInfo: "?? International referee<br />?? 35 years of experience<br />??�?? Direct supervision for every student<br />??�?? Women training with female coach support",
           coachBadge: " Certified | Disciplined | Result-driven",
           heroLocationPill: " Location: Jerash",
           heroPricePill: " 45 JOD / month (all inclusive)",
@@ -4320,9 +4357,9 @@
           statLabelBlackBelts: "Black Belts",
           statLabelAchievements: "Achievements",
           statLabelYears: "Years Experience",
-          calculatorTitle: "🧮 Smart Price Calculator",
+          calculatorTitle: "?? Smart Price Calculator",
           calculatorDesc: "Calculate your final fee instantly for single student, siblings, and delivery options.",
-          whyUsTitle: "⭐ Why Choose Al Maher Center?",
+          whyUsTitle: "? Why Choose Al Maher Center?",
           whyUsDesc: "5 reasons why families choose us first.",
           whyUsCard1Title: "Professional Coaching",
           whyUsCard1Desc: "Led by an international referee and head coach with 35 years of experience. Every student gets personalized follow-up.",
@@ -4336,7 +4373,7 @@
           whyUsCard5Desc: "We prepare students for local and national championships with real competitive readiness.",
           whyUsCard6Title: "300+ Active Students",
           whyUsCard6Desc: "A strong community of students and families, with long-term growth and teamwork.",
-          programsTitle: "🥋 Programs",
+          programsTitle: "?? Programs",
           programsDesc: "Choose the right program and contact us directly.",
           programCard1Title: " Kids (6-12)",
           programCard1Desc: "Movement foundations, fitness basics, discipline, respect, confidence, and safe transport.",
@@ -4348,11 +4385,11 @@
           programCard4Desc: "Specialized tournament preparation: tactics, speed, endurance, and pressure handling.",
           programCard5Title: " Ramadan Program (Fitness + Fat Loss)",
           programCard5Desc: "A safe Ramadan program to improve fitness and reduce weight, supervised directly by Master Raed Odaybat.",
-          pricingTitle: "💰 Pricing",
+          pricingTitle: "?? Pricing",
           pricingDesc: "Clear and transparent pricing with no hidden fees.",
           pricingJoinBtn: "Join Now",
           priceTitleMain: " Full Monthly Package",
-          priceNoteMain: "✅ New Taekwondo uniform | ✅ Safe home transport | ✅ Full month training | ✅ Direct coach supervision",
+          priceNoteMain: "? New Taekwondo uniform | ? Safe home transport | ? Full month training | ? Direct coach supervision",
           calcPlanLabel: "Plan Type",
           calcStudentsLabel: "Number of Students",
           calcDeliveryLabel: "Add family delivery (+15 JOD)",
@@ -4402,10 +4439,10 @@
           bookingSecurityError: "Submission was blocked for security reasons. Please try again.",
           paymentMethodsTitle: "Payment Methods:",
           paymentMethodsList: "Cash at the center, CliQ transfer, bank transfer, e-wallet, and crypto payment (USDT).",
-          journeyTitle: "🎖️ Belt Journey",
+          journeyTitle: "??? Belt Journey",
           journeyDesc: "Click any belt to view the required skills and promotion goals.",
           journeyBtn: "Start Now",
-          trackerTitle: "📊 Belt Progress Tracker",
+          trackerTitle: "?? Belt Progress Tracker",
           trackerDesc: "Enter a student's phone number or private code to check current and next belt progress.",
           trackerInputLabel: "Phone or Code",
           trackerBtn: "Check Progress",
@@ -4414,19 +4451,19 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
-          achievementsTitle: "🏆 Tournament Results & Achievements",
+          achievementsTitle: "?? Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
-          newsTitle: "📰 Center News & Latest Achievements",
+          newsTitle: "?? Center News & Latest Achievements",
           newsDesc: "Latest club news and achievements.",
           newsEmpty: "No news items yet.",
           newsChip: "Achievement News",
-          faqTitle: "❓ Frequently Asked Questions",
+          faqTitle: "? Frequently Asked Questions",
           faqDesc: "Quick answers to the most common questions before joining.",
-          scheduleTitle: "📅 Class Schedule",
+          scheduleTitle: "?? Class Schedule",
           scheduleDesc: "Find the time that fits you best. Extra timings are available on demand.",
           scheduleHeadDays: " Training Days",
-          scheduleHeadTime: "⏰ Time",
+          scheduleHeadTime: "? Time",
           scheduleHeadNote: " Notes",
           scheduleRow1Days: "Sunday - Tuesday - Thursday",
           scheduleRow1Note: "Foundational movement and basic fitness",
@@ -4436,7 +4473,7 @@
           scheduleRow3Note: "Women classes supervised by a female coach",
           scheduleRow4Days: "Saturday - Monday - Wednesday",
           scheduleRow4Note: "Beginner training",
-          bookTitle: "📝 Join Now",
+          bookTitle: "?? Join Now",
           bookDesc: "Fast and simple form. WhatsApp opens with a ready message to submit instantly.",
           nameLabel: "Full Name",
           phoneLabel: "Phone Number",
@@ -4454,27 +4491,27 @@
           timeOptEvening: "Evening",
           timeOptAny: "Any Time",
           msgLabel: "Note or Question (Optional)",
-          submitBookingBtn: "📲 Send Registration Request via WhatsApp",
-          contactTitle: "📍 Contact Info",
+          submitBookingBtn: "?? Send Registration Request via WhatsApp",
+          contactTitle: "?? Contact Info",
           contactWhatsappLabel: "WhatsApp Number:",
           contactPriceLabel: "Monthly Price:",
           contactPriceValue: "45 JOD (uniform + transport + training included)",
           contactLocationLabel: "Location:",
           contactLocationValue: "Jerash",
-          contactHighlights: "✅ Safe and fast transport included<br />✅ Direct supervision by the coach and female trainer<br />✅ Clear success path",
-          aboutTitle: "🏛️ About The Center",
+          contactHighlights: "? Safe and fast transport included<br />? Direct supervision by the coach and female trainer<br />? Clear success path",
+          aboutTitle: "??? About The Center",
           aboutDesc: "A safe, professional, and trusted training environment.",
-          aboutCard1Title: "🎯 Our Mission",
+          aboutCard1Title: "?? Our Mission",
           aboutCard1Desc: "Build disciplined, confident, and respectful taekwondo students with strong character.",
-          aboutCard2Title: "👁️ Our Vision",
+          aboutCard2Title: "??? Our Vision",
           aboutCard2Desc: "Become the first choice for families and prepare true fighters for competitions.",
-          aboutCard3Title: "⭐ Core Values",
+          aboutCard3Title: "? Core Values",
           aboutCard3Desc: "Discipline first, then respect, then skill. Character always matters most.",
-          btnTop: "⬆️ Back to Top",
-          btnCallFooter: "📞 Call",
+          btnTop: "?? Back to Top",
+          btnCallFooter: "?? Call",
           footerCopy: "&copy; <span id=\"year\"></span> Al Maher Taekwondo Center - Jerash | Professional Training | Discipline | Results",
-          okMsg: "✅ Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
-          errMsg: "⚠️ Name, phone number, and program are required.",
+          okMsg: "? Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
+          errMsg: "?? Name, phone number, and program are required.",
           waStickyText: "Reserve your slot on WhatsApp now"
         },
         trackerPlaceholder: "Example: 0779000000 or MT-1024",
@@ -4554,220 +4591,62 @@
     sanitizeArabicTranslations();
 
     const AR_TEXT_OVERRIDES = {
-      brandName: "مركز الماهر للتايكواندو",
-      brandCity: "جرش",
-      navWhyUs: "⭐ لماذا نحن",
-      navPrograms: "🥋 البرامج",
-      navPricing: "💰 الأسعار",
-      navCalculator: "🧮 الحاسبة",
-      navSchedule: "📅 المواعيد",
-      navJourney: "🎖️ الأحزمة",
-      navTracker: "📊 المتابعة",
-      navAchievements: "🏆 الإنجازات",
-      navNews: "📰 الأخبار",
-      navFaq: "❓ الأسئلة الشائعة",
-      navBook: "📝 التسجيل",
-      btnWhatsNav: "واتساب 💬",
-      btnWhatsFoot: "واتساب 💬",
-      navJoinBtn: "📝 سجّل الآن",
-      installAppBtn: "تثبيت التطبيق",
-      heroTag: "🥋 ابدأ رحلتك",
-      heroTitle: "مركز الماهر للتايكواندو - <span style=\"color:var(--gold)\">جرش</span>",
-      heroSub: "تدريب احترافي للتايكواندو للأطفال والكبار والإناث، من المبتدئ حتى الحزام الأسود، بإشراف <b>الكابتن رائد عضيبات</b>.",
-      spotlightKicker: "🚨 تنبيه سريع",
-      spotlightText: "احجز هذا الأسبوع لتحصل على أولوية في مواعيد الحصص.",
-      spotlightPoint1: "📋 خطة تدريب شخصية",
-      spotlightPoint2: "🚌 أولوية في المواصلات",
-      spotlightPoint3: "📈 متابعة مستمرة للتطور",
-      heroJoinBtn: "📝 سجّل الآن",
-      btnCallHero: "📞 اتصل الآن",
-      heroPriceBtn: "💰 الأسعار بوضوح",
-      heroRightPricingBtn: "💰 الأسعار",
-      heroRightJoinBtn: "📝 التسجيل",
-      jerashTitle: "جرش",
-      jerashDesc: "نادي محلي بعقلية احترافية. نبني طالبًا قويًا ومنضبطًا ومحترمًا.",
-      coachName: "الكابتن رائد عضيبات - حكم دولي ومدرب رئيسي",
-      coachInfo: "🏅 حكم دولي<br />📅 35 سنة خبرة<br />👨‍🏫 إشراف مباشر لكل طالب<br />👩‍🏫 حصص إناث بإشراف مدربة",
-      coachBadge: "🏅 اعتماد | 🎯 انضباط | 🥇 نتائج",
-      heroLocationPill: "الموقع: جرش",
-      heroPricePill: "45 دينار / شهريًا (شامل)",
-      statLabelStudents: "طلاب نشطون",
-      statLabelBlackBelts: "أحزمة سوداء",
-      statLabelAchievements: "إنجازات",
-      statLabelYears: "سنوات خبرة",
-      calculatorTitle: "🧮 حاسبة السعر الذكية",
-      calculatorDesc: "احسب الرسوم النهائية فورًا لطالب واحد أو إخوة مع خيار المواصلات.",
-      whyUsTitle: "⭐ لماذا تختار مركز الماهر؟",
-      whyUsDesc: "أسباب واضحة تجعل العائلات تختارنا.",
-      whyUsCard1Title: "تدريب احترافي",
-      whyUsCard1Desc: "بإشراف حكم دولي ومدرب رئيسي بخبرة 35 سنة، مع متابعة فردية لكل طالب.",
-      whyUsCard2Title: "بناء الثقة",
-      whyUsCard2Desc: "نُنمّي الشخصية قبل المهارة: انضباط، احترام، وقيادة داخل كل حصة.",
-      whyUsCard3Title: "مسار تطور واضح",
-      whyUsCard3Desc: "خطة أحزمة منظمة من الأبيض إلى الأسود بأهداف واضحة في كل مرحلة.",
-      whyUsCard4Title: "مواصلات آمنة",
-      whyUsCard4Desc: "مواصلات سريعة وآمنة، مع باقة متكاملة تشمل الزي والتدريب والمواصلات.",
-      whyUsCard5Title: "بطولات ومنافسات",
-      whyUsCard5Desc: "تجهيز فعلي للبطولات المحلية والوطنية بخطط تدريب تنافسية واقعية.",
-      whyUsCard6Title: "+300 طالب نشط",
-      whyUsCard6Desc: "مجتمع قوي من الطلاب والعائلات مع تطور مستمر وروح فريق عالية.",
-      programsTitle: "🥋 البرامج",
-      programsDesc: "اختر البرنامج المناسب وتواصل معنا مباشرة.",
-      programCard1Title: "👦 الأطفال (6-12)",
-      programCard1Desc: "تأسيس الحركة واللياقة والانضباط والثقة بالنفس مع مواصلات آمنة.",
-      programCard2Title: "🧑‍🎓 الشباب والكبار (13+)",
-      programCard2Desc: "تقنيات متقدمة، قوة ومرونة، تطوير النزال، والتحضير للمنافسات.",
-      programCard3Title: "👩 برنامج الإناث",
-      programCard3Desc: "حصص مخصصة للإناث في بيئة آمنة بإشراف مدربة متخصصة.",
-      programCard4Title: "🏆 مسار المنافسات",
-      programCard4Desc: "تأهيل بطولي تكتيكي: سرعة، تحمّل، تركيز، وإدارة ضغط المباريات.",
-      programCard5Title: "🌙 برنامج رمضان (لياقة + تنشيف)",
-      programCard5Desc: "برنامج آمن خلال رمضان لتحسين اللياقة وخسارة الوزن بإشراف مباشر.",
-      pricingTitle: "💰 الأسعار",
-      pricingDesc: "أسعار واضحة وشفافة بدون رسوم مخفية.",
-      pricingJoinBtn: "سجّل الآن",
-      priceTitleMain: "📦 الباقة الشهرية الكاملة",
-      priceNoteMain: "✅ زي تايكواندو جديد | ✅ مواصلات آمنة | ✅ تدريب شهر كامل | ✅ إشراف مباشر من المدرب",
-      calcPlanLabel: "نوع الخطة",
-      calcStudentsLabel: "عدد الطلاب",
-      calcDeliveryLabel: "إضافة توصيل عائلي (+15 دينار)",
-      calcFormulaNote: "المعادلة: 30 دينار لكل طالب (تدريب + زي)، خصم 3 دنانير لكل أخ بعد الأول، و15 دينار للتوصيل العائلي.",
-      calcBreakdownBaseLabel: "الإجمالي الأساسي",
-      calcBreakdownDiscountLabel: "خصم الإخوة",
-      calcBreakdownDeliveryLabel: "التوصيل",
-      calcFinalLabel: "السعر النهائي",
-      calcWhatsQuote: "📲 إرسال التسعيرة على واتساب",
-      paymentMethodLabel: "طريقة الدفع المفضلة",
-      paymentMethodHint: "يمكنك تعديل طريقة الدفع لاحقًا أثناء التسجيل.",
-      paymentMethodCashOpt: "نقدًا في المركز",
-      paymentMethodCliqOpt: "تحويل CliQ",
-      paymentMethodBankOpt: "تحويل بنكي",
-      paymentMethodWalletOpt: "محفظة إلكترونية",
-      paymentMethodCryptoOpt: "دفع رقمي (USDT)",
-      paymentDetailsTitle: "تفاصيل الدفع للطريقة المحددة:",
-      bankDetailsTitle: "الدفع عبر التحويل البنكي",
-      bankNameLabel: "اسم البنك:",
-      bankNameValue: "البنك العربي",
-      bankAccountLabel: "اسم الحساب:",
-      bankAccountValue: "مركز الماهر للتايكواندو",
-      bankIbanLabel: "الآيبان:",
-      bankIbanValue: "JO00 0000 0000 0000 0000 0000 000",
-      copyBankIbanBtn: "نسخ الآيبان",
-      walletDetailsTitle: "الدفع عبر المحفظة الإلكترونية",
-      walletProviderLabel: "مزود المحفظة:",
-      walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
-      walletNumberLabel: "رقم المحفظة:",
-      walletNumberValue: "0779331277",
-      copyWalletNumberBtn: "نسخ رقم المحفظة",
-      cryptoDetailsTitle: "الدفع الرقمي (USDT)",
-      cryptoNetworkLabel: "الشبكة:",
-      cryptoNetworkValue: "TRC20",
-      cryptoAddressLabel: "عنوان المحفظة:",
-      cryptoAddressValue: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-      copyCryptoAddressBtn: "نسخ عنوان المحفظة",
-      paymentCopySuccess: "تم نسخ بيانات الدفع.",
-      paymentCopyError: "تعذر النسخ تلقائيًا. يرجى النسخ يدويًا.",
-      turnstileLabel: "التحقق الأمني (Cloudflare)",
-      turnstileHint: "لحماية النموذج من الرسائل المزعجة، أكمل التحقق قبل الإرسال.",
-      turnstileVerified: "تم التحقق الأمني بنجاح.",
-      turnstileRequiredError: "يرجى إكمال التحقق الأمني من Cloudflare قبل الإرسال.",
-      turnstileLoadError: "تعذر تحميل التحقق الأمني من Cloudflare. حدّث الصفحة وحاول مرة أخرى.",
-      turnstileExpired: "انتهت صلاحية التحقق الأمني. يرجى التحقق مرة أخرى قبل الإرسال.",
-      bookingTooFastError: "تم حظر الإرسال لأسباب أمنية. يرجى تعبئة النموذج بشكل طبيعي ثم المحاولة مجددًا.",
-      bookingSecurityError: "تم حظر الإرسال لأسباب أمنية. يرجى المحاولة مرة أخرى.",
-      paymentMethodsTitle: "طرق الدفع:",
-      paymentMethodsList: "نقدًا في المركز، تحويل CliQ، تحويل بنكي، محفظة إلكترونية، ودفع رقمي (USDT).",
-      journeyTitle: "🎖️ رحلة الأحزمة",
-      journeyDesc: "اضغط على أي حزام لمعرفة متطلبات الترقية.",
-      journeyBtn: "🥋 ابدأ الآن",
-      trackerTitle: "📊 متابعة تقدم الحزام",
-      trackerDesc: "أدخل رقم الهاتف أو كود الطالب لمعرفة مستوى التقدم.",
-      trackerInputLabel: "الهاتف أو الكود",
-      trackerBtn: "🔍 عرض التقدم",
-      trackerHint: "يمكنك استخدام رقم الهاتف أو كود الطالب.",
-      trackerEmpty: "لم يتم إدخال كود بعد.",
-      trackerCurrentLabel: "الحزام الحالي:",
-      trackerNextLabel: "الحزام التالي:",
-      trackerGoalsLabel: "المهارات المطلوبة للترقية:",
-      achievementsTitle: "🏆 النتائج والإنجازات",
-      achievementsDesc: "تحديث مستمر لإنجازات النادي في البطولات.",
-      achievementFilterLabel: "فلترة حسب السنة",
-      newsTitle: "📰 آخر الأخبار والإنجازات",
-      newsDesc: "أحدث أخبار وإنجازات المركز.",
-      newsEmpty: "لا توجد أخبار حاليًا.",
-      newsChip: "📰 خبر إنجاز",
-      faqTitle: "❓ الأسئلة الشائعة",
-      faqDesc: "إجابات سريعة قبل التسجيل.",
-      scheduleTitle: "📅 مواعيد الحصص",
-      scheduleDesc: "اختر الوقت المناسب لك.",
-      scheduleHeadDays: "أيام التدريب",
-      scheduleHeadTime: "⏰ الوقت",
-      scheduleHeadNote: "ملاحظات",
-      scheduleRow1Days: "الأحد - الثلاثاء - الخميس",
-      scheduleRow1Note: "تأسيس الحركة واللياقة الأساسية",
-      scheduleRow2Days: "الأحد - الثلاثاء - الخميس",
-      scheduleRow2Note: "تقنيات متقدمة وتدريب مكثف",
-      scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
-      scheduleRow3Note: "حصص الإناث بإشراف مدربة",
-      scheduleRow4Days: "السبت - الإثنين - الأربعاء",
-      scheduleRow4Note: "تدريب المبتدئين",
-      bookTitle: "📝 سجّل الآن",
-      bookDesc: "نموذج سريع وبسيط للتسجيل عبر واتساب.",
-      nameLabel: "الاسم الكامل",
-      phoneLabel: "رقم الهاتف",
-      ageLabel: "العمر (اختياري)",
-      programLabel: "اختر البرنامج",
-      programOptPlaceholder: "-- اختر البرنامج --",
-      programOptKids: "الأطفال",
-      programOptTeens: "الشباب",
-      programOptAdults: "الكبار",
-      programOptWomen: "الإناث",
-      programOptCompetition: "برنامج المنافسات",
-      programOptRamadan: "برنامج رمضان (لياقة + تنشيف)",
-      timeLabel: "وقت التواصل المناسب",
-      timeOptMorning: "صباحًا",
-      timeOptEvening: "مساءً",
-      timeOptAny: "أي وقت",
-      msgLabel: "ملاحظة أو سؤال (اختياري)",
-      submitBookingBtn: "📲 إرسال طلب التسجيل عبر واتساب",
-      contactTitle: "📍 معلومات التواصل",
-      contactWhatsappLabel: "رقم الواتساب:",
-      contactPriceLabel: "السعر الشهري:",
-      contactPriceValue: "45 دينار (شامل الزي + المواصلات + التدريب)",
-      contactLocationLabel: "الموقع:",
-      contactLocationValue: "جرش",
-      contactHighlights: "✅ مواصلات آمنة وسريعة<br />✅ إشراف مباشر من المدرب والمدربة<br />✅ خطة تقدم واضحة",
-      aboutTitle: "🏛️ عن المركز",
-      aboutDesc: "بيئة تدريب آمنة واحترافية وموثوقة.",
-      aboutCard1Title: "🎯 رسالتنا",
-      aboutCard1Desc: "بناء طالب تايكواندو منضبط وواثق ومحترم.",
-      aboutCard2Title: "👁️ رؤيتنا",
-      aboutCard2Desc: "أن نكون الخيار الأول للعائلات وإعداد أبطال منافسة.",
-      aboutCard3Title: "⭐ قيمنا",
-      aboutCard3Desc: "الانضباط أولًا، ثم الاحترام، ثم المهارة.",
-      btnTop: "⬆️ العودة للأعلى",
-      btnCallFooter: "📞 اتصال",
-      footerCopy: "&copy; <span id=\"year\"></span> مركز الماهر للتايكواندو - جرش | تدريب احترافي | انضباط | نتائج",
-      okMsg: "✅ تم تجهيز رسالة التسجيل وفتح واتساب بنجاح.",
-      errMsg: "⚠️ الاسم ورقم الهاتف والبرنامج حقول مطلوبة.",
-      waStickyText: "احجز مكانك عبر واتساب الآن"
+      brandName: "Al Maher Taekwondo Center",
+      brandCity: "Jerash",
+      navWhyUs: "Why Us",
+      navPrograms: "Programs",
+      navPricing: "Pricing",
+      navCalculator: "Calculator",
+      navSchedule: "Schedule",
+      navJourney: "Belts",
+      navTracker: "Tracker",
+      navAchievements: "Achievements",
+      navNews: "News",
+      navFaq: "FAQ",
+      navBook: "Register",
+      btnWhatsNav: "WhatsApp",
+      btnWhatsFoot: "WhatsApp",
+      navJoinBtn: "Join Now",
+      installAppBtn: "Install App",
+      heroTag: "Start Your Journey",
+      heroTitle: "Al Maher Taekwondo Center - <span class=\"text-gold\">Jerash</span>",
+      heroSub: "Professional Taekwondo training for kids, adults, and women.",
+      calculatorTitle: "Smart Price Calculator",
+      calculatorDesc: "Calculate the final fee instantly for one student or siblings.",
+      programsTitle: "Programs",
+      pricingTitle: "Pricing",
+      calcWhatsQuote: "Send Quote on WhatsApp",
+      journeyTitle: "Belt Journey",
+      trackerTitle: "Belt Progress Tracker",
+      trackerBtn: "Show Progress",
+      achievementsTitle: "Results & Achievements",
+      newsTitle: "Latest News",
+      scheduleTitle: "Class Schedule",
+      bookTitle: "Register Now",
+      submitBookingBtn: "Send Registration via WhatsApp",
+      contactTitle: "Contact Info",
+      aboutTitle: "About The Center",
+      btnTop: "Back to Top",
+      btnCallFooter: "Call",
+      errMsg: "Name, phone, and program are required.",
+      waStickyText: "Book your spot on WhatsApp"
     };
 
     Object.assign(i18n.ar.text, AR_TEXT_OVERRIDES);
     Object.assign(i18n.ar, {
-      trackerPlaceholder: "مثال: 0779000000 أو MT-1024",
-      calcPlanSingle: "طالب واحد",
-      calcPlanSiblings: "إخوة",
-      yearAll: "كل السنوات",
-      namePlaceholder: "الاسم الكامل",
+      trackerPlaceholder: "Example: 0779000000 or MT-1024",
+      calcPlanSingle: "Single Student",
+      calcPlanSiblings: "Siblings",
+      yearAll: "All Years",
+      namePlaceholder: "Full Name",
       phonePlaceholder: "07xxxxxxxx",
-      agePlaceholder: "مثال: 10 سنوات",
-      msgPlaceholder: "اكتب أي ملاحظة تريد إضافتها..."
+      agePlaceholder: "Example: 10 years",
+      msgPlaceholder: "Write your note..."
     });
 
-    const arabicFallbackMode = false;
+    const arabicFallbackMode = true;
 
-    let currentLang = "ar";
+    let currentLang = "en";
     let uiReady = false;
 
     function setText(id, value, asHtml = false){
@@ -4952,7 +4831,7 @@
       if(!themeToggle) return;
       const enableText = currentLang === "en"
         ? (theme === "light" ? "Enable dark mode" : "Enable light mode")
-        : (theme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح");
+        : (theme === "light" ? "����� ����� ������" : "����� ����� ������");
       themeToggle.textContent = theme === "light" ? "" : "";
       themeToggle.setAttribute("title", enableText);
       themeToggle.setAttribute("aria-label", enableText);
@@ -5051,14 +4930,14 @@
 
       document.title = effectiveLang === "en"
         ? "Al Maher Taekwondo Center - Jerash | Join Now"
-        : "مركز الماهر للتايكواندو - جرش | انضم الآن";
+        : "���� ������ ����������� - ��� | ���� ����";
       const metaDescription = document.querySelector('meta[name="description"]');
       if(metaDescription){
         metaDescription.setAttribute(
           "content",
           effectiveLang === "en"
             ? "Al Maher Taekwondo Center in Jerash. Professional training for kids, adults, and women. Join now."
-            : "مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والكبار والإناث."
+            : "���� ������ ����������� �� ���. ����� ������� ������� ������� �������."
         );
       }
 
@@ -5084,7 +4963,7 @@
       if(currentLang === "en"){
         return "Hi, I would like to ask about joining Al Maher Taekwondo Center in Jerash. The monthly package starts from 45 JOD.";
       }
-      return "مرحبًا، أريد الاستفسار عن التسجيل في مركز الماهر للتايكواندو - جرش. الباقة الشهرية تبدأ من 45 دينار وتشمل التدريب والزي والمواصلات.";
+      return "�����ǡ ���� ��������� �� ������� �� ���� ������ ����������� - ���. ������ ������� ���� �� 45 ����� ����� ������� ����� ����������.";
     }
 
     let savedTheme = null;
@@ -5097,10 +4976,7 @@
       savedLang = null;
     }
 
-    currentLang = "ar";
-    if(arabicFallbackMode){
-      currentLang = "en";
-    }
+    currentLang = "en";
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
 
@@ -5116,6 +4992,26 @@
         applyLanguage(currentLang === "en" ? "ar" : "en");
       });
     }
+
+    // Final safety pass: replace broken/garbled UI text with English fallback.
+    function cleanBrokenUiText(){
+      const looksBroken = (value)=>{
+        if(typeof value !== "string" || !value) return false;
+        return /ï؟½|�|[\u00C0-\u00FF]{4,}|[?]{2,}/.test(value);
+      };
+
+      const enText = (i18n && i18n.en && i18n.en.text) ? i18n.en.text : {};
+      document.querySelectorAll("[id]").forEach((el)=>{
+        const raw = (el.textContent || "").trim();
+        if(!raw || !looksBroken(raw)) return;
+        const fallback = enText[el.id];
+        if(typeof fallback === "string" && fallback.trim()){
+          if(el.id === "heroTitle") el.innerHTML = fallback;
+          else el.textContent = fallback;
+        }
+      });
+    }
+    cleanBrokenUiText();
 
     function waLink(message){
       const text = encodeURIComponent(message);
@@ -5336,89 +5232,89 @@
     const belts = [
       {
         key:"white",
-        name:"الحزام الأبيض",
+        name:"������ ������",
         nameEn:"White Belt",
         color:"#f5f5f5",
         fee:0,
-        duration:"2-4 أسابيع",
+        duration:"2-4 ������",
         durationEn:"2-4 weeks",
-        req:["وضعيات الحركة الأساسية","قواعد السلامة والانضباط","مقدمة في الركلات الأساسية"],
+        req:["������ ������ ��������","����� ������� ���������","����� �� ������� ��������"],
         reqEn:["Basic stance and movement","Safety and discipline rules","Introduction to core kicking techniques"]
       },
       {
         key:"yellow",
-        name:"الحزام الأصفر",
+        name:"������ ������",
         nameEn:"Yellow Belt",
         color:"#ffd54a",
         fee:10,
-        duration:"4-6 أسابيع",
+        duration:"4-6 ������",
         durationEn:"4-6 weeks",
-        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تحسين دقة الركلات"],
+        req:["����� ������� ������","��� ������� �������","����� ��� �������"],
         reqEn:["Improve balance and strength","Raise physical fitness","Improve kick accuracy"]
       },
       {
         key:"green",
-        name:"الحزام الأخضر",
+        name:"������ ������",
         nameEn:"Green Belt",
         color:"#26d07c",
         fee:15,
-        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesAr:["���� ����", "���� �����"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"6-8 أسابيع",
+        duration:"6-8 ������",
         durationEn:"6-8 weeks",
-        req:["دمج ركلات متقدمة","ردة فعل أسرع","تمارين مرونة متقدمة"],
+        req:["��� ����� ������","��� ��� ����","������ ����� ������"],
         reqEn:["Advanced kick combinations","Faster reactions","High-level flexibility training"]
       },
       {
         key:"blue",
-        name:"الحزام الأزرق",
+        name:"������ ������",
         nameEn:"Blue Belt",
         color:"#3aa0ff",
-        fee:35,
-        subGradesAr:["درجة أولى", "درجة ثانية"],
+        fee: 30,
+        subGradesAr:["���� ����", "���� �����"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"8-10 أسابيع",
+        duration:"8-10 ������",
         durationEn:"8-10 weeks",
-        req:["تقنيات متقدمة عالية","التحكم الكامل بالمسافة والتوقيت","تهيئة أولية للنزال"],
+        req:["������ ������ �����","������ ������ �������� ��������","����� ����� ������"],
         reqEn:["Highly advanced techniques","Full control of distance and timing","Initial sparring preparation"]
       },
       {
         key:"brown",
-        name:"الحزام البني",
+        name:"������ �����",
         nameEn:"Brown Belt",
         color:"#8b5a2b",
         fee:40,
-        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesAr:["���� ����", "���� �����"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"12-16 أسبوعًا",
+        duration:"12-16 �������",
         durationEn:"12-16 weeks",
-        req:["تكتيك نزال متقدم تحت الضغط","ثبات ذهني وانضباط أعلى","جاهزية كاملة لاختبار الأسود"],
+        req:["����� ���� ����� ��� �����","���� ���� ������� ����","������ ����� ������� ������"],
         reqEn:["Advanced combat tactics under pressure","Stronger mental stability and discipline","Complete readiness for black belt testing"]
       },
       {
         key:"red",
-        name:"الحزام الأحمر",
+        name:"������ ������",
         nameEn:"Red Belt",
         color:"#ff3b3b",
         fee:50,
-        subGradesAr:["درجة أولى", "درجة ثانية"],
+        subGradesAr:["���� ����", "���� �����"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"10-14 أسبوعًا",
+        duration:"10-14 �������",
         durationEn:"10-14 weeks",
-        req:["استراتيجيات نزال متخصصة","قدرة تحمل عالية جدًا","أداء بمستوى المنافسات"],
+        req:["����������� ���� ������","���� ���� ����� ����","���� ������ ���������"],
         reqEn:["Specialized match strategies","Very high endurance","Advanced competition-level performance"]
       },
       {
         key:"black",
-        name:"الحزام الأسود",
+        name:"������ ������",
         nameEn:"Black Belt",
         color:"#111111",
         fee:180,
-        issuerAr:"صادر عن الاتحاد الأردني للتايكواندو",
+        issuerAr:"���� �� ������� ������� �����������",
         issuerEn:"Issued by the Jordan Taekwondo Federation",
-        duration:"حسب الالتزام والاستمرارية",
+        duration:"��� �������� ������������",
         durationEn:"Depends on commitment and consistency",
-        req:["اختبار شامل: تقنية + نزال + لياقة","انضباط ومسؤولية عالية","استمرارية وتطوير طويل المدى"],
+        req:["������ ����: ����� + ���� + �����","������ �������� �����","��������� ������ ���� �����"],
         reqEn:["Comprehensive exam: technique + sparring + fitness","Very high discipline and responsibility","Lifelong consistency and development"]
       }
     ];
@@ -5442,14 +5338,19 @@
     function getBeltFeeLabel(item){
       const fee = Number(item && item.fee);
       if(!Number.isFinite(fee) || fee <= 0){
-        return currentLang === "en" ? "No fee" : "بدون رسوم";
+        return currentLang === "en" ? "No fee" : "���� ����";
       }
-      return currentLang === "en" ? `${fee} JOD` : `${fee} دينار`;
+      return currentLang === "en" ? `${fee} JOD` : `${fee} �����`;
     }
 
     function getBeltSubGrades(item){
       if(!item) return [];
       return pickLocalizedList(item.subGradesAr, item.subGradesEn);
+    }
+
+    function getBeltSwatchClass(item){
+      const key = item && item.key ? String(item.key) : "";
+      return `swatch-${key || "white"}`;
     }
 
     function getBeltIssuer(item){
@@ -5459,35 +5360,35 @@
 
     function renderDetails(b){
       if(!beltDetails) return;
-      const durationLabel = currentLang === "en" ? "Duration" : "المدة";
-      const feeLabel = currentLang === "en" ? "Belt fee" : "رسوم الحزام";
-      const issuerLabel = currentLang === "en" ? "Certification" : "الجهة المانحة";
-      const gradesLabel = currentLang === "en" ? "Sub-grades" : "الدرجات الفرعية";
-      const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
+      const durationLabel = currentLang === "en" ? "Duration" : "�����";
+      const feeLabel = currentLang === "en" ? "Belt fee" : "���� ������";
+      const issuerLabel = currentLang === "en" ? "Certification" : "����� �������";
+      const gradesLabel = currentLang === "en" ? "Sub-grades" : "������� �������";
+      const requirementsLabel = currentLang === "en" ? "Requirements" : "���������";
       const requirements = getBeltRequirements(b);
       const subGrades = getBeltSubGrades(b);
       const issuer = getBeltIssuer(b);
       beltDetails.innerHTML = `
         <div class="details-top">
           <h3 class="details-title">${getBeltName(b)}</h3>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div class="flex-gap-8-wrap">
             <span class="badge">${durationLabel}: ${getBeltDuration(b)}</span>
             <span class="badge">${feeLabel}: ${getBeltFeeLabel(b)}</span>
           </div>
         </div>
         <div class="details-body">
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
-            <span class="swatch" style="background:${b.color}"></span>
+          <div class="flex-center-gap10-mb10">
+            <span class="swatch ${getBeltSwatchClass(b)}"></span>
             <b>${requirementsLabel}:</b>
           </div>
           ${subGrades.length ? `
-            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+            <div class="flex-center-gap8-wrap-mb10">
               <b>${gradesLabel}:</b>
-              ${subGrades.map((grade)=>`<span class="badge" style="margin-top:0;">${grade}</span>`).join("")}
+              ${subGrades.map((grade)=>`<span class="badge badge-no-margin">${grade}</span>`).join("")}
             </div>
           ` : ""}
           <ul>${requirements.map((x)=>`<li>${x}</li>`).join("")}</ul>
-          ${issuer ? `<p style="margin:10px 0 0; color:var(--muted); font-weight:900;">${issuerLabel}: ${issuer}</p>` : ""}
+          ${issuer ? `<p class="issuer-note">${issuerLabel}: ${issuer}</p>` : ""}
         </div>
       `;
     }
@@ -5518,7 +5419,7 @@
         el.setAttribute("data-key", b.key);
         el.innerHTML = `
           <div class="left">
-            <span class="swatch" style="background:${b.color}"></span>
+            <span class="swatch ${getBeltSwatchClass(b)}"></span>
             <span>${getBeltName(b)}</span>
           </div>
           <small>
@@ -5540,8 +5441,7 @@
     const CALC_DELIVERY_FEE = 15;
     const CALC_SIBLING_DISCOUNT = 3;
     const CALC_MIN_SIBLINGS = 2;
-    const CALC_MAX_STUDENTS = 20;
-    const calcPlanType = document.getElementById("calcPlanType");
+        const calcPlanType = document.getElementById("calcPlanType");
     const calcStudents = document.getElementById("calcStudents");
     const calcDelivery = document.getElementById("calcDelivery");
     const calcBreakdownBase = document.getElementById("calcBreakdownBase");
@@ -5562,12 +5462,10 @@
         students = 1;
         calcStudents.value = "1";
         calcStudents.min = "1";
-        calcStudents.max = "1";
-        calcStudents.disabled = true;
+                calcStudents.disabled = true;
       } else {
         calcStudents.min = String(CALC_MIN_SIBLINGS);
-        calcStudents.max = String(CALC_MAX_STUDENTS);
-        students = Math.max(CALC_MIN_SIBLINGS, Math.min(CALC_MAX_STUDENTS, students));
+                students = Math.max(CALC_MIN_SIBLINGS, students);
         calcStudents.value = String(students);
         calcStudents.disabled = false;
       }
@@ -5601,11 +5499,11 @@
           students: latestQuote.students
         });
         const quoteType = latestQuote.planType === "siblings"
-          ? (currentLang === "en" ? "siblings" : "إخوة")
-          : (currentLang === "en" ? "single student" : "طالب واحد");
+          ? (currentLang === "en" ? "siblings" : "����")
+          : (currentLang === "en" ? "single student" : "���� ����");
         const quoteMessage = currentLang === "en"
           ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
-          : `مرحبًا، أحتاج تفاصيل الأسعار.\nنوع الخطة: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالإجمالي الأساسي: ${latestQuote.base} دينار\nخصم الإخوة: ${latestQuote.discount} دينار\nالمواصلات: ${latestQuote.delivery} دينار\nالإجمالي النهائي: ${latestQuote.total} دينار.`;
+          : `�����ǡ ����� ������ �������.\n��� �����: ${quoteType}\n��� ������: ${latestQuote.students}\n�������� �������: ${latestQuote.base} �����\n��� ������: ${latestQuote.discount} �����\n���������: ${latestQuote.delivery} �����\n�������� �������: ${latestQuote.total} �����.`;
         openExternal(waLink(quoteMessage));
       });
     }
@@ -5626,7 +5524,7 @@
         phone: "0779000000",
         belt: "yellow",
         progress: 64,
-        goalsAr: ["تثبيت أساسيات الركلات", "رفع اللياقة البدنية", "تحسين التوازن العام"],
+        goalsAr: ["����� ������� �������", "��� ������� �������", "����� ������� �����"],
         goalsEn: ["Stabilize core kick techniques", "Improve stamina and fitness", "Build stronger balance control"],
         nextExamDate: "2026-03-20"
       },
@@ -5635,7 +5533,7 @@
         phone: "0779554433",
         belt: "green",
         progress: 82,
-        goalsAr: ["زيادة سرعة الاستجابة", "إتقان مجموعات الركل", "التهيئة الذهنية للاختبار"],
+        goalsAr: ["����� ���� ���������", "����� ������� �����", "������� ������� ��������"],
         goalsEn: ["Increase reaction speed", "Master kick combinations", "Build mental readiness for exam"],
         nextExamDate: "2026-04-03"
       },
@@ -5644,7 +5542,7 @@
         phone: "0780011223",
         belt: "blue",
         progress: 51,
-        goalsAr: ["التحكم بالمسافة والتوقيت", "تحسين قرارات النزال", "تطوير القوة الانفجارية"],
+        goalsAr: ["������ �������� ��������", "����� ������ ������", "����� ����� ����������"],
         goalsEn: ["Control distance and timing", "Improve sparring decisions", "Develop explosive power"],
         nextExamDate: "2026-04-25"
       }
@@ -5723,11 +5621,11 @@
       trackerEmpty.style.display = "none";
       trackerStudentCode.textContent = activeTrackedStudent.code;
       trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
-      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم إكمال مرحلة الحزام الأسود");
+      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "�� ����� ����� ������ ������");
       trackerProgressBar.style.width = `${Math.max(0, Math.min(100, activeTrackedStudent.progress))}%`;
       trackerProgressText.textContent = currentLang === "en"
         ? `${activeTrackedStudent.progress}% completed before the next belt test.`
-        : `${activeTrackedStudent.progress}% تم إنجازه قبل اختبار الحزام التالي.`;
+        : `${activeTrackedStudent.progress}% �� ������ ��� ������ ������ ������.`;
       trackerGoals.innerHTML = "";
       goals.forEach((goal)=>{
         const item = document.createElement("li");
@@ -5736,7 +5634,7 @@
       });
       trackerExamDate.textContent = currentLang === "en"
         ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
-        : `موعد الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
+        : `���� �������� �������: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
     }
 
     function searchTracker(){
@@ -5748,7 +5646,7 @@
           trackerEmpty.style.display = "block";
           trackerEmpty.textContent = currentLang === "en"
             ? "No student found with this phone/code. Please check and try again."
-            : "لم يتم العثور على طالب بهذا الهاتف/الكود. يرجى التحقق والمحاولة مرة أخرى.";
+            : "�� ��� ������ ��� ���� ���� ������/�����. ���� ������ ��������� ��� ����.";
         }
         if(trackerResult) trackerResult.style.display = "none";
         return;
@@ -5774,50 +5672,50 @@
     const FALLBACK_ACHIEVEMENTS_DATA = [
       {
         date: "2026-02-15",
-        titleAr: "بطولة البرق للمملكة",
+        titleAr: "����� ����� �������",
         titleEn: "Al Barq National Championship",
-        locationAr: "عمّان",
+        locationAr: "�����",
         locationEn: "Amman",
         gold: 7,
         silver: 3,
         bronze: 2,
-        noteAr: "حققت المركز الخامس على مستوى المملكة، وحقق النادي 7 ميداليات ذهبية و3 فضية و2 برونزية.",
+        noteAr: "���� ������ ������ ��� ����� ������ɡ ���� ������ 7 �������� ����� �3 ���� �2 �������.",
         noteEn: "I achieved 5th place nationwide, and the center won 7 gold, 3 silver, and 2 bronze medals."
       },
       {
         date: "2026-01-30",
-        titleAr: "بطولة جرش المفتوحة للتايكوندو",
+        titleAr: "����� ��� �������� ����������",
         titleEn: "Jerash Open Taekwondo Championship",
-        locationAr: "جرش",
+        locationAr: "���",
         locationEn: "Jerash",
         gold: 4,
         silver: 3,
         bronze: 5,
-        noteAr: "تأهل 3 لاعبين لمنتخب المحافظة بعد أداء قوي.",
+        noteAr: "���� 3 ������ ������ �������� ��� ���� ���.",
         noteEn: "Three players qualified to the governorate team after strong performance."
       },
       {
         date: "2025-11-14",
-        titleAr: "بطولة شمال المملكة",
+        titleAr: "����� ���� �������",
         titleEn: "North Region Championship",
-        locationAr: "إربد",
+        locationAr: "����",
         locationEn: "Irbid",
         gold: 2,
         silver: 4,
         bronze: 3,
-        noteAr: "تحقيق أفضل فريق ناشئين في البطولة.",
+        noteAr: "����� ���� ���� ������ �� �������.",
         noteEn: "Awarded best junior team in the tournament."
       },
       {
         date: "2025-08-09",
-        titleAr: "بطولة الأندية الأردنية",
+        titleAr: "����� ������� ��������",
         titleEn: "Jordan Clubs Championship",
-        locationAr: "عمّان",
+        locationAr: "�����",
         locationEn: "Amman",
         gold: 3,
         silver: 1,
         bronze: 4,
-        noteAr: "مشاركة قوية لفئة الإناث وتحقيق ميداليات متنوعة.",
+        noteAr: "������ ���� ���� ������ ������ �������� ������.",
         noteEn: "Strong women-category participation with multiple medals."
       }
     ];
@@ -5924,7 +5822,7 @@
       if(!filtered.length){
         achievementsList.innerHTML = `
           <div class="achievement-card">
-            <b>${currentLang === "en" ? "No results for this year yet." : "لا توجد نتائج لهذه السنة حتى الآن."}</b>
+            <b>${currentLang === "en" ? "No results for this year yet." : "�� ���� ����� ���� ����� ��� ����."}</b>
           </div>
         `;
         refreshDesignEnhancements();
@@ -5940,25 +5838,25 @@
         const title = escapeHtml(pickLocalizedText(item.titleAr, item.titleEn));
         const location = escapeHtml(pickLocalizedText(item.locationAr, item.locationEn));
         const note = escapeHtml(pickLocalizedText(item.noteAr, item.noteEn));
-        const gold = escapeHtml(currentLang === "en" ? "Gold" : "ذهبية");
-        const silver = escapeHtml(currentLang === "en" ? "Silver" : "فضية");
-        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "برونزية");
+        const gold = escapeHtml(currentLang === "en" ? "Gold" : "�����");
+        const silver = escapeHtml(currentLang === "en" ? "Silver" : "����");
+        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "�������");
         const safeGoldCount = Number(item.gold || 0);
         const safeSilverCount = Number(item.silver || 0);
         const safeBronzeCount = Number(item.bronze || 0);
-        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "������");
 
         return `
           <article class="achievement-card">
             <span class="achievement-date">${dateLabel}</span>
-            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
-            <p style="margin:0; color:var(--muted); font-weight:900;">${locationLabel}: ${location}</p>
+            <h3 class="card-title-18">${title}</h3>
+            <p class="card-meta-strong">${locationLabel}: ${location}</p>
             <div class="medals">
               <span class="medal"> ${gold}: ${safeGoldCount}</span>
               <span class="medal"> ${silver}: ${safeSilverCount}</span>
               <span class="medal"> ${bronze}: ${safeBronzeCount}</span>
             </div>
-            <p style="margin:0; color:var(--muted); font-weight:800; line-height:1.8;">${note}</p>
+            <p class="card-note">${note}</p>
           </article>
         `;
       }).join("");
@@ -5977,8 +5875,8 @@
         return;
       }
 
-      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
-      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "إجمالي الميداليات");
+      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "������");
+      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "������ ����������");
       const chipLabel = escapeHtml(i18n[currentLang].text.newsChip);
       const latestNews = achievementsData.slice(0, 6);
 
@@ -5996,11 +5894,11 @@
         return `
           <article class="news-card">
             <span class="news-chip"> ${chipLabel}</span>
-            <h3 style="margin:0; font-size:18px; font-weight:1000;">${title}</h3>
+            <h3 class="card-title-18">${title}</h3>
             <div class="news-meta">${dateLabel}</div>
             <div class="news-meta">${locationLabel}: ${location}</div>
             <div class="news-meta">${medalsLabel}: ${totalMedals}</div>
-            <p style="margin:0; color:var(--muted); line-height:1.8; font-weight:800;">${note}</p>
+            <p class="card-note">${note}</p>
           </article>
         `;
       }).join("");
@@ -6018,44 +5916,44 @@
     // FAQ
     const faqData = [
       {
-        qAr: "هل يحتاج الطالب إلى خبرة سابقة؟",
-        aAr: "لا. نبدأ من الصفر ونبني أساسًا قويًا بشكل تدريجي.",
+        qAr: "�� ����� ������ ��� ���� ����ɿ",
+        aAr: "��. ���� �� ����� ����� ������ ����� ���� ������.",
         qEn: "Does a student need prior experience?",
         aEn: "No. We start from zero and build strong fundamentals in a structured way."
       },
       {
-        qAr: "ما هو الحد الأدنى لعمر التسجيل؟",
-        aAr: "من عمر 6 سنوات فما فوق. الأعمار الصغيرة تستفيد جدًا من الانضباط والمهارات الحركية.",
+        qAr: "�� �� ���� ������ ���� �������",
+        aAr: "�� ��� 6 ����� ��� ���. ������� ������� ������ ���� �� �������� ��������� �������.",
         qEn: "What is the minimum joining age?",
         aEn: "From age 6 and above. Younger students benefit strongly from discipline and movement skills."
       },
       {
-        qAr: "هل لديكم تدريب خاص للإناث؟",
-        aAr: "نعم، نوفر حصص إناث بإشراف مدربة.",
+        qAr: "�� ����� ����� ��� �����˿",
+        aAr: "��� ���� ��� ���� ������ �����.",
         qEn: "Do you offer women-only training?",
         aEn: "Yes. We provide dedicated women classes supervised by a female coach."
       },
       {
-        qAr: "كم تكلفة المواصلات؟",
-        aAr: "المواصلات 15 دينار شهريًا. إجمالي الباقة 45 دينار: تدريب + زي + مواصلات.",
+        qAr: "�� ����� ��������ʿ",
+        aAr: "��������� 15 ����� ������. ������ ������ 45 �����: ����� + �� + �������.",
         qEn: "How much is transport?",
         aEn: "Transport is 15 JOD/month. Total monthly package is 45 JOD: training + uniform + transport."
       },
       {
-        qAr: "كم عدد الحصص أسبوعيًا؟",
-        aAr: "حسب رغبة العائلة، غالبًا من 2 إلى 3 حصص أسبوعيًا مع إمكانية حصص إضافية.",
+        qAr: "�� ��� ����� �������ǿ",
+        aAr: "��� ���� ������ɡ ������ �� 2 ��� 3 ��� �������� �� ������� ��� ������.",
         qEn: "How many sessions per week?",
         aEn: "It depends on family preference. Usually 2 to 3 sessions, with optional extra classes."
       },
       {
-        qAr: "متى ينتقل الطالب إلى الحزام التالي؟",
-        aAr: "حسب مستوى الطالب والانضباط والمهارة، ويتم تقييم كل طالب بشكل فردي.",
+        qAr: "��� ����� ������ ��� ������ ������",
+        aAr: "��� ����� ������ ��������� �������ɡ ���� ����� �� ���� ���� ����.",
         qEn: "When can a student move to the next belt?",
         aEn: "Based on progress, discipline, and skill. Every student is evaluated individually."
       },
       {
-        qAr: "هل يمكن إلغاء الاشتراك في أي وقت؟",
-        aAr: "نعم، بدون غرامات أو رسوم إضافية.",
+        qAr: "�� ���� ����� �������� �� �� ��ʿ",
+        aAr: "��� ���� ������ �� ���� ������.",
         qEn: "Can we cancel at any time?",
         aEn: "Yes, without penalties or extra fees."
       }
@@ -6094,11 +5992,11 @@
     const FORM_SUBMIT_COOLDOWN_MS = 8000;
     let lastBookingSubmitAt = 0;
     const PAYMENT_METHOD_LABELS = {
-      cash: { ar: "نقدًا في المركز", en: "Cash at the center" },
-      cliq: { ar: "تحويل CliQ", en: "CliQ transfer" },
-      bank: { ar: "تحويل بنكي", en: "Bank transfer" },
-      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" },
-      crypto: { ar: "دفع رقمي (USDT)", en: "Crypto payment (USDT)" }
+      cash: { ar: "����� �� ������", en: "Cash at the center" },
+      cliq: { ar: "����� CliQ", en: "CliQ transfer" },
+      bank: { ar: "����� ����", en: "Bank transfer" },
+      wallet: { ar: "����� ���������", en: "E-wallet" },
+      crypto: { ar: "��� ���� (USDT)", en: "Crypto payment (USDT)" }
     };
 
     function getPaymentMethodLabel(value, lang = "ar"){
@@ -6183,8 +6081,8 @@
             userAgent: cleanInputText(navigator.userAgent || "", 260)
           });
           alert(ok
-            ? (currentLang === "en" ? "Test location sent successfully." : "تم إرسال موقع تجريبي بنجاح.")
-            : (currentLang === "en" ? "Failed to send test location." : "فشل إرسال الموقع التجريبي.")
+            ? (currentLang === "en" ? "Test location sent successfully." : "�� ����� ���� ������ �����.")
+            : (currentLang === "en" ? "Failed to send test location." : "��� ����� ������ ��������.")
           );
           shareLocationBtn.disabled = false;
           shareLocationBtn.textContent = originalLabel;
@@ -6192,7 +6090,7 @@
         }
 
         if(!("geolocation" in navigator)){
-          alert(currentLang === "en" ? "Geolocation is not supported on this device." : "خدمة الموقع غير مدعومة على هذا الجهاز.");
+          alert(currentLang === "en" ? "Geolocation is not supported on this device." : "���� ������ ��� ������ ��� ��� ������.");
           return;
         }
 
@@ -6209,7 +6107,7 @@
             const userAgent = cleanInputText(navigator.userAgent || "", 260);
 
             if(!Number.isFinite(lat) || !Number.isFinite(lng)){
-              alert(currentLang === "en" ? "Unable to read your location." : "تعذر قراءة موقعك.");
+              alert(currentLang === "en" ? "Unable to read your location." : "���� ����� �����.");
               shareLocationBtn.disabled = false;
               shareLocationBtn.textContent = originalLabel;
               return;
@@ -6224,14 +6122,14 @@
             });
 
             alert(ok
-              ? (currentLang === "en" ? "Location sent successfully." : "تم إرسال الموقع بنجاح.")
-              : (currentLang === "en" ? "Failed to send location." : "فشل إرسال الموقع.")
+              ? (currentLang === "en" ? "Location sent successfully." : "�� ����� ������ �����.")
+              : (currentLang === "en" ? "Failed to send location." : "��� ����� ������.")
             );
             shareLocationBtn.disabled = false;
             shareLocationBtn.textContent = originalLabel;
           },
           ()=>{
-            alert(currentLang === "en" ? "Location permission was denied or unavailable." : "تم رفض إذن الموقع أو الموقع غير متاح.");
+            alert(currentLang === "en" ? "Location permission was denied or unavailable." : "�� ��� ��� ������ �� ������ ��� ����.");
             shareLocationBtn.disabled = false;
             shareLocationBtn.textContent = originalLabel;
           },
@@ -6389,18 +6287,18 @@ Payment method: ${paymentMethodLabel}
 Note: ${msg || "-"}
 
 Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
-        : `مرحبًا،
-أرغب بالتسجيل في مركز الماهر للتايكواندو - جرش.
+        : `�����ǡ
+���� �������� �� ���� ������ ����������� - ���.
 
-الاسم: ${name}
-الهاتف: ${phone}
-العمر: ${age || "غير محدد"}
-البرنامج: ${programLabelText || program}
-وقت التواصل المناسب: ${timeLabelText || time}
-طريقة الدفع: ${paymentMethodAr}
-ملاحظة: ${msg || "-"}
+�����: ${name}
+������: ${phone}
+�����: ${age || "��� ����"}
+��������: ${programLabelText || program}
+��� ������� �������: ${timeLabelText || time}
+����� �����: ${paymentMethodAr}
+������: ${msg || "-"}
 
-الباقة الشهرية: 45 دينار (شاملة: التدريب + الزي + المواصلات).`;
+������ �������: 45 ����� (�����: ������� + ���� + ���������).`;
 
       trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
       openExternal(waLink(waMessage));
@@ -6440,4 +6338,8 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
+
+
+
+
 
