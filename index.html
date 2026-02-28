@@ -3591,7 +3591,7 @@
       <div class="calculator-grid">
         <div class="card">
           <form id="priceCalculatorForm">
-            <div>
+            <div id="calcPlanWrap">
               <label for="calcPlanType" id="calcPlanLabel"> </label>
               <select id="calcPlanType" name="planType">
                 <option value="single"> </option>
@@ -5452,8 +5452,10 @@
     const CALC_DELIVERY_FEE = 15;
     const CALC_SIBLING_DISCOUNT = 3;
     const CALC_MIN_SIBLINGS = 2;
-        const calcPlanType = document.getElementById("calcPlanType");
+    const calcPlanType = document.getElementById("calcPlanType");
+    const calcPlanWrap = document.getElementById("calcPlanWrap");
     const calcStudents = document.getElementById("calcStudents");
+    const calcStudentsLabelEl = document.getElementById("calcStudentsLabel");
     const calcDelivery = document.getElementById("calcDelivery");
     const calcBreakdownBase = document.getElementById("calcBreakdownBase");
     const calcBreakdownDiscount = document.getElementById("calcBreakdownDiscount");
@@ -5461,24 +5463,43 @@
     const calcFinalTotal = document.getElementById("calcFinalTotal");
     const calcWhatsQuote = document.getElementById("calcWhatsQuote");
     let latestQuote = { students: 1, total: 0, base: 0, discount: 0, delivery: 0, planType: "single" };
+    const MOBILE_CALC_BREAKPOINT = 980;
 
     function updatePriceCalculator(){
       if(!calcPlanType || !calcStudents || !calcDelivery) return;
 
       let students = Math.max(1, Number(calcStudents.value || 1));
-      const planType = calcPlanType.value === "siblings" ? "siblings" : "single";
+      const isMobileCalcMode = window.matchMedia(`(max-width: ${MOBILE_CALC_BREAKPOINT}px)`).matches;
+      let planType = calcPlanType.value === "siblings" ? "siblings" : "single";
       const hasDelivery = calcDelivery.checked;
 
-      if(planType === "single"){
-        students = 1;
-        calcStudents.value = "1";
+      if(isMobileCalcMode){
+        students = Math.max(1, students);
+        planType = students >= CALC_MIN_SIBLINGS ? "siblings" : "single";
+        calcPlanType.value = planType;
         calcStudents.min = "1";
-                calcStudents.disabled = true;
-      } else {
-        calcStudents.min = String(CALC_MIN_SIBLINGS);
-                students = Math.max(CALC_MIN_SIBLINGS, students);
         calcStudents.value = String(students);
         calcStudents.disabled = false;
+        if(calcPlanWrap) calcPlanWrap.style.display = "none";
+        if(calcStudentsLabelEl){
+          calcStudentsLabelEl.textContent = currentLang === "en" ? "Number of siblings" : "عدد الإخوة";
+        }
+      } else {
+        if(calcPlanWrap) calcPlanWrap.style.display = "";
+        if(calcStudentsLabelEl && i18n[currentLang] && i18n[currentLang].text){
+          calcStudentsLabelEl.textContent = i18n[currentLang].text.calcStudentsLabel || calcStudentsLabelEl.textContent;
+        }
+        if(planType === "single"){
+          students = 1;
+          calcStudents.value = "1";
+          calcStudents.min = "1";
+          calcStudents.disabled = true;
+        } else {
+          calcStudents.min = String(CALC_MIN_SIBLINGS);
+          students = Math.max(CALC_MIN_SIBLINGS, students);
+          calcStudents.value = String(students);
+          calcStudents.disabled = false;
+        }
       }
 
       const base = students * CALC_BASE_PER_STUDENT;
@@ -5499,6 +5520,7 @@
       el.addEventListener("input", updatePriceCalculator);
       el.addEventListener("change", updatePriceCalculator);
     });
+    window.addEventListener("resize", updatePriceCalculator);
     updatePriceCalculator();
 
     if(calcWhatsQuote){
