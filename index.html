@@ -575,6 +575,31 @@
       display:flex;
       justify-content:center;
     }
+    .why-icon::before{
+      content:"✨";
+      font-size:34px;
+      line-height:1;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.3));
+    }
+    #why-us .card:nth-child(1) .why-icon::before{content:"🥋"}
+    #why-us .card:nth-child(2) .why-icon::before{content:"🛡️"}
+    #why-us .card:nth-child(3) .why-icon::before{content:"📈"}
+    #why-us .card:nth-child(4) .why-icon::before{content:"🚐"}
+    #why-us .card:nth-child(5) .why-icon::before{content:"🏆"}
+    #why-us .card:nth-child(6) .why-icon::before{content:"👥"}
+    #programs .card h3::before{
+      display:inline-block;
+      margin-inline-end:8px;
+      vertical-align:middle;
+      font-size:20px;
+      line-height:1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.22));
+    }
+    #programs .card:nth-child(1) h3::before{content:"👦"}
+    #programs .card:nth-child(2) h3::before{content:"🥊"}
+    #programs .card:nth-child(3) h3::before{content:"👩‍🦰"}
+    #programs .card:nth-child(4) h3::before{content:"🏅"}
+    #programs .card:nth-child(5) h3::before{content:"🌙"}
 
     /* Pricing */
     .pricing{display:grid; grid-template-columns: 1fr; gap:14px;}
@@ -4485,6 +4510,113 @@
       agePlaceholder: "مثال: 10 سنوات",
       msgPlaceholder: "اكتب ملاحظتك..."
     });
+    const AR_TEXT_COMPLETION = {
+      whyUsTitle: "⭐ لماذا تختار مركز الماهر؟",
+      spotlightKicker: "🔔 تنبيه سريع",
+      calculatorTitle: "🧮 حاسبة السعر الذكية",
+      journeyTitle: "🥇 رحلة الأحزمة",
+      trackerTitle: "📈 متابعة تقدم الحزام",
+      achievementsTitle: "🏆 النتائج والإنجازات",
+      newsTitle: "📰 آخر الأخبار والإنجازات",
+      scheduleTitle: "📅 جدول الحصص",
+      bookTitle: "📝 سجّل الآن",
+      contactTitle: "📞 معلومات التواصل",
+      aboutTitle: "🏛️ عن المركز",
+      aboutCard1Title: "🎯 رسالتنا",
+      aboutCard2Title: "👁️ رؤيتنا",
+      aboutCard3Title: "⭐ قيمنا الأساسية",
+      paymentMethodLabel: "طريقة الدفع المفضلة",
+      paymentMethodHint: "يمكنك تغيير طريقة الدفع لاحقًا أثناء التسجيل.",
+      paymentMethodCashOpt: "نقدًا في المركز",
+      paymentMethodCliqOpt: "تحويل CliQ",
+      paymentMethodBankOpt: "تحويل بنكي",
+      paymentMethodWalletOpt: "محفظة إلكترونية",
+      paymentMethodCryptoOpt: "دفع رقمي (USDT)",
+      paymentDetailsTitle: "تفاصيل الدفع للطريقة المختارة:",
+      bankDetailsTitle: "الدفع عبر التحويل البنكي",
+      bankNameLabel: "اسم البنك:",
+      bankNameValue: "البنك العربي",
+      bankAccountLabel: "اسم الحساب:",
+      bankAccountValue: "مركز الماهر للتايكواندو",
+      bankIbanLabel: "رقم الآيبان:",
+      copyBankIbanBtn: "نسخ رقم الآيبان",
+      walletDetailsTitle: "الدفع عبر المحفظة الإلكترونية",
+      walletProviderLabel: "مزود المحفظة:",
+      walletProviderValue: "JoMoPay / Zain Cash / Orange Money",
+      walletNumberLabel: "رقم المحفظة:",
+      copyWalletNumberBtn: "نسخ رقم المحفظة",
+      cryptoDetailsTitle: "الدفع الرقمي (USDT)",
+      cryptoNetworkLabel: "الشبكة:",
+      cryptoNetworkValue: "TRC20",
+      cryptoAddressLabel: "عنوان المحفظة:",
+      copyCryptoAddressBtn: "نسخ عنوان المحفظة",
+      paymentCopySuccess: "تم نسخ بيانات الدفع.",
+      paymentCopyError: "تعذر النسخ تلقائيًا. يرجى النسخ يدويًا.",
+      turnstileLabel: "فحص الأمان (Cloudflare)",
+      turnstileHint: "لحماية النموذج من الرسائل المزعجة، أكمل فحص الأمان قبل الإرسال.",
+      turnstileVerified: "تم التحقق الأمني بنجاح.",
+      turnstileRequiredError: "يرجى إكمال فحص Cloudflare قبل الإرسال.",
+      turnstileLoadError: "تعذر تحميل فحص Cloudflare. حدّث الصفحة وحاول مرة أخرى.",
+      turnstileExpired: "انتهت صلاحية التحقق الأمني. يرجى إعادة التحقق.",
+      bookingTooFastError: "تم حظر الإرسال لأسباب أمنية. يرجى تعبئة النموذج بشكل طبيعي ثم إعادة المحاولة.",
+      bookingSecurityError: "تم حظر الإرسال لأسباب أمنية. يرجى المحاولة مرة أخرى.",
+      paymentMethodsTitle: "طرق الدفع:",
+      paymentMethodsList: "نقدًا في المركز، تحويل CliQ، تحويل بنكي، محفظة إلكترونية، ودفع رقمي (USDT).",
+      trackerDesc: "أدخل رقم الطالب أو الكود الخاص لمعرفة مستوى الحزام الحالي والتقدم نحو الحزام التالي.",
+      trackerInputLabel: "رقم الهاتف أو الكود",
+      trackerHint: "يمكنك استخدام رقم الهاتف أو كود الطالب. البيانات تُدار وتُحدّث من لوحة المركز.",
+      trackerEmpty: "لم يتم إدخال أي كود بعد.",
+      trackerCurrentLabel: "الحزام الحالي:",
+      trackerNextLabel: "الحزام التالي:",
+      trackerGoalsLabel: "المهارات المطلوبة للترقية:",
+      achievementsDesc: "تحديث زمني مستمر لنتائج النادي في البطولات المحلية والإقليمية.",
+      achievementFilterLabel: "تصفية حسب السنة",
+      newsDesc: "آخر أخبار المركز والإنجازات الحديثة.",
+      newsEmpty: "لا توجد أخبار بعد.",
+      newsChip: "خبر إنجاز",
+      faqTitle: "❓ الأسئلة الشائعة",
+      faqDesc: "إجابات سريعة على أكثر الأسئلة شيوعًا قبل التسجيل.",
+      scheduleHeadDays: "📅 أيام التدريب",
+      scheduleHeadTime: "⏰ الوقت",
+      scheduleHeadNote: "📝 الملاحظات",
+      scheduleRow1Days: "الأحد - الثلاثاء - الخميس",
+      scheduleRow1Note: "تأسيس الحركة واللياقة الأساسية",
+      scheduleRow2Days: "الأحد - الثلاثاء - الخميس",
+      scheduleRow2Note: "تقنيات متقدمة وتدريب مكثف",
+      scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
+      scheduleRow3Note: "حصص السيدات بإشراف مدربة",
+      scheduleRow4Days: "السبت - الاثنين - الأربعاء",
+      scheduleRow4Note: "تدريب المبتدئين",
+      nameLabel: "الاسم الكامل",
+      phoneLabel: "رقم الهاتف",
+      ageLabel: "العمر (اختياري)",
+      programLabel: "اختر البرنامج",
+      programOptPlaceholder: "-- اختر البرنامج --",
+      programOptKids: "الأطفال",
+      programOptTeens: "الناشئون",
+      programOptAdults: "البالغون",
+      programOptWomen: "السيدات",
+      programOptCompetition: "برنامج المنافسات",
+      programOptRamadan: "برنامج رمضان (لياقة + تنشيف)",
+      timeLabel: "أفضل وقت للتواصل",
+      timeOptMorning: "صباحًا",
+      timeOptEvening: "مساءً",
+      timeOptAny: "أي وقت",
+      msgLabel: "ملاحظة أو سؤال (اختياري)",
+      contactWhatsappLabel: "رقم واتساب:",
+      contactPriceLabel: "السعر الشهري:",
+      contactPriceValue: "45 دينار (شامل الزي + النقل + التدريب)",
+      contactLocationLabel: "الموقع:",
+      contactLocationValue: "جرش",
+      contactHighlights: "✅ نقل آمن وسريع مشمول<br />👩‍🏫 متابعة مباشرة من المدرب والمدربة<br />🎯 خطة تطور واضحة",
+      aboutDesc: "بيئة تدريب آمنة واحترافية وموثوقة.",
+      aboutCard1Desc: "بناء طلاب تايكواندو منضبطين وواثقين ومحترمين بشخصية قوية.",
+      aboutCard2Desc: "أن نكون الخيار الأول للعائلات ونُخرّج لاعبين جاهزين للمنافسات.",
+      aboutCard3Desc: "الانضباط أولًا، ثم الاحترام، ثم المهارة. الشخصية هي الأساس.",
+      footerCopy: "&copy; <span id=\"year\"></span> مركز الماهر للتايكواندو - جرش | تدريب احترافي | انضباط | نتائج",
+      okMsg: "✅ تم تجهيز رسالة التسجيل وفتح واتساب. سيتواصل معك فريقنا قريبًا."
+    };
+    Object.assign(i18n.ar.text, AR_TEXT_COMPLETION);
 
     const EN_TEXT_OVERRIDES = {
       brandName: "Al Maher Taekwondo Center",
