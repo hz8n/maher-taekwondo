@@ -4672,6 +4672,7 @@
     Object.assign(i18n.en.text, EN_TEXT_OVERRIDES);
 
     const arabicFallbackMode = false;
+    const OFFICIAL_LANG = "ar";
 
     let currentLang = "ar";
     let uiReady = false;
@@ -4879,7 +4880,7 @@
     }
 
     function applyLanguage(lang){
-      const requestedLang = lang === "en" ? "en" : "ar";
+      const requestedLang = (lang === "en" || lang === "ar") ? lang : OFFICIAL_LANG;
       const effectiveLang = (requestedLang === "ar" && arabicFallbackMode) ? "en" : requestedLang;
       currentLang = effectiveLang;
       const dict = i18n[effectiveLang];
@@ -4935,16 +4936,12 @@
       });
 
       if(langToggle){
-        if(arabicFallbackMode){
-          langToggle.hidden = true;
-        } else {
-          langToggle.hidden = false;
-          const nextLabel = effectiveLang === "en" ? "AR" : "EN";
-          const nextTitle = effectiveLang === "en" ? "Switch to Arabic" : "Switch to English";
-          langToggle.textContent = nextLabel;
-          langToggle.setAttribute("title", nextTitle);
-          langToggle.setAttribute("aria-label", nextTitle);
-        }
+        langToggle.hidden = false;
+        const nextLabel = effectiveLang === "en" ? "AR" : "EN";
+        const nextTitle = effectiveLang === "en" ? "Switch to Arabic" : "Switch to English";
+        langToggle.textContent = nextLabel;
+        langToggle.setAttribute("title", nextTitle);
+        langToggle.setAttribute("aria-label", nextTitle);
       }
 
       updatePaymentMethodDetails();
@@ -4957,14 +4954,14 @@
 
       document.title = effectiveLang === "en"
         ? "Al Maher Taekwondo Center - Jerash | Join Now"
-        : "���� ������ ����������� - ��� | ���� ����";
+        : "مركز الماهر للتايكواندو - جرش | سجّل الآن";
       const metaDescription = document.querySelector('meta[name="description"]');
       if(metaDescription){
         metaDescription.setAttribute(
           "content",
           effectiveLang === "en"
             ? "Al Maher Taekwondo Center in Jerash. Professional training for kids, adults, and women. Join now."
-            : "���� ������ ����������� �� ���. ����� ������� ������� ������� �������."
+            : "مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والبالغين والسيدات. سجّل الآن."
         );
       }
 
@@ -5003,7 +5000,7 @@
       savedLang = null;
     }
 
-    currentLang = "en";
+    currentLang = (savedLang === "en" || savedLang === "ar") ? savedLang : OFFICIAL_LANG;
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
 
@@ -5015,7 +5012,6 @@
     }
     if(langToggle){
       langToggle.addEventListener("click", ()=>{
-        if(arabicFallbackMode) return;
         applyLanguage(currentLang === "en" ? "ar" : "en");
       });
     }
