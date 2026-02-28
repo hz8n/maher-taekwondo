@@ -1,0 +1,1532 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>فهرس أدوات كالي لينكس | للاستخدام التعليمي والقانوني فقط</title>
+    <meta
+      name="description"
+      content="صفحة تعليمية لفهرسة أشهر أدوات Kali Linux حسب التصنيف مع بحث وفلترة واستيراد قائمة أدوات بصيغة JSON. للاستخدام القانوني المصرّح به فقط."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg0: #050a14;
+        --bg1: #071528;
+        --bg2: #0a1f3a;
+        --card: rgba(255, 255, 255, 0.06);
+        --card2: rgba(255, 255, 255, 0.085);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: rgba(248, 251, 255, 0.96);
+        --muted: rgba(229, 238, 255, 0.72);
+        --accent: #00e5ff;
+        --accent2: #ff2d7a;
+        --ok: #2de9a6;
+        --warn: #ffd166;
+        --bad: #ff4d6d;
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.55);
+        --r: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Cairo", system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: radial-gradient(1200px 700px at 20% 15%, rgba(255, 45, 122, 0.14), transparent 55%),
+          radial-gradient(900px 620px at 80% 20%, rgba(0, 229, 255, 0.12), transparent 60%),
+          linear-gradient(135deg, var(--bg0) 0%, var(--bg1) 45%, var(--bg2) 100%);
+        overflow-x: hidden;
+      }
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.13;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .container {
+        width: min(1150px, 94vw);
+        margin-inline: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(16px);
+        background: rgba(5, 10, 20, 0.78);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+      .logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        color: #0b0d12;
+        font-weight: 1000;
+        background: linear-gradient(135deg, rgba(255, 45, 122, 0.98), rgba(0, 229, 255, 0.92));
+        box-shadow: 0 18px 50px rgba(255, 45, 122, 0.16);
+      }
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font-weight: 800;
+        margin-top: -2px;
+        font-size: 12px;
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .btn {
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        padding: 10px 12px;
+        border-radius: 14px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        user-select: none;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 45, 122, 0.35);
+        background: rgba(255, 255, 255, 0.09);
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, rgba(255, 45, 122, 0.98), rgba(255, 119, 169, 0.82));
+        border-color: rgba(255, 45, 122, 0.6);
+      }
+      .btn.primary:hover {
+        border-color: rgba(255, 45, 122, 0.85);
+      }
+      .btn.ghost {
+        background: rgba(0, 229, 255, 0.08);
+        border-color: rgba(0, 229, 255, 0.2);
+      }
+      .btn.ghost:hover {
+        border-color: rgba(0, 229, 255, 0.44);
+      }
+      header.hero {
+        padding: 26px 0 18px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 14px;
+        align-items: stretch;
+      }
+      .panel {
+        border-radius: var(--r);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+      .panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 45, 122, 0.12), transparent 55%);
+        opacity: 0.9;
+        pointer-events: none;
+      }
+      .panel-inner {
+        position: relative;
+        z-index: 1;
+        padding: 18px;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 7px 10px;
+        border: 1px solid rgba(0, 229, 255, 0.26);
+        background: rgba(0, 229, 255, 0.1);
+        font-weight: 1000;
+        font-size: 12px;
+        color: rgba(248, 251, 255, 0.92);
+      }
+      h1 {
+        margin: 12px 0 8px;
+        font-weight: 1000;
+        line-height: 1.12;
+        letter-spacing: 0.2px;
+        font-size: clamp(28px, 4.7vw, 46px);
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.9;
+        font-weight: 750;
+        font-size: 15px;
+        max-width: 68ch;
+      }
+      .notice {
+        margin-top: 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 209, 102, 0.3);
+        background: rgba(255, 209, 102, 0.12);
+        padding: 12px;
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 850;
+        line-height: 1.85;
+        font-size: 14px;
+      }
+      .notice b {
+        color: var(--warn);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .stat {
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+      }
+      .stat .num {
+        font-size: 26px;
+        font-weight: 1000;
+      }
+      .stat .lbl {
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 900;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr 0.6fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      label {
+        font-size: 12px;
+        font-weight: 1000;
+        color: rgba(229, 238, 255, 0.78);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.22);
+        color: var(--text);
+        padding: 11px 12px;
+        outline: none;
+        font-weight: 850;
+        transition: border-color 0.18s ease, background 0.18s ease;
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: rgba(0, 229, 255, 0.5);
+        background: rgba(0, 0, 0, 0.28);
+      }
+      .toggle-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        align-items: center;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 7px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        font-weight: 950;
+        font-size: 12px;
+        color: rgba(248, 251, 255, 0.92);
+        user-select: none;
+      }
+      .chip input {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        accent-color: var(--accent);
+      }
+      .chip.good {
+        border-color: rgba(45, 233, 166, 0.25);
+        background: rgba(45, 233, 166, 0.1);
+      }
+      .chip.warn {
+        border-color: rgba(255, 209, 102, 0.25);
+        background: rgba(255, 209, 102, 0.1);
+      }
+      .chip.bad {
+        border-color: rgba(255, 77, 109, 0.25);
+        background: rgba(255, 77, 109, 0.1);
+      }
+      main {
+        padding: 14px 0 44px;
+      }
+      .section-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 22px 0 12px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 1000;
+      }
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 13px;
+        line-height: 1.8;
+        max-width: 70ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .card {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--card);
+        padding: 14px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 45, 122, 0.32);
+        background: var(--card2);
+      }
+      .card-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .card h3 {
+        margin: 0;
+        font-weight: 1000;
+        font-size: 18px;
+        letter-spacing: 0.2px;
+      }
+      .badge {
+        font-size: 11px;
+        font-weight: 1000;
+        border-radius: 999px;
+        padding: 6px 9px;
+        border: 1px solid rgba(0, 229, 255, 0.26);
+        background: rgba(0, 229, 255, 0.1);
+        color: rgba(248, 251, 255, 0.92);
+        white-space: nowrap;
+      }
+      .risk {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .risk .pill {
+        border-radius: 999px;
+        padding: 6px 9px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 11px;
+        font-weight: 1000;
+        color: rgba(248, 251, 255, 0.92);
+      }
+      .pill.low {
+        border-color: rgba(45, 233, 166, 0.25);
+        background: rgba(45, 233, 166, 0.1);
+      }
+      .pill.med {
+        border-color: rgba(255, 209, 102, 0.25);
+        background: rgba(255, 209, 102, 0.1);
+      }
+      .pill.high {
+        border-color: rgba(255, 77, 109, 0.25);
+        background: rgba(255, 77, 109, 0.1);
+      }
+      .card p {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-weight: 800;
+        line-height: 1.9;
+        font-size: 14px;
+      }
+      .tags {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tags span {
+        border-radius: 999px;
+        padding: 6px 9px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.18);
+        font-size: 11px;
+        font-weight: 900;
+        color: rgba(248, 251, 255, 0.88);
+      }
+      .tools-empty {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 16px;
+        color: rgba(248, 251, 255, 0.92);
+        font-weight: 900;
+        line-height: 1.9;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+      .mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      .hint {
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 12.5px;
+        line-height: 1.8;
+        margin-top: 8px;
+      }
+      .error {
+        margin-top: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 77, 109, 0.32);
+        background: rgba(255, 77, 109, 0.12);
+        padding: 10px 12px;
+        display: none;
+        font-weight: 900;
+        line-height: 1.7;
+      }
+      .success {
+        margin-top: 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(45, 233, 166, 0.3);
+        background: rgba(45, 233, 166, 0.12);
+        padding: 10px 12px;
+        display: none;
+        font-weight: 900;
+        line-height: 1.7;
+      }
+      footer {
+        padding: 16px 0 28px;
+        color: var(--muted);
+        font-weight: 800;
+        font-size: 12.5px;
+        line-height: 1.9;
+      }
+      @media (max-width: 980px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .controls {
+          grid-template-columns: 1fr;
+        }
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .split {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-actions {
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <nav class="nav">
+      <div class="container">
+        <div class="nav-inner">
+          <div class="brand">
+            <div class="logo" aria-hidden="true">K</div>
+            <div>
+              <div>فهرس أدوات كالي</div>
+              <small>Educational index (Legal use only)</small>
+            </div>
+          </div>
+          <div class="nav-actions">
+            <button id="langBtn" class="btn ghost" type="button" title="Toggle language">
+              <span aria-hidden="true">🌐</span><span id="langBtnText">AR</span>
+            </button>
+            <button id="exportBtn" class="btn" type="button">
+              <span aria-hidden="true">⤓</span><span data-i18n="export">تصدير JSON</span>
+            </button>
+            <button id="resetBtn" class="btn primary" type="button">
+              <span aria-hidden="true">↺</span><span data-i18n="reset">إعادة ضبط</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <header class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <section class="panel">
+            <div class="panel-inner">
+              <span class="tag" data-i18n="tag">فهرس تعليمي لأدوات Kali Linux</span>
+              <h1 data-i18n="title">أدوات كالي مرتبة وسهلة البحث</h1>
+              <p class="sub" data-i18n="subtitle">
+                هذه الصفحة لا تعطي خطوات هجوم ولا أوامر تشغيل. الهدف: تنظيم الأدوات وفهم
+                استخداماتها بشكل عام، ضمن تدريب قانوني مصرح به.
+              </p>
+              <div class="notice" role="note">
+                <b data-i18n="legalHead">تنبيه قانوني:</b>
+                <span data-i18n="legalBody">
+                  استخدم هذه المعلومات فقط على أنظمة تملكها أو لديك إذن صريح لاختبارها. أي
+                  استخدام غير مصرح به قد يكون مخالفاً للقانون.
+                </span>
+              </div>
+              <div class="controls" aria-label="Search and filters">
+                <div class="field">
+                  <label for="q" data-i18n="searchLbl">بحث</label>
+                  <input id="q" type="search" placeholder="مثال: nmap, web, forensics..." />
+                </div>
+                <div class="field">
+                  <label for="cat" data-i18n="catLbl">التصنيف</label>
+                  <select id="cat"></select>
+                </div>
+                <div class="field">
+                  <label for="risk" data-i18n="riskLbl">الخطورة</label>
+                  <select id="risk"></select>
+                </div>
+              </div>
+              <div class="toggle-row">
+                <span class="chip good" title="Recommended default">
+                  <input id="safetyMode" type="checkbox" />
+                  <span data-i18n="safetyMode">وضع الأمان: إخفاء الأدوات عالية الخطورة</span>
+                </span>
+                <span class="chip warn">
+                  <input id="onlyDef" type="checkbox" />
+                  <span data-i18n="onlyDef">عرض الأدوات الدفاعية فقط</span>
+                </span>
+                <span class="chip">
+                  <input id="includeUser" type="checkbox" checked />
+                  <span data-i18n="includeUser">تضمين الأدوات المستوردة</span>
+                </span>
+              </div>
+              <div class="stats" aria-label="Counts">
+                <div class="stat">
+                  <div id="countTools" class="num">0</div>
+                  <div class="lbl" data-i18n="statTools">أداة معروضة</div>
+                </div>
+                <div class="stat">
+                  <div id="countCats" class="num">0</div>
+                  <div class="lbl" data-i18n="statCats">تصنيف</div>
+                </div>
+                <div class="stat">
+                  <div id="countHidden" class="num">0</div>
+                  <div class="lbl" data-i18n="statHidden">مخفية بوضع الأمان</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="panel">
+            <div class="panel-inner">
+              <div class="section-head" style="margin-top: 0">
+                <div>
+                  <h2 data-i18n="importTitle">استيراد قائمة أدوات (JSON)</h2>
+                  <p data-i18n="importDesc">
+                    إذا بدك "كل أدوات كالي" فعلياً: حمّل/اجمع قائمة كاملة بصيغة JSON ثم ألصقها هنا.
+                    الصفحة بتولّد الواجهة تلقائياً بدون أوامر تشغيل.
+                  </p>
+                </div>
+              </div>
+              <div class="split">
+                <div>
+                  <label for="jsonBox" data-i18n="jsonLbl">JSON</label>
+                  <textarea
+                    id="jsonBox"
+                    spellcheck="false"
+                    class="mono"
+                    placeholder='[
+  {"name":"tool-name","category":"Web","risk":"medium","defensive":true,"descAr":"شرح مختصر","descEn":"Short desc","tags":["tag1","tag2"]}
+]'
+                  ></textarea>
+                  <div class="hint" data-i18n="schemaHint">
+                    الحقول المطلوبة: <span class="mono">name</span> و <span class="mono">category</span>.
+                    الحقول الاختيارية: <span class="mono">risk</span> (low|medium|high),
+                    <span class="mono">defensive</span> (true/false), <span class="mono">descAr</span>,
+                    <span class="mono">descEn</span>, <span class="mono">tags</span>.
+                  </div>
+                  <div class="toggle-row" style="margin-top: 12px">
+                    <button id="importBtn" class="btn primary" type="button">
+                      <span aria-hidden="true">＋</span><span data-i18n="importBtn">استيراد</span>
+                    </button>
+                    <button id="clearJsonBtn" class="btn" type="button">
+                      <span aria-hidden="true">✕</span><span data-i18n="clearBox">مسح المربع</span>
+                    </button>
+                  </div>
+                  <div id="importOk" class="success"></div>
+                  <div id="importErr" class="error"></div>
+                </div>
+                <div>
+                  <label data-i18n="tipsLbl">ملاحظات</label>
+                  <div class="tools-empty" style="background: rgba(0, 0, 0, 0.18)">
+                    <div style="font-weight: 1000" data-i18n="tipsHead">كيف أرتّب الأدوات؟</div>
+                    <div data-i18n="tipsBody" style="margin-top: 8px">
+                      1) صنّف الأدوات حسب "المجال" (شبكات، ويب، جنائي، هندسة عكسية...). 2) استخدم
+                      <span class="mono">risk</span> لتفعيل وضع الأمان. 3) اجعل الوصف عاماً وغير إجرائي
+                      (بدون خطوات أو أوامر).
+                    </div>
+                  </div>
+                  <div class="tools-empty" style="margin-top: 12px">
+                    <div style="font-weight: 1000" data-i18n="privacyHead">الخصوصية</div>
+                    <div data-i18n="privacyBody" style="margin-top: 8px">
+                      الاستيراد والتصدير يتمان داخل المتصفح فقط. لا يوجد إرسال بيانات لخادم.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="toolsTitle">الأدوات</h2>
+            <p data-i18n="toolsDesc">
+              قائمة مبدئية لأشهر الأدوات على كالي. أضف باقي الأدوات عبر الاستيراد إذا بدك قائمة كاملة.
+            </p>
+          </div>
+          <div class="tag" style="border-color: rgba(255, 45, 122, 0.38); background: rgba(255, 45, 122, 0.12)">
+            <span id="activeFilters">—</span>
+          </div>
+        </div>
+        <section id="toolsWrap" class="grid" aria-live="polite"></section>
+        <div id="toolsEmpty" class="tools-empty" style="display: none"></div>
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        <div>
+          <b>ملاحظة:</b> هذا الملف هو HTML داخل امتداد <span class="mono">.txt</span> كما طلبت.
+          إذا بدك تشغيله كصفحة مباشرة على المتصفح، الأفضل يكون اسمه <span class="mono">index.html</span>.
+        </div>
+        <div style="margin-top: 8px">
+          © <span id="year"></span> | Kali Tools Index (Educational)
+        </div>
+      </div>
+    </footer>
+    <script>
+      "use strict";
+      const I18N = {
+        ar: {
+          export: "تصدير JSON",
+          reset: "إعادة ضبط",
+          tag: "فهرس تعليمي لأدوات Kali Linux",
+          title: "أدوات كالي مرتبة وسهلة البحث",
+          subtitle:
+            "هذه الصفحة لا تعطي خطوات هجوم ولا أوامر تشغيل. الهدف: تنظيم الأدوات وفهم استخداماتها بشكل عام، ضمن تدريب قانوني مصرح به.",
+          legalHead: "تنبيه قانوني:",
+          legalBody:
+            "استخدم هذه المعلومات فقط على أنظمة تملكها أو لديك إذن صريح لاختبارها. أي استخدام غير مصرح به قد يكون مخالفاً للقانون.",
+          searchLbl: "بحث",
+          catLbl: "التصنيف",
+          riskLbl: "الخطورة",
+          safetyMode: "وضع الأمان: إخفاء الأدوات عالية الخطورة",
+          onlyDef: "عرض الأدوات الدفاعية فقط",
+          includeUser: "تضمين الأدوات المستوردة",
+          statTools: "أداة معروضة",
+          statCats: "تصنيف",
+          statHidden: "مخفية بوضع الأمان",
+          importTitle: "استيراد قائمة أدوات (JSON)",
+          importDesc:
+            "إذا بدك \"كل أدوات كالي\" فعلياً: حمّل/اجمع قائمة كاملة بصيغة JSON ثم ألصقها هنا. الصفحة بتولّد الواجهة تلقائياً بدون أوامر تشغيل.",
+          jsonLbl: "JSON",
+          schemaHint:
+            "الحقول المطلوبة: name و category. الحقول الاختيارية: risk (low|medium|high), defensive (true/false), descAr, descEn, tags.",
+          importBtn: "استيراد",
+          clearBox: "مسح المربع",
+          tipsLbl: "ملاحظات",
+          tipsHead: "كيف أرتّب الأدوات؟",
+          tipsBody:
+            "1) صنّف الأدوات حسب \"المجال\" (شبكات، ويب، جنائي، هندسة عكسية...). 2) استخدم risk لتفعيل وضع الأمان. 3) اجعل الوصف عاماً وغير إجرائي (بدون خطوات أو أوامر).",
+          privacyHead: "الخصوصية",
+          privacyBody: "الاستيراد والتصدير يتمان داخل المتصفح فقط. لا يوجد إرسال بيانات لخادم.",
+          toolsTitle: "الأدوات",
+          toolsDesc: "قائمة مبدئية لأشهر الأدوات على كالي. أضف باقي الأدوات عبر الاستيراد إذا بدك قائمة كاملة.",
+          catAll: "كل التصنيفات",
+          riskAll: "كل المستويات",
+          riskLow: "منخفض",
+          riskMed: "متوسط",
+          riskHigh: "عالٍ",
+          defensive: "دفاعي",
+          dualUse: "ثنائي الاستخدام",
+          filtersNone: "بدون فلاتر",
+          hiddenCount: (n) => `مخفي: ${n}`,
+          empty:
+            "لا يوجد نتائج حسب الفلاتر الحالية. جرّب تغيير التصنيف/الخطورة أو أوقف وضع الأمان مؤقتاً.",
+          importedOk: (n) => `تم استيراد ${n} أداة.`,
+          importedBad: "JSON غير صالح أو البيانات لا تطابق المخطط.",
+          resetConfirm: "هل تريد حذف الأدوات المستوردة وإعادة ضبط الإعدادات؟"
+        },
+        en: {
+          export: "Export JSON",
+          reset: "Reset",
+          tag: "Educational Index for Kali Linux Tools",
+          title: "Kali Tools, Organized and Searchable",
+          subtitle:
+            "This page does not provide attack steps or runnable commands. It is for organizing tools and understanding their general purpose in authorized, legal training.",
+          legalHead: "Legal notice:",
+          legalBody:
+            "Use this information only on systems you own or where you have explicit permission. Unauthorized use may be illegal.",
+          searchLbl: "Search",
+          catLbl: "Category",
+          riskLbl: "Risk",
+          safetyMode: "Safety mode: hide high-risk tools",
+          onlyDef: "Show defensive tools only",
+          includeUser: "Include imported tools",
+          statTools: "Tools shown",
+          statCats: "Categories",
+          statHidden: "Hidden by safety mode",
+          importTitle: "Import Tool List (JSON)",
+          importDesc:
+            "If you want a complete list: paste a full JSON dataset here. The page will render it locally without runnable commands.",
+          jsonLbl: "JSON",
+          schemaHint:
+            "Required: name, category. Optional: risk (low|medium|high), defensive (true/false), descAr, descEn, tags.",
+          importBtn: "Import",
+          clearBox: "Clear box",
+          tipsLbl: "Notes",
+          tipsHead: "How to organize tools?",
+          tipsBody:
+            '1) Group tools by domain (network, web, forensics, reverse engineering...). 2) Use "risk" to support safety mode. 3) Keep descriptions general (no steps/commands).',
+          privacyHead: "Privacy",
+          privacyBody: "Import/export happens in your browser only. No data is sent to any server.",
+          toolsTitle: "Tools",
+          toolsDesc: "A starter list of popular tools on Kali. Import more if you need a full catalog.",
+          catAll: "All categories",
+          riskAll: "All levels",
+          riskLow: "Low",
+          riskMed: "Medium",
+          riskHigh: "High",
+          defensive: "Defensive",
+          dualUse: "Dual-use",
+          filtersNone: "No filters",
+          hiddenCount: (n) => `Hidden: ${n}`,
+          empty: "No results for the current filters. Try changing category/risk or temporarily disabling Safety mode.",
+          importedOk: (n) => `Imported ${n} tools.`,
+          importedBad: "Invalid JSON or schema mismatch.",
+          resetConfirm: "Delete imported tools and reset settings?"
+        }
+      };
+      const BUILTIN_TOOLS = [
+        {
+          name: "nmap",
+          category: "Network",
+          risk: "medium",
+          defensive: true,
+          descAr: "ماسح شبكات/منافذ لتقييم السطح المكشوف وفهم الخدمات بشكل عام.",
+          descEn: "Network/port scanner for exposure assessment and general service discovery.",
+          tags: ["scan", "inventory"]
+        },
+        {
+          name: "wireshark",
+          category: "Network",
+          risk: "low",
+          defensive: true,
+          descAr: "تحليل حزم الشبكة لأغراض التشخيص والتحقيق.",
+          descEn: "Packet analysis for troubleshooting and investigations.",
+          tags: ["pcap", "analysis"]
+        },
+        {
+          name: "tcpdump",
+          category: "Network",
+          risk: "low",
+          defensive: true,
+          descAr: "التقاط وتحليل حركة الشبكة عبر سطر الأوامر.",
+          descEn: "CLI packet capture and analysis.",
+          tags: ["pcap", "cli"]
+        },
+        {
+          name: "tshark",
+          category: "Network",
+          risk: "low",
+          defensive: true,
+          descAr: "نسخة سطر أوامر من Wireshark لمعالجة ملفات PCAP.",
+          descEn: "Wireshark CLI for processing PCAP files.",
+          tags: ["pcap", "cli"]
+        },
+        {
+          name: "netcat",
+          category: "Network",
+          risk: "high",
+          defensive: false,
+          descAr: "أداة شبكات عامة (قراءة/كتابة اتصالات). ثنائية الاستخدام.",
+          descEn: "General networking tool (read/write connections). Dual-use.",
+          tags: ["sockets", "utility"]
+        },
+        {
+          name: "theHarvester",
+          category: "OSINT",
+          risk: "low",
+          defensive: true,
+          descAr: "جمع معلومات عامة من مصادر مفتوحة (OSINT) عن نطاق/مؤسسة.",
+          descEn: "Open-source intelligence gathering for domains/organizations.",
+          tags: ["osint", "recon"]
+        },
+        {
+          name: "recon-ng",
+          category: "OSINT",
+          risk: "low",
+          defensive: true,
+          descAr: "إطار عمل لجمع معلومات OSINT وتنظيم النتائج.",
+          descEn: "Framework for OSINT collection and result organization.",
+          tags: ["osint", "framework"]
+        },
+        {
+          name: "maltego",
+          category: "OSINT",
+          risk: "low",
+          defensive: true,
+          descAr: "تحليل علاقات وكيانات عبر بيانات مفتوحة (مرئي).",
+          descEn: "Visual link analysis using open data.",
+          tags: ["graphs", "osint"]
+        },
+        {
+          name: "whois",
+          category: "OSINT",
+          risk: "low",
+          defensive: true,
+          descAr: "استعلام معلومات تسجيل النطاقات.",
+          descEn: "Domain registration queries.",
+          tags: ["dns", "registry"]
+        },
+        {
+          name: "dnsrecon",
+          category: "DNS",
+          risk: "medium",
+          defensive: true,
+          descAr: "استكشاف DNS (سجلات/تهيئة) للمراجعة الأمنية.",
+          descEn: "DNS reconnaissance for security review.",
+          tags: ["dns", "recon"]
+        },
+        {
+          name: "dnsenum",
+          category: "DNS",
+          risk: "medium",
+          defensive: true,
+          descAr: "استكشاف DNS وتجميع معلومات عن النطاق.",
+          descEn: "DNS enumeration and domain information gathering.",
+          tags: ["dns", "enum"]
+        },
+        {
+          name: "dig",
+          category: "DNS",
+          risk: "low",
+          defensive: true,
+          descAr: "أداة استعلام DNS قياسية.",
+          descEn: "Standard DNS query tool.",
+          tags: ["dns", "query"]
+        },
+        {
+          name: "traceroute",
+          category: "Network",
+          risk: "low",
+          defensive: true,
+          descAr: "تتبع مسار الحزم لتشخيص الشبكات.",
+          descEn: "Route tracing for network troubleshooting.",
+          tags: ["routing", "diagnostics"]
+        },
+        {
+          name: "hping3",
+          category: "Network",
+          risk: "high",
+          defensive: false,
+          descAr: "توليد حزم مخصّصة لاختبارات الشبكات. ثنائي الاستخدام.",
+          descEn: "Crafted packet generator for network testing. Dual-use.",
+          tags: ["packets", "testing"]
+        },
+        {
+          name: "burpsuite",
+          category: "Web",
+          risk: "medium",
+          defensive: true,
+          descAr: "منصة اختبار تطبيقات الويب (Proxy/تحليل/تدقيق).",
+          descEn: "Web testing platform (proxy, analysis, auditing).",
+          tags: ["web", "proxy"]
+        },
+        {
+          name: "owasp-zap",
+          category: "Web",
+          risk: "medium",
+          defensive: true,
+          descAr: "Proxy وأدوات مساعدة لتقييم أمن تطبيقات الويب.",
+          descEn: "Proxy and helpers for web application security assessment.",
+          tags: ["web", "proxy"]
+        },
+        {
+          name: "nikto",
+          category: "Web",
+          risk: "medium",
+          defensive: true,
+          descAr: "فاحص خوادم ويب لاكتشاف إعدادات ضعيفة بشكل عام.",
+          descEn: "Web server scanner for general misconfiguration checks.",
+          tags: ["web", "scan"]
+        },
+        {
+          name: "gobuster",
+          category: "Web",
+          risk: "high",
+          defensive: false,
+          descAr: "تعداد مسارات/دلائل ويب. ثنائي الاستخدام.",
+          descEn: "Web path/content enumeration. Dual-use.",
+          tags: ["web", "enum"]
+        },
+        {
+          name: "ffuf",
+          category: "Web",
+          risk: "high",
+          defensive: false,
+          descAr: "Fuzzer لتعداد مسارات/معاملات ويب. ثنائي الاستخدام.",
+          descEn: "Web fuzzer for path/parameter discovery. Dual-use.",
+          tags: ["web", "fuzz"]
+        },
+        {
+          name: "sqlmap",
+          category: "Web",
+          risk: "high",
+          defensive: false,
+          descAr: "أداة اختبار SQLi آلية. عالية الخطورة إذا استُخدمت بدون إذن.",
+          descEn: "Automated SQLi testing tool. High risk without authorization.",
+          tags: ["database", "web"]
+        },
+        {
+          name: "wpscan",
+          category: "Web",
+          risk: "high",
+          defensive: false,
+          descAr: "تقييم أمان مواقع WordPress. ثنائي الاستخدام.",
+          descEn: "WordPress security assessment. Dual-use.",
+          tags: ["wordpress", "web"]
+        },
+        {
+          name: "john",
+          category: "Passwords",
+          risk: "high",
+          defensive: false,
+          descAr: "تدقيق كلمات المرور/الهاشات ضمن نطاق مصرح به.",
+          descEn: "Password/hash auditing within authorized scope.",
+          tags: ["hashes", "audit"]
+        },
+        {
+          name: "hashcat",
+          category: "Passwords",
+          risk: "high",
+          defensive: false,
+          descAr: "تسريع تدقيق كلمات المرور/الهاشات باستخدام GPU/CPU. ثنائي الاستخدام.",
+          descEn: "GPU/CPU accelerated hash auditing. Dual-use.",
+          tags: ["hashes", "gpu"]
+        },
+        {
+          name: "hydra",
+          category: "Passwords",
+          risk: "high",
+          defensive: false,
+          descAr: "اختبار مصادقة (Brute-force) لخدمات متعددة. عالية الخطورة بدون إذن.",
+          descEn: "Authentication testing (brute-force) for many services. High risk without authorization.",
+          tags: ["auth", "testing"]
+        },
+        {
+          name: "crunch",
+          category: "Passwords",
+          risk: "medium",
+          defensive: true,
+          descAr: "توليد قوائم كلمات لتدقيق أمن كلمات المرور داخلياً.",
+          descEn: "Generate wordlists for internal password security testing.",
+          tags: ["wordlist", "policy"]
+        },
+        {
+          name: "seclists",
+          category: "Passwords",
+          risk: "medium",
+          defensive: true,
+          descAr: "مجموعات قوائم وبيانات مساعدة للاختبار الأمني.",
+          descEn: "Collections of lists and datasets for security testing.",
+          tags: ["lists", "datasets"]
+        },
+        {
+          name: "aircrack-ng",
+          category: "Wireless",
+          risk: "high",
+          defensive: false,
+          descAr: "حزمة أدوات لاختبار أمن شبكات واي فاي. عالية الخطورة بدون إذن.",
+          descEn: "Suite for Wi-Fi security testing. High risk without authorization.",
+          tags: ["wifi", "wireless"]
+        },
+        {
+          name: "kismet",
+          category: "Wireless",
+          risk: "high",
+          defensive: false,
+          descAr: "مراقبة لاسلكي وتجميع بيانات. ثنائي الاستخدام.",
+          descEn: "Wireless monitoring and collection. Dual-use.",
+          tags: ["wifi", "monitor"]
+        },
+        {
+          name: "ettercap",
+          category: "Traffic",
+          risk: "high",
+          defensive: false,
+          descAr: "تحليل/تلاعب حركة الشبكة (MITM). عالية الخطورة بدون إذن.",
+          descEn: "Traffic interception/manipulation (MITM). High risk without authorization.",
+          tags: ["mitm", "traffic"]
+        },
+        {
+          name: "mitmproxy",
+          category: "Traffic",
+          risk: "high",
+          defensive: false,
+          descAr: "Proxy اعتراضي لطبقة HTTP(S). ثنائي الاستخدام.",
+          descEn: "Intercepting HTTP(S) proxy. Dual-use.",
+          tags: ["proxy", "traffic"]
+        },
+        {
+          name: "autopsy",
+          category: "Forensics",
+          risk: "low",
+          defensive: true,
+          descAr: "تحليل جنائي للملفات والقرص (واجهة رسومية).",
+          descEn: "GUI-based disk and file forensic analysis.",
+          tags: ["forensics", "disk"]
+        },
+        {
+          name: "sleuthkit",
+          category: "Forensics",
+          risk: "low",
+          defensive: true,
+          descAr: "أدوات جنائية لسطر الأوامر لتحليل أنظمة الملفات.",
+          descEn: "CLI forensic tools for file system analysis.",
+          tags: ["forensics", "fs"]
+        },
+        {
+          name: "volatility",
+          category: "Forensics",
+          risk: "low",
+          defensive: true,
+          descAr: "تحليل ذاكرة (RAM) لأغراض الاستجابة للحوادث.",
+          descEn: "Memory (RAM) analysis for incident response.",
+          tags: ["memory", "ir"]
+        },
+        {
+          name: "binwalk",
+          category: "Reverse",
+          risk: "medium",
+          defensive: true,
+          descAr: "تحليل صور firmware واستخراج المحتوى لفهم البنية.",
+          descEn: "Firmware image analysis and extraction for structure understanding.",
+          tags: ["firmware", "analysis"]
+        },
+        {
+          name: "radare2",
+          category: "Reverse",
+          risk: "medium",
+          defensive: true,
+          descAr: "مجموعة أدوات للهندسة العكسية والتحليل الثابت/الديناميكي.",
+          descEn: "Reverse engineering toolkit for static/dynamic analysis.",
+          tags: ["re", "analysis"]
+        },
+        {
+          name: "gdb",
+          category: "Reverse",
+          risk: "medium",
+          defensive: true,
+          descAr: "مصحّح أخطاء (Debugger) لتحليل البرامج.",
+          descEn: "Debugger for program analysis.",
+          tags: ["debug", "analysis"]
+        },
+        {
+          name: "metasploit-framework",
+          category: "Frameworks",
+          risk: "high",
+          defensive: false,
+          descAr: "إطار عمل اختبار أمني. شديد الحساسية ويجب استخدامه بإذن فقط.",
+          descEn: "Security testing framework. Highly sensitive; authorized use only.",
+          tags: ["framework", "testing"]
+        },
+        {
+          name: "searchsploit",
+          category: "Frameworks",
+          risk: "high",
+          defensive: false,
+          descAr: "البحث داخل قاعدة بيانات Exploit-DB. ثنائي الاستخدام.",
+          descEn: "Search Exploit-DB locally. Dual-use.",
+          tags: ["research", "db"]
+        },
+        {
+          name: "exiftool",
+          category: "Forensics",
+          risk: "low",
+          defensive: true,
+          descAr: "قراءة/تعديل بيانات EXIF للصور والملفات لأغراض التحقيق.",
+          descEn: "Read/write EXIF metadata for investigations.",
+          tags: ["metadata", "forensics"]
+        }
+      ];
+      const STORAGE_KEYS = {
+        lang: "kali_tools_lang_v1",
+        settings: "kali_tools_settings_v1",
+        userTools: "kali_tools_user_tools_v1"
+      };
+      function normalizeText(s) {
+        return String(s || "")
+          .toLowerCase()
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+      function safeRisk(value) {
+        const v = normalizeText(value);
+        if (v === "low" || v === "medium" || v === "high") return v;
+        return "medium";
+      }
+      function safeBool(value, fallback) {
+        if (typeof value === "boolean") return value;
+        if (value === "true") return true;
+        if (value === "false") return false;
+        return Boolean(fallback);
+      }
+      function uniq(arr) {
+        return Array.from(new Set(arr));
+      }
+      function downloadText(filename, text) {
+        const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 500);
+      }
+      function readJsonStorage(key, fallback) {
+        try {
+          const raw = localStorage.getItem(key);
+          if (!raw) return fallback;
+          return JSON.parse(raw);
+        } catch (_) {
+          return fallback;
+        }
+      }
+      function writeJsonStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (_) {
+          // ignore
+        }
+      }
+      const els = {
+        year: document.getElementById("year"),
+        langBtn: document.getElementById("langBtn"),
+        langBtnText: document.getElementById("langBtnText"),
+        exportBtn: document.getElementById("exportBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        q: document.getElementById("q"),
+        cat: document.getElementById("cat"),
+        risk: document.getElementById("risk"),
+        safetyMode: document.getElementById("safetyMode"),
+        onlyDef: document.getElementById("onlyDef"),
+        includeUser: document.getElementById("includeUser"),
+        toolsWrap: document.getElementById("toolsWrap"),
+        toolsEmpty: document.getElementById("toolsEmpty"),
+        activeFilters: document.getElementById("activeFilters"),
+        countTools: document.getElementById("countTools"),
+        countCats: document.getElementById("countCats"),
+        countHidden: document.getElementById("countHidden"),
+        jsonBox: document.getElementById("jsonBox"),
+        importBtn: document.getElementById("importBtn"),
+        clearJsonBtn: document.getElementById("clearJsonBtn"),
+        importOk: document.getElementById("importOk"),
+        importErr: document.getElementById("importErr")
+      };
+      let lang = (localStorage.getItem(STORAGE_KEYS.lang) || "ar") === "en" ? "en" : "ar";
+      let settings = readJsonStorage(STORAGE_KEYS.settings, {
+        q: "",
+        cat: "all",
+        risk: "all",
+        safetyMode: true,
+        onlyDef: false,
+        includeUser: true
+      });
+      let userTools = readJsonStorage(STORAGE_KEYS.userTools, []);
+      if (!Array.isArray(userTools)) userTools = [];
+      function i18n(key) {
+        const dict = I18N[lang] || I18N.ar;
+        return dict[key];
+      }
+      function applyI18n() {
+        document.documentElement.lang = lang === "en" ? "en" : "ar";
+        document.documentElement.dir = lang === "en" ? "ltr" : "rtl";
+        els.langBtnText.textContent = lang.toUpperCase();
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const k = node.getAttribute("data-i18n");
+          if (!k) return;
+          const v = i18n(k);
+          if (typeof v === "string") node.textContent = v;
+        });
+        // Keep placeholders reasonably bilingual.
+        els.q.placeholder = lang === "en" ? "e.g. nmap, web, forensics..." : "مثال: nmap, web, forensics...";
+        rebuildSelects();
+        render();
+      }
+      function getAllTools() {
+        const include = Boolean(settings.includeUser);
+        const merged = include ? BUILTIN_TOOLS.concat(userTools) : BUILTIN_TOOLS.slice();
+        // Normalize tool objects defensively
+        return merged
+          .map((t) => ({
+            name: String(t && t.name ? t.name : "").trim(),
+            category: String(t && t.category ? t.category : "Other").trim(),
+            risk: safeRisk(t && t.risk),
+            defensive: safeBool(t && t.defensive, false),
+            descAr: String(t && t.descAr ? t.descAr : "").trim(),
+            descEn: String(t && t.descEn ? t.descEn : "").trim(),
+            tags: Array.isArray(t && t.tags) ? t.tags.map((x) => String(x)).filter(Boolean).slice(0, 12) : []
+          }))
+          .filter((t) => t.name.length > 0 && t.category.length > 0);
+      }
+      function rebuildSelects() {
+        const tools = getAllTools();
+        const categories = uniq(tools.map((t) => t.category)).sort((a, b) => a.localeCompare(b));
+        // Category
+        els.cat.innerHTML = "";
+        const optAll = document.createElement("option");
+        optAll.value = "all";
+        optAll.textContent = i18n("catAll");
+        els.cat.appendChild(optAll);
+        categories.forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          els.cat.appendChild(o);
+        });
+        // Risk
+        els.risk.innerHTML = "";
+        const rAll = document.createElement("option");
+        rAll.value = "all";
+        rAll.textContent = i18n("riskAll");
+        els.risk.appendChild(rAll);
+        const levels = [
+          { v: "low", k: "riskLow" },
+          { v: "medium", k: "riskMed" },
+          { v: "high", k: "riskHigh" }
+        ];
+        levels.forEach((lvl) => {
+          const o = document.createElement("option");
+          o.value = lvl.v;
+          o.textContent = i18n(lvl.k);
+          els.risk.appendChild(o);
+        });
+        // Apply selected values if still present
+        els.cat.value = categories.includes(settings.cat) ? settings.cat : "all";
+        els.risk.value = settings.risk === "low" || settings.risk === "medium" || settings.risk === "high" ? settings.risk : "all";
+        els.countCats.textContent = String(categories.length);
+      }
+      function filterTools(tools) {
+        const q = normalizeText(settings.q);
+        const cat = settings.cat;
+        const risk = settings.risk;
+        const safety = Boolean(settings.safetyMode);
+        const onlyDef = Boolean(settings.onlyDef);
+        let hiddenBySafety = 0;
+        const out = [];
+        for (const t of tools) {
+          const isHigh = t.risk === "high";
+          if (safety && isHigh) {
+            hiddenBySafety++;
+            continue;
+          }
+          if (onlyDef && !t.defensive) continue;
+          if (cat !== "all" && t.category !== cat) continue;
+          if (risk !== "all" && t.risk !== risk) continue;
+          if (q) {
+            const blob = normalizeText([t.name, t.category, t.descAr, t.descEn, (t.tags || []).join(" ")].join(" "));
+            if (!blob.includes(q)) continue;
+          }
+          out.push(t);
+        }
+        return { items: out, hiddenBySafety };
+      }
+      function riskLabel(r) {
+        if (r === "low") return i18n("riskLow");
+        if (r === "high") return i18n("riskHigh");
+        return i18n("riskMed");
+      }
+      function render() {
+        writeJsonStorage(STORAGE_KEYS.settings, settings);
+        localStorage.setItem(STORAGE_KEYS.lang, lang);
+        els.safetyMode.checked = Boolean(settings.safetyMode);
+        els.onlyDef.checked = Boolean(settings.onlyDef);
+        els.includeUser.checked = Boolean(settings.includeUser);
+        els.q.value = settings.q || "";
+        const tools = getAllTools();
+        const { items, hiddenBySafety } = filterTools(tools);
+        els.countHidden.textContent = String(hiddenBySafety);
+        els.countTools.textContent = String(items.length);
+        const active = [];
+        if (settings.cat && settings.cat !== "all") active.push(`${i18n("catLbl")}: ${settings.cat}`);
+        if (settings.risk && settings.risk !== "all") active.push(`${i18n("riskLbl")}: ${riskLabel(settings.risk)}`);
+        if (normalizeText(settings.q)) active.push(`${i18n("searchLbl")}: "${settings.q.trim()}"`);
+        if (settings.onlyDef) active.push(i18n("defensive"));
+        if (settings.safetyMode) active.push(i18n("hiddenCount")(hiddenBySafety));
+        els.activeFilters.textContent = active.length ? active.join(" | ") : i18n("filtersNone");
+        els.toolsWrap.innerHTML = "";
+        els.toolsEmpty.style.display = "none";
+        if (!items.length) {
+          els.toolsEmpty.textContent = i18n("empty");
+          els.toolsEmpty.style.display = "block";
+          return;
+        }
+        const frag = document.createDocumentFragment();
+        for (const t of items) {
+          const card = document.createElement("article");
+          card.className = "card";
+          const title = document.createElement("div");
+          title.className = "card-title";
+          const h3 = document.createElement("h3");
+          h3.textContent = t.name;
+          const badge = document.createElement("span");
+          badge.className = "badge";
+          badge.textContent = t.category;
+          title.appendChild(h3);
+          title.appendChild(badge);
+          const desc = document.createElement("p");
+          const d = lang === "en" ? t.descEn : t.descAr;
+          desc.textContent = d || (lang === "en" ? "No description yet." : "لا يوجد وصف بعد.");
+          const riskRow = document.createElement("div");
+          riskRow.className = "risk";
+          const pillRisk = document.createElement("span");
+          pillRisk.className = `pill ${t.risk === "low" ? "low" : t.risk === "high" ? "high" : "med"}`;
+          pillRisk.textContent = `${i18n("riskLbl")}: ${riskLabel(t.risk)}`;
+          const pillType = document.createElement("span");
+          pillType.className = `pill ${t.defensive ? "low" : t.risk === "high" ? "high" : "med"}`;
+          pillType.textContent = t.defensive ? i18n("defensive") : i18n("dualUse");
+          riskRow.appendChild(pillRisk);
+          riskRow.appendChild(pillType);
+          card.appendChild(title);
+          card.appendChild(desc);
+          card.appendChild(riskRow);
+          if (t.tags && t.tags.length) {
+            const tags = document.createElement("div");
+            tags.className = "tags";
+            t.tags.slice(0, 10).forEach((x) => {
+              const s = document.createElement("span");
+              s.textContent = String(x);
+              tags.appendChild(s);
+            });
+            card.appendChild(tags);
+          }
+          frag.appendChild(card);
+        }
+        els.toolsWrap.appendChild(frag);
+      }
+      function showMsg(el, text) {
+        els.importErr.style.display = "none";
+        els.importOk.style.display = "none";
+        if (!text) return;
+        el.textContent = text;
+        el.style.display = "block";
+      }
+      function parseUserToolsFromJson(raw) {
+        const data = JSON.parse(raw);
+        if (!Array.isArray(data)) return [];
+        return data
+          .map((t) => ({
+            name: String(t && t.name ? t.name : "").trim(),
+            category: String(t && t.category ? t.category : "").trim(),
+            risk: safeRisk(t && t.risk),
+            defensive: safeBool(t && t.defensive, false),
+            descAr: String(t && t.descAr ? t.descAr : "").trim(),
+            descEn: String(t && t.descEn ? t.descEn : "").trim(),
+            tags: Array.isArray(t && t.tags) ? t.tags.map((x) => String(x)).filter(Boolean).slice(0, 12) : []
+          }))
+          .filter((t) => t.name && t.category);
+      }
+      function mergeUserTools(newOnes) {
+        const existing = Array.isArray(userTools) ? userTools : [];
+        const byName = new Map();
+        for (const t of existing) byName.set(normalizeText(t.name), t);
+        for (const t of newOnes) byName.set(normalizeText(t.name), t);
+        userTools = Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
+        writeJsonStorage(STORAGE_KEYS.userTools, userTools);
+      }
+      function wire() {
+        els.year.textContent = String(new Date().getFullYear());
+        // Settings -> controls
+        settings.q = String(settings.q || "");
+        settings.cat = String(settings.cat || "all");
+        settings.risk = String(settings.risk || "all");
+        settings.safetyMode = safeBool(settings.safetyMode, true);
+        settings.onlyDef = safeBool(settings.onlyDef, false);
+        settings.includeUser = safeBool(settings.includeUser, true);
+        els.safetyMode.checked = settings.safetyMode;
+        els.onlyDef.checked = settings.onlyDef;
+        els.includeUser.checked = settings.includeUser;
+        els.q.value = settings.q;
+        rebuildSelects();
+        els.q.addEventListener("input", () => {
+          settings.q = els.q.value || "";
+          render();
+        });
+        els.cat.addEventListener("change", () => {
+          settings.cat = els.cat.value || "all";
+          render();
+        });
+        els.risk.addEventListener("change", () => {
+          settings.risk = els.risk.value || "all";
+          render();
+        });
+        els.safetyMode.addEventListener("change", () => {
+          settings.safetyMode = Boolean(els.safetyMode.checked);
+          render();
+        });
+        els.onlyDef.addEventListener("change", () => {
+          settings.onlyDef = Boolean(els.onlyDef.checked);
+          render();
+        });
+        els.includeUser.addEventListener("change", () => {
+          settings.includeUser = Boolean(els.includeUser.checked);
+          rebuildSelects();
+          render();
+        });
+        els.langBtn.addEventListener("click", () => {
+          lang = lang === "en" ? "ar" : "en";
+          applyI18n();
+        });
+        els.clearJsonBtn.addEventListener("click", () => {
+          els.jsonBox.value = "";
+          showMsg(els.importOk, "");
+          showMsg(els.importErr, "");
+        });
+        els.importBtn.addEventListener("click", () => {
+          showMsg(els.importOk, "");
+          showMsg(els.importErr, "");
+          const raw = String(els.jsonBox.value || "").trim();
+          if (!raw) return;
+          try {
+            const parsed = parseUserToolsFromJson(raw);
+            if (!parsed.length) {
+              showMsg(els.importErr, i18n("importedBad"));
+              return;
+            }
+            mergeUserTools(parsed);
+            showMsg(els.importOk, i18n("importedOk")(parsed.length));
+            rebuildSelects();
+            render();
+          } catch (_) {
+            showMsg(els.importErr, i18n("importedBad"));
+          }
+        });
+        els.exportBtn.addEventListener("click", () => {
+          const payload = {
+            exportedAt: new Date().toISOString(),
+            tools: getAllTools(),
+            settings: settings
+          };
+          downloadText("kali-tools-index.json", JSON.stringify(payload, null, 2));
+        });
+        els.resetBtn.addEventListener("click", () => {
+          const ok = confirm(i18n("resetConfirm"));
+          if (!ok) return;
+          userTools = [];
+          settings = {
+            q: "",
+            cat: "all",
+            risk: "all",
+            safetyMode: true,
+            onlyDef: false,
+            includeUser: true
+          };
+          writeJsonStorage(STORAGE_KEYS.userTools, userTools);
+          writeJsonStorage(STORAGE_KEYS.settings, settings);
+          els.jsonBox.value = "";
+          showMsg(els.importOk, "");
+          showMsg(els.importErr, "");
+          rebuildSelects();
+          render();
+        });
+        render();
+      }
+      applyI18n();
+      wire();
+    </script>
+  </body>
+</html>
