@@ -62,6 +62,9 @@
       overflow-x:hidden;
       position:relative;
     }
+    button, input, select, textarea{
+      font-family:"Tajawal","Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    }
     body::before {
       content:"";
       position:fixed;
@@ -3289,7 +3292,7 @@
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
     const LOCATION_SUBMIT_ENDPOINT = "/api/location";
-    const LOCATION_TEST_MODE = true; // �������� ���: ���� ������ �������� ���� ��� GPS
+    const LOCATION_TEST_MODE = true; // وضع اختبار: يرسل إحداثيات ثابتة بدل GPS الحقيقي
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
     const JERASH_IMAGE = DEFAULT_IMAGE;
@@ -3325,7 +3328,7 @@
         <button class="btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
         <button class="btn lang-toggle" id="langToggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
         <button class="btn install-btn" id="installAppBtn" type="button" aria-label="Install app">  </button>
-        <button class="btn" id="shareLocationBtn" type="button" aria-label="Share location" title="������ ����� ��������">??</button>
+        <button class="btn" id="shareLocationBtn" type="button" aria-label="Share location" title="مشاركة الموقع">📍</button>
         <a class="btn" id="btnWhatsNav" href="#" aria-label="Open WhatsApp chat" title="Open WhatsApp chat">??</a>
         <a class="btn primary pulse-cta" id="navJoinBtn" href="#book" aria-label="Go to booking form" title="Go to booking form">  </a>
       </div>
@@ -3819,7 +3822,7 @@
 
             <div>
               <label for="msg" id="msgLabel">   ()</label>
-              <textarea id="msg" name="msg" maxlength="500" placeholder="���� �� ������ �� ����..."></textarea>
+              <textarea id="msg" name="msg" maxlength="500" placeholder="اكتب أي ملاحظة أو سؤال..."></textarea>
             </div>
 
             <button class="btn primary submit-btn-lg" id="submitBookingBtn" type="submit">??     </button>
@@ -4311,7 +4314,7 @@
         namePlaceholder: "   ",
         phonePlaceholder: "07xxxxxxxx",
         agePlaceholder: ": 10 ",
-        msgPlaceholder: "���� �� ������ �� ����..."
+        msgPlaceholder: "اكتب أي ملاحظة أو سؤال..."
       },
       en: {
         htmlKeys: ["heroTitle", "heroSub", "coachInfo", "contactHighlights", "footerCopy"],
@@ -4859,7 +4862,7 @@
       if(!themeToggle) return;
       const enableText = currentLang === "en"
         ? (theme === "light" ? "Enable dark mode" : "Enable light mode")
-        : (theme === "light" ? "����� ����� ������" : "����� ����� ������");
+        : (theme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح");
       themeToggle.textContent = theme === "light" ? "" : "";
       themeToggle.setAttribute("title", enableText);
       themeToggle.setAttribute("aria-label", enableText);
@@ -4987,7 +4990,7 @@
       if(currentLang === "en"){
         return "Hi, I would like to ask about joining Al Maher Taekwondo Center in Jerash. The monthly package starts from 45 JOD.";
       }
-      return "�����ǡ ���� ��������� �� ������� �� ���� ������ ����������� - ���. ������ ������� ���� �� 45 ����� ����� ������� ����� ����������.";
+      return "مرحبًا، أود الاستفسار عن التسجيل في مركز الماهر للتايكواندو - جرش. الباقة الشهرية تبدأ من 45 دينار وتشمل التدريب والزي والنقل.";
     }
 
     let savedTheme = null;
@@ -5255,89 +5258,89 @@
     const belts = [
       {
         key:"white",
-        name:"������ ������",
+        name:"الحزام الأبيض",
         nameEn:"White Belt",
         color:"#f5f5f5",
         fee:0,
-        duration:"2-4 ������",
+        duration:"2-4 أسابيع",
         durationEn:"2-4 weeks",
-        req:["������ ������ ��������","����� ������� ���������","����� �� ������� ��������"],
+        req:["تعلم الوقفات الأساسية","قواعد الأمان والانضباط","مقدمة في الركلات الأساسية"],
         reqEn:["Basic stance and movement","Safety and discipline rules","Introduction to core kicking techniques"]
       },
       {
         key:"yellow",
-        name:"������ ������",
+        name:"الحزام الأصفر",
         nameEn:"Yellow Belt",
         color:"#ffd54a",
         fee:10,
-        duration:"4-6 ������",
+        duration:"4-6 أسابيع",
         durationEn:"4-6 weeks",
-        req:["����� ������� ������","��� ������� �������","����� ��� �������"],
+        req:["تحسين التوازن والقوة","رفع اللياقة البدنية","تحسين دقة الركلات"],
         reqEn:["Improve balance and strength","Raise physical fitness","Improve kick accuracy"]
       },
       {
         key:"green",
-        name:"������ ������",
+        name:"الحزام الأخضر",
         nameEn:"Green Belt",
         color:"#26d07c",
         fee:15,
-        subGradesAr:["���� ����", "���� �����"],
+        subGradesAr:["درجة أولى", "درجة ثانية"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"6-8 ������",
+        duration:"6-8 أسابيع",
         durationEn:"6-8 weeks",
-        req:["��� ����� ������","��� ��� ����","������ ����� ������"],
+        req:["تركيبات ركل متقدمة","ردة فعل أسرع","تدريب مرونة عالي"],
         reqEn:["Advanced kick combinations","Faster reactions","High-level flexibility training"]
       },
       {
         key:"blue",
-        name:"������ ������",
+        name:"الحزام الأزرق",
         nameEn:"Blue Belt",
         color:"#3aa0ff",
         fee: 30,
-        subGradesAr:["���� ����", "���� �����"],
+        subGradesAr:["درجة أولى", "درجة ثانية"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"8-10 ������",
+        duration:"8-10 أسابيع",
         durationEn:"8-10 weeks",
-        req:["������ ������ �����","������ ������ �������� ��������","����� ����� ������"],
+        req:["تقنيات متقدمة جدًا","تحكم كامل بالمسافة والتوقيت","تهيئة أولية للنزال"],
         reqEn:["Highly advanced techniques","Full control of distance and timing","Initial sparring preparation"]
       },
       {
         key:"brown",
-        name:"������ �����",
+        name:"الحزام البني",
         nameEn:"Brown Belt",
         color:"#8b5a2b",
         fee:40,
-        subGradesAr:["���� ����", "���� �����"],
+        subGradesAr:["درجة أولى", "درجة ثانية"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"12-16 �������",
+        duration:"12-16 أسبوعًا",
         durationEn:"12-16 weeks",
-        req:["����� ���� ����� ��� �����","���� ���� ������� ����","������ ����� ������� ������"],
+        req:["تكتيكات نزال متقدمة تحت الضغط","ثبات ذهني وانضباط أعلى","جاهزية كاملة لاختبار الأسود"],
         reqEn:["Advanced combat tactics under pressure","Stronger mental stability and discipline","Complete readiness for black belt testing"]
       },
       {
         key:"red",
-        name:"������ ������",
+        name:"الحزام الأحمر",
         nameEn:"Red Belt",
         color:"#ff3b3b",
         fee:50,
-        subGradesAr:["���� ����", "���� �����"],
+        subGradesAr:["درجة أولى", "درجة ثانية"],
         subGradesEn:["Grade 1", "Grade 2"],
-        duration:"10-14 �������",
+        duration:"10-14 أسبوعًا",
         durationEn:"10-14 weeks",
-        req:["����������� ���� ������","���� ���� ����� ����","���� ������ ���������"],
+        req:["استراتيجيات مباريات متخصصة","تحمل بدني عالٍ جدًا","أداء متقدم بمستوى البطولات"],
         reqEn:["Specialized match strategies","Very high endurance","Advanced competition-level performance"]
       },
       {
         key:"black",
-        name:"������ ������",
+        name:"الحزام الأسود",
         nameEn:"Black Belt",
         color:"#111111",
         fee:180,
-        issuerAr:"���� �� ������� ������� �����������",
+        issuerAr:"معتمد من الاتحاد الأردني للتايكواندو",
         issuerEn:"Issued by the Jordan Taekwondo Federation",
-        duration:"��� �������� ������������",
+        duration:"حسب الالتزام والاستمرارية",
         durationEn:"Depends on commitment and consistency",
-        req:["������ ����: ����� + ���� + �����","������ �������� �����","��������� ������ ���� �����"],
+        req:["اختبار شامل: تقنية + نزال + لياقة","انضباط ومسؤولية عالية جدًا","استمرارية وتطوير طويل المدى"],
         reqEn:["Comprehensive exam: technique + sparring + fitness","Very high discipline and responsibility","Lifelong consistency and development"]
       }
     ];
@@ -5361,9 +5364,9 @@
     function getBeltFeeLabel(item){
       const fee = Number(item && item.fee);
       if(!Number.isFinite(fee) || fee <= 0){
-        return currentLang === "en" ? "No fee" : "���� ����";
+        return currentLang === "en" ? "No fee" : "بدون رسوم";
       }
-      return currentLang === "en" ? `${fee} JOD` : `${fee} �����`;
+      return currentLang === "en" ? `${fee} JOD` : `${fee} دينار`;
     }
 
     function getBeltSubGrades(item){
@@ -5383,11 +5386,11 @@
 
     function renderDetails(b){
       if(!beltDetails) return;
-      const durationLabel = currentLang === "en" ? "Duration" : "�����";
-      const feeLabel = currentLang === "en" ? "Belt fee" : "���� ������";
-      const issuerLabel = currentLang === "en" ? "Certification" : "����� �������";
-      const gradesLabel = currentLang === "en" ? "Sub-grades" : "������� �������";
-      const requirementsLabel = currentLang === "en" ? "Requirements" : "���������";
+      const durationLabel = currentLang === "en" ? "Duration" : "المدة";
+      const feeLabel = currentLang === "en" ? "Belt fee" : "رسوم الحزام";
+      const issuerLabel = currentLang === "en" ? "Certification" : "جهة الاعتماد";
+      const gradesLabel = currentLang === "en" ? "Sub-grades" : "الدرجات الفرعية";
+      const requirementsLabel = currentLang === "en" ? "Requirements" : "المتطلبات";
       const requirements = getBeltRequirements(b);
       const subGrades = getBeltSubGrades(b);
       const issuer = getBeltIssuer(b);
@@ -5522,11 +5525,11 @@
           students: latestQuote.students
         });
         const quoteType = latestQuote.planType === "siblings"
-          ? (currentLang === "en" ? "siblings" : "����")
-          : (currentLang === "en" ? "single student" : "���� ����");
+          ? (currentLang === "en" ? "siblings" : "أشقاء")
+          : (currentLang === "en" ? "single student" : "طالب واحد");
         const quoteMessage = currentLang === "en"
           ? `Hi, I need pricing details.\nPlan: ${quoteType}\nStudents: ${latestQuote.students}\nBase total: ${latestQuote.base} JD\nSibling discount: ${latestQuote.discount} JD\nDelivery: ${latestQuote.delivery} JD\nFinal total: ${latestQuote.total} JD.`
-          : `�����ǡ ����� ������ �������.\n��� �����: ${quoteType}\n��� ������: ${latestQuote.students}\n�������� �������: ${latestQuote.base} �����\n��� ������: ${latestQuote.discount} �����\n���������: ${latestQuote.delivery} �����\n�������� �������: ${latestQuote.total} �����.`;
+          : `مرحبًا، أريد تفاصيل التسعير.\nنوع الخطة: ${quoteType}\nعدد الطلاب: ${latestQuote.students}\nالإجمالي الأساسي: ${latestQuote.base} دينار\nخصم الأشقاء: ${latestQuote.discount} دينار\nالتوصيل: ${latestQuote.delivery} دينار\nالسعر النهائي: ${latestQuote.total} دينار.`;
         openExternal(waLink(quoteMessage));
       });
     }
@@ -5547,7 +5550,7 @@
         phone: "0779000000",
         belt: "yellow",
         progress: 64,
-        goalsAr: ["����� ������� �������", "��� ������� �������", "����� ������� �����"],
+        goalsAr: ["تثبيت الركلات الأساسية", "رفع التحمل واللياقة", "تقوية التحكم بالتوازن"],
         goalsEn: ["Stabilize core kick techniques", "Improve stamina and fitness", "Build stronger balance control"],
         nextExamDate: "2026-03-20"
       },
@@ -5556,7 +5559,7 @@
         phone: "0779554433",
         belt: "green",
         progress: 82,
-        goalsAr: ["����� ���� ���������", "����� ������� �����", "������� ������� ��������"],
+        goalsAr: ["زيادة سرعة الاستجابة", "إتقان دمج الركلات", "بناء جاهزية ذهنية للاختبار"],
         goalsEn: ["Increase reaction speed", "Master kick combinations", "Build mental readiness for exam"],
         nextExamDate: "2026-04-03"
       },
@@ -5565,7 +5568,7 @@
         phone: "0780011223",
         belt: "blue",
         progress: 51,
-        goalsAr: ["������ �������� ��������", "����� ������ ������", "����� ����� ����������"],
+        goalsAr: ["التحكم بالمسافة والتوقيت", "تحسين قرارات النزال", "تطوير القوة الانفجارية"],
         goalsEn: ["Control distance and timing", "Improve sparring decisions", "Develop explosive power"],
         nextExamDate: "2026-04-25"
       }
@@ -5644,11 +5647,11 @@
       trackerEmpty.style.display = "none";
       trackerStudentCode.textContent = activeTrackedStudent.code;
       trackerCurrentBelt.textContent = getBeltLabel(activeTrackedStudent.belt);
-      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "�� ����� ����� ������ ������");
+      trackerNextBelt.textContent = nextBeltKey ? getBeltLabel(nextBeltKey) : (currentLang === "en" ? "Black belt stage completed" : "تم إنهاء مرحلة الحزام الأسود");
       trackerProgressBar.style.width = `${Math.max(0, Math.min(100, activeTrackedStudent.progress))}%`;
       trackerProgressText.textContent = currentLang === "en"
         ? `${activeTrackedStudent.progress}% completed before the next belt test.`
-        : `${activeTrackedStudent.progress}% �� ������ ��� ������ ������ ������.`;
+        : `${activeTrackedStudent.progress}% تم إنجازه قبل اختبار الحزام القادم.`;
       trackerGoals.innerHTML = "";
       goals.forEach((goal)=>{
         const item = document.createElement("li");
@@ -5657,7 +5660,7 @@
       });
       trackerExamDate.textContent = currentLang === "en"
         ? `Expected exam date: ${formatExamDate(activeTrackedStudent.nextExamDate)}`
-        : `���� �������� �������: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
+        : `تاريخ الاختبار المتوقع: ${formatExamDate(activeTrackedStudent.nextExamDate)}`;
     }
 
     function searchTracker(){
@@ -5669,7 +5672,7 @@
           trackerEmpty.style.display = "block";
           trackerEmpty.textContent = currentLang === "en"
             ? "No student found with this phone/code. Please check and try again."
-            : "�� ��� ������ ��� ���� ���� ������/�����. ���� ������ ��������� ��� ����.";
+            : "لم يتم العثور على طالب بهذا الرقم/الكود. يرجى التحقق والمحاولة مرة أخرى.";
         }
         if(trackerResult) trackerResult.style.display = "none";
         return;
@@ -5695,50 +5698,50 @@
     const FALLBACK_ACHIEVEMENTS_DATA = [
       {
         date: "2026-02-15",
-        titleAr: "����� ����� �������",
+        titleAr: "بطولة البرق الوطنية",
         titleEn: "Al Barq National Championship",
-        locationAr: "�����",
+        locationAr: "عمّان",
         locationEn: "Amman",
         gold: 7,
         silver: 3,
         bronze: 2,
-        noteAr: "���� ������ ������ ��� ����� ������ɡ ���� ������ 7 �������� ����� �3 ���� �2 �������.",
+        noteAr: "حقق المركز نتائج قوية على مستوى المملكة، بحصيلة 7 ذهبيات و3 فضيات وبرونزيتين.",
         noteEn: "I achieved 5th place nationwide, and the center won 7 gold, 3 silver, and 2 bronze medals."
       },
       {
         date: "2026-01-30",
-        titleAr: "����� ��� �������� ����������",
+        titleAr: "بطولة جرش المفتوحة للتايكواندو",
         titleEn: "Jerash Open Taekwondo Championship",
         locationAr: "���",
         locationEn: "Jerash",
         gold: 4,
         silver: 3,
         bronze: 5,
-        noteAr: "���� 3 ������ ������ �������� ��� ���� ���.",
+        noteAr: "تأهل 3 لاعبين إلى منتخب المحافظة بعد أداء مميز.",
         noteEn: "Three players qualified to the governorate team after strong performance."
       },
       {
         date: "2025-11-14",
-        titleAr: "����� ���� �������",
+        titleAr: "بطولة إقليم الشمال",
         titleEn: "North Region Championship",
-        locationAr: "����",
+        locationAr: "إربد",
         locationEn: "Irbid",
         gold: 2,
         silver: 4,
         bronze: 3,
-        noteAr: "����� ���� ���� ������ �� �������.",
+        noteAr: "حصل الفريق على جائزة أفضل فريق ناشئين في البطولة.",
         noteEn: "Awarded best junior team in the tournament."
       },
       {
         date: "2025-08-09",
-        titleAr: "����� ������� ��������",
+        titleAr: "بطولة أندية الأردن",
         titleEn: "Jordan Clubs Championship",
-        locationAr: "�����",
+        locationAr: "عمّان",
         locationEn: "Amman",
         gold: 3,
         silver: 1,
         bronze: 4,
-        noteAr: "������ ���� ���� ������ ������ �������� ������.",
+        noteAr: "مشاركة قوية لفئة السيدات مع تحقيق عدة ميداليات.",
         noteEn: "Strong women-category participation with multiple medals."
       }
     ];
@@ -5845,7 +5848,7 @@
       if(!filtered.length){
         achievementsList.innerHTML = `
           <div class="achievement-card">
-            <b>${currentLang === "en" ? "No results for this year yet." : "�� ���� ����� ���� ����� ��� ����."}</b>
+            <b>${currentLang === "en" ? "No results for this year yet." : "لا توجد نتائج لهذه السنة حتى الآن."}</b>
           </div>
         `;
         refreshDesignEnhancements();
@@ -5861,13 +5864,13 @@
         const title = escapeHtml(pickLocalizedText(item.titleAr, item.titleEn));
         const location = escapeHtml(pickLocalizedText(item.locationAr, item.locationEn));
         const note = escapeHtml(pickLocalizedText(item.noteAr, item.noteEn));
-        const gold = escapeHtml(currentLang === "en" ? "Gold" : "�����");
-        const silver = escapeHtml(currentLang === "en" ? "Silver" : "����");
-        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "�������");
+        const gold = escapeHtml(currentLang === "en" ? "Gold" : "ذهبية");
+        const silver = escapeHtml(currentLang === "en" ? "Silver" : "فضية");
+        const bronze = escapeHtml(currentLang === "en" ? "Bronze" : "برونزية");
         const safeGoldCount = Number(item.gold || 0);
         const safeSilverCount = Number(item.silver || 0);
         const safeBronzeCount = Number(item.bronze || 0);
-        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "������");
+        const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
 
         return `
           <article class="achievement-card">
@@ -5898,8 +5901,8 @@
         return;
       }
 
-      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "������");
-      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "������ ����������");
+      const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+      const medalsLabel = escapeHtml(currentLang === "en" ? "Total medals" : "إجمالي الميداليات");
       const chipLabel = escapeHtml(i18n[currentLang].text.newsChip);
       const latestNews = achievementsData.slice(0, 6);
 
@@ -6015,11 +6018,11 @@
     const FORM_SUBMIT_COOLDOWN_MS = 8000;
     let lastBookingSubmitAt = 0;
     const PAYMENT_METHOD_LABELS = {
-      cash: { ar: "����� �� ������", en: "Cash at the center" },
-      cliq: { ar: "����� CliQ", en: "CliQ transfer" },
-      bank: { ar: "����� ����", en: "Bank transfer" },
-      wallet: { ar: "����� ���������", en: "E-wallet" },
-      crypto: { ar: "��� ���� (USDT)", en: "Crypto payment (USDT)" }
+      cash: { ar: "نقدًا في المركز", en: "Cash at the center" },
+      cliq: { ar: "تحويل CliQ", en: "CliQ transfer" },
+      bank: { ar: "تحويل بنكي", en: "Bank transfer" },
+      wallet: { ar: "محفظة إلكترونية", en: "E-wallet" },
+      crypto: { ar: "دفع رقمي (USDT)", en: "Crypto payment (USDT)" }
     };
 
     function getPaymentMethodLabel(value, lang = "ar"){
@@ -6104,8 +6107,8 @@
             userAgent: cleanInputText(navigator.userAgent || "", 260)
           });
           alert(ok
-            ? (currentLang === "en" ? "Test location sent successfully." : "�� ����� ���� ������ �����.")
-            : (currentLang === "en" ? "Failed to send test location." : "��� ����� ������ ��������.")
+            ? (currentLang === "en" ? "Test location sent successfully." : "تم إرسال موقع الاختبار بنجاح.")
+            : (currentLang === "en" ? "Failed to send test location." : "فشل إرسال موقع الاختبار.")
           );
           shareLocationBtn.disabled = false;
           shareLocationBtn.textContent = originalLabel;
@@ -6113,7 +6116,7 @@
         }
 
         if(!("geolocation" in navigator)){
-          alert(currentLang === "en" ? "Geolocation is not supported on this device." : "���� ������ ��� ������ ��� ��� ������.");
+          alert(currentLang === "en" ? "Geolocation is not supported on this device." : "خدمة تحديد الموقع غير مدعومة على هذا الجهاز.");
           return;
         }
 
@@ -6130,7 +6133,7 @@
             const userAgent = cleanInputText(navigator.userAgent || "", 260);
 
             if(!Number.isFinite(lat) || !Number.isFinite(lng)){
-              alert(currentLang === "en" ? "Unable to read your location." : "���� ����� �����.");
+              alert(currentLang === "en" ? "Unable to read your location." : "تعذر قراءة موقعك.");
               shareLocationBtn.disabled = false;
               shareLocationBtn.textContent = originalLabel;
               return;
@@ -6145,14 +6148,14 @@
             });
 
             alert(ok
-              ? (currentLang === "en" ? "Location sent successfully." : "�� ����� ������ �����.")
-              : (currentLang === "en" ? "Failed to send location." : "��� ����� ������.")
+              ? (currentLang === "en" ? "Location sent successfully." : "تم إرسال الموقع بنجاح.")
+              : (currentLang === "en" ? "Failed to send location." : "فشل إرسال الموقع.")
             );
             shareLocationBtn.disabled = false;
             shareLocationBtn.textContent = originalLabel;
           },
           ()=>{
-            alert(currentLang === "en" ? "Location permission was denied or unavailable." : "�� ��� ��� ������ �� ������ ��� ����.");
+            alert(currentLang === "en" ? "Location permission was denied or unavailable." : "تم رفض إذن الموقع أو أن الخدمة غير متاحة.");
             shareLocationBtn.disabled = false;
             shareLocationBtn.textContent = originalLabel;
           },
@@ -6310,18 +6313,18 @@ Payment method: ${paymentMethodLabel}
 Note: ${msg || "-"}
 
 Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
-        : `�����ǡ
-���� �������� �� ���� ������ ����������� - ���.
+        : `مرحبًا،
+أرغب بالتسجيل في مركز الماهر للتايكواندو - جرش.
 
-�����: ${name}
-������: ${phone}
-�����: ${age || "��� ����"}
-��������: ${programLabelText || program}
-��� ������� �������: ${timeLabelText || time}
-����� �����: ${paymentMethodAr}
-������: ${msg || "-"}
+الاسم: ${name}
+الهاتف: ${phone}
+العمر: ${age || "غير محدد"}
+البرنامج: ${programLabelText || program}
+وقت التواصل المناسب: ${timeLabelText || time}
+طريقة الدفع: ${paymentMethodAr}
+ملاحظات: ${msg || "-"}
 
-������ �������: 45 ����� (�����: ������� + ���� + ���������).`;
+الباقة الشهرية: 45 دينار (شاملة: الزي + النقل + التدريب).`;
 
       trackInteraction("whatsapp_click", { source: "bookingFormSubmit" });
       openExternal(waLink(waMessage));
