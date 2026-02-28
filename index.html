@@ -2489,7 +2489,7 @@
     /* Laptop + desktop visual polish */
     @media (min-width: 981px){
       #langToggle{
-        display:none !important;
+        display:inline-flex !important;
       }
       body{
         padding-bottom:0;
@@ -3332,7 +3332,7 @@
         <button class="btn lang-toggle" id="langToggle" type="button" aria-label="تبديل اللغة" title="تبديل اللغة">AR</button>
         <button class="btn install-btn" id="installAppBtn" type="button" aria-label="تثبيت التطبيق">  </button>
         <button class="btn" id="shareLocationBtn" type="button" aria-label="Share location" title="مشاركة الموقع">📍</button>
-        <a class="btn" id="btnWhatsNav" href="#" aria-label="فتح محادثة واتساب" title="فتح محادثة واتساب">??</a>
+        <a class="btn" id="btnWhatsNav" href="#" aria-label="فتح محادثة واتساب" title="فتح محادثة واتساب">واتساب 💬</a>
         <a class="btn primary pulse-cta" id="navJoinBtn" href="#book" aria-label="الانتقال لنموذج التسجيل" title="الانتقال لنموذج التسجيل">  </a>
       </div>
     </div>
@@ -3359,7 +3359,7 @@
         </div>
 
         <div class="spotlight">
-          <span class="spotlight-kicker" id="spotlightKicker">??</span>
+          <span class="spotlight-kicker" id="spotlightKicker">تنبيه سريع 🔔</span>
           <p class="spotlight-text" id="spotlightText">         .</p>
           <div class="spotlight-points">
             <span class="spotlight-point" id="spotlightPoint1">   </span>
@@ -3727,7 +3727,7 @@
       <div class="booking">
         <div class="card">
           <div class="ok" id="okMsg">?       .     !</div>
-          <div class="err" id="errMsg">??     .</div>
+          <div class="err" id="errMsg">⚠️ يرجى إدخال الاسم ورقم الهاتف والبرنامج.</div>
 
           <form id="bookingForm">
             <div class="row">
@@ -3825,7 +3825,7 @@
               <textarea id="msg" name="msg" maxlength="500" placeholder="اكتب أي ملاحظة أو سؤال..."></textarea>
             </div>
 
-            <button class="btn primary submit-btn-lg" id="submitBookingBtn" type="submit">??     </button>
+            <button class="btn primary submit-btn-lg" id="submitBookingBtn" type="submit">📩 إرسال طلب التسجيل</button>
           </form>
         </div>
 
@@ -3945,7 +3945,7 @@
     <div class="container foot">
       <div id="footerCopy"> <span id="year"></span>      |      </div>
       <div class="footer-actions">
-        <a class="btn" href="#top" id="btnTop">??  </a>
+        <a class="btn" href="#top" id="btnTop">⬆️ للأعلى</a>
         <a class="btn" href="#" id="btnWhatsFoot" aria-label="Open WhatsApp chat" title="Open WhatsApp chat"> </a>
         <a class="btn" href="tel:0779331277" id="btnCallFooter" aria-label="Call center" title="Call center"> </a>
       </div>
@@ -4122,14 +4122,14 @@
           navNews: "",
           navFaq: "",
           navBook: "",
-          btnWhatsNav: " ?",
+          btnWhatsNav: "WhatsApp 💬",
           btnWhatsFoot: " ",
           navJoinBtn: "  ",
           installAppBtn: "  ",
           heroTag: "   ",
           heroTitle: "    <span class=\"text-gold\"></span>",
           heroSub: "        ?     .          ?     <b>     </b> (35  )  <b> </b>.               .",
-          spotlightKicker: "?  ",
+          spotlightKicker: "🔔 Hot Offer",
           spotlightText: "        .",
           spotlightPoint1: "    ",
           spotlightPoint2: "   ",
@@ -4150,9 +4150,9 @@
           statLabelBlackBelts: "Black Belts",
           statLabelAchievements: "Achievements",
           statLabelYears: "Years Experience",
-          calculatorTitle: "?? Smart Price Calculator",
+          calculatorTitle: "🧮 Smart Price Calculator",
           calculatorDesc: "Calculate your final fee instantly for single student, siblings, and delivery options.",
-          whyUsTitle: "? Why Choose Al Maher Center?",
+          whyUsTitle: "⭐ Why Choose Al Maher Center?",
           whyUsDesc: "5 reasons why families choose us first.",
           whyUsCard1Title: "Professional Coaching",
           whyUsCard1Desc: "Led by an international referee and head coach with 35 years of experience. Every student gets personalized follow-up.",
@@ -4166,7 +4166,7 @@
           whyUsCard5Desc: "We prepare students for local and national championships with real competitive readiness.",
           whyUsCard6Title: "300+ Active Students",
           whyUsCard6Desc: "A strong community of students and families, with long-term growth and teamwork.",
-          programsTitle: "?? Programs",
+          programsTitle: "🥋 Programs",
           programsDesc: "Choose the right program and contact us directly.",
           programCard1Title: " Kids (6-12)",
           programCard1Desc: "Movement foundations, fitness basics, discipline, respect, confidence, and safe transport.",
@@ -4178,11 +4178,11 @@
           programCard4Desc: "Specialized tournament preparation: tactics, speed, endurance, and pressure handling.",
           programCard5Title: " Ramadan Program (Fitness + Fat Loss)",
           programCard5Desc: "A safe Ramadan program to improve fitness and reduce weight, supervised directly by Master Raed Odaybat.",
-          pricingTitle: "?? Pricing",
+          pricingTitle: "💰 Pricing",
           pricingDesc: "Clear and transparent pricing with no hidden fees.",
           pricingJoinBtn: "Join Now",
           priceTitleMain: " Full Monthly Package",
-          priceNoteMain: "? New Taekwondo uniform | ? Safe home transport | ? Full month training | ? Direct coach supervision",
+          priceNoteMain: "🥋 New Taekwondo uniform | 🚐 Safe home transport | 📚 Full month training | 👨‍🏫 Direct coach supervision",
           calcPlanLabel: "Plan Type",
           calcStudentsLabel: "Number of Students",
           calcDeliveryLabel: "Add family delivery (+15 JOD)",
@@ -4232,10 +4232,10 @@
           bookingSecurityError: "Submission was blocked for security reasons. Please try again.",
           paymentMethodsTitle: "Payment Methods:",
           paymentMethodsList: "Cash at the center, CliQ transfer, bank transfer, e-wallet, and crypto payment (USDT).",
-          journeyTitle: "??? Belt Journey",
+          journeyTitle: "🥇 Belt Journey",
           journeyDesc: "Click any belt to view the required skills and promotion goals.",
           journeyBtn: "Start Now",
-          trackerTitle: "?? Belt Progress Tracker",
+          trackerTitle: "📈 Belt Progress Tracker",
           trackerDesc: "Enter a student's phone number or private code to check current and next belt progress.",
           trackerInputLabel: "Phone or Code",
           trackerBtn: "Check Progress",
@@ -4244,19 +4244,19 @@
           trackerCurrentLabel: "Current belt:",
           trackerNextLabel: "Next belt:",
           trackerGoalsLabel: "Required skills for promotion:",
-          achievementsTitle: "?? Tournament Results & Achievements",
+          achievementsTitle: "🏆 Tournament Results & Achievements",
           achievementsDesc: "Live-updated timeline of our club's results in local and regional competitions.",
           achievementFilterLabel: "Filter by year",
-          newsTitle: "?? Center News & Latest Achievements",
+          newsTitle: "📰 Center News & Latest Achievements",
           newsDesc: "Latest club news and achievements.",
           newsEmpty: "No news items yet.",
           newsChip: "Achievement News",
-          faqTitle: "? Frequently Asked Questions",
+          faqTitle: "❓ Frequently Asked Questions",
           faqDesc: "Quick answers to the most common questions before joining.",
-          scheduleTitle: "?? Class Schedule",
+          scheduleTitle: "📅 Class Schedule",
           scheduleDesc: "Find the time that fits you best. Extra timings are available on demand.",
           scheduleHeadDays: " Training Days",
-          scheduleHeadTime: "? Time",
+          scheduleHeadTime: "⏰ Time",
           scheduleHeadNote: " Notes",
           scheduleRow1Days: "Sunday - Tuesday - Thursday",
           scheduleRow1Note: "Foundational movement and basic fitness",
@@ -4266,7 +4266,7 @@
           scheduleRow3Note: "Women classes supervised by a female coach",
           scheduleRow4Days: "Saturday - Monday - Wednesday",
           scheduleRow4Note: "Beginner training",
-          bookTitle: "?? Join Now",
+          bookTitle: "📝 Join Now",
           bookDesc: "Fast and simple form. WhatsApp opens with a ready message to submit instantly.",
           nameLabel: "Full Name",
           phoneLabel: "Phone Number",
@@ -4284,27 +4284,27 @@
           timeOptEvening: "Evening",
           timeOptAny: "Any Time",
           msgLabel: "Note or Question (Optional)",
-          submitBookingBtn: "?? Send Registration Request via WhatsApp",
-          contactTitle: "?? Contact Info",
+          submitBookingBtn: "📩 Send Registration Request via WhatsApp",
+          contactTitle: "📞 Contact Info",
           contactWhatsappLabel: "WhatsApp Number:",
           contactPriceLabel: "Monthly Price:",
           contactPriceValue: "45 JOD (uniform + transport + training included)",
           contactLocationLabel: "Location:",
           contactLocationValue: "Jerash",
-          contactHighlights: "? Safe and fast transport included<br />? Direct supervision by the coach and female trainer<br />? Clear success path",
-          aboutTitle: "??? About The Center",
+          contactHighlights: "✅ Safe and fast transport included<br />👩‍🏫 Direct supervision by the coach and female trainer<br />🎯 Clear success path",
+          aboutTitle: "🏛️ About The Center",
           aboutDesc: "A safe, professional, and trusted training environment.",
-          aboutCard1Title: "?? Our Mission",
+          aboutCard1Title: "🎯 Our Mission",
           aboutCard1Desc: "Build disciplined, confident, and respectful taekwondo students with strong character.",
-          aboutCard2Title: "??? Our Vision",
+          aboutCard2Title: "👁️ Our Vision",
           aboutCard2Desc: "Become the first choice for families and prepare true fighters for competitions.",
-          aboutCard3Title: "? Core Values",
+          aboutCard3Title: "⭐ Core Values",
           aboutCard3Desc: "Discipline first, then respect, then skill. Character always matters most.",
-          btnTop: "?? Back to Top",
-          btnCallFooter: "?? Call",
+          btnTop: "⬆️ Back to Top",
+          btnCallFooter: "📞 Call",
           footerCopy: "&copy; <span id=\"year\"></span> Al Maher Taekwondo Center - Jerash | Professional Training | Discipline | Results",
-          okMsg: "? Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
-          errMsg: "?? Name, phone number, and program are required.",
+          okMsg: "✅ Your registration message is ready and WhatsApp has been opened. Our team will contact you soon!",
+          errMsg: "⚠️ Name, phone number, and program are required.",
           waStickyText: "Reserve your slot on WhatsApp now"
         },
         trackerPlaceholder: "Example: 0779000000 or MT-1024",
@@ -4316,6 +4316,19 @@
         agePlaceholder: "Example: 10 years",
         msgPlaceholder: "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
       }
+    };
+
+    i18n.en = {
+      htmlKeys: Array.isArray(i18n.ar.htmlKeys) ? [...i18n.ar.htmlKeys] : [],
+      text: { ...(i18n.ar.text || {}) },
+      trackerPlaceholder: i18n.ar.trackerPlaceholder || "Example: 0779000000 or MT-1024",
+      calcPlanSingle: i18n.ar.calcPlanSingle || "Single Student",
+      calcPlanSiblings: i18n.ar.calcPlanSiblings || "Siblings",
+      yearAll: i18n.ar.yearAll || "All Years",
+      namePlaceholder: i18n.ar.namePlaceholder || "Hammoud Ahmad or Noor",
+      phonePlaceholder: i18n.ar.phonePlaceholder || "07xxxxxxxx",
+      agePlaceholder: i18n.ar.agePlaceholder || "Example: 10 years",
+      msgPlaceholder: i18n.ar.msgPlaceholder || "Example: My child is a bit nervous at first. Do you offer beginner orientation?"
     };
 
     const BROKEN_TEXT_PATTERN = /\uFFFD/;
@@ -4474,6 +4487,9 @@
     });
 
     const EN_TEXT_OVERRIDES = {
+      brandName: "Al Maher Taekwondo Center",
+      brandCity: "Jerash",
+      navWhyUs: "⭐ Why Us",
       navPrograms: "🥋 Programs",
       navPricing: "💰 Pricing",
       navCalculator: "🧮 Calculator",
@@ -4484,12 +4500,21 @@
       navNews: "📰 News",
       navFaq: "❓ FAQ",
       navBook: "📝 Join",
+      installAppBtn: "Install App",
       btnWhatsNav: "WhatsApp 💬",
       btnWhatsFoot: "WhatsApp 💬",
       navJoinBtn: "🔥 Join Now",
+      heroTag: "Start Your Journey",
+      spotlightPoint1: "Personal training plan",
+      spotlightPoint2: "Priority transport",
+      spotlightPoint3: "Continuous progress follow-up",
       heroJoinBtn: "🚀 Join Now",
       btnCallHero: "📞 Call Now",
       heroPriceBtn: "💎 Clear Pricing",
+      heroRightPricingBtn: "Pricing",
+      heroRightJoinBtn: "Join",
+      jerashTitle: "Jerash",
+      coachName: "Master Raed Odaybat - International Referee & Head Coach",
       pricingJoinBtn: "📝 Join Now",
       calcWhatsQuote: "💬 Send Quote on WhatsApp",
       trackerBtn: "📊 Check Progress",
@@ -4499,21 +4524,6 @@
       waStickyText: "🚀 Reserve your slot on WhatsApp now"
     };
     Object.assign(i18n.en.text, EN_TEXT_OVERRIDES);
-
-    // فرض العربية كنص واجهة وحيد حتى لو تم استدعاء مفاتيح الإنجليزية.
-    Object.keys(i18n.ar.text).forEach((key)=>{
-      if(typeof i18n.ar.text[key] === "string" && i18n.ar.text[key].trim()){
-        i18n.en.text[key] = i18n.ar.text[key];
-      }
-    });
-    i18n.en.trackerPlaceholder = i18n.ar.trackerPlaceholder;
-    i18n.en.calcPlanSingle = i18n.ar.calcPlanSingle;
-    i18n.en.calcPlanSiblings = i18n.ar.calcPlanSiblings;
-    i18n.en.yearAll = i18n.ar.yearAll;
-    i18n.en.namePlaceholder = i18n.ar.namePlaceholder;
-    i18n.en.phonePlaceholder = i18n.ar.phonePlaceholder;
-    i18n.en.agePlaceholder = i18n.ar.agePlaceholder;
-    i18n.en.msgPlaceholder = i18n.ar.msgPlaceholder;
 
     const arabicFallbackMode = false;
     const OFFICIAL_LANG = "ar";
@@ -4704,7 +4714,7 @@
       const enableText = currentLang === "en"
         ? (theme === "light" ? "Enable dark mode" : "Enable light mode")
         : (theme === "light" ? "تفعيل الوضع الداكن" : "تفعيل الوضع الفاتح");
-      themeToggle.textContent = theme === "light" ? "" : "";
+      themeToggle.textContent = theme === "light" ? "☀️" : "🌙";
       themeToggle.setAttribute("title", enableText);
       themeToggle.setAttribute("aria-label", enableText);
     }
@@ -4724,8 +4734,7 @@
     }
 
     function applyLanguage(lang){
-      const isDesktopView = window.matchMedia("(min-width: 981px)").matches;
-      let requestedLang = "ar";
+      const requestedLang = lang === "en" ? "en" : "ar";
       const effectiveLang = (requestedLang === "ar" && arabicFallbackMode) ? "en" : requestedLang;
       currentLang = effectiveLang;
       const dict = i18n[effectiveLang];
@@ -4781,7 +4790,12 @@
       });
 
       if(langToggle){
-        langToggle.hidden = true;
+        langToggle.hidden = false;
+        langToggle.style.display = "inline-flex";
+        langToggle.textContent = effectiveLang === "en" ? "AR" : "EN";
+        const nextLangLabel = effectiveLang === "en" ? "Switch to Arabic" : "Switch to English";
+        langToggle.setAttribute("title", nextLangLabel);
+        langToggle.setAttribute("aria-label", nextLangLabel);
       }
 
       updatePaymentMethodDetails();
@@ -4792,12 +4806,16 @@
 
       setThemeToggleLabel(rootEl.getAttribute("data-theme") || "dark");
 
-      document.title = "مركز الماهر للتايكواندو - جرش | سجّل الآن";
+      document.title = effectiveLang === "en"
+        ? "Al Maher Taekwondo Center - Jerash | Register Now"
+        : "مركز الماهر للتايكواندو - جرش | سجّل الآن";
       const metaDescription = document.querySelector('meta[name="description"]');
       if(metaDescription){
         metaDescription.setAttribute(
           "content",
-          "مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والبالغين والسيدات. سجّل الآن."
+          effectiveLang === "en"
+            ? "Al Maher Taekwondo Center in Jerash. Professional training for kids, adults, and women. Register now."
+            : "مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والبالغين والسيدات. سجّل الآن."
         );
       }
 
@@ -4836,7 +4854,7 @@
       savedLang = null;
     }
 
-    currentLang = OFFICIAL_LANG;
+    currentLang = savedLang === "en" ? "en" : OFFICIAL_LANG;
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
 
@@ -4847,13 +4865,10 @@
       });
     }
     if(langToggle){
-      langToggle.style.display = "none";
+      langToggle.addEventListener("click", ()=>{
+        applyLanguage(currentLang === "en" ? "ar" : "en");
+      });
     }
-    window.addEventListener("resize", ()=>{
-      if(window.matchMedia("(min-width: 981px)").matches && currentLang !== "ar"){
-        applyLanguage("ar");
-      }
-    });
 
     // Final safety pass: replace broken/garbled UI text with English fallback.
     function cleanBrokenUiText(){
