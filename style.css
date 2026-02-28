@@ -1108,3 +1108,187 @@ html[data-theme="light"] textarea:focus {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Epic polish layer */
+:root {
+  --epic-cyan: #54e7ff;
+  --epic-pink: #ff5ca8;
+  --epic-amber: #ffd27a;
+}
+
+body {
+  position: relative;
+}
+
+body::after {
+  opacity: 0.2;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(720px 260px at 75% 14%, rgba(255, 92, 168, 0.18), transparent 70%),
+    radial-gradient(660px 230px at 18% 22%, rgba(84, 231, 255, 0.18), transparent 68%);
+  mix-blend-mode: screen;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+}
+
+#heroTitle {
+  background: linear-gradient(95deg, #ffffff 0%, #e5f8ff 32%, #ffe7f2 64%, #ffe4a1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tag,
+.badge,
+.pill,
+.spotlight-kicker {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 10px 24px rgba(5, 16, 32, 0.28);
+}
+
+.btn.primary,
+.btn.gold {
+  border: 1px solid rgba(255, 255, 255, 0.26);
+}
+
+.btn.primary {
+  background: linear-gradient(128deg, rgba(255, 92, 168, 0.95), rgba(255, 121, 178, 0.9));
+}
+
+.btn.gold {
+  background: linear-gradient(128deg, rgba(255, 210, 122, 0.95), rgba(84, 231, 255, 0.9));
+  color: #0f1b2f;
+}
+
+.card,
+.panel,
+.price-card,
+.mini-card,
+.achievement-card,
+.news-card {
+  transform-origin: center bottom;
+}
+
+.card:hover,
+.panel:hover,
+.price-card:hover,
+.mini-card:hover,
+.achievement-card:hover,
+.news-card:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+.sec-title {
+  letter-spacing: 0.3px;
+}
+
+.sec-title::before {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: -8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--epic-cyan), var(--epic-pink));
+  box-shadow: 0 0 14px rgba(84, 231, 255, 0.65);
+}
+
+.nav {
+  background: linear-gradient(180deg, rgba(5, 16, 33, 0.82), rgba(5, 16, 33, 0.58));
+}
+
+.stat .num {
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  #heroTitle {
+    background: none;
+    color: #f5fbff;
+  }
+
+  .sec-title::before {
+    right: -10px;
+  }
+}
+
+/* Mobile fallback optimization (works even without html.lite-mobile) */
+@media (max-width: 980px), (pointer: coarse) {
+  body {
+    background-attachment: scroll !important;
+  }
+
+  body::before,
+  body::after,
+  .hero-bg,
+  .hero::before,
+  .panel::before,
+  .card::after,
+  .mini-card::before,
+  .price-card::after,
+  .nav::after,
+  .btn::before,
+  .sec-title::before,
+  .sec-title::after {
+    display: none !important;
+    animation: none !important;
+    content: none !important;
+  }
+
+  .hero-slide,
+  .reveal-item,
+  .tilt-card,
+  .wa-sticky-cta,
+  #why-us .why-icon {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  #slide2 {
+    display: none !important;
+  }
+
+  .nav,
+  .btn,
+  .fab,
+  .panel,
+  .card,
+  .mini-card,
+  .price-card,
+  .details,
+  .faq-item,
+  .achievement-card,
+  .news-card,
+  .english-panel,
+  .turnstile-wrap,
+  .schedule-table,
+  .schedule-table tr,
+  .belt,
+  .stat {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .card:hover,
+  .panel:hover,
+  .price-card:hover,
+  .mini-card:hover,
+  .achievement-card:hover,
+  .news-card:hover,
+  .btn:hover,
+  .fab:hover {
+    transform: none !important;
+  }
+}
