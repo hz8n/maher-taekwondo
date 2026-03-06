@@ -3474,12 +3474,7 @@
       </div>
     </div>
   </section>
- متابعة تقدم الحزام
-أدخل رقم الطالب أو الكود الخاص لمعرفة مستوى الحزام الحالي والتقدم نحو الحزام التالي.
 
-رقم الهاتف أو الكود
-مثال: 0779000000 أو MT-1024
-يمكنك استخدام رقم الهاتف أو كود الطالب. البيانات تُدار وتُحدّث من لوحة المركز.
   <section id="englishQuick" class="english-quick" data-lang-only="en" hidden>
     <div class="container">
       <div class="english-panel">
@@ -5591,6 +5586,26 @@
         goalsAr: ["التحكم بالمسافة والتوقيت", "تحسين قرارات النزال", "تطوير القوة الانفجارية"],
         goalsEn: ["Control distance and timing", "Improve sparring decisions", "Develop explosive power"],
         nextExamDate: "2026-04-25"
+      },
+      {
+        name: "Ali Qawaqzeh",
+        code: "MT-1201",
+        phone: "0770001201",
+        belt: "brown",
+        progress: 74,
+        goalsAr: ["Improve advanced kick accuracy", "Stay consistent under pressure", "Refine techniques for black belt stage"],
+        goalsEn: ["Improve advanced kick accuracy", "Stay consistent under pressure", "Refine techniques for black belt stage"],
+        nextExamDate: "2026-05-10"
+      },
+      {
+        name: "Amir Saeed Farghal",
+        code: "MT-1202",
+        phone: "0796675997",
+        belt: "black",
+        progress: 100,
+        goalsAr: ["Develop advanced poomsae patterns", "Maintain high fitness and mobility", "Build leadership and mentoring skills"],
+        goalsEn: ["Develop advanced poomsae patterns", "Maintain high fitness and mobility", "Build leadership and mentoring skills"],
+        nextExamDate: ""
       }
     ];
 
@@ -5608,20 +5623,39 @@
     let activeTrackedStudent = null;
 
     function normalizeDigits(value){
-      return String(value || "").replace(/\D/g, "");
+      const raw = String(value || "");
+      const normalized = raw
+        .replace(/[٠-٩]/g, (digit)=> String(digit.charCodeAt(0) - 0x0660))
+        .replace(/[۰-۹]/g, (digit)=> String(digit.charCodeAt(0) - 0x06F0));
+      return normalized.replace(/\D/g, "");
+    }
+
+    function getPhoneVariants(value){
+      const digits = normalizeDigits(value);
+      if(!digits) return [];
+      const variants = new Set([digits]);
+      if(digits.startsWith("0")) variants.add(`962${digits.slice(1)}`);
+      if(digits.startsWith("962") && digits.length > 3) variants.add(`0${digits.slice(3)}`);
+      return Array.from(variants);
     }
 
     function findStudentProgress(query){
       const term = String(query || "").trim();
       if(!term) return null;
 
-      const normalizedPhone = normalizeDigits(term);
+      const phoneVariants = getPhoneVariants(term);
       const normalizedCode = term.toUpperCase();
 
       return studentProgressData.find((record)=>{
-        const phone = normalizeDigits(record.phone);
+        const phoneCandidates = getPhoneVariants(record.phone);
         const code = record.code.toUpperCase();
-        const phoneMatch = normalizedPhone && (phone === normalizedPhone || phone.endsWith(normalizedPhone));
+        const phoneMatch = phoneVariants.length > 0 && phoneCandidates.some((candidate)=>
+          phoneVariants.some((inputPhone)=>(
+            candidate === inputPhone ||
+            candidate.endsWith(inputPhone) ||
+            inputPhone.endsWith(candidate)
+          ))
+        );
         return code === normalizedCode || phoneMatch;
       }) || null;
     }
