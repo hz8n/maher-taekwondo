@@ -4717,6 +4717,63 @@
         .slice(0, maxLength);
     }
 
+    function normalizeCompactText(value){
+      return String(value == null ? "").replace(/\s+/g, " ").trim();
+    }
+
+    function ensureTrackerSectionPlacement(){
+      const trackerSection = document.getElementById("tracker");
+      const aboutSection = document.getElementById("about");
+      if(!trackerSection || !aboutSection) return;
+
+      const trackerIsBeforeAbout = Boolean(
+        aboutSection.compareDocumentPosition(trackerSection) & Node.DOCUMENT_POSITION_PRECEDING
+      );
+      if(trackerIsBeforeAbout){
+        aboutSection.insertAdjacentElement("afterend", trackerSection);
+      }
+    }
+
+    function hideStrayTrackerText(){
+      const dict = i18n[currentLang];
+      if(!dict || !dict.text) return;
+
+      const markers = [
+        dict.text.trackerTitle,
+        dict.text.trackerDesc,
+        dict.text.trackerInputLabel,
+        dict.trackerPlaceholder,
+        dict.text.trackerHint,
+        currentLang === "en"
+          ? "No student found with this phone/code. Please check and try again."
+          : "لم يتم العثور على طالب بهذا الرقم/الكود. يرجى التحقق والمحاولة مرة أخرى."
+      ]
+        .map((value)=> normalizeCompactText(value))
+        .filter((value)=> value.length > 6);
+
+      if(markers.length < 3) return;
+
+      document.querySelectorAll("p, div, span, label, small").forEach((el)=>{
+        if(el.closest("#tracker")) return;
+        const text = normalizeCompactText(el.textContent);
+        if(text.length < 80) return;
+
+        let hits = 0;
+        for(const marker of markers){
+          if(text.includes(marker)){
+            hits += 1;
+            if(hits >= 3) break;
+          }
+        }
+
+        if(hits >= 3){
+          el.textContent = "";
+          el.style.display = "none";
+          el.setAttribute("aria-hidden", "true");
+        }
+      });
+    }
+
     const EXTERNAL_URL_ALLOWLIST = new Set(["wa.me", "www.wa.me", "api.whatsapp.com"]);
     function isAllowedExternalUrl(url){
       try {
@@ -4990,6 +5047,8 @@
         refreshDesignEnhancements();
       }
 
+      hideStrayTrackerText();
+
       try {
         localStorage.setItem(LANG_KEY, currentLang);
       } catch(_){
@@ -5015,6 +5074,7 @@
     }
 
     currentLang = savedLang === "en" ? "en" : OFFICIAL_LANG;
+    ensureTrackerSectionPlacement();
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
 
