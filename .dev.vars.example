@@ -1,0 +1,5 @@
+TURNSTILE_SECRET=replace_with_cloudflare_turnstile_secret
+TELEGRAM_BOT_TOKEN=replace_with_telegram_bot_token
+TELEGRAM_CHAT_ID=7994255254
+ALLOWED_ORIGIN=https://your-domain.com
+VISIT_NOTIFICATIONS_ENABLED=true
