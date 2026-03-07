@@ -8,19 +8,15 @@ workers_dev = true
 RATE_LIMIT_MAX_REQUESTS = "12"
 RATE_LIMIT_WINDOW_SECONDS = "60"
 MAX_BODY_BYTES = "8192"
+# Toggle Telegram alerts for generic site visits (/api/visit)
+VISIT_NOTIFICATIONS_ENABLED = "true"
 
 # Optional: lock requests to one frontend origin (recommended in production)
-# ALLOWED_ORIGIN = "https://maher-taekwondo.vercel.app/"
-# Optional: cap stored public reviews
-# REVIEWS_MAX_ITEMS = "300"
+# ALLOWED_ORIGIN = "https://your-domain.com"
 
 # For same-origin APIs on your own domain, add routes:
 # routes = [
-#   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" },
-#   { pattern = "https://maher-taekwondo.vercel.app/", zone_name = "your-domain.com" }
+#   { pattern = "your-domain.com/api/lead", zone_name = "your-domain.com" }
+#   { pattern = "your-domain.com/api/location", zone_name = "your-domain.com" }
+#   { pattern = "your-domain.com/api/visit", zone_name = "your-domain.com" }
 # ]
-
-# Bind KV for public parent reviews storage:
-# [[kv_namespaces]]
-# binding = "REVIEWS_KV"
-# id = "your_kv_namespace_id"
