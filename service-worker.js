@@ -1,4 +1,4 @@
-const CACHE_VERSION = "maher-pwa-v8";
+const CACHE_VERSION = "maher-pwa-v7";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const APP_SHELL = [
   "./",
