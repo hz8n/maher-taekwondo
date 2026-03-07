@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مركز الماهر للتايكواندو - جرش | سجّل الآن</title>
   <meta name="description" content="مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والبالغين والسيدات. سجّل الآن." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com; upgrade-insecure-requests;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com https://maher-lead-security-worker.khwaldhbdallh74.workers.dev; upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self), payment=(), usb=(), accelerometer=(), gyroscope=()" />
@@ -3316,12 +3316,13 @@
       }
     }
 
+    const API_BASE = "https://maher-lead-security-worker.khwaldhbdallh74.workers.dev";
     const WHATSAPP_NUMBER = "962779331277";
     const MONTHLY_PRICE_JOD = 45;
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
-    const LEAD_SUBMIT_ENDPOINT = "/api/lead";
-    const LOCATION_SUBMIT_ENDPOINT = "/api/location";
-    const VISIT_SUBMIT_ENDPOINT = "/api/visit";
+    const LEAD_SUBMIT_ENDPOINT = `${API_BASE}/api/lead`;
+    const LOCATION_SUBMIT_ENDPOINT = `${API_BASE}/api/location`;
+    const VISIT_SUBMIT_ENDPOINT = `${API_BASE}/api/visit`;
     const LOCATION_TEST_MODE = true; // وضع اختبار: يرسل إحداثيات ثابتة بدل GPS الحقيقي
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
@@ -6145,8 +6146,16 @@
       errMsg.style.display = "block";
     }
 
+    function isValidApiEndpoint(endpoint){
+      if(typeof endpoint !== "string") return false;
+      const value = endpoint.trim();
+      if(!value) return false;
+      if(value.startsWith("/")) return true;
+      return /^https:\/\/[a-z0-9.-]+(?:\/.*)?$/i.test(value);
+    }
+
     async function postLeadToSecureEndpoint(payload){
-      if(typeof LEAD_SUBMIT_ENDPOINT !== "string" || !LEAD_SUBMIT_ENDPOINT.startsWith("/")){
+      if(!isValidApiEndpoint(LEAD_SUBMIT_ENDPOINT)){
         return false;
       }
 
@@ -6172,7 +6181,7 @@
     }
 
     async function postLocationToSecureEndpoint(payload){
-      if(typeof LOCATION_SUBMIT_ENDPOINT !== "string" || !LOCATION_SUBMIT_ENDPOINT.startsWith("/")){
+      if(!isValidApiEndpoint(LOCATION_SUBMIT_ENDPOINT)){
         return false;
       }
 
@@ -6198,7 +6207,7 @@
     }
 
     async function postVisitToSecureEndpoint(payload){
-      if(typeof VISIT_SUBMIT_ENDPOINT !== "string" || !VISIT_SUBMIT_ENDPOINT.startsWith("/")){
+      if(!isValidApiEndpoint(VISIT_SUBMIT_ENDPOINT)){
         return false;
       }
 
