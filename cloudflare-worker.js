@@ -22,6 +22,10 @@ const MAX_LEN = {
   lang: 5,
   userAgent: 260,
   turnstileToken: 2048,
+  fingerprintId: 128,
+  fingerprintConfidence: 16,
+  fingerprintLibraries: 180,
+  botDetected: 16,
   latitude: 32,
   longitude: 32,
   accuracy: 16,
@@ -196,6 +200,10 @@ async function sendToTelegram(payload, env) {
 <b>Note:</b> ${escapeHtml(payload.message || "-")}
 <b>Language:</b> ${escapeHtml(payload.lang || "ar")}
 <b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
+<b>Fingerprint ID:</b> ${escapeHtml(payload.fingerprintId || "-")}
+<b>Fingerprint Confidence:</b> ${escapeHtml(payload.fingerprintConfidence || "-")}
+<b>Fingerprint Libraries:</b> ${escapeHtml(payload.fingerprintLibraries || "-")}
+<b>Bot Detected:</b> ${escapeHtml(payload.botDetected || "unknown")}
   `.trim();
 
   const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
@@ -294,11 +302,23 @@ function validatePayload(raw) {
   const lang = cleanText(raw.lang, MAX_LEN.lang).toLowerCase();
   const userAgent = cleanText(raw.userAgent, MAX_LEN.userAgent);
   const turnstileToken = cleanText(raw.turnstileToken, MAX_LEN.turnstileToken);
+  const fingerprintId = cleanText(raw.fingerprintId, MAX_LEN.fingerprintId);
+  const fingerprintConfidenceRaw = cleanText(raw.fingerprintConfidence, MAX_LEN.fingerprintConfidence);
+  const fingerprintLibraries = cleanText(raw.fingerprintLibraries, MAX_LEN.fingerprintLibraries);
+  const botDetectedRaw = cleanText(raw.botDetected, MAX_LEN.botDetected).toLowerCase();
 
   const isValidPhone = /^\+?\d{8,15}$/.test(phone);
   if (!name || !phone || !program || !isValidPhone || !turnstileToken) {
     return null;
   }
+
+  const confidenceNumber = Number(fingerprintConfidenceRaw);
+  const fingerprintConfidence = Number.isFinite(confidenceNumber)
+    ? String(Math.max(0, Math.min(1, confidenceNumber)).toFixed(3))
+    : "";
+  const botDetected = ["yes", "no", "unknown"].includes(botDetectedRaw)
+    ? botDetectedRaw
+    : "unknown";
 
   return {
     name,
@@ -310,7 +330,11 @@ function validatePayload(raw) {
     message,
     lang: lang === "en" ? "en" : "ar",
     userAgent,
-    turnstileToken
+    turnstileToken,
+    fingerprintId,
+    fingerprintConfidence,
+    fingerprintLibraries,
+    botDetected
   };
 }
 
