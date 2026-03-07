@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مركز الماهر للتايكواندو - جرش | سجّل الآن</title>
   <meta name="description" content="مركز الماهر للتايكواندو في جرش. تدريب احترافي للأطفال والبالغين والسيدات. سجّل الآن." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com https://maher-lead-security-worker.khwaldhbdallh74.workers.dev; upgrade-insecure-requests;" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://openfpcdn.io https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://challenges.cloudflare.com https://maher-lead-security-worker.khwaldhbdallh74.workers.dev; upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self), payment=(), usb=(), accelerometer=(), gyroscope=()" />
@@ -23,6 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+  <script src="https://openfpcdn.io/fingerprintjs/v4/iife.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/botd@1/dist/botd.iife.min.js" defer></script>
 
   <style>
     :root{
@@ -6206,6 +6208,114 @@
       }
     }
 
+    async function withTimeout(promise, timeoutMs, fallbackValue = null){
+      let timeoutId = 0;
+      const timeoutPromise = new Promise((resolve)=>{
+        timeoutId = setTimeout(()=> resolve(fallbackValue), timeoutMs);
+      });
+      try {
+        return await Promise.race([promise, timeoutPromise]);
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    function fallbackHash(value){
+      const text = String(value == null ? "" : value);
+      let hash = 2166136261;
+      for(let i = 0; i < text.length; i += 1){
+        hash ^= text.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return `fp_${(hash >>> 0).toString(16).padStart(8, "0")}`;
+    }
+
+    async function hashTextSha256(value){
+      const text = String(value == null ? "" : value);
+      if(window.crypto && window.crypto.subtle && typeof TextEncoder === "function"){
+        const encoded = new TextEncoder().encode(text);
+        const digest = await window.crypto.subtle.digest("SHA-256", encoded);
+        const bytes = Array.from(new Uint8Array(digest));
+        return `fp_${bytes.map((byte)=> byte.toString(16).padStart(2, "0")).join("").slice(0, 24)}`;
+      }
+      return fallbackHash(text);
+    }
+
+    async function collectFingerprintData(){
+      const libraries = [];
+      let fingerprintId = "";
+      let confidence = "";
+      let botDetected = "unknown";
+
+      if(window.FingerprintJS && typeof window.FingerprintJS.load === "function"){
+        libraries.push("FingerprintJS");
+        const fpData = await withTimeout(
+          window.FingerprintJS.load()
+            .then((agent)=> agent.get())
+            .catch(()=> null),
+          2500,
+          null
+        );
+        if(fpData && typeof fpData === "object"){
+          if(typeof fpData.visitorId === "string"){
+            fingerprintId = cleanInputText(fpData.visitorId, 128);
+          }
+          const confidenceScore = Number(fpData.confidence && fpData.confidence.score);
+          if(Number.isFinite(confidenceScore)){
+            confidence = String(Math.max(0, Math.min(1, confidenceScore)).toFixed(3));
+          }
+        }
+      }
+
+      if(window.Botd && typeof window.Botd.load === "function"){
+        libraries.push("BotD");
+        const botData = await withTimeout(
+          window.Botd.load()
+            .then((botd)=> botd.detect())
+            .catch(()=> null),
+          2000,
+          null
+        );
+        if(botData && typeof botData === "object"){
+          const serialized = JSON.stringify(botData).toLowerCase();
+          if(serialized.includes("not detected")){
+            botDetected = "no";
+          } else if(serialized.includes("bot") || serialized.includes("automation") || serialized.includes("headless")){
+            botDetected = "yes";
+          }
+        }
+      }
+
+      if(!fingerprintId){
+        const fallbackSeed = [
+          navigator.userAgent || "",
+          navigator.language || "",
+          navigator.platform || "",
+          navigator.hardwareConcurrency || "",
+          navigator.deviceMemory || "",
+          `${window.screen && window.screen.width ? window.screen.width : 0}x${window.screen && window.screen.height ? window.screen.height : 0}`,
+          String(new Date().getTimezoneOffset())
+        ].join("|");
+        try {
+          fingerprintId = cleanInputText(await withTimeout(hashTextSha256(fallbackSeed), 1200, fallbackHash(fallbackSeed)), 128);
+        } catch(_){
+          fingerprintId = cleanInputText(fallbackHash(fallbackSeed), 128);
+        }
+        libraries.push("LocalFallback");
+      }
+
+      if(!libraries.length){
+        libraries.push("LocalFallback");
+      }
+
+      return {
+        fingerprintId,
+        fingerprintConfidence: confidence,
+        fingerprintLibraries: cleanInputText(libraries.join(","), 180),
+        botDetected
+      };
+    }
+
     async function postVisitToSecureEndpoint(payload){
       if(!isValidApiEndpoint(VISIT_SUBMIT_ENDPOINT)){
         return false;
@@ -6445,6 +6555,7 @@
       });
 
       const userAgent = cleanInputText(navigator.userAgent || "", 260);
+      const fingerprintData = await collectFingerprintData();
       const secureLeadPayload = {
         name,
         phone,
@@ -6455,7 +6566,11 @@
         message: msg || "",
         lang: currentLang,
         turnstileToken,
-        userAgent
+        userAgent,
+        fingerprintId: fingerprintData.fingerprintId,
+        fingerprintConfidence: fingerprintData.fingerprintConfidence,
+        fingerprintLibraries: fingerprintData.fingerprintLibraries,
+        botDetected: fingerprintData.botDetected
       };
       const secureLeadOk = await postLeadToSecureEndpoint(secureLeadPayload);
       if(!secureLeadOk){
