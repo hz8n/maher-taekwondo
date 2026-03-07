@@ -450,7 +450,7 @@ function validateVisitPayload(raw) {
   const deviceType = ["mobile", "tablet", "desktop", "tv", "console", "bot", "unknown"].includes(deviceTypeRaw)
     ? deviceTypeRaw
     : "unknown";
-  const deviceModelSource = ["ua_client_hints", "user_agent_parse", "unknown"].includes(deviceModelSourceRaw)
+  const deviceModelSource = ["ua_client_hints", "user_agent_parse", "code_map", "unknown"].includes(deviceModelSourceRaw)
     ? deviceModelSourceRaw
     : "unknown";
   const modelAccuracy = ["high", "medium", "low"].includes(modelAccuracyRaw)
