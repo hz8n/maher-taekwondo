@@ -3321,6 +3321,7 @@
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = "/api/lead";
     const LOCATION_SUBMIT_ENDPOINT = "/api/location";
+    const VISIT_SUBMIT_ENDPOINT = "/api/visit";
     const LOCATION_TEST_MODE = true; // وضع اختبار: يرسل إحداثيات ثابتة بدل GPS الحقيقي
     const DEFAULT_IMAGE = "assets/coachimg.jpg";
     const HERO_IMAGES = [DEFAULT_IMAGE, DEFAULT_IMAGE];
@@ -5078,6 +5079,7 @@
     ensureTrackerSectionPlacement();
     applyTheme(savedTheme === "light" ? "light" : "dark");
     applyLanguage(currentLang);
+    notifyVisitOnce();
 
     if(themeToggle){
       themeToggle.addEventListener("click", ()=>{
@@ -6193,6 +6195,57 @@
       } finally {
         clearTimeout(timeoutId);
       }
+    }
+
+    async function postVisitToSecureEndpoint(payload){
+      if(typeof VISIT_SUBMIT_ENDPOINT !== "string" || !VISIT_SUBMIT_ENDPOINT.startsWith("/")){
+        return false;
+      }
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(()=> controller.abort(), 6000);
+      try {
+        const response = await fetch(VISIT_SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          cache: "no-store",
+          credentials: "omit",
+          redirect: "error",
+          referrerPolicy: "no-referrer",
+          keepalive: true,
+          signal: controller.signal
+        });
+        return response.ok;
+      } catch(_){
+        return false;
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
+    function notifyVisitOnce(){
+      try {
+        if(sessionStorage.getItem("maher_visit_pinged_v1") === "1"){
+          return;
+        }
+        sessionStorage.setItem("maher_visit_pinged_v1", "1");
+      } catch(_){
+        // Ignore storage restrictions in private mode.
+      }
+
+      const path = cleanInputText(`${location.pathname}${location.search || ""}`, 180) || "/";
+      const referrer = cleanInputText(document.referrer || "", 300);
+      const userAgent = cleanInputText(navigator.userAgent || "", 260);
+      const timezoneOffset = String(new Date().getTimezoneOffset());
+
+      void postVisitToSecureEndpoint({
+        path,
+        referrer,
+        lang: currentLang,
+        userAgent,
+        timezoneOffset
+      });
     }
 
     const shareLocationBtn = document.getElementById("shareLocationBtn");
