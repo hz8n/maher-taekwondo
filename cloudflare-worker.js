@@ -20,7 +20,10 @@ const MAX_LEN = {
   turnstileToken: 2048,
   latitude: 32,
   longitude: 32,
-  accuracy: 16
+  accuracy: 16,
+  path: 180,
+  referrer: 300,
+  timezoneOffset: 8
 };
 
 const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 12;
@@ -32,7 +35,7 @@ function cleanText(value, maxLength = 200) {
 }
 
 function escapeHtml(value) {
-  return String(value == null ? "")
+  return String(value == null ? "" : value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -51,6 +54,12 @@ function getPositiveInt(value, fallback) {
   const num = Number.parseInt(String(value == null ? "" : value), 10);
   if (!Number.isFinite(num) || num <= 0) return fallback;
   return num;
+}
+
+function isFeatureEnabled(value, defaultValue = true) {
+  const normalized = cleanText(value, 12).toLowerCase();
+  if (!normalized) return defaultValue;
+  return !["0", "false", "off", "no"].includes(normalized);
 }
 
 function isAllowedOrigin(request, env) {
@@ -232,6 +241,44 @@ async function sendLocationToTelegram(payload, env) {
   return telegramRes.ok;
 }
 
+async function sendVisitToTelegram(payload, request, env) {
+  const botToken = cleanText(env.TELEGRAM_BOT_TOKEN, 300);
+  const chatId = cleanText(env.TELEGRAM_CHAT_ID, 100);
+  if (!botToken || !chatId) return false;
+
+  const ip = getClientIp(request) || "unknown";
+  const countryHeader = cleanText(request.headers.get("CF-IPCountry"), 8).toUpperCase();
+  const country = countryHeader && countryHeader !== "XX" ? countryHeader : "unknown";
+  const timestamp = new Date().toISOString();
+
+  const message = `
+<b>New Website Visitor</b>
+
+<b>Path:</b> ${escapeHtml(payload.path || "/")}
+<b>Referrer:</b> ${escapeHtml(payload.referrer || "-")}
+<b>Language:</b> ${escapeHtml(payload.lang || "ar")}
+<b>Timezone Offset:</b> ${escapeHtml(payload.timezoneOffset || "-")}
+<b>IP:</b> ${escapeHtml(ip)}
+<b>Country:</b> ${escapeHtml(country)}
+<b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
+<b>Time (UTC):</b> ${escapeHtml(timestamp)}
+  `.trim();
+
+  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  const telegramRes = await fetch(telegramUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message,
+      parse_mode: "HTML",
+      disable_web_page_preview: true
+    })
+  });
+
+  return telegramRes.ok;
+}
+
 function validatePayload(raw) {
   const name = cleanText(raw.name, MAX_LEN.name);
   const phone = cleanText(raw.phone, MAX_LEN.phone).replace(/[^\d+]/g, "").slice(0, MAX_LEN.phone);
@@ -288,6 +335,26 @@ function validateLocationPayload(raw) {
     accuracy: String(accuracy),
     lang: lang === "en" ? "en" : "ar",
     userAgent
+  };
+}
+
+function validateVisitPayload(raw) {
+  const pathRaw = cleanText(raw.path, MAX_LEN.path);
+  const referrerRaw = cleanText(raw.referrer, MAX_LEN.referrer);
+  const lang = cleanText(raw.lang, MAX_LEN.lang).toLowerCase();
+  const userAgent = cleanText(raw.userAgent, MAX_LEN.userAgent);
+  const timezoneOffsetRaw = cleanText(raw.timezoneOffset, MAX_LEN.timezoneOffset);
+
+  const path = pathRaw.startsWith("/") ? pathRaw : "/";
+  const referrer = /^https?:\/\//i.test(referrerRaw) ? referrerRaw : "";
+  const timezoneOffset = /^-?\d{1,4}$/.test(timezoneOffsetRaw) ? timezoneOffsetRaw : "";
+
+  return {
+    path,
+    referrer,
+    lang: lang === "en" ? "en" : "ar",
+    userAgent,
+    timezoneOffset
   };
 }
 
@@ -386,6 +453,51 @@ async function handleLocationRequest(request, env) {
   return jsonResponse(200, { ok: true });
 }
 
+async function handleVisitRequest(request, env) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: JSON_HEADERS });
+  }
+
+  if (request.method !== "POST") {
+    return jsonResponse(405, { ok: false, error: "method_not_allowed" }, { Allow: "POST, OPTIONS" });
+  }
+
+  if (!isAllowedOrigin(request, env)) {
+    return jsonResponse(403, { ok: false, error: "forbidden_origin" });
+  }
+
+  if (!isFeatureEnabled(env.VISIT_NOTIFICATIONS_ENABLED, true)) {
+    return jsonResponse(200, { ok: true, disabled: true });
+  }
+
+  const rate = await applyIpRateLimit(request, env, "visit");
+  if (!rate.allowed) {
+    return jsonResponse(
+      429,
+      { ok: false, error: "rate_limited" },
+      {
+        "Retry-After": String(rate.retryAfter),
+        "X-RateLimit-Limit": String(rate.limit),
+        "X-RateLimit-Remaining": String(rate.remaining)
+      }
+    );
+  }
+
+  const maxBodyBytes = getPositiveInt(env.MAX_BODY_BYTES, DEFAULT_MAX_BODY_BYTES);
+  const parsed = await parseJsonBody(request, maxBodyBytes);
+  if (!parsed.ok) {
+    return jsonResponse(parsed.status, { ok: false, error: parsed.error });
+  }
+
+  const payload = validateVisitPayload(parsed.body || {});
+  const telegramOk = await sendVisitToTelegram(payload, request, env);
+  if (!telegramOk) {
+    return jsonResponse(502, { ok: false, error: "telegram_failed" });
+  }
+
+  return jsonResponse(200, { ok: true });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -395,6 +507,9 @@ export default {
     }
     if (url.pathname === "/api/location") {
       return handleLocationRequest(request, env);
+    }
+    if (url.pathname === "/api/visit") {
+      return handleVisitRequest(request, env);
     }
 
     return jsonResponse(404, { ok: false, error: "not_found" });
