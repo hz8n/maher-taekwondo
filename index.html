@@ -6514,6 +6514,69 @@
       return /^[a-z0-9-]{5,}$/i.test(text) && !/\s/.test(text);
     }
 
+    const DEVICE_MODEL_CODE_LOOKUP = Object.freeze({
+      "2201117TG": "Redmi Note 11",
+      "2201117TL": "Redmi Note 11",
+      "2201117TI": "Redmi Note 11",
+      "2201117TY": "Redmi Note 11",
+      "2201117SG": "Redmi Note 11S",
+      "2201117SI": "Redmi Note 11S",
+      "2201117SY": "Redmi Note 11S",
+      "2201117SL": "Redmi Note 11S",
+      "M2101K7AG": "Redmi Note 10",
+      "M2101K7AI": "Redmi Note 10",
+      "M2101K7BNY": "Redmi Note 10 Pro",
+      "M2102J20SG": "Redmi Note 10S",
+      "SMA145F": "Samsung Galaxy A14",
+      "SMA146B": "Samsung Galaxy A14 5G",
+      "SMA146P": "Samsung Galaxy A14 5G",
+      "SMA155F": "Samsung Galaxy A15",
+      "SMA156E": "Samsung Galaxy A15 5G",
+      "SMA245F": "Samsung Galaxy A24",
+      "SMA346E": "Samsung Galaxy A34 5G",
+      "SMA546E": "Samsung Galaxy A54 5G",
+      "SMA556E": "Samsung Galaxy A55 5G",
+      "SMS911B": "Samsung Galaxy S23",
+      "SMS916B": "Samsung Galaxy S23+",
+      "SMS918B": "Samsung Galaxy S23 Ultra",
+      "SMS921B": "Samsung Galaxy S24",
+      "SMS926B": "Samsung Galaxy S24+",
+      "SMS928B": "Samsung Galaxy S24 Ultra"
+    });
+
+    function getModelLookupKey(value){
+      return normalizeDeviceModelText(value).toUpperCase().replace(/[^A-Z0-9]/g, "");
+    }
+
+    function mapDeviceModelCodeToMarketingName(model){
+      const normalizedModel = normalizeDeviceModelText(model);
+      if(!normalizedModel || !isCodeLikeDeviceModel(normalizedModel)){
+        return "";
+      }
+
+      const lookupKey = getModelLookupKey(normalizedModel);
+      if(!lookupKey){
+        return "";
+      }
+
+      if(Object.prototype.hasOwnProperty.call(DEVICE_MODEL_CODE_LOOKUP, lookupKey)){
+        return DEVICE_MODEL_CODE_LOOKUP[lookupKey];
+      }
+
+      const compactKey = lookupKey.replace(/(DS|DSN|U1|U|N|M|P)$/i, "");
+      if(Object.prototype.hasOwnProperty.call(DEVICE_MODEL_CODE_LOOKUP, compactKey)){
+        return DEVICE_MODEL_CODE_LOOKUP[compactKey];
+      }
+
+      for(const code of Object.keys(DEVICE_MODEL_CODE_LOOKUP)){
+        if(lookupKey.startsWith(code)){
+          return DEVICE_MODEL_CODE_LOOKUP[code];
+        }
+      }
+
+      return "";
+    }
+
     function resolveDeviceModel(modelFromHints, modelFromUserAgent){
       const hintModel = normalizeDeviceModelText(modelFromHints);
       const uaModel = normalizeDeviceModelText(modelFromUserAgent);
@@ -6543,6 +6606,17 @@
         modelAccuracy = isCodeLikeDeviceModel(winner.value) ? "medium" : "high";
       } else if(rawModel && !isGenericDeviceModel(rawModel)){
         modelAccuracy = isCodeLikeDeviceModel(rawModel) ? "medium" : "high";
+      }
+
+      const winnerValue = winner ? winner.value : rawModel;
+      const mappedModel = mapDeviceModelCodeToMarketingName(winnerValue);
+      if(mappedModel){
+        return {
+          deviceModel: mappedModel,
+          deviceModelRaw: winnerValue || "",
+          deviceModelSource: "code_map",
+          modelAccuracy: "high"
+        };
       }
 
       return {
