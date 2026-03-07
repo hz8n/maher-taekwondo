@@ -35,6 +35,9 @@ const MAX_LEN = {
   deviceType: 30,
   deviceBrand: 60,
   deviceModel: 120,
+  deviceModelRaw: 120,
+  deviceModelSource: 30,
+  modelAccuracy: 16,
   osName: 40,
   osVersion: 40,
   browserName: 60,
@@ -302,6 +305,9 @@ async function sendVisitToTelegram(payload, request, env) {
 <b>Device Type:</b> ${escapeHtml(payload.deviceType || "unknown")}
 <b>Device Brand:</b> ${escapeHtml(payload.deviceBrand || "unknown")}
 <b>Device Model:</b> ${escapeHtml(payload.deviceModel || "unknown")}
+<b>Device Model Raw:</b> ${escapeHtml(payload.deviceModelRaw || "unknown")}
+<b>Model Source:</b> ${escapeHtml(payload.deviceModelSource || "unknown")}
+<b>Model Accuracy:</b> ${escapeHtml(payload.modelAccuracy || "unknown")}
 <b>OS:</b> ${escapeHtml(osLabel)}
 <b>Browser:</b> ${escapeHtml(browserLabel)}
 <b>Platform:</b> ${escapeHtml(platformLabel)}
@@ -417,6 +423,9 @@ function validateVisitPayload(raw) {
   const deviceTypeRaw = cleanText(raw.deviceType, MAX_LEN.deviceType).toLowerCase();
   const deviceBrand = cleanText(raw.deviceBrand, MAX_LEN.deviceBrand);
   const deviceModel = cleanText(raw.deviceModel, MAX_LEN.deviceModel);
+  const deviceModelRaw = cleanText(raw.deviceModelRaw, MAX_LEN.deviceModelRaw);
+  const deviceModelSourceRaw = cleanText(raw.deviceModelSource, MAX_LEN.deviceModelSource).toLowerCase();
+  const modelAccuracyRaw = cleanText(raw.modelAccuracy, MAX_LEN.modelAccuracy).toLowerCase();
   const osName = cleanText(raw.osName, MAX_LEN.osName);
   const osVersion = cleanText(raw.osVersion, MAX_LEN.osVersion);
   const browserName = cleanText(raw.browserName, MAX_LEN.browserName);
@@ -441,6 +450,12 @@ function validateVisitPayload(raw) {
   const deviceType = ["mobile", "tablet", "desktop", "tv", "console", "bot", "unknown"].includes(deviceTypeRaw)
     ? deviceTypeRaw
     : "unknown";
+  const deviceModelSource = ["ua_client_hints", "user_agent_parse", "unknown"].includes(deviceModelSourceRaw)
+    ? deviceModelSourceRaw
+    : "unknown";
+  const modelAccuracy = ["high", "medium", "low"].includes(modelAccuracyRaw)
+    ? modelAccuracyRaw
+    : "low";
   const screenResolution = /^\d{1,5}x\d{1,5}$/.test(screenResolutionRaw) ? screenResolutionRaw : "";
   const viewportResolution = /^\d{1,5}x\d{1,5}$/.test(viewportResolutionRaw) ? viewportResolutionRaw : "";
   const devicePixelRatio = /^\d{1,2}(\.\d{1,3})?$/.test(devicePixelRatioRaw) ? devicePixelRatioRaw : "";
@@ -458,6 +473,9 @@ function validateVisitPayload(raw) {
     deviceType,
     deviceBrand,
     deviceModel,
+    deviceModelRaw,
+    deviceModelSource,
+    modelAccuracy,
     osName,
     osVersion,
     browserName,
