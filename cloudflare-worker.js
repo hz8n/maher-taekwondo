@@ -31,7 +31,27 @@ const MAX_LEN = {
   accuracy: 16,
   path: 180,
   referrer: 300,
-  timezoneOffset: 8
+  timezoneOffset: 8,
+  deviceType: 30,
+  deviceBrand: 60,
+  deviceModel: 120,
+  osName: 40,
+  osVersion: 40,
+  browserName: 60,
+  browserVersion: 60,
+  platform: 60,
+  platformVersion: 40,
+  architecture: 30,
+  bitness: 20,
+  formFactor: 80,
+  screenResolution: 20,
+  viewportResolution: 20,
+  devicePixelRatio: 12,
+  deviceMemory: 12,
+  hardwareConcurrency: 12,
+  maxTouchPoints: 12,
+  uaDataMobile: 10,
+  detectionSource: 80
 };
 
 const DEFAULT_RATE_LIMIT_MAX_REQUESTS = 12;
@@ -262,6 +282,13 @@ async function sendVisitToTelegram(payload, request, env) {
   const countryHeader = cleanText(request.headers.get("CF-IPCountry"), 8).toUpperCase();
   const country = countryHeader && countryHeader !== "XX" ? countryHeader : "unknown";
   const timestamp = new Date().toISOString();
+  const osLabel = [payload.osName, payload.osVersion].filter(Boolean).join(" ").trim() || "unknown";
+  const browserLabel = [payload.browserName, payload.browserVersion].filter(Boolean).join(" ").trim() || "unknown";
+  const platformLabel = [payload.platform, payload.platformVersion].filter(Boolean).join(" ").trim() || "unknown";
+  const cpuLabel = [payload.architecture, payload.bitness ? `${payload.bitness}-bit` : ""].filter(Boolean).join(" ").trim() || "unknown";
+  const displayLabel = payload.screenResolution
+    ? `${payload.screenResolution}${payload.devicePixelRatio ? ` (DPR ${payload.devicePixelRatio})` : ""}`
+    : "unknown";
 
   const message = `
 <b>New Website Visitor</b>
@@ -272,6 +299,21 @@ async function sendVisitToTelegram(payload, request, env) {
 <b>Timezone Offset:</b> ${escapeHtml(payload.timezoneOffset || "-")}
 <b>IP:</b> ${escapeHtml(ip)}
 <b>Country:</b> ${escapeHtml(country)}
+<b>Device Type:</b> ${escapeHtml(payload.deviceType || "unknown")}
+<b>Device Brand:</b> ${escapeHtml(payload.deviceBrand || "unknown")}
+<b>Device Model:</b> ${escapeHtml(payload.deviceModel || "unknown")}
+<b>OS:</b> ${escapeHtml(osLabel)}
+<b>Browser:</b> ${escapeHtml(browserLabel)}
+<b>Platform:</b> ${escapeHtml(platformLabel)}
+<b>CPU Arch:</b> ${escapeHtml(cpuLabel)}
+<b>Form Factor:</b> ${escapeHtml(payload.formFactor || "unknown")}
+<b>Screen:</b> ${escapeHtml(displayLabel)}
+<b>Viewport:</b> ${escapeHtml(payload.viewportResolution || "unknown")}
+<b>Device Memory (GB):</b> ${escapeHtml(payload.deviceMemory || "unknown")}
+<b>CPU Threads:</b> ${escapeHtml(payload.hardwareConcurrency || "unknown")}
+<b>Touch Points:</b> ${escapeHtml(payload.maxTouchPoints || "unknown")}
+<b>UA-CH Mobile:</b> ${escapeHtml(payload.uaDataMobile || "unknown")}
+<b>Detection Source:</b> ${escapeHtml(payload.detectionSource || "unknown")}
 <b>User-Agent:</b> ${escapeHtml(payload.userAgent || "unknown")}
 <b>Time (UTC):</b> ${escapeHtml(timestamp)}
   `.trim();
@@ -372,17 +414,67 @@ function validateVisitPayload(raw) {
   const lang = cleanText(raw.lang, MAX_LEN.lang).toLowerCase();
   const userAgent = cleanText(raw.userAgent, MAX_LEN.userAgent);
   const timezoneOffsetRaw = cleanText(raw.timezoneOffset, MAX_LEN.timezoneOffset);
+  const deviceTypeRaw = cleanText(raw.deviceType, MAX_LEN.deviceType).toLowerCase();
+  const deviceBrand = cleanText(raw.deviceBrand, MAX_LEN.deviceBrand);
+  const deviceModel = cleanText(raw.deviceModel, MAX_LEN.deviceModel);
+  const osName = cleanText(raw.osName, MAX_LEN.osName);
+  const osVersion = cleanText(raw.osVersion, MAX_LEN.osVersion);
+  const browserName = cleanText(raw.browserName, MAX_LEN.browserName);
+  const browserVersion = cleanText(raw.browserVersion, MAX_LEN.browserVersion);
+  const platform = cleanText(raw.platform, MAX_LEN.platform);
+  const platformVersion = cleanText(raw.platformVersion, MAX_LEN.platformVersion);
+  const architecture = cleanText(raw.architecture, MAX_LEN.architecture);
+  const bitness = cleanText(raw.bitness, MAX_LEN.bitness);
+  const formFactor = cleanText(raw.formFactor, MAX_LEN.formFactor);
+  const screenResolutionRaw = cleanText(raw.screenResolution, MAX_LEN.screenResolution);
+  const viewportResolutionRaw = cleanText(raw.viewportResolution, MAX_LEN.viewportResolution);
+  const devicePixelRatioRaw = cleanText(raw.devicePixelRatio, MAX_LEN.devicePixelRatio);
+  const deviceMemoryRaw = cleanText(raw.deviceMemory, MAX_LEN.deviceMemory);
+  const hardwareConcurrencyRaw = cleanText(raw.hardwareConcurrency, MAX_LEN.hardwareConcurrency);
+  const maxTouchPointsRaw = cleanText(raw.maxTouchPoints, MAX_LEN.maxTouchPoints);
+  const uaDataMobileRaw = cleanText(raw.uaDataMobile, MAX_LEN.uaDataMobile).toLowerCase();
+  const detectionSource = cleanText(raw.detectionSource, MAX_LEN.detectionSource);
 
   const path = pathRaw.startsWith("/") ? pathRaw : "/";
   const referrer = /^https?:\/\//i.test(referrerRaw) ? referrerRaw : "";
   const timezoneOffset = /^-?\d{1,4}$/.test(timezoneOffsetRaw) ? timezoneOffsetRaw : "";
+  const deviceType = ["mobile", "tablet", "desktop", "tv", "console", "bot", "unknown"].includes(deviceTypeRaw)
+    ? deviceTypeRaw
+    : "unknown";
+  const screenResolution = /^\d{1,5}x\d{1,5}$/.test(screenResolutionRaw) ? screenResolutionRaw : "";
+  const viewportResolution = /^\d{1,5}x\d{1,5}$/.test(viewportResolutionRaw) ? viewportResolutionRaw : "";
+  const devicePixelRatio = /^\d{1,2}(\.\d{1,3})?$/.test(devicePixelRatioRaw) ? devicePixelRatioRaw : "";
+  const deviceMemory = /^\d{1,2}(\.\d{1,2})?$/.test(deviceMemoryRaw) ? deviceMemoryRaw : "";
+  const hardwareConcurrency = /^\d{1,3}$/.test(hardwareConcurrencyRaw) ? hardwareConcurrencyRaw : "";
+  const maxTouchPoints = /^\d{1,3}$/.test(maxTouchPointsRaw) ? maxTouchPointsRaw : "";
+  const uaDataMobile = ["true", "false", "unknown"].includes(uaDataMobileRaw) ? uaDataMobileRaw : "unknown";
 
   return {
     path,
     referrer,
     lang: lang === "en" ? "en" : "ar",
     userAgent,
-    timezoneOffset
+    timezoneOffset,
+    deviceType,
+    deviceBrand,
+    deviceModel,
+    osName,
+    osVersion,
+    browserName,
+    browserVersion,
+    platform,
+    platformVersion,
+    architecture,
+    bitness,
+    formFactor,
+    screenResolution,
+    viewportResolution,
+    devicePixelRatio,
+    deviceMemory,
+    hardwareConcurrency,
+    maxTouchPoints,
+    uaDataMobile,
+    detectionSource
   };
 }
 
