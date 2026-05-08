@@ -573,36 +573,46 @@
 
     /* Why Us Icons */
     .why-icon{
-      font-size:48px;
+      width:58px;
+      height:58px;
       margin-bottom:14px;
       display:flex;
+      align-items:center;
       justify-content:center;
+      border-radius:18px;
+      color:#fff;
+      background: linear-gradient(135deg, rgba(255,61,129,.95), rgba(0,209,255,.82));
+      box-shadow: 0 16px 34px rgba(0,209,255,.18), 0 10px 26px rgba(255,61,129,.16);
     }
-    .why-icon::before{
-      content:"✨";
-      font-size:34px;
-      line-height:1;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,.3));
+    .why-icon svg,
+    .program-icon svg{
+      width:30px;
+      height:30px;
+      stroke:currentColor;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      fill:none;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.28));
     }
-    #why-us .card:nth-child(1) .why-icon::before{content:"🥋"}
-    #why-us .card:nth-child(2) .why-icon::before{content:"🛡️"}
-    #why-us .card:nth-child(3) .why-icon::before{content:"📈"}
-    #why-us .card:nth-child(4) .why-icon::before{content:"🚐"}
-    #why-us .card:nth-child(5) .why-icon::before{content:"🏆"}
-    #why-us .card:nth-child(6) .why-icon::before{content:"👥"}
-    #programs .card h3::before{
-      display:inline-block;
-      margin-inline-end:8px;
+    .program-icon{
+      width:34px;
+      height:34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-inline-end:9px;
+      border-radius:12px;
+      color:#fff;
       vertical-align:middle;
-      font-size:20px;
-      line-height:1;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.22));
+      background: linear-gradient(135deg, rgba(0,209,255,.88), rgba(255,61,129,.82));
+      box-shadow: 0 10px 22px rgba(0,0,0,.18);
     }
-    #programs .card:nth-child(1) h3::before{content:"👦"}
-    #programs .card:nth-child(2) h3::before{content:"🥊"}
-    #programs .card:nth-child(3) h3::before{content:"👩‍🦰"}
-    #programs .card:nth-child(4) h3::before{content:"🏅"}
-    #programs .card:nth-child(5) h3::before{content:"🌙"}
+    .program-icon svg{
+      width:20px;
+      height:20px;
+      stroke-width:2.4;
+    }
 
     /* Pricing */
     .pricing{display:grid; grid-template-columns: 1fr; gap:14px;}
@@ -982,6 +992,68 @@
     .schedule-table tr:hover{ background: rgba(255,61,129,.05); }
     .schedule-table tr:last-child td{ border-bottom:none; }
     .time{color:var(--accent2); font-weight:1000}
+    .next-class-card{
+      display:grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap:16px;
+      align-items:center;
+      margin-bottom:16px;
+      padding:18px;
+      border-radius:18px;
+      border:1px solid rgba(0,209,255,.34);
+      background:
+        linear-gradient(135deg, rgba(0,209,255,.14), rgba(255,61,129,.12)),
+        rgba(255,255,255,.05);
+      box-shadow: 0 18px 44px rgba(0,0,0,.24);
+    }
+    .next-class-kicker{
+      margin:0 0 6px;
+      color:var(--gold);
+      font-weight:1000;
+      font-size:13px;
+    }
+    .next-class-title{
+      margin:0;
+      font-size:20px;
+      font-weight:1000;
+    }
+    .next-class-meta{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-weight:900;
+      line-height:1.7;
+      font-size:14px;
+    }
+    .countdown-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 58px);
+      gap:8px;
+    }
+    .countdown-unit{
+      min-height:58px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(4,10,22,.46);
+    }
+    .countdown-value{
+      font-size:20px;
+      font-weight:1100;
+      color:#fff;
+      line-height:1;
+    }
+    .countdown-label{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:900;
+    }
+    .mobile-app-nav{
+      display:none;
+    }
     .level{
       display:inline-flex; align-items:center; gap:6px;
       padding:6px 10px;
@@ -1225,6 +1297,63 @@
       #jerashImg{background-position:center center}
       #coachImg{background-position:center center}
       .avatar{background-position:center center}
+      body{padding-bottom:82px}
+      .next-class-card{
+        grid-template-columns: 1fr;
+        gap:14px;
+        border-radius:20px;
+        padding:16px;
+      }
+      .countdown-grid{
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .countdown-unit{
+        min-height:54px;
+      }
+      .mobile-app-nav{
+        position:fixed;
+        left:12px;
+        right:12px;
+        bottom:12px;
+        z-index:80;
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap:6px;
+        padding:8px;
+        border-radius:22px;
+        border:1px solid rgba(255,255,255,.18);
+        background: rgba(6,14,30,.92);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 18px 46px rgba(0,0,0,.38);
+      }
+      .mobile-app-nav a{
+        min-height:50px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:4px;
+        border-radius:16px;
+        color:rgba(248,251,255,.86);
+        text-decoration:none;
+        font-size:11px;
+        font-weight:1000;
+      }
+      .mobile-app-nav a:active,
+      .mobile-app-nav a:hover{
+        background:linear-gradient(135deg, rgba(0,209,255,.18), rgba(255,61,129,.16));
+        color:#fff;
+      }
+      .mobile-app-nav svg{
+        width:20px;
+        height:20px;
+        stroke:currentColor;
+        stroke-width:2.3;
+        fill:none;
+        stroke-linecap:round;
+        stroke-linejoin:round;
+      }
     }
 
     /* Layout + performance tuning */
@@ -3320,7 +3449,10 @@
 
     const API_BASE = "https://maher-lead-security-worker.khwaldhbdallh74.workers.dev";
     const WHATSAPP_NUMBER = "962779331277";
-    const MONTHLY_PRICE_JOD = 45;
+    let MONTHLY_PRICE_JOD = 45;
+    const SCHEDULE_FEED_URL = "./data/schedule.json";
+    const PRICING_FEED_URL = "./data/pricing.json";
+    const NEWS_FEED_URL = "./data/news.json";
     const ACHIEVEMENTS_FEED_URL = "./data/achievements.json";
     const LEAD_SUBMIT_ENDPOINT = `${API_BASE}/api/lead`;
     const LOCATION_SUBMIT_ENDPOINT = `${API_BASE}/api/location`;
@@ -3367,6 +3499,25 @@
       </div>
     </div>
   </div>
+
+  <nav class="mobile-app-nav" aria-label="Mobile app navigation">
+    <a href="#top" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+      <span>الرئيسية</span>
+    </a>
+    <a href="#schedule" aria-label="Schedule">
+      <svg viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/></svg>
+      <span>الحصص</span>
+    </a>
+    <a href="#pricing" aria-label="Pricing">
+      <svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>السعر</span>
+    </a>
+    <a href="#book" aria-label="Join">
+      <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      <span>سجل</span>
+    </a>
+  </nav>
 
   <!-- HERO -->
   <header id="top" class="hero">
@@ -3514,32 +3665,32 @@
 
       <div class="grid">
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="M5 6H3a3 3 0 0 0 3 3h1"/><path d="M19 6h2a3 3 0 0 1-3 3h-1"/></svg></div>
           <h3 id="whyUsCard1Title"> </h3>
           <p id="whyUsCard1Desc">      35 .         .</p>
         </div>
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg></div>
           <h3 id="whyUsCard2Title">  </h3>
           <p id="whyUsCard2Desc">نبني الشخصية والانضباط والاحترام مع التطور المهاري.</p>
         </div>
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17 9 11l4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
           <h3 id="whyUsCard3Title">  </h3>
           <p id="whyUsCard3Desc">     ?       .</p>
         </div>
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 17H3V7h11v10H9"/><path d="M14 10h4l3 4v3h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
           <h3 id="whyUsCard4Title">  </h3>
           <p id="whyUsCard4Desc">     .       45  !</p>
         </div>
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M17 4h3v3a5 5 0 0 1-5 5"/><path d="M7 4H4v3a5 5 0 0 0 5 5"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/></svg></div>
           <h3 id="whyUsCard5Title"> </h3>
           <p id="whyUsCard5Desc">      .   .</p>
         </div>
         <div class="card icon-card">
-          <div class="why-icon"></div>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M2 21v-2a4 4 0 0 1 3-3.87"/><path d="M8 3.13a4 4 0 0 0 0 7.75"/></svg></div>
           <h3 id="whyUsCard6Title">  300 </h3>
           <p id="whyUsCard6Desc">    .       .</p>
         </div>
@@ -3559,25 +3710,25 @@
 
       <div class="grid">
         <div class="card">
-          <h3 id="programCard1Title">  (6-12)</h3>
+          <h3><span class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 14c3 0 5-2 5-5V5H7v4c0 3 2 5 5 5Z"/><path d="M8 21v-2a4 4 0 0 1 8 0v2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg></span><span id="programCard1Title">  (6-12)</span></h3>
           <p id="programCard1Desc">   ?    ?   .</p>
         </div>
         <div class="card">
-          <h3 id="programCard2Title">الشباب والكبار</h3>
+          <h3><span class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 8h10"/><path d="M7 16h10"/><path d="M5 12h14"/><path d="M4 10v4"/><path d="M20 10v4"/><path d="M8 6v12"/><path d="M16 6v12"/></svg></span><span id="programCard2Title">الشباب والكبار</span></h3>
           <p id="programCard2Desc">  ? ?     ? .</p>
         </div>
         <div class="card">
-          <h3 id="programCard3Title">  </h3>
+          <h3><span class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a6 6 0 0 1 12 0v2"/><path d="M9 14h6"/></svg></span><span id="programCard3Title">  </span></h3>
           <p id="programCard3Desc">     ?        .</p>
         </div>
         <div class="card">
-          <h3 id="programCard4Title">  </h3>
+          <h3><span class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0V4Z"/><path d="m9 9 2 2 4-4"/></svg></span><span id="programCard4Title">  </span></h3>
           <p id="programCard4Desc">  :  ? ?    .</p>
         </div>
 
         <!-- ?   () -->
         <div class="card">
-          <h3 id="programCard5Title">   (  +  )</h3>
+          <h3><span class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 1 0 7 7 5 5 0 0 1-7-7Z"/><path d="M17 14h.01"/><path d="M14 17h.01"/></svg></span><span id="programCard5Title">   (  +  )</span></h3>
           <p id="programCard5Desc">
                       .
               <b>     </b>.
@@ -3685,6 +3836,32 @@
         </div>
       </div>
 
+      <div class="next-class-card" aria-live="polite">
+        <div>
+          <p class="next-class-kicker" id="nextClassKicker">Next class</p>
+          <h3 class="next-class-title" id="nextClassTitle">4:00 - 5:00 PM</h3>
+          <p class="next-class-meta" id="nextClassMeta">Sunday - Tuesday - Thursday</p>
+        </div>
+        <div class="countdown-grid" aria-label="Countdown to next class">
+          <div class="countdown-unit">
+            <span class="countdown-value" id="countdownDays">00</span>
+            <span class="countdown-label" id="countdownDaysLabel">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-value" id="countdownHours">00</span>
+            <span class="countdown-label" id="countdownHoursLabel">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-value" id="countdownMinutes">00</span>
+            <span class="countdown-label" id="countdownMinutesLabel">Min</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-value" id="countdownSeconds">00</span>
+            <span class="countdown-label" id="countdownSecondsLabel">Sec</span>
+          </div>
+        </div>
+      </div>
+
       <table class="schedule-table">
         <thead>
           <tr>
@@ -3701,18 +3878,13 @@
           </tr>
           <tr>
             <td data-label="  " id="scheduleRow2Days"> -  - </td>
-            <td class="time" data-label="? ">8:30 - 9:30 PM</td>
+            <td class="time" data-label="? ">5:00 - 6:00 PM</td>
             <td data-label=" " id="scheduleRow2Note">   </td>
           </tr>
           <tr>
             <td data-label="  " id="scheduleRow3Days"> -  - </td>
-            <td class="time" data-label="? ">4:00 - 5:00 PM</td>
+            <td class="time" data-label="? ">6:00 - 7:00 PM</td>
             <td data-label=" " id="scheduleRow3Note">    </td>
-          </tr>
-          <tr>
-            <td data-label="  " id="scheduleRow4Days"> -  - </td>
-            <td class="time" data-label="? ">8:30 - 9:30 PM</td>
-            <td data-label=" " id="scheduleRow4Note"> </td>
           </tr>
         </tbody>
       </table>
@@ -4321,9 +4493,7 @@
           scheduleRow2Days: "Sunday - Tuesday - Thursday",
           scheduleRow2Note: "Advanced technique and intensive training",
           scheduleRow3Days: "Sunday - Tuesday - Thursday",
-          scheduleRow3Note: "Women classes supervised by a female coach",
-          scheduleRow4Days: "Saturday - Monday - Wednesday",
-          scheduleRow4Note: "Beginner training",
+          scheduleRow3Note: "Professional-level training",
           bookTitle: "📝 Reserve Your Spot Now",
           bookDesc: "Takes seconds — a quick form, then WhatsApp opens with a ready message. Our team will reach out within minutes.",
           nameLabel: "Full Name",
@@ -4617,9 +4787,7 @@
       scheduleRow2Days: "الأحد - الثلاثاء - الخميس",
       scheduleRow2Note: "تقنيات متقدمة وتدريب مكثف",
       scheduleRow3Days: "الأحد - الثلاثاء - الخميس",
-      scheduleRow3Note: "حصص السيدات بإشراف مدربة",
-      scheduleRow4Days: "السبت - الاثنين - الأربعاء",
-      scheduleRow4Note: "تدريب المبتدئين",
+      scheduleRow3Note: "للمحترفين",
       nameLabel: "الاسم الكامل",
       phoneLabel: "رقم الهاتف",
       ageLabel: "العمر (اختياري)",
@@ -4695,12 +4863,32 @@
 
     let currentLang = "ar";
     let uiReady = false;
+    const DECORATED_ICON_TEXT_IDS = new Set([
+      "programCard1Title",
+      "programCard2Title",
+      "programCard3Title",
+      "programCard4Title",
+      "programCard5Title"
+    ]);
+
+    function stripLeadingDecorativeIcon(value){
+      return value
+        .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\uFE0F\u200D\s]+/u, "")
+        .trimStart();
+    }
 
     function setText(id, value, asHtml = false){
       const el = document.getElementById(id);
       if(!el || typeof value !== "string") return;
-      if(asHtml) el.innerHTML = value;
-      else el.textContent = value;
+      const nextValue = DECORATED_ICON_TEXT_IDS.has(id) ? stripLeadingDecorativeIcon(value) : value;
+      if(asHtml) el.innerHTML = nextValue;
+      else el.textContent = nextValue;
+    }
+
+    async function loadJsonFeed(url){
+      const response = await fetch(`${url}?v=${Date.now()}`, { cache: "no-store" });
+      if(!response.ok) throw new Error(`Unable to load ${url}`);
+      return response.json();
     }
 
     const HTML_ESCAPE_MAP = {
@@ -4955,6 +5143,168 @@
       setThemeToggleLabel(nextTheme);
     }
 
+    const FALLBACK_SCHEDULE_DATA = [
+      {
+        daysAr: "الأحد - الثلاثاء - الخميس",
+        daysEn: "Sunday - Tuesday - Thursday",
+        time: "4:00 - 5:00 PM",
+        noteAr: "تأسيس الحركة واللياقة الأساسية",
+        noteEn: "Foundational movement and basic fitness"
+      },
+      {
+        daysAr: "الأحد - الثلاثاء - الخميس",
+        daysEn: "Sunday - Tuesday - Thursday",
+        time: "5:00 - 6:00 PM",
+        noteAr: "تقنيات متقدمة وتدريب مكثف",
+        noteEn: "Advanced technique and intensive training"
+      },
+      {
+        daysAr: "الأحد - الثلاثاء - الخميس",
+        daysEn: "Sunday - Tuesday - Thursday",
+        time: "6:00 - 7:00 PM",
+        noteAr: "للمحترفين",
+        noteEn: "Professional-level training"
+      }
+    ];
+    let scheduleData = FALLBACK_SCHEDULE_DATA;
+    let countdownTimerId = 0;
+
+    function normalizeScheduleEntry(item){
+      if(!item || typeof item !== "object") return null;
+      const daysAr = cleanInputText(item.daysAr, 120);
+      const daysEn = cleanInputText(item.daysEn, 120);
+      const time = cleanInputText(item.time, 60);
+      const noteAr = cleanInputText(item.noteAr, 180);
+      const noteEn = cleanInputText(item.noteEn, 180);
+      if(!time || (!daysAr && !daysEn)) return null;
+      return { daysAr, daysEn, time, noteAr, noteEn };
+    }
+
+    function renderSchedule(){
+      const scheduleBody = document.getElementById("scheduleBody");
+      if(!scheduleBody) return;
+      const dict = i18n[currentLang] || i18n.ar;
+      const dayLabel = dict.text.scheduleHeadDays || "Training Days";
+      const timeLabel = dict.text.scheduleHeadTime || "Time";
+      const noteLabel = dict.text.scheduleHeadNote || "Notes";
+      const rows = (scheduleData.length ? scheduleData : FALLBACK_SCHEDULE_DATA).map((item)=>`
+        <tr>
+          <td data-label="${escapeHtml(dayLabel)}">${escapeHtml(pickLocalizedText(item.daysAr, item.daysEn))}</td>
+          <td class="time" data-label="${escapeHtml(timeLabel)}">${escapeHtml(item.time)}</td>
+          <td data-label="${escapeHtml(noteLabel)}">${escapeHtml(pickLocalizedText(item.noteAr, item.noteEn))}</td>
+        </tr>
+      `).join("");
+      scheduleBody.innerHTML = rows;
+      refreshDesignEnhancements();
+      updateNextClassCountdown();
+    }
+
+    function parseClassStartTime(timeText){
+      const match = String(timeText || "").match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?/i);
+      if(!match) return null;
+      let hour = Number(match[1]);
+      const minute = Number(match[2] || 0);
+      const period = (match[3] || "").toUpperCase();
+      if(period === "PM" && hour < 12) hour += 12;
+      if(period === "AM" && hour === 12) hour = 0;
+      if(!Number.isFinite(hour) || !Number.isFinite(minute)) return null;
+      return { hour, minute };
+    }
+
+    function getTrainingWeekdays(item){
+      const text = `${item.daysAr || ""} ${item.daysEn || ""}`.toLowerCase();
+      const dayMap = [
+        [/sunday|الأحد|الاحد/u, 0],
+        [/monday|الاثنين|الإثنين/u, 1],
+        [/tuesday|الثلاثاء/u, 2],
+        [/wednesday|الأربعاء|الاربعاء/u, 3],
+        [/thursday|الخميس/u, 4],
+        [/friday|الجمعة/u, 5],
+        [/saturday|السبت/u, 6]
+      ];
+      return dayMap.filter(([pattern])=> pattern.test(text)).map(([, day])=> day);
+    }
+
+    function findNextClass(){
+      const now = new Date();
+      const candidates = [];
+      (scheduleData.length ? scheduleData : FALLBACK_SCHEDULE_DATA).forEach((item)=>{
+        const start = parseClassStartTime(item.time);
+        const weekdays = getTrainingWeekdays(item);
+        if(!start || !weekdays.length) return;
+        weekdays.forEach((weekday)=>{
+          for(let weekOffset = 0; weekOffset < 2; weekOffset++){
+            const date = new Date(now);
+            const daysUntil = (weekday - now.getDay() + 7) % 7 + (weekOffset * 7);
+            date.setDate(now.getDate() + daysUntil);
+            date.setHours(start.hour, start.minute, 0, 0);
+            if(date > now) candidates.push({ item, date });
+          }
+        });
+      });
+      candidates.sort((a, b)=> a.date - b.date);
+      return candidates[0] || null;
+    }
+
+    function updateNextClassCountdown(){
+      const next = findNextClass();
+      const titleEl = document.getElementById("nextClassTitle");
+      const metaEl = document.getElementById("nextClassMeta");
+      const kickerEl = document.getElementById("nextClassKicker");
+      const daysEl = document.getElementById("countdownDays");
+      const hoursEl = document.getElementById("countdownHours");
+      const minutesEl = document.getElementById("countdownMinutes");
+      const secondsEl = document.getElementById("countdownSeconds");
+      const daysLabel = document.getElementById("countdownDaysLabel");
+      const hoursLabel = document.getElementById("countdownHoursLabel");
+      const minutesLabel = document.getElementById("countdownMinutesLabel");
+      const secondsLabel = document.getElementById("countdownSecondsLabel");
+      if(!titleEl || !metaEl || !daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+      if(daysLabel) daysLabel.textContent = currentLang === "en" ? "Days" : "يوم";
+      if(hoursLabel) hoursLabel.textContent = currentLang === "en" ? "Hours" : "ساعة";
+      if(minutesLabel) minutesLabel.textContent = currentLang === "en" ? "Min" : "دقيقة";
+      if(secondsLabel) secondsLabel.textContent = currentLang === "en" ? "Sec" : "ثانية";
+      if(kickerEl) kickerEl.textContent = currentLang === "en" ? "Next class starts in" : "أقرب حصة تبدأ بعد";
+
+      if(!next){
+        titleEl.textContent = currentLang === "en" ? "Schedule coming soon" : "سيتم تحديث المواعيد قريباً";
+        metaEl.textContent = "";
+        [daysEl, hoursEl, minutesEl, secondsEl].forEach((el)=>{ el.textContent = "00"; });
+        return;
+      }
+
+      const ms = Math.max(0, next.date - new Date());
+      const totalSeconds = Math.floor(ms / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const pad = (value)=> String(value).padStart(2, "0");
+
+      titleEl.textContent = next.item.time;
+      metaEl.textContent = `${pickLocalizedText(next.item.daysAr, next.item.daysEn)} - ${pickLocalizedText(next.item.noteAr, next.item.noteEn)}`;
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+
+      if(!countdownTimerId){
+        countdownTimerId = window.setInterval(updateNextClassCountdown, 1000);
+      }
+    }
+
+    async function loadScheduleData(){
+      try {
+        const payload = await loadJsonFeed(SCHEDULE_FEED_URL);
+        const loaded = Array.isArray(payload) ? payload.map(normalizeScheduleEntry).filter(Boolean) : [];
+        if(loaded.length) scheduleData = loaded;
+      } catch(_){
+        scheduleData = FALLBACK_SCHEDULE_DATA;
+      }
+      renderSchedule();
+    }
+
     function applyLanguage(lang){
       const requestedLang = lang === "en" ? "en" : "ar";
       const effectiveLang = (requestedLang === "ar" && arabicFallbackMode) ? "en" : requestedLang;
@@ -5006,9 +5356,17 @@
       document.querySelectorAll("#scheduleBody td.time").forEach((cell)=>{
         cell.setAttribute("data-label", timeLabel);
       });
+      renderSchedule();
 
       document.querySelectorAll("[data-lang-only]").forEach((node)=>{
         node.hidden = node.getAttribute("data-lang-only") !== effectiveLang;
+      });
+      const mobileNavLabels = document.querySelectorAll(".mobile-app-nav span");
+      const mobileLabels = effectiveLang === "en"
+        ? ["Home", "Classes", "Price", "Join"]
+        : ["الرئيسية", "الحصص", "السعر", "سجل"];
+      mobileNavLabels.forEach((label, index)=>{
+        if(mobileLabels[index]) label.textContent = mobileLabels[index];
       });
 
       if(langToggle){
@@ -5542,10 +5900,10 @@
     renderBeltsList();
 
     // Smart price calculator
-    const CALC_BASE_PER_STUDENT = 30;
-    const CALC_DELIVERY_FEE = 15;
-    const CALC_SIBLING_DISCOUNT = 3;
-    const CALC_MIN_SIBLINGS = 2;
+    let CALC_BASE_PER_STUDENT = 30;
+    let CALC_DELIVERY_FEE = 15;
+    let CALC_SIBLING_DISCOUNT = 3;
+    let CALC_MIN_SIBLINGS = 2;
     const calcPlanType = document.getElementById("calcPlanType");
     const calcPlanWrap = document.getElementById("calcPlanWrap");
     const calcStudents = document.getElementById("calcStudents");
@@ -5595,7 +5953,49 @@
       el.addEventListener("change", updatePriceCalculator);
     });
     window.addEventListener("resize", updatePriceCalculator);
-    updatePriceCalculator();
+
+    function applyPricingConfig(config){
+      if(!config || typeof config !== "object") return;
+      const monthly = Number(config.monthlyPriceJod);
+      if(Number.isFinite(monthly) && monthly > 0) MONTHLY_PRICE_JOD = Math.round(monthly);
+
+      const calculator = config.calculator || {};
+      const base = Number(calculator.basePerStudentJod);
+      const delivery = Number(calculator.deliveryFeeJod);
+      const discount = Number(calculator.siblingDiscountJod);
+      const minSiblings = Number(calculator.minSiblings);
+      if(Number.isFinite(base) && base >= 0) CALC_BASE_PER_STUDENT = Math.round(base);
+      if(Number.isFinite(delivery) && delivery >= 0) CALC_DELIVERY_FEE = Math.round(delivery);
+      if(Number.isFinite(discount) && discount >= 0) CALC_SIBLING_DISCOUNT = Math.round(discount);
+      if(Number.isFinite(minSiblings) && minSiblings >= 2) CALC_MIN_SIBLINGS = Math.round(minSiblings);
+
+      const packageInfo = config.mainPackage || {};
+      if(packageInfo.titleAr || packageInfo.titleEn){
+        i18n.ar.text.priceTitleMain = cleanInputText(packageInfo.titleAr || i18n.ar.text.priceTitleMain, 160);
+        i18n.en.text.priceTitleMain = cleanInputText(packageInfo.titleEn || i18n.en.text.priceTitleMain, 160);
+      }
+      if(packageInfo.noteAr || packageInfo.noteEn){
+        i18n.ar.text.priceNoteMain = cleanInputText(packageInfo.noteAr || i18n.ar.text.priceNoteMain, 320);
+        i18n.en.text.priceNoteMain = cleanInputText(packageInfo.noteEn || i18n.en.text.priceNoteMain, 320);
+      }
+      i18n.ar.text.heroPricePill = `${MONTHLY_PRICE_JOD} دينار / شهر`;
+      i18n.en.text.heroPricePill = `${MONTHLY_PRICE_JOD} JD / month`;
+      i18n.ar.text.contactPriceValue = `${MONTHLY_PRICE_JOD} دينار شهرياً`;
+      i18n.en.text.contactPriceValue = `${MONTHLY_PRICE_JOD} JD per month`;
+
+      document.querySelectorAll(".price-number").forEach((el)=>{ el.textContent = `${MONTHLY_PRICE_JOD} JD`; });
+      applyLanguage(currentLang);
+      updatePriceCalculator();
+    }
+
+    async function loadPricingConfig(){
+      try {
+        applyPricingConfig(await loadJsonFeed(PRICING_FEED_URL));
+      } catch(_){
+        updatePriceCalculator();
+      }
+    }
+    loadPricingConfig();
 
     if(calcWhatsQuote){
       calcWhatsQuote.addEventListener("click", (event)=>{
@@ -5858,6 +6258,7 @@
     const achievementYear = document.getElementById("achievementYear");
     const achievementsList = document.getElementById("achievementsList");
     const newsList = document.getElementById("newsList");
+    let newsData = [];
 
     function normalizeAchievementEntry(item){
       if(!item || typeof item !== "object") return null;
@@ -5901,11 +6302,8 @@
     async function loadAchievementsData(){
       let loaded = [];
       try {
-        const response = await fetch(`${ACHIEVEMENTS_FEED_URL}?v=${Date.now()}`, { cache: "no-store" });
-        if(response.ok){
-          const payload = await response.json();
-          loaded = buildAchievementsDataset(payload);
-        }
+        const payload = await loadJsonFeed(ACHIEVEMENTS_FEED_URL);
+        loaded = buildAchievementsDataset(payload);
       } catch(_){
         // Fallback to local data if feed is unavailable.
       }
@@ -5917,6 +6315,32 @@
       achievementsData = loaded;
       populateAchievementYears();
       renderAchievements();
+      renderNews();
+    }
+
+    function normalizeNewsEntry(item){
+      if(!item || typeof item !== "object") return null;
+      const date = cleanInputText(item.date, 20);
+      const titleAr = cleanInputText(item.titleAr, 140);
+      const titleEn = cleanInputText(item.titleEn, 140);
+      const locationAr = cleanInputText(item.locationAr, 100);
+      const locationEn = cleanInputText(item.locationEn, 100);
+      const summaryAr = cleanInputText(item.summaryAr, 320);
+      const summaryEn = cleanInputText(item.summaryEn, 320);
+      const chipAr = cleanInputText(item.chipAr, 60);
+      const chipEn = cleanInputText(item.chipEn, 60);
+      if(!date || !titleAr || !titleEn) return null;
+      return { date, titleAr, titleEn, locationAr, locationEn, summaryAr, summaryEn, chipAr, chipEn };
+    }
+
+    async function loadNewsData(){
+      try {
+        const payload = await loadJsonFeed(NEWS_FEED_URL);
+        newsData = Array.isArray(payload) ? payload.map(normalizeNewsEntry).filter(Boolean) : [];
+        newsData.sort((a, b)=> new Date(b.date) - new Date(a.date));
+      } catch(_){
+        newsData = [];
+      }
       renderNews();
     }
 
@@ -5999,6 +6423,33 @@
 
     function renderNews(){
       if(!newsList) return;
+      if(newsData.length){
+        newsList.innerHTML = newsData.slice(0, 6).map((item)=>{
+          const dateLabel = escapeHtml(new Date(item.date).toLocaleDateString(currentLang === "en" ? "en-US" : "ar-JO", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }));
+          const title = escapeHtml(pickLocalizedText(item.titleAr, item.titleEn));
+          const location = escapeHtml(pickLocalizedText(item.locationAr, item.locationEn));
+          const summary = escapeHtml(pickLocalizedText(item.summaryAr, item.summaryEn));
+          const chip = escapeHtml(pickLocalizedText(item.chipAr, item.chipEn) || i18n[currentLang].text.newsChip);
+          const locationLabel = escapeHtml(currentLang === "en" ? "Location" : "الموقع");
+
+          return `
+            <article class="news-card">
+              <span class="news-chip"> ${chip}</span>
+              <h3 class="card-title-18">${title}</h3>
+              <div class="news-meta">${dateLabel}</div>
+              ${location ? `<div class="news-meta">${locationLabel}: ${location}</div>` : ""}
+              <p class="card-note">${summary}</p>
+            </article>
+          `;
+        }).join("");
+        refreshDesignEnhancements();
+        return;
+      }
+
       if(!achievementsData.length){
         newsList.innerHTML = `
           <article class="news-card">
@@ -6042,7 +6493,11 @@
     if(achievementYear){
       achievementYear.addEventListener("change", renderAchievements);
     }
-    loadAchievementsData().finally(()=>{
+    Promise.allSettled([
+      loadScheduleData(),
+      loadAchievementsData(),
+      loadNewsData()
+    ]).finally(()=>{
       uiReady = true;
       applyLanguage(currentLang);
     });
@@ -7120,6 +7575,3 @@ Monthly package: 45 JOD (all inclusive: uniform + transport + training).`
   </script>
 </body>
 </html>
-
-
-
